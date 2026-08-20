@@ -153,12 +153,7 @@ const TYPE_COLUMN = "lg:w-[42%]";
 const TITLE =
   "font-display text-[min(8vw,3.5rem)] uppercase leading-[1] tracking-tight text-ink lg:text-[min(3.8vw,3.5rem)] lg:leading-[0.95]";
 
-/**
- * The panel's single hairline, and the one place on the site it runs vertically:
- * it divides the display title from the sans copy rather than separating two
- * blocks of equal weight.
- */
-const DESCRIPTION_RULE = "mt-8 border-l border-line pl-6 lg:mt-10";
+const DESCRIPTION_RULE = "mt-8 lg:mt-10";
 
 /** Body copy, on the site-wide ~30ch measure. */
 const DESCRIPTION = "max-w-[30ch] text-small text-muted";
@@ -279,7 +274,7 @@ export function Features() {
       // Standard rhythm. The ~280px pacing break that follows Beliefs B is
       // expressed as `pb-` on that section, so adding a `pt-` break here would
       // double it.
-      className="relative overflow-x-clip py-section lg:py-section-lg"
+      className="relative overflow-x-clip mt-16 lg:mt-28 py-section lg:py-section-lg"
     >
       <FeaturesPin>
         {/* THE FRAME — unpadded coordinate space, and the list itself.

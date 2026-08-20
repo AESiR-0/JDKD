@@ -505,6 +505,72 @@ export function SiteHeader() {
               {NAV_ITEMS.map((item) => {
                 const current = isCurrent(pathname, item.href);
 
+                if (item.id === "projects") {
+                  return (
+                    <li key={item.id} className="relative group">
+                      <Link
+                        href={item.href}
+                        // `page`, never `true`: these are pages. The attribute
+                        // is what a screen reader announces; the colour below is
+                        // the sighted half of the same statement, and neither is
+                        // allowed to carry it alone.
+                        aria-current={current ? "page" : undefined}
+                        className={cx(
+                          "inline-flex items-center gap-1.5 whitespace-nowrap text-label uppercase tracking-label transition-colors duration-200 ease-editorial",
+                          NAV_LINK_TONE[inverted ? "inverted" : "solid"][
+                            current ? "current" : "other"
+                          ],
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        <svg
+                          className="size-3 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          aria-hidden="true"
+                        >
+                          <path d="M2.5 4.5L6 8L9.5 4.5" />
+                        </svg>
+                      </Link>
+
+                      <div className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 transition-[opacity,transform] duration-200 ease-editorial group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100 -translate-y-1 z-50 min-w-[260px]">
+                        <div className="rounded-card border border-line bg-surface/95 p-2 backdrop-blur-[16px] shadow-2xl">
+                          <Link
+                            href="/projects"
+                            className="flex flex-col rounded-sm px-3 py-2.5 transition-colors duration-150 hover:bg-ink/5 focus-visible:bg-ink/5"
+                          >
+                            <span className="text-micro uppercase tracking-label font-sans font-medium text-ink">
+                              All Projects
+                            </span>
+                            <span className="text-caption text-muted">
+                              Portfolio overview & pipeline
+                            </span>
+                          </Link>
+                          <div className="my-1 border-t border-line" />
+                          <Link
+                            href="/projects/jdkd-corporate-tower"
+                            className="flex flex-col rounded-sm px-3 py-2.5 transition-colors duration-150 hover:bg-ink/5 focus-visible:bg-ink/5"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="text-micro uppercase tracking-label font-sans font-medium text-ink">
+                                JDKD Corporate Tower
+                              </span>
+                              <span className="rounded bg-pure/10 px-1.5 py-0.5 font-sans text-[10px] uppercase tracking-wider text-pure">
+                                Leasing
+                              </span>
+                            </div>
+                            <span className="text-caption text-muted">
+                              Mohan Cooperative, New Delhi
+                            </span>
+                          </Link>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                }
+
                 return (
                   <li key={item.id}>
                     <Link
@@ -594,6 +660,49 @@ export function SiteHeader() {
             <ul className="flex flex-col border-t border-line">
               {NAV_ITEMS.map((item) => {
                 const current = isCurrent(pathname, item.href);
+
+                if (item.id === "projects") {
+                  return (
+                    <li key={item.id} className="border-b border-line">
+                      <div className="flex items-center justify-between py-5 text-h3">
+                        <Link
+                          href={item.href}
+                          aria-current={current ? "page" : undefined}
+                          onClick={close}
+                          className={current ? "text-pure" : "text-ink"}
+                        >
+                          {item.label}
+                        </Link>
+                        <span
+                          aria-hidden="true"
+                          className={cx(
+                            "block h-hair bg-red",
+                            current ? "w-rule" : "w-rule-sm",
+                          )}
+                        />
+                      </div>
+                      <div className="mb-4 flex flex-col gap-2 border-l border-line pl-4">
+                        <Link
+                          href="/projects"
+                          onClick={close}
+                          className="block py-1 text-label uppercase tracking-label text-muted hover:text-ink"
+                        >
+                          All Projects
+                        </Link>
+                        <Link
+                          href="/projects/jdkd-corporate-tower"
+                          onClick={close}
+                          className="flex items-center justify-between py-1 text-label uppercase tracking-label text-ink hover:text-pure"
+                        >
+                          <span>JDKD Corporate Tower</span>
+                          <span className="font-sans text-micro text-muted">
+                            (Now Leasing)
+                          </span>
+                        </Link>
+                      </div>
+                    </li>
+                  );
+                }
 
                 return (
                   <li key={item.id} className="border-b border-line">

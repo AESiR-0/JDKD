@@ -135,6 +135,20 @@ export const IMAGES = {
     alt: "Close view of the glass curtain wall and its vertical fins.",
     placeholder: false,
   },
+  officeFloor: {
+    src: "/images/office-floor.jpg",
+    width: 1200,
+    height: 800,
+    alt: "Typical office floor plate at JDKD Corporate Tower with generous daylight.",
+    placeholder: false,
+  },
+  terrace: {
+    src: "/images/terrace.jpg",
+    width: 1200,
+    height: 800,
+    alt: "Landscaped rooftop terrace lounge with panoramic city views.",
+    placeholder: false,
+  },
 
   /* -- Real client drawings — floor plans ---------------------------------
      Scans of the deck's plan sheets. All three are 1323x552 on disk (read off
@@ -1747,6 +1761,8 @@ export const PROJECT_TOWER: RealProject = {
       IMAGES.lobbyWide,
       IMAGES.lobby,
       IMAGES.heroTower,
+      IMAGES.officeFloor,
+      IMAGES.terrace,
     ],
   },
 
