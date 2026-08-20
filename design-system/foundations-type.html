@@ -1,0 +1,44 @@
+<!-- @dsCard group="Foundations" -->
+<meta charset="utf-8">
+<title>JDKD — Typography</title>
+<style>
+:root{--canvas:#F6F5F0;--surface:#FBFAF6;--ink:#0A0A0A;--muted:#6B6B6B;--red:#C61D24;--line:rgba(10,10,10,.10);
+--sans:"Geist","Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+--serif:"Instrument Serif","Newsreader",Georgia,"Times New Roman",serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);padding:48px;line-height:1.5}
+.marker{display:flex;align-items:baseline;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.marker b{color:var(--ink);font-weight:500}
+.rule{width:88px;height:3px;background:var(--red);margin:10px 0 28px}
+h2{font-size:28px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:36px;max-width:64ch}
+.row{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline}
+.spec{font-size:11px;color:var(--muted);line-height:1.6;font-variant-numeric:tabular-nums}
+.spec b{display:block;color:var(--ink);font-size:12px;font-weight:500;margin-bottom:4px}
+.d-serif{font-family:var(--serif);font-size:56px;line-height:1.05;letter-spacing:-.01em}
+.d-h1{font-size:48px;font-weight:300;line-height:1.1;letter-spacing:-.015em}
+.d-h2{font-size:34px;font-weight:400;line-height:1.15;letter-spacing:-.01em}
+.d-h3{font-size:24px;font-weight:400;line-height:1.25}
+.d-body{font-size:16px;font-weight:400;color:#333;max-width:56ch}
+.d-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.d-cap{font-size:11px;color:var(--muted)}
+.d-stat{font-size:64px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1}
+.note{margin-top:36px;border-left:3px solid var(--red);padding:12px 16px;background:var(--surface);font-size:13px;color:var(--muted);max-width:72ch}
+.note b{color:var(--ink);font-weight:500}
+</style>
+
+<div class="marker">02 <b>/ TYPOGRAPHY</b></div>
+<div class="rule"></div>
+<h2>Two voices.</h2>
+<p class="sub">A geometric grotesque carries ~90% of the deck. A high-contrast serif is reserved for two purely emotional moments. That split is the most transferable idea in the client's material.</p>
+
+<div class="row"><div class="spec"><b>Display / serif</b>56px · regular<br>sentence case<br>ends with a period</div><div class="d-serif">Built upward.<br>Planned intelligently.</div></div>
+<div class="row"><div class="spec"><b>H1 / grotesque</b>48px · 300<br>−0.015em</div><div class="d-h1">A Grade A commercial landmark.</div></div>
+<div class="row"><div class="spec"><b>H2</b>34px · 400<br>−0.01em</div><div class="d-h2">Operational amenities and building systems.</div></div>
+<div class="row"><div class="spec"><b>H3</b>24px · 400</div><div class="d-h3">Fifth floor office layout.</div></div>
+<div class="row"><div class="spec"><b>Stat numeral</b>64px · 300<br>tabular figures</div><div class="d-stat">23,456<span style="font-size:20px;color:var(--muted);margin-left:8px">sq.ft</span></div></div>
+<div class="row"><div class="spec"><b>Body</b>16px · 400</div><div class="d-body">Premium office spaces in South Delhi, strategically located on Mathura Road with excellent metro connectivity, modern infrastructure, and the visibility today's businesses need to grow.</div></div>
+<div class="row"><div class="spec"><b>Section label</b>12px · 0.12em<br>uppercase</div><div class="d-label">04 / STRATEGIC COMMERCIAL INVESTMENT</div></div>
+<div class="row"><div class="spec"><b>Caption</b>11px · muted</div><div class="d-cap">A-11, Mathura Road, New Delhi &nbsp;·&nbsp; Leasing Presentation</div></div>
+
+<div class="note"><b>Type ceiling: 72px desktop / 40px mobile.</b> Oversized typography was explicitly criticised in the 9 Aug review. The client's own headlines sit at 48–64px on a 1600px slide, and Shivalik — the designated backup reference — caps at 48px. Elyse's 288px treatment is out of scope.</div>

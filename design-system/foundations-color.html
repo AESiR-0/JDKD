@@ -1,0 +1,43 @@
+<!-- @dsCard group="Foundations" -->
+<meta charset="utf-8">
+<title>JDKD — Colour</title>
+<style>
+:root{--canvas:#F6F5F0;--surface:#FBFAF6;--pure:#FFFFFF;--ink:#0A0A0A;--muted:#6B6B6B;
+--red:#C61D24;--red-lt:#DB1218;--gold:#AE8C4D;--slate:#2C3848;--line:rgba(10,10,10,.10);
+--sans:"Geist","Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);padding:48px;line-height:1.5}
+.marker{display:flex;align-items:baseline;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.marker b{color:var(--ink);font-weight:500}
+.rule{width:88px;height:3px;background:var(--red);margin:10px 0 28px}
+h2{font-size:28px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:32px;max-width:60ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:40px}
+.sw{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.chip{height:96px}
+.meta{padding:12px 14px}
+.name{font-size:13px;font-weight:500}
+.hex{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:2px}
+.use{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+.note{border-left:3px solid var(--red);padding:12px 16px;background:var(--surface);font-size:13px;color:var(--muted);max-width:70ch}
+.note b{color:var(--ink);font-weight:500}
+</style>
+
+<div class="marker">01 <b>/ COLOUR</b></div>
+<div class="rule"></div>
+<h2>Palette.</h2>
+<p class="sub">Sampled directly from rendered slides of the JDKD Corporate Tower leasing deck. Warm-neutral ground, near-black ink, one hot accent.</p>
+
+<div class="grid">
+  <div class="sw"><div class="chip" style="background:#F6F5F0"></div><div class="meta"><div class="name">Canvas</div><div class="hex">#F6F5F0</div><div class="use">Dominant page background</div></div></div>
+  <div class="sw"><div class="chip" style="background:#FBFAF6"></div><div class="meta"><div class="name">Surface</div><div class="hex">#FBFAF6</div><div class="use">Cards and panels, one step above canvas</div></div></div>
+  <div class="sw"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid var(--line)"></div><div class="meta"><div class="name">Pure</div><div class="hex">#FFFFFF</div><div class="use">Image and floor-plan containers only</div></div></div>
+  <div class="sw"><div class="chip" style="background:#0A0A0A"></div><div class="meta"><div class="name">Ink</div><div class="hex">#0A0A0A</div><div class="use">Headings and body copy</div></div></div>
+  <div class="sw"><div class="chip" style="background:#6B6B6B"></div><div class="meta"><div class="name">Ink muted</div><div class="hex">#6B6B6B</div><div class="use">Subheads, captions, footers</div></div></div>
+  <div class="sw"><div class="chip" style="background:#C61D24"></div><div class="meta"><div class="name">Brand red</div><div class="hex">#C61D24</div><div class="use">Hairline rules, section markers, active states</div></div></div>
+  <div class="sw"><div class="chip" style="background:#DB1218"></div><div class="meta"><div class="name">Logo red</div><div class="hex">#DB1218</div><div class="use">Logo mark only — never as UI colour</div></div></div>
+  <div class="sw"><div class="chip" style="background:#AE8C4D"></div><div class="meta"><div class="name">Gold</div><div class="hex">#AE8C4D</div><div class="use">Secondary card-header accent, used sparingly</div></div></div>
+  <div class="sw"><div class="chip" style="background:#2C3848"></div><div class="meta"><div class="name">Slate</div><div class="hex">#2C3848</div><div class="use">Table headers, dense data surfaces</div></div></div>
+</div>
+
+<div class="note"><b>Discipline rule.</b> Red is never a fill. Across 27 slides it appears only as an ~88×3px hairline rule and as the logo. Gold appears on two card headers in the entire deck. Preserving that restraint is what makes the palette read as premium rather than corporate.</div>

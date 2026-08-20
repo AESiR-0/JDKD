@@ -1,0 +1,65 @@
+<!-- @dsCard group="Components" -->
+<meta charset="utf-8">
+<title>JDKD — Rule card</title>
+<style>
+:root{--canvas:#F6F5F0;--surface:#FBFAF6;--pure:#fff;--ink:#0A0A0A;--muted:#6B6B6B;--red:#C61D24;--gold:#AE8C4D;--line:rgba(10,10,10,.10);
+--sans:"Geist","Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);padding:48px;line-height:1.5}
+.title{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+h2{font-size:26px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:32px;max-width:64ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:var(--pure);border:1px solid var(--line);border-radius:4px;padding:26px 24px 28px}
+.crule{width:64px;height:3px;background:var(--red);margin-bottom:16px}
+.chead{font-size:14px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;margin-bottom:16px}
+.chead.gold{color:var(--gold)}
+ul{list-style:none}
+li{display:flex;gap:10px;font-size:14px;color:#2a2a2a;padding:5px 0;line-height:1.45}
+li::before{content:"";flex:0 0 5px;height:5px;border-radius:50%;background:var(--gold);margin-top:8px}
+.spec{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.9;border-top:1px solid var(--line);padding-top:16px}
+.spec code{background:rgba(10,10,10,.05);padding:1px 5px;border-radius:3px;font-size:11px}
+</style>
+
+<div class="title">Component</div>
+<h2>Rule card.</h2>
+<p class="sub">The deck's workhorse content block, always deployed in threes. Content below is verbatim from slide 07 — it becomes the "Key highlights" band on every project page.</p>
+
+<div class="cards">
+  <div class="card">
+    <div class="crule"></div>
+    <div class="chead">Location Advantage</div>
+    <ul>
+      <li>350 m from Sarita Vihar Metro Station</li>
+      <li>500 m from Apollo Hospital</li>
+      <li>Direct access from Main Mathura Road</li>
+      <li>5 km from NOIDA business hub</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="crule"></div>
+    <div class="chead gold">Future-Ready Infrastructure</div>
+    <ul>
+      <li>Green building with solar integration</li>
+      <li>Earthquake-resistant structure</li>
+      <li>14 ft 9 inches (4.5 metres)</li>
+      <li>Abundant natural light &amp; ventilation</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="crule"></div>
+    <div class="chead gold">Asset Differentiators</div>
+    <ul>
+      <li>Prime corner, two-side open plot</li>
+      <li>Dual-side dedicated parking</li>
+      <li>North / North-West orientation</li>
+      <li>In-house gym &amp; exclusive terrace lounge</li>
+    </ul>
+  </div>
+</div>
+
+<div class="spec">
+  Surface <code>#FFFFFF</code> on <code>#F6F5F0</code> canvas &nbsp;·&nbsp; border <code>1px rgba(10,10,10,.10)</code> &nbsp;·&nbsp; radius <code>4px</code><br>
+  Top-left rule <code>64 × 3px</code> <code>#C61D24</code> &nbsp;·&nbsp; header <code>14px / 600 / uppercase</code><br>
+  Bullet dots <code>#AE8C4D</code> at <code>5px</code> &nbsp;·&nbsp; first card header uses ink, remaining two use gold — mirrors the deck exactly
+</div>

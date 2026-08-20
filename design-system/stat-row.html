@@ -1,0 +1,57 @@
+<!-- @dsCard group="Components" -->
+<meta charset="utf-8">
+<title>JDKD — Stat row</title>
+<style>
+:root{--canvas:#F6F5F0;--surface:#FBFAF6;--pure:#fff;--ink:#0A0A0A;--muted:#6B6B6B;--red:#C61D24;--line:rgba(10,10,10,.10);
+--sans:"Geist","Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);padding:48px;line-height:1.5}
+.title{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+h2{font-size:26px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:32px;max-width:64ch}
+.ph{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:28px 0 12px}
+
+/* stacked quick-read — deck slide 17 */
+.qr{background:var(--pure);border:1px solid var(--line);border-radius:4px;padding:26px 24px;max-width:440px}
+.qrh{font-size:14px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;margin-bottom:6px}
+.qrow{display:flex;align-items:center;gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+.qrow:last-child{border-bottom:none}
+.qn{font-size:44px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;min-width:56px}
+.ql{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* horizontal counter band — homepage "By the numbers" */
+.band{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--pure);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.cell{padding:30px 26px;border-right:1px solid var(--line)}
+.cell:last-child{border-right:none}
+.cn{font-size:46px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.cu{font-size:16px;color:var(--muted);margin-left:6px}
+.cl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:14px;line-height:1.5}
+.spec{margin-top:34px;font-size:12px;color:var(--muted);line-height:1.9;border-top:1px solid var(--line);padding-top:16px}
+.spec code{background:rgba(10,10,10,.05);padding:1px 5px;border-radius:3px;font-size:11px}
+</style>
+
+<div class="title">Component</div>
+<h2>Stat row.</h2>
+<p class="sub">Oversized light numerals against small uppercase labels. Two arrangements: a stacked "quick read" panel beside dense tables, and a horizontal band for the homepage counter section.</p>
+
+<div class="ph">Quick read — pairs with the amenities table</div>
+<div class="qr">
+  <div class="qrh">Quick Read</div>
+  <div class="qrow"><div class="qn">2</div><div class="ql">Passenger Elevators</div></div>
+  <div class="qrow"><div class="qn">2</div><div class="ql">Service Elevators</div></div>
+  <div class="qrow"><div class="qn">1</div><div class="ql">DG Sets</div></div>
+</div>
+
+<div class="ph">Counter band — homepage, animates on scroll into view</div>
+<div class="band">
+  <div class="cell"><div><span class="cn">23,456</span><span class="cu">sq.ft</span></div><div class="cl">Plot area</div></div>
+  <div class="cell"><div><span class="cn">7</span></div><div class="cl">Office floors</div></div>
+  <div class="cell"><div><span class="cn">14'9"</span></div><div class="cl">Floor-to-ceiling height</div></div>
+  <div class="cell"><div><span class="cn">41.05</span><span class="cu">m</span></div><div class="cl">Terrace parapet level</div></div>
+</div>
+
+<div class="spec">
+  Numerals <code>weight 300</code>, <code>font-variant-numeric: tabular-nums</code> — required so counters do not reflow mid-animation<br>
+  Labels <code>11px / 0.1em / uppercase</code>, muted &nbsp;·&nbsp; hairline dividers between cells, never boxes<br>
+  Counter animation: <code>0 → value</code> over <code>1.2s</code>, <code>power2.out</code>, triggered once at 60% viewport &nbsp;·&nbsp; under <code>prefers-reduced-motion</code> the final value renders immediately
+</div>

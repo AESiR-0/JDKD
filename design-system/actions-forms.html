@@ -1,0 +1,68 @@
+<!-- @dsCard group="Components" -->
+<meta charset="utf-8">
+<title>JDKD — Actions &amp; forms</title>
+<style>
+:root{--canvas:#F6F5F0;--surface:#FBFAF6;--pure:#fff;--ink:#0A0A0A;--muted:#6B6B6B;--red:#C61D24;--line:rgba(10,10,10,.10);
+--sans:"Geist","Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);padding:48px;line-height:1.5}
+.title{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+h2{font-size:26px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:28px;max-width:64ch}
+.ph{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:26px 0 12px}
+.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{font-family:inherit;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px 28px;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:2px;cursor:pointer}
+.btn.sec{background:transparent;color:var(--ink)}
+.btn.red{background:var(--red);border-color:var(--red)}
+.btn.ghost{border-color:var(--line);color:var(--muted);background:transparent}
+.link{font-size:12px;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:9px}
+.link i{width:24px;height:1px;background:var(--red);display:inline-block}
+.form{background:var(--pure);border:1px solid var(--line);border-radius:4px;padding:28px;max-width:460px}
+.fl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px}
+.fi{width:100%;font-family:inherit;font-size:15px;padding:11px 0;border:none;border-bottom:1px solid var(--line);background:transparent;margin-bottom:22px;color:var(--ink)}
+.fi:focus{outline:none;border-bottom-color:var(--red)}
+.fi.filled{border-bottom-color:rgba(10,10,10,.35)}
+.consent{font-size:11px;color:var(--muted);line-height:1.6;margin:6px 0 20px}
+.callbar{display:flex;gap:1px;background:var(--line);border-radius:3px;overflow:hidden;max-width:420px}
+.cb{flex:1;background:var(--pure);padding:15px;text-align:center;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.cb.pri{background:var(--ink);color:#fff}
+.spec{margin-top:34px;font-size:12px;color:var(--muted);line-height:1.9;border-top:1px solid var(--line);padding-top:16px}
+.spec code{background:rgba(10,10,10,.05);padding:1px 5px;border-radius:3px;font-size:11px}
+</style>
+
+<div class="title">Component</div>
+<h2>Actions &amp; forms.</h2>
+<p class="sub">The primary conversion on this site is <em>schedule a private walkthrough</em> — a site visit by a prospective tenant or broker. Not a brochure download, and not a residential enquiry.</p>
+
+<div class="ph">Buttons</div>
+<div class="row">
+  <button class="btn">Schedule a walkthrough</button>
+  <button class="btn sec">Download brochure</button>
+  <button class="btn red">Enquire now</button>
+  <button class="btn ghost">View all projects</button>
+  <span class="link"><i></i> Learn more</span>
+</div>
+
+<div class="ph">Enquiry form</div>
+<div class="form">
+  <label class="fl">Name</label><input class="fi filled" value="Priya Sharma">
+  <label class="fl">Phone</label><input class="fi filled" value="+91 98110 00000">
+  <label class="fl">Company</label><input class="fi" placeholder="Optional">
+  <label class="fl">Requirement</label><input class="fi" placeholder="Approx. area needed (sq.ft)">
+  <div class="consent">By submitting, you agree to be contacted about JDKD Corporate Tower. We do not share your details with third parties.</div>
+  <button class="btn" style="width:100%">Request a walkthrough</button>
+</div>
+
+<div class="ph">Mobile sticky bar — tap-to-call is the dominant path in this category</div>
+<div class="callbar">
+  <div class="cb pri">Call Mr. Roy</div>
+  <div class="cb">WhatsApp</div>
+  <div class="cb">Enquire</div>
+</div>
+
+<div class="spec">
+  Buttons: <code>12px / 0.1em / uppercase</code>, radius <code>2px</code> — squarer than cards, matching the deck's architectural feel<br>
+  Red button is reserved for a single primary action per page; default primary is ink<br>
+  Inputs are underline-only, no boxes &nbsp;·&nbsp; focus moves the underline to <code>#C61D24</code><br>
+  Sticky bar appears below <code>768px</code> only, anchored bottom, above safe-area inset
+</div>

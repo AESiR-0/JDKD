@@ -1,0 +1,63 @@
+<!-- @dsCard group="Components" -->
+<meta charset="utf-8">
+<title>JDKD — Section marker</title>
+<style>
+:root{--canvas:#F6F5F0;--surface:#FBFAF6;--ink:#0A0A0A;--muted:#6B6B6B;--red:#C61D24;--line:rgba(10,10,10,.10);
+--sans:"Geist","Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);padding:48px;line-height:1.5}
+.title{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+h2{font-size:26px;font-weight:400;letter-spacing:-.01em;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:36px;max-width:64ch}
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:32px;margin-bottom:20px}
+.marker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.marker .n{color:var(--muted)}
+.marker .sep{margin:0 6px;color:var(--muted)}
+.marker .lbl{color:var(--ink);font-weight:500}
+.rule{width:88px;height:3px;background:var(--red);margin-top:10px}
+.h{font-size:34px;font-weight:400;letter-spacing:-.01em;margin-top:26px}
+.hs{color:var(--muted);font-size:15px;margin-top:6px}
+.variants{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.v{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:22px}
+.vlab{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.onphoto{background:linear-gradient(105deg,#141416 0%,#1e2024 42%,#3d3a34 70%,#6b5a42 100%);border:none}
+.onphoto .marker .lbl,.onphoto .h{color:#fff}
+.onphoto .marker .n,.onphoto .marker .sep,.onphoto .hs,.onphoto .vlab{color:rgba(255,255,255,.62)}
+.spec{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.9;border-top:1px solid var(--line);padding-top:16px}
+.spec code{background:rgba(10,10,10,.05);padding:1px 5px;border-radius:3px;font-size:11px}
+</style>
+
+<div class="title">Component</div>
+<h2>Section marker.</h2>
+<p class="sub">The deck's primary wayfinding device — a two-digit numeral, a slash, an uppercase label, and a red hairline. It appears on every functional slide and should open every section of the site.</p>
+
+<div class="demo">
+  <div class="marker"><span class="n">04</span><span class="sep">/</span><span class="lbl">STRATEGIC COMMERCIAL INVESTMENT</span></div>
+  <div class="rule"></div>
+  <div class="h">A business address that works for you.</div>
+  <div class="hs">Premium office spaces in South Delhi, strategically located on Mathura Road.</div>
+</div>
+
+<div class="variants">
+  <div class="v">
+    <div class="vlab">On canvas</div>
+    <div class="marker"><span class="n">09</span><span class="sep">/</span><span class="lbl">BASEMENT 2 FLOOR PLAN</span></div>
+    <div class="rule"></div>
+  </div>
+  <div class="v">
+    <div class="vlab">Long label wraps</div>
+    <div class="marker"><span class="n">14</span><span class="sep">/</span><span class="lbl">SIXTH &amp; SEVENTH FLOOR PLAN DETAIL</span></div>
+    <div class="rule"></div>
+  </div>
+  <div class="v onphoto">
+    <div class="vlab">On photography</div>
+    <div class="marker"><span class="n">20</span><span class="sep">/</span><span class="lbl">CLOSING</span></div>
+    <div class="rule"></div>
+  </div>
+</div>
+
+<div class="spec">
+  Numeral <code>12px</code> · muted &nbsp;·&nbsp; label <code>12px / 0.12em / uppercase / weight 500</code><br>
+  Rule <code>88 × 3px</code>, <code>#C61D24</code>, <code>10px</code> below the label<br>
+  Headline sits <code>26px</code> below the rule &nbsp;·&nbsp; numerals are zero-padded to two digits
+</div>
