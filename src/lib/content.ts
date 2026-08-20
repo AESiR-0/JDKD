@@ -555,13 +555,7 @@ export type AboutContent = {
    * for composition, not for reading — `spokenHeading` is what a screen reader
    * gets.
    */
-  readonly headingLines: readonly [
-    DisplayLine,
-    DisplayLine,
-    DisplayLine,
-    DisplayLine,
-    DisplayLine,
-  ];
+  readonly headingLines: readonly DisplayLine[];
   /** The heading as a human would read it aloud. Rendered `sr-only`. */
   readonly spokenHeading: string;
   /** Two short paragraphs for the right rail. Set at `text-micro`. */
@@ -582,13 +576,11 @@ export const ABOUT: AboutContent = {
   // "work-focused" across two lines, which left a hyphen hanging at the end of
   // a display line and read as a typo rather than a device.
   headingLines: [
-    { text: "A building", style: "italic" },
-    { text: "designed", style: "roman" },
-    { text: "for work,", style: "italic" },
-    { text: "built for", style: "roman" },
-    { text: "the long run.", style: "italic" },
+    { text: "Built for", style: "italic" },
+    { text: "work that", style: "roman" },
+    { text: "endures.", style: "italic" },
   ],
-  spokenHeading: "A building designed for work, built for the long run.",
+  spokenHeading: "Built for work that endures.",
   paragraphs: [
     "JDKD Corporate Tower stands at A-11, Mohan Cooperative Industrial Estate, on Mathura Road — a prime corner plot, open on two sides, oriented North and North-West.",
     "Seven office floors over two basements. LEED certified, earthquake-resistant and solar integrated, with 14 ft 9 in floor heights that carry daylight past the glass line.",
