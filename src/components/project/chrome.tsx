@@ -33,7 +33,7 @@ import type { DisplayLine } from "@/lib/content";
  * the bar. These two values are the header plus that bar plus air.
  */
 export const SECTION =
-  "relative overflow-x-clip py-section scroll-mt-[7.5rem] lg:py-section-lg lg:scroll-mt-[8.5rem]";
+  "relative overflow-x-clip pt-beat scroll-mt-[7.5rem] lg:pt-beat-lg lg:scroll-mt-[8.5rem]";
 
 /**
  * The unpadded coordinate space every percentage anchor is measured against.
@@ -58,7 +58,7 @@ export const LABEL =
  * so each restores one explicitly rather than relying on cascade order.
  */
 export const DISPLAY =
-  "block font-display text-[min(12vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink md:text-h1 md:leading-[0.98] lg:text-[min(5vw,5rem)] lg:leading-[0.94]";
+  "block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-section";
 
 /** Right-rail copy. `text-small` sits on the rail so `30ch` measures the copy. */
 export const RAIL_COPY = "text-small text-muted";

@@ -78,7 +78,7 @@ export function ProjectPlans({ plans }: ProjectPlansProps) {
         <PlanViewer
           plans={plans.sheets}
           instructions={plans.instructions}
-          className={`${EDGE} mt-14 lg:mt-20`}
+          className={`${EDGE} mt-band lg:mt-band-lg`}
         />
       </div>
     </section>

@@ -60,7 +60,7 @@ export function SiteFooter() {
 
   return (
     <footer id={FOOTER_ID} className="relative w-full bg-deep text-pure">
-      <div className="mx-auto w-full max-w-shell px-gutter py-section md:px-gutter-lg lg:py-section-lg">
+      <div className="mx-auto w-full max-w-shell px-gutter pt-beat pb-band md:px-gutter-lg lg:pt-beat-lg lg:pb-band-lg">
         {/* (GET IN TOUCH) (LOCATION) (CONTACT) */}
         <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-3">
           {FOOTER_COLUMNS.map((column) => {
@@ -96,7 +96,7 @@ export function SiteFooter() {
                   >
                     {column.links.map((link) => (
                       <li key={link.id}>
-                        <a
+                        <a data-press="row"
                           href={link.href}
                           {...(link.external
                             ? { target: "_blank", rel: "noopener noreferrer" }
@@ -155,7 +155,7 @@ export function SiteFooter() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <a
+            <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}
               className="text-caption uppercase tracking-micro text-pure/75 transition-colors duration-200 ease-editorial hover:text-pure focus-visible:outline-pure"
             >
@@ -166,7 +166,7 @@ export function SiteFooter() {
                 by `app/layout.tsx` everywhere, so this is a real "top of page"
                 on internal routes and identical to `#hero` on the homepage,
                 where main opens with the hero. */}
-            <a
+            <a data-press="row"
               href="#main"
               className="text-caption uppercase tracking-micro text-pure/75 transition-colors duration-200 ease-editorial hover:text-pure focus-visible:outline-pure"
             >

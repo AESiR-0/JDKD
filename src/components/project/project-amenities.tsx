@@ -70,12 +70,12 @@ export function ProjectAmenities({ amenities }: ProjectAmenitiesProps) {
         {/* THE INDEX. `gap-x-12` is the column gap; `break-inside-avoid` keeps a
             group and its lines together when the flow wraps. */}
         <div
-          className={`${EDGE} mt-16 gap-x-12 lg:mt-24 md:columns-2 lg:columns-3`}
+          className={`${EDGE} mt-band gap-x-12 lg:mt-band-lg md:columns-2 lg:columns-3`}
         >
           {amenities.groups.map((group) => (
             <div
               key={group.id}
-              className="mb-10 break-inside-avoid border-t border-line pt-6 lg:mb-12"
+              className="mb-10 break-inside-avoid border-t border-line pt-6 last:mb-0 lg:mb-12 lg:last:mb-0"
             >
               <Reveal
                 as="h3"

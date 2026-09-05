@@ -52,7 +52,7 @@ export function ProjectHighlights({ highlights }: ProjectHighlightsProps) {
           {highlights.label}
         </h2>
 
-        <ol role="list" className={`${EDGE} mt-12 lg:mt-20`}>
+        <ol role="list" className={`${EDGE} mt-band lg:mt-band-lg`}>
           {highlights.items.map((item) => (
             <li
               key={item.id}

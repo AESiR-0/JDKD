@@ -133,7 +133,7 @@ export function EnquiryForm({ labelledBy, className }: EnquiryFormProps) {
         share your details with third parties.
       </p>
 
-      <button
+      <button data-press
         type="submit"
         className="mt-6 w-full cursor-pointer rounded-card border border-ink bg-ink px-7 py-3.5 text-label uppercase tracking-micro text-canvas transition-colors duration-200 ease-editorial hover:border-pure hover:bg-pure"
       >
@@ -147,13 +147,13 @@ export function EnquiryForm({ labelledBy, className }: EnquiryFormProps) {
           <p className="mt-6 border-t border-line pt-4 text-caption text-muted">
             Online enquiries are not connected yet, so nothing was sent. Call{" "}
             {CONTACT.leasingContact.name} on{" "}
-            <a
+            <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}
               className="text-ink underline decoration-red decoration-2 underline-offset-4"
             >
               {CONTACT.leasingContact.phoneDisplay}
             </a>{" "}
-            to book a time.
+            to book a walkthrough.
           </p>
         ) : null}
       </div>

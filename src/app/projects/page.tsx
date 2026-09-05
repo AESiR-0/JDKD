@@ -48,37 +48,37 @@ import {
  *      │  facts ─ ─ ─                        │                        │
  *      │  VIEW PROJECT →                     └────────────────────────
  *
- *   TWO — RESERVED. Dominance flips LEFT: a 4:3 frame bleeding off the left
+ *   TWO — PORTFOLIO. Dominance flips LEFT: a 4:3 frame bleeding off the left
  *   edge, type in the RIGHT RAIL and set right-ragged so title, rule and copy
  *   all hang off the same edge.
  *
  *      ▓                                                            ▓
- *      ────────────────────────────────┐                (RESERVED)  │
- *      │                               │                  RESERVED  │
+ *      ────────────────────────────────┐                (COMPLETED) │
+ *      │                               │                  M-82      │
  *      │   park-01.jpg  4:3            │                      ────  │
  *      │             46vw              │                summary 30ch│
  *      ────────────────────────────────┘                            │
  *
- *   THREE — RESERVED. Dominance swings back RIGHT but the plate is smaller
+ *   THREE — PORTFOLIO. Dominance swings back RIGHT but the plate is smaller
  *   (38vw) and the type column is anchored to the band's FOOT rather than its
  *   head, so the chapter reads as a diminuendo rather than a repeat of one.
  *
  *      ▓                                                            ▓
  *      │                                        ┌─────────────────────
- *      │  (RESERVED)                            │  park-02.jpg 4:3    │
- *      │  RESERVED                              │             38vw    │
+ *      │  (COMPLETED)                           │  park-02.jpg 4:3    │
+ *      │  M-39                                  │             38vw    │
  *      │  ────                                  └─────────────────────
  *      │  summary 30ch  ← foot-aligned
  *
  * ─────────────────────────────────────────────────────────────────────────
- * TWO OF THE THREE ENTRIES ASSERT NOTHING, AND MUST LOOK LIKE IT.
+ * THE THREE PORTFOLIO ENTRIES ARE REAL BUILDINGS WITH NO WRITTEN RECORD.
  *
- * JDKD's wider project record has not been supplied. `PlaceholderProject`
- * carries `slug: null` — the contract that there is no page behind it — and
- * three devices keep its provisional status visible rather than implied: the
- * labelled `UNRESOLVED.portfolio` slot in the header rail, the `(RESERVED)`
- * marker above each reserved title, and the hairline frame drawn around any
- * image whose asset carries `placeholder: true`. NOTHING here links to a
+ * The client supplied footage of all three; the JDKD mark is visible on two.
+ * What has not been supplied is the specification, so `PlaceholderProject`
+ * still carries `slug: null` — the contract that there is no page behind it —
+ * and three devices keep that visible: the labelled `UNRESOLVED.portfolio` slot
+ * in the header rail, the `(COMPLETED)` marker above each title, which claims
+ * only what the footage shows, and the hairline frame drawn around any
  * detail route except the tower. A stand-in dressed as finished work is the
  * failure mode this page exists to avoid.
  *
@@ -149,11 +149,11 @@ const UI = {
 /**
  * The index shell. `PageHero` on this route renders NO plate, so the page
  * opens type-only and the gap beneath it is doing all the pacing work — hence
- * the documented ~280px pacing break on the top edge rather than the default
- * `py-section`. The bottom edge keeps the standard rhythm.
+ * the pacing break (`pt-break`, 288px) on the top edge rather than the standard
+ * `pt-beat`. No bottom padding: the footer pays its own gap (ONE OWNER PER GAP).
  */
 const SECTION =
-  "relative overflow-x-clip pt-[11rem] pb-section lg:pt-[17.5rem] lg:pb-section-lg";
+  "relative overflow-x-clip pt-break lg:pt-break-lg";
 
 /** The unpadded coordinate space every percentage anchor is measured against. */
 const FRAME = "relative mx-auto w-full max-w-shell";
@@ -169,7 +169,7 @@ const LABEL =
  * Chapter title. `text-h2` is the homepage's chapter step.
  *
  * The tower alone grows at `lg`, because it is the one entry that is a building
- * rather than a reserved frame — and it grows on a CAP, not a flat step:
+ * rather than a portfolio entry — and it grows on a CAP, not a flat step:
  * `min(4.2vw, 3.5rem)` reaches the 56px ceiling from 1440px up and shrinks
  * below it, which is the remedy this system prefers over inventing a breakpoint.
  * It also keeps the title from pushing the type column past the foot of its
@@ -265,7 +265,7 @@ function ChapterTower({ project }: { readonly project: RealProject }) {
         </ul>
 
         {/* NOT wrapped in a Reveal — see the note above. */}
-        <Link
+        <Link data-press
           href={projectPath(project)}
           className="mt-9 inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
         >
@@ -295,16 +295,16 @@ function ChapterTower({ project }: { readonly project: RealProject }) {
 }
 
 /* ==========================================================================
-   CHAPTER TWO — RESERVED
+   CHAPTER TWO — PORTFOLIO
 
    Dominance flips LEFT and the type moves to the RIGHT RAIL, set right-ragged
    so the marker, title, rule and copy all hang off the same edge.
 
-   It asserts nothing and it links nowhere: `PlaceholderProject.slug` is null,
-   so there is no `href` to build even if one were wanted.
+   It links nowhere: `PlaceholderProject.slug` is null, so there is no `href` to
+   build — a real building, but no confirmed specification to put behind a route.
    ========================================================================== */
 
-function ChapterReservedLeft({
+function ChapterPortfolioLeft({
   project,
 }: {
   readonly project: PlaceholderProject;
@@ -312,7 +312,7 @@ function ChapterReservedLeft({
   const id = headingId(project.id);
 
   return (
-    <article aria-labelledby={id} className="relative mt-24 lg:mt-44">
+    <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
       {/* RIGHT RAIL — flush to the right gutter, right-ragged from `lg`. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[22%] lg:right-gutter-lg lg:z-10 lg:w-[34%] lg:px-0 lg:text-right">
         <p className={LABEL}>{project.marker}</p>
@@ -348,16 +348,16 @@ function ChapterReservedLeft({
 }
 
 /* ==========================================================================
-   CHAPTER THREE — RESERVED
+   CHAPTER THREE — PORTFOLIO
 
    Dominance swings back RIGHT, but this is not chapter one again: the plate is
    smaller (38vw against 46vw), it is landscape rather than portrait, and the
    type column is anchored to the band's FOOT with `lg:bottom-0` instead of its
-   head. The page closes quieter than it opened, which is the honest shape for
-   a frame that holds space rather than a building.
+   head. It is not the last chapter: the third portfolio entry follows it in
+   the ChapterPortfolioLeft composition, so the run reads right, left, right, left.
    ========================================================================== */
 
-function ChapterReservedRight({
+function ChapterPortfolioRight({
   project,
 }: {
   readonly project: PlaceholderProject;
@@ -365,7 +365,7 @@ function ChapterReservedRight({
   const id = headingId(project.id);
 
   return (
-    <article aria-labelledby={id} className="relative mt-24 lg:mt-44">
+    <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
       {/* LEFT EDGE, foot-aligned. The plate is the flow child, so `bottom-0`
           means "level with the foot of the picture". */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:bottom-0 lg:left-gutter-lg lg:z-10 lg:w-[34%] lg:px-0">
@@ -414,13 +414,18 @@ function ChapterReservedRight({
    `UNRESOLVED.portfolio` slot in the right rail. No picture sets this band's
    height, so the rail is absolute against a plain relative box.
 
-   The three entries are destructured rather than mapped, for the same reason
+   The four entries are destructured rather than mapped, for the same reason
    the homepage's chapters are: each is a different composition, not a repeated
-   card. `PROJECT_PLACEHOLDERS` is a two-tuple, so both reserved frames are
-   guaranteed to exist without an index check.
+   card. `PROJECT_PLACEHOLDERS` is a three-tuple, so all three portfolio
+   entries are guaranteed to exist without an index check.
+
+   THEY ARE NOT RESERVED FRAMES ANY MORE. All three are completed buildings,
+   shown in the client's own photography. They remain `PlaceholderProject`
+   only because no written specification for them has been supplied, which is
+   what `slug: null` — and therefore no detail route — actually encodes.
    ========================================================================== */
 
-const [reservedOne, reservedTwo] = PROJECT_PLACEHOLDERS;
+const [portfolioOne, portfolioTwo, portfolioThree] = PROJECT_PLACEHOLDERS;
 
 function Index() {
   return (
@@ -438,9 +443,10 @@ function Index() {
             </Reveal>
           </div>
 
-          {/* THE UNRESOLVED SLOT. Labelled and visibly empty: the client's
-              wider project record is pending, and a rule with nothing above it
-              is the honest rendering of that. Never a fabricated list. */}
+          {/* THE UNRESOLVED SLOT. The photography now exists; the written
+              record does not. This says which is which, so three real
+              buildings can be shown without implying their areas, dates or
+              names have been confirmed. Never a fabricated list. */}
           <div
             className={`${EDGE} mt-12 text-small lg:absolute lg:top-0 lg:right-gutter-lg lg:mt-0 lg:w-[30ch] lg:px-0`}
           >
@@ -458,11 +464,12 @@ function Index() {
         </div>
 
         {/* ── THE THREE CHAPTERS ─────────────────────────────────────────
-            Dominance swings right, then left, then right again and smaller. */}
-        <div className="mt-20 lg:mt-36">
+            Dominance swings right, left, right, left. */}
+        <div className="mt-band lg:mt-band-lg">
           <ChapterTower project={PROJECT_TOWER} />
-          <ChapterReservedLeft project={reservedOne} />
-          <ChapterReservedRight project={reservedTwo} />
+          <ChapterPortfolioLeft project={portfolioOne} />
+          <ChapterPortfolioRight project={portfolioTwo} />
+          <ChapterPortfolioLeft project={portfolioThree} />
         </div>
       </div>
     </section>

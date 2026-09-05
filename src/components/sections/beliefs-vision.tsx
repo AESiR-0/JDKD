@@ -65,9 +65,9 @@ export function BeliefsVision() {
     <section
       id={SECTIONS.vision.id}
       aria-labelledby={HEADING_ID}
-      // Standard rhythm. The three pacing breaks are elsewhere — after the
-      // hero, after the bento below, and before the CTA.
-      className="relative overflow-x-clip py-section lg:py-section-lg"
+      // Pays the beat above it, on top, once. The two pacing breaks are paid
+      // by Features and the CTA on their own top edges; see `app/page.tsx`.
+      className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
       {/* THE FRAME — unpadded coordinate space, capped at the shell. Every
           percentage below is measured against it. */}
@@ -81,7 +81,7 @@ export function BeliefsVision() {
         {/* ── THE BAND ───────────────────────────────────────────────────
             One positioning context shared by the image, the heading and the
             rail. Its height comes from the image. */}
-        <div className="relative mt-12 lg:mt-24">
+        <div className="relative mt-band lg:mt-band-lg">
           {/* EDGE-BLEED-LEFT. `calc(50% - 50vw)` is exact: below 1440px the
               frame is the viewport and it resolves to 0; above it, it is
               precisely the frame's own left inset. `overflow-x-clip` on the
@@ -111,7 +111,7 @@ export function BeliefsVision() {
               the readable sentence is `sr-only` and the visible stack is hidden
               from assistive technology.
 
-              The size is capped rather than stepped: `min(5.4vw, 5rem)` keeps
+              The size is capped rather than stepped: `text-display-section` (min(5.2vw, 5rem)) keeps
               "CONSIDERED WORK" on one line inside a 54%-wide column at every
               width from 1024px up, which the flat 96px display step would not.
               Capping beats adding breakpoints — see the contract. */}
@@ -129,7 +129,7 @@ export function BeliefsVision() {
                 as="span"
                 stagger={0.1}
                 duration={1}
-                className="block font-display text-[min(11.6vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-pure md:text-h1 md:leading-[0.98] lg:text-[min(5.4vw,5rem)] lg:leading-[0.95]"
+                className="block font-display text-headline-fluid uppercase text-pure md:text-h1 lg:text-display-section"
               >
                 {BELIEFS_VISION.headingLines.map((line) => (
                   <span key={line}>{line}</span>

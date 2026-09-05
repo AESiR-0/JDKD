@@ -28,8 +28,9 @@ import { ABOUT, SECTIONS, type AboutFigureId } from "@/lib/content";
  *   3. OPTICAL BAND roughly the middle 40% of the frame, where the dominant
  *                   image sits. Here that is the portrait at 38%–72%.
  *
- * Consistency comes from VERTICAL RHYTHM, not from alignment — `py-section` /
- * `lg:py-section-lg` between sections, and nothing else lining up on purpose.
+ * Consistency comes from VERTICAL RHYTHM, not from alignment — `pt-beat` /
+ * `lg:pt-beat-lg`, paid once on top by every section — and nothing else lining
+ * up on purpose.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * THE FRAME.
@@ -140,12 +141,10 @@ export function About() {
     <section
       id={SECTIONS.about.id}
       aria-labelledby={HEADING_ID}
-      // PACING BREAK. The standard wrapper is
-      // `py-section lg:py-section-lg`. This section follows the hero, which is
-      // one of the three points in the scroll that gets ~280px instead — so
-      // the rhythm is split into explicit `pt-` and `pb-` rather than left as
-      // a `py-` that a second utility has to fight.
-      className="relative overflow-x-clip pt-[11rem] pb-section lg:pt-[17.5rem] lg:pb-section-lg"
+      // Pays the beat above it, on top, once — no `pb-`. ONE OWNER PER GAP;
+      // see `app/page.tsx`. The hero's bottom-anchored wordmark already leaves
+      // empty photograph below itself, so this seam needs no break token.
+      className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
       {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
@@ -159,7 +158,7 @@ export function About() {
             portrait is the only child left in flow at `lg`, so it alone sets
             the band's height — which is what lets the heading hang off the
             band's foot and land 40px below the image. */}
-        <div className="relative mt-12 lg:mt-28">
+        <div className="relative mt-band lg:mt-band-lg">
           {/* RIGHT RAIL — ~30ch, flush right, top-aligned to the portrait.
               The measure is set in `ch` on an element that carries the copy's
               own `text-micro`, so 30ch really is thirty characters. */}
@@ -203,7 +202,7 @@ export function About() {
               {/* MOBILE SIZE IS CAPPED, NOT FLAT. Measured on the composed
                   page at 375px, a flat `text-headline` set "STRUCTURE" 3px
                   past the viewport, where the section's `overflow-x-clip`
-                  trimmed the final glyph. `min(13vw,3.5rem)` keeps the 56px
+                  trimmed the final glyph. `text-headline-fluid` (min(12vw,3.5rem)) keeps the 56px
                   ceiling everywhere it fits and shrinks only on the narrow
                   widths that cannot hold it — the contract's remedy, chosen
                   over a new breakpoint. The arbitrary step carries no line
@@ -214,7 +213,7 @@ export function About() {
                 as="span"
                 stagger={0.08}
                 duration={1}
-                className="block font-display text-[min(13vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink md:text-h1 md:leading-[0.98] lg:text-[min(5.2vw,5rem)] lg:leading-[0.95]"
+                className="block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-section"
               >
                 {ABOUT.headingLines.map((line) => (
                   <span
@@ -235,7 +234,7 @@ export function About() {
         <ul
           // `list-none` strips list semantics in Safari; the role puts them back.
           role="list"
-          className="relative mt-16 px-gutter md:px-gutter-lg lg:mt-40 lg:h-[27rem] lg:px-0"
+          className="relative mt-16 px-gutter md:px-gutter-lg lg:mt-40 lg:h-[24.75rem] lg:px-0"
         >
           {ABOUT.figures.map((figure) => {
             const placement = FIGURE_PLACEMENT[figure.id];

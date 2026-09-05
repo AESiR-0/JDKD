@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Geist } from "next/font/google";
 
+import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { IMAGES, SITE } from "@/lib/content";
@@ -197,6 +198,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        {/* The site's single smooth-scroll engine. Renders nothing, and does
+            nothing at all under reduced motion or if Lenis fails to construct
+            — native scrolling was never removed. See the component. */}
+        <SmoothScroll />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

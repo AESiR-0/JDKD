@@ -115,6 +115,23 @@
   --text-mega--line-height: 0.86;
   --text-mega--letter-spacing: -0.05em;
 
+  /* -- Fluid display tiers ------------------------------------------------
+     The section and page-hero headings share one size each, tuned to fit
+     their widest split line. They live here so size, leading and tracking
+     travel together; the nine call sites that carried them as literals are
+     exactly how the previous 11/11.6/12.2/13vw drift happened. */
+  --text-headline-fluid: min(12vw, 3.5rem); /* every display heading below md */
+  --text-headline-fluid--line-height: 1.02;
+  --text-headline-fluid--letter-spacing: -0.045em;
+
+  --text-display-section: min(5.2vw, 5rem); /* section h2, lg: */
+  --text-display-section--line-height: 0.95;
+  --text-display-section--letter-spacing: -0.045em;
+
+  --text-display-page: min(6.6vw, 7.5rem); /* route h1, lg: */
+  --text-display-page--line-height: 0.92;
+  --text-display-page--letter-spacing: -0.045em;
+
   /* -- Tracking ----------------------------------------------------------- */
   --tracking-label: 0.14em; /* section markers + eyebrows */
   --tracking-micro: 0.1em; /* chips, meta keys */
@@ -122,13 +139,35 @@
   --tracking-tight: -0.045em; /* display steps */
 
   /* -- Spacing rhythm -----------------------------------------------------
-     The reference breathes: roughly 190px between desktop sections. Tight
-     rhythm is what made the previous build read as a brochure rather than a
-     film. */
+     ONE OWNER PER GAP. Every gap between two sections is ONE token, paid by
+     the section BELOW as top padding. No section carries a bottom padding —
+     ever. A `pb-beat` in a diff is a bug, not a variation.
+
+     The previous system had a `--spacing-section` that every section paid on
+     BOTH edges, so the rendered seam was always twice the token (384px at
+     desktop, against a comment promising ~190) and a third term — a margin
+     stacked on the padding, a room's interior, a missing `last:` reset —
+     could hide inside the sum. With one owner there is no sum.
+
+       band   56 /  96   label -> band inside a section; room interiors
+       beat  112 / 192   THE gap between two sections
+       break 168 / 288   the pacing break — 1.5 beats, three places only
+
+     One 1:2:3 series per breakpoint. If beat moves, band and break move
+     with it — never adjust one step alone.
+
+     A break must PAINT: a section that opens on a full-bleed art layer insets
+     that layer from the top by the same token it pays (`cta.tsx`,
+     `beliefs-grid.tsx`), or the padding sits under the photograph and the
+     break never appears. */
   --spacing-gutter: 1.5rem; /* 24px */
   --spacing-gutter-lg: 3.5rem; /* 56px */
-  --spacing-section: 7rem; /* 112px — mobile */
-  --spacing-section-lg: 12rem; /* 192px — desktop */
+  --spacing-band: 1.75rem; /* 28px */
+  --spacing-band-lg: 3rem; /* 48px */
+  --spacing-beat: 3.5rem; /* 56px */
+  --spacing-beat-lg: 6rem; /* 96px */
+  --spacing-break: 5.25rem; /* 84px */
+  --spacing-break-lg: 9rem; /* 144px */
   --spacing-rule: 5.5rem; /* 88px — SectionMarker hairline */
   --spacing-rule-sm: 4rem; /* 64px */
   --spacing-hair: 0.0625rem; /* 1px — hairlines are thin on dark */
@@ -165,7 +204,13 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* NOT `smooth`. CSS smooth scrolling animates the scroll position while
+       ScrollTrigger is trying to own it, and this site has a real pin —
+       ~3465px of pinned run in `features-pin.tsx`. Any in-page anchor landing
+       inside or past that section had the two fighting. Smooth anchor travel
+       is now the smooth-scroll engine's job (`components/motion/smooth-scroll.tsx`),
+       which ScrollTrigger is actually synchronised with. */
+    scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
     background-color: var(--color-canvas);
   }
@@ -313,6 +358,57 @@ html.expand-js [data-expand][data-expand-in][data-expand-in] {
   html.expand-js [data-expand] {
     clip-path: none;
     transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   PRESS
+
+   Every interactive control on this site had a hover colour and then nothing
+   between mousedown and navigation — so on touch, where there is no hover at
+   all, the entire interface was inert until the page changed.
+
+   UNLAYERED and attribute-driven, exactly like the reveal, expand and frost
+   rules above: an unlayered rule beats Tailwind's layered utilities without
+   reaching for !important, and `data-press` costs one attribute per call site
+   instead of rewriting every className.
+
+   The transition list INCLUDES the colour properties. Tailwind's
+   `transition-colors` on these same elements would otherwise be replaced by
+   this rule and the hover fade would be lost.
+
+   TWO SHAPES:
+     default   scale(0.97) — buttons, pills, icon controls
+     "row"     opacity     — full-width text rows, where scaling a 24px serif
+                             line distorts the type instead of acknowledging
+                             the tap
+
+   Hover stays Tailwind's business: v4 already compiles every `hover:` utility
+   inside `@media (hover:hover)`, so none of them fire on touch.
+--------------------------------------------------------------------------- */
+
+[data-press] {
+  transition-property: transform, opacity, color, background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: var(--ease-editorial);
+}
+
+[data-press]:active {
+  transform: scale(0.97);
+}
+
+[data-press="row"]:active {
+  transform: none;
+  opacity: 0.62;
+}
+
+/* Reduced motion keeps the acknowledgement but drops the movement. The global
+   block below zeroes the duration; this drops the transform outright so
+   nothing travels. */
+@media (prefers-reduced-motion: reduce) {
+  [data-press]:active {
+    transform: none;
+    opacity: 0.7;
   }
 }
 

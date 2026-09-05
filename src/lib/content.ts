@@ -92,61 +92,88 @@ export type DisplayLine = {
    ========================================================================== */
 
 export const IMAGES = {
+  /* -- Portfolio stills, pulled from the client's own footage -------------
+     These are frames from the supplied A-23 / M-82 / M-39 video, transcoded
+     into /public/video alongside the loops they poster. They are photographs
+     of built, occupied buildings — NOT stand-ins — so `placeholder` is false
+     and no provisional frame is drawn around them. */
+  corporateParkAerial: {
+    src: "/video/a23-aerial-poster.jpg",
+    width: 1600,
+    height: 900,
+    alt: "JDKD Corporate Park at plot A-23, seen from the air beside the elevated metro line.",
+    placeholder: false,
+  },
+  m82Rooftop: {
+    src: "/images/buildings/park-02.jpg",
+    width: 1200,
+    height: 896,
+    alt: "The M-82 property from the air, in its market district at dusk.",
+    placeholder: false,
+  },
+  m39Frontage: {
+    src: "/images/buildings/park-03.jpg",
+    width: 1376,
+    height: 768,
+    alt: "The M-39 frontage on its market street, under the JDKD mark.",
+    placeholder: false,
+  },
+
   /* -- Real client renders ------------------------------------------------ */
   heroTower: {
     src: "/images/hero-tower.jpg",
     width: 814,
     height: 900,
-    alt: "JDKD Corporate Tower at dusk, seen from Mathura Road.",
+    alt: "Architectural render of JDKD Corporate Tower at dusk, seen from Mathura Road.",
     placeholder: false,
   },
   towerExterior: {
     src: "/images/tower-exterior.jpg",
     width: 864,
     height: 929,
-    alt: "Full elevation of JDKD Corporate Tower at blue hour.",
+    alt: "Architectural render of the full elevation of JDKD Corporate Tower at blue hour.",
     placeholder: false,
   },
   lobby: {
     src: "/images/lobby.jpg",
     width: 656,
     height: 900,
-    alt: "Lobby detail at JDKD Corporate Tower, looking toward the entrance.",
+    alt: "Render of the lobby at JDKD Corporate Tower, looking toward the entrance.",
     placeholder: false,
   },
   lobbyWide: {
     src: "/images/lobby-wide.jpg",
     width: 800,
     height: 900,
-    alt: "Wide view of the JDKD Corporate Tower lobby.",
+    alt: "Wide render of the JDKD Corporate Tower lobby.",
     placeholder: false,
   },
   locationAerial: {
     src: "/images/location-aerial.jpg",
     width: 864,
     height: 900,
-    alt: "Aerial view of Mathura Road showing the metro corridor beside the site.",
+    alt: "Aerial render of Mathura Road showing the metro corridor beside the site.",
     placeholder: false,
   },
   facadeDetail: {
     src: "/images/facade-detail.jpg",
     width: 848,
     height: 900,
-    alt: "Close view of the glass curtain wall and its vertical fins.",
+    alt: "Render detail of the glass curtain wall and its vertical fins.",
     placeholder: false,
   },
   officeFloor: {
     src: "/images/office-floor.jpg",
-    width: 1200,
-    height: 800,
-    alt: "Typical office floor plate at JDKD Corporate Tower with generous daylight.",
+    width: 398,
+    height: 285,
+    alt: "Render of a typical office floor plate at JDKD Corporate Tower, with generous daylight.",
     placeholder: false,
   },
   terrace: {
     src: "/images/terrace.jpg",
-    width: 1200,
-    height: 800,
-    alt: "Landscaped rooftop terrace lounge with panoramic city views.",
+    width: 398,
+    height: 570,
+    alt: "Render of the landscaped rooftop terrace lounge, looking out over the city.",
     placeholder: false,
   },
 
@@ -183,27 +210,31 @@ export const IMAGES = {
     placeholder: false,
   },
 
-  /* -- Placeholder frames — buildings & parks ----------------------------- */
+  /* -- Portfolio frames — stills from the client's own footage -------------
+     One frame per chapter, of the building that chapter is about, cut from the
+     same clip that plays over it. They are photographs of built, occupied
+     properties, so `placeholder` is false and no provisional hairline is drawn
+     around them. See `public/video` for the loops these are cut from. */
   parkOne: {
     src: "/images/buildings/park-01.jpg",
     width: 1200,
     height: 896,
-    alt: "Placeholder frame. Photography for this development has not been supplied.",
-    placeholder: true,
+    alt: "JDKD Corporate Park at plot A-23, its green glass elevation seen from the rail corridor.",
+    placeholder: false,
   },
   parkTwo: {
     src: "/images/buildings/park-02.jpg",
     width: 1200,
     height: 896,
-    alt: "Placeholder frame. Photography for this development has not been supplied.",
-    placeholder: true,
+    alt: "The M-82 property from the air, in its market district at dusk.",
+    placeholder: false,
   },
   parkThree: {
     src: "/images/buildings/park-03.jpg",
     width: 1376,
     height: 768,
-    alt: "Placeholder frame. Photography for this development has not been supplied.",
-    placeholder: true,
+    alt: "The M-39 frontage under the JDKD mark, above the market street.",
+    placeholder: false,
   },
 
   /* -- Placeholder frame — bento backdrop --------------------------------- */
@@ -211,24 +242,31 @@ export const IMAGES = {
     src: "/images/beliefs/office-interior.jpg",
     width: 1376,
     height: 768,
+    /* A crop of the tower's own floor-plate render (`office-floor.jpg`), not a
+       generated interior. The bento reads against the building it is about. */
     alt: "",
-    placeholder: true,
+    placeholder: false,
   },
 
-  /* -- Placeholder frames — features -------------------------------------- */
+  /* -- Features -----------------------------------------------------------
+     Terrace and infrastructure are crops of the tower's own renders. FITNESS
+     AND PARKING ARE STILL GENERATED STAND-INS and carry `placeholder: true`,
+     because no photograph of either exists yet — they are the only two frames
+     left on the site that are not of a real JDKD building. Replace them the
+     moment the client supplies a gym and a basement shot. */
   terraceLarge: {
     src: "/images/features/terrace-large.jpg",
     width: 896,
     height: 1200,
-    alt: "Placeholder frame for the terrace lounge.",
-    placeholder: true,
+    alt: "The landscaped rooftop terrace lounge at JDKD Corporate Tower, looking out over the city.",
+    placeholder: false,
   },
   terraceSmall: {
     src: "/images/features/terrace-small.jpg",
     width: 1024,
     height: 1024,
-    alt: "",
-    placeholder: true,
+    alt: "Planting and seating on the JDKD Corporate Tower roof terrace.",
+    placeholder: false,
   },
   fitnessLarge: {
     src: "/images/features/fitness-large.jpg",
@@ -262,15 +300,15 @@ export const IMAGES = {
     src: "/images/features/infrastructure-large.jpg",
     width: 896,
     height: 1200,
-    alt: "Placeholder frame for the building's plant and infrastructure.",
-    placeholder: true,
+    alt: "The glass curtain wall of JDKD Corporate Tower and its vertical fins.",
+    placeholder: false,
   },
   infrastructureSmall: {
     src: "/images/features/infrastructure-small.jpg",
     width: 1024,
     height: 1024,
-    alt: "",
-    placeholder: true,
+    alt: "Detail of the curtain wall fins at JDKD Corporate Tower.",
+    placeholder: false,
   },
 } as const satisfies Readonly<Record<string, ImageAsset>>;
 
@@ -622,10 +660,31 @@ export const ABOUT: AboutContent = {
 
 /* ==========================================================================
    03 — BUILDINGS & PARKS
-   Three chapters, every one an explicit stand-in. The client's wider project
-   record has not been supplied, so nothing below asserts a project, a place or
-   a date. See UNRESOLVED.portfolio.
+   Three chapters of the client's own footage of completed buildings. Names for
+   two, and areas and dates for all three, are unconfirmed — see
+   UNRESOLVED.portfolio. Nothing below asserts what the footage cannot show.
    ========================================================================== */
+
+/**
+ * A silent, looping clip for a chapter frame. Paths are extensionless — the
+ * component appends `.mp4`, and `.webm` when `webm` is true. Both live in
+ * /public/video, transcoded from the client's own footage; the 2 GB of source
+ * is deliberately not in the repo (see .gitignore).
+ */
+export type ChapterVideo = {
+  readonly src: string;
+  readonly poster: string;
+  readonly webm: boolean;
+  /**
+   * Describes THE FOOTAGE, and must never be taken from `image.alt`.
+   *
+   * The still behind a video frame can still be a labelled stand-in while the
+   * clip is real, and reusing its alt made three pause controls announce
+   * themselves as "Pause: Placeholder frame…" over genuine photography of a
+   * built, occupied building. The accessible name is a claim like any other.
+   */
+  readonly alt: string;
+};
 
 export type BuildingChapter = {
   readonly id: string;
@@ -633,10 +692,17 @@ export type BuildingChapter = {
   readonly body: string;
   readonly image: ImageAsset;
   /**
-   * Always true today. A section rendering one of these MUST show its
-   * provisional status — the frame is a composition holder, not a project.
+   * When present the frame plays footage instead of showing a still. The
+   * poster is what a visitor gets with no JS, with reduced motion, and before
+   * the frame is near the viewport — so a chapter is never empty without it.
    */
-  readonly placeholder: true;
+  readonly video?: ChapterVideo;
+  /**
+   * A section rendering a placeholder MUST show its provisional status — that
+   * frame is a composition holder, not a project. False for the three
+   * chapters below, which are the client's own footage of built work.
+   */
+  readonly placeholder: boolean;
 };
 
 export const BUILDINGS: readonly [
@@ -645,27 +711,50 @@ export const BUILDINGS: readonly [
   BuildingChapter,
 ] = [
   {
-    id: "chapter-one",
-    title: "Development one",
-    body: "A placeholder frame. JDKD's wider project record has not been supplied, so no project, location or date is claimed here. Image and copy follow from the client.",
+    id: "corporate-park",
+    title: "Corporate Park",
+    // Everything asserted here is visible in the client's own footage: the
+    // curtain wall, the elevated metro line beside it, the manned reception
+    // and the let floors. The name is read off the lobby graphic. No area,
+    // no date and no floor count — none of those were supplied.
+    body: "JDKD Corporate Park, plot A-23. A completed multi-tenant office building in green glass, running alongside the elevated metro line, with a manned lobby and let floors.",
     image: IMAGES.parkOne,
-    placeholder: true,
+    video: {
+      src: "/video/a23-aerial",
+      poster: "/video/a23-aerial-poster.jpg",
+      webm: false,
+      alt: "Aerial view of JDKD Corporate Park at plot A-23, its green glass elevation running alongside the elevated metro line.",
+    },
+    placeholder: false,
   },
   {
-    id: "chapter-two",
-    title: "Development two",
-    body: "A placeholder frame, reserved for a completed JDKD development. Nothing on it is an assertion; it holds the composition until the record arrives.",
+    id: "m-82",
+    title: "M-82",
+    body: "A retail and hospitality address, shown at dusk with the rooftop level in service. Held under its plot reference until the name and the record are confirmed.",
     image: IMAGES.parkTwo,
-    placeholder: true,
+    video: {
+      src: "/video/m82-rooftop",
+      poster: "/video/m82-rooftop-poster.jpg",
+      webm: false,
+      alt: "The M-82 property at dusk, its rooftop level lit and in service above the street.",
+    },
+    placeholder: false,
   },
   {
-    id: "chapter-three",
-    title: "Development three",
-    body: "A placeholder frame. The only development this site documents today is JDKD Corporate Tower, on Mathura Road, now available for leasing.",
+    id: "m-39",
+    title: "M-39",
+    body: "Street-level retail under the JDKD mark, opening onto a market frontage. Held under its plot reference until the name and the record are confirmed.",
     image: IMAGES.parkThree,
-    placeholder: true,
+    video: {
+      src: "/video/m39-reveal",
+      poster: "/video/m39-reveal-poster.jpg",
+      webm: true,
+      alt: "The JDKD mark on the M-39 frontage, the view drawing back to the market street below.",
+    },
+    placeholder: false,
   },
 ];
+
 
 /* ==========================================================================
    04 — BELIEFS A / VISION
@@ -777,7 +866,7 @@ export const FEATURES: readonly [Feature, Feature, Feature, Feature] = [
     id: "fitness",
     title: "Fitness studio",
     description:
-      "An in-house gym inside the building, so the working day does not have to leave it to find one.",
+      "An in-house gym, so staff do not have to leave the building to train.",
     largeImage: IMAGES.fitnessLarge,
     smallImage: IMAGES.fitnessSmall,
   },
@@ -851,7 +940,7 @@ export const FAQ: FaqContent = {
     {
       id: "walkthrough",
       question: "How do I arrange a walkthrough?",
-      answer: `Send the enquiry form on this page, or call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}. JDKD Corporate Tower is now available for leasing.`,
+      answer: `Call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}. The enquiry form on this page is not connected yet, so the phone is the channel that works. JDKD Corporate Tower is available for leasing now.`,
     },
   ],
 };
@@ -872,7 +961,11 @@ export type CtaContent = {
 export const CTA: CtaContent = {
   headlineLines: ["Schedule a", "private walkthrough."],
   spokenHeadline: "Schedule a private walkthrough.",
-  body: "Tell us the floor area you need and when you want to occupy. We will come back with availability, floor plates and a time to walk the building.",
+  // Templated, not concatenated: the contact's name and number are values, and
+  // the sentence around them stays whole. The disclosure sits HERE, above the
+  // fields, because an error shown after three required fields and a press is
+  // not a warning — it is a receipt.
+  body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} — we will come back with availability, floor plates and a time to walk the building.`,
   submitLabel: "Send enquiry",
   image: IMAGES.towerExterior,
 };
@@ -894,7 +987,7 @@ export const ENQUIRY_FIELDS: readonly FormField[] = [
     type: "text",
     autoComplete: "name",
     required: true,
-    placeholder: "Your name",
+    placeholder: "First and last name",
   },
   {
     id: "organisation",
@@ -902,7 +995,8 @@ export const ENQUIRY_FIELDS: readonly FormField[] = [
     type: "text",
     autoComplete: "organization",
     required: false,
-    placeholder: "Company name",
+    // Says something the label does not: brokers enquire here too.
+    placeholder: "Company or brokerage",
   },
   {
     id: "email",
@@ -1011,6 +1105,17 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     ogImage: IMAGES.heroTower,
   },
 };
+
+/**
+ * The link out of section 03. The homepage shows three chapters; `/projects`
+ * is where the record continues, and without this the route was reachable from
+ * the header nav and from nowhere else on the page that is about it.
+ */
+export const BUILDINGS_CTA = {
+  label: "All projects",
+  href: ROUTES.projects.path,
+} as const;
+
 
 /* ==========================================================================
    NAVIGATION
@@ -1174,8 +1279,9 @@ export const UNRESOLVED: Readonly<Record<string, UnresolvedSlot>> = {
   portfolio: {
     id: "portfolio",
     label: "Project portfolio",
-    placeholder: "Project details to follow.",
-    note: "The residential and wider project list is pending from the client. Section 03 renders labelled placeholder frames until it arrives.",
+    placeholder:
+      "Three completed properties are shown here. Names, areas and dates are still to be confirmed.",
+    note: "Footage for A-23, M-82 and M-39 has been supplied and is in use. What is still missing is the written record: confirmed project names, areas, completion dates and the full list. The lobby directory at A-23 names its tenants — publishing them is the client's decision and must be cleared before it goes anywhere near this site.",
   },
   leadership: {
     id: "leadership",
@@ -1349,7 +1455,7 @@ export type PlaceholderProject = ProjectCommon & {
   readonly placeholder: true;
   /** NULL is the contract: a placeholder has no detail route. */
   readonly slug: null;
-  /** Rendered beside the frame, e.g. "(RESERVED)". */
+  /** Rendered beside the frame, e.g. "(COMPLETED)". */
   readonly marker: string;
 };
 
@@ -1521,7 +1627,7 @@ export const PROJECT_TOWER: RealProject = {
     items: [
       {
         id: "location-advantage",
-        title: "Location Advantage",
+        title: "Location advantage",
         body: "The site sits on the Violet Line corridor with direct access off Main Mathura Road, inside the established Mohan Cooperative Industrial Estate.",
         points: [
           "350 m from Sarita Vihar Metro station",
@@ -1533,7 +1639,7 @@ export const PROJECT_TOWER: RealProject = {
       },
       {
         id: "future-ready-infrastructure",
-        title: "Future-Ready Infrastructure",
+        title: "Future-ready infrastructure",
         body: "A green building specified for the whole of its life rather than for handover: certified, braced, and generating some of its own power.",
         points: [
           "LEED certified green building",
@@ -1544,7 +1650,7 @@ export const PROJECT_TOWER: RealProject = {
       },
       {
         id: "asset-differentiators",
-        title: "Asset Differentiators",
+        title: "Asset differentiators",
         body: "What the plot gives the building, and what the building gives back to the working day.",
         points: [
           "Prime corner plot, two sides open",
@@ -1806,7 +1912,7 @@ export const PROJECT_TOWER: RealProject = {
       { text: "building.", style: "italic" },
     ],
     spokenHeading: "Walk the building.",
-    body: "Tell us the floor area you need and when you want to occupy. We will come back with availability, floor plates and a time to walk the building.",
+    body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} — we will come back with availability, floor plates and a time to walk the building.`,
   },
 
   contact: CONTACT,
@@ -1821,33 +1927,59 @@ export const PROJECT_TOWER: RealProject = {
    anywhere.
 -------------------------------------------------------------------------- */
 
+/**
+ * The portfolio beyond the tower.
+ *
+ * These are REAL, COMPLETED buildings — the client supplied footage of all
+ * three and the JDKD mark is visible on two of them. What has NOT been
+ * supplied is the written record: confirmed names, areas, completion dates.
+ *
+ * So they stay `PlaceholderProject`, and the type is doing exactly the job it
+ * was designed for. `slug: null` is the contract, and it means no detail
+ * route — which is correct twice over: there is no specification to fill a
+ * detail page with, and the brief asked for no sub-pages beneath a project.
+ * The marker reads "(COMPLETED)" rather than "(RESERVED)" because that much
+ * is visible in the footage; everything past it waits on the client.
+ */
 export const PROJECT_PLACEHOLDERS: readonly [
+  PlaceholderProject,
   PlaceholderProject,
   PlaceholderProject,
 ] = [
   {
-    id: "reserved-one",
+    id: "corporate-park",
     slug: null,
     placeholder: true,
-    name: "Reserved",
-    marker: "(RESERVED)",
+    name: "JDKD Corporate Park",
+    marker: "(COMPLETED)",
     summary:
-      "A reserved frame. JDKD's wider project record has not been supplied, so no project, location or date is claimed here. There is no page behind this entry.",
-    image: IMAGES.parkOne,
+      "Plot A-23. A completed multi-tenant office building in green glass, running alongside the elevated metro line, with a manned lobby and let floors. Area, completion date and the full specification are still to be confirmed.",
+    image: IMAGES.corporateParkAerial,
   },
   {
-    id: "reserved-two",
+    id: "m-82",
     slug: null,
     placeholder: true,
-    name: "Reserved",
-    marker: "(RESERVED)",
+    name: "M-82",
+    marker: "(COMPLETED)",
     summary:
-      "A second reserved frame. The only development this site documents today is JDKD Corporate Tower, on Mathura Road, now available for leasing.",
-    image: IMAGES.parkTwo,
+      "A retail and hospitality address, in service, with its rooftop level occupied. Held under its plot reference until the name and the record are confirmed.",
+    image: IMAGES.m82Rooftop,
+  },
+  {
+    id: "m-39",
+    slug: null,
+    placeholder: true,
+    name: "M-39",
+    marker: "(COMPLETED)",
+    summary:
+      "Street-level retail under the JDKD mark, opening onto a market frontage. Held under its plot reference until the name and the record are confirmed.",
+    image: IMAGES.m39Frontage,
   },
 ];
 
-/** The index's running order: the real project first, then the reserved frames. */
+
+/** The index's running order: the documented project first, then the portfolio. */
 export const PROJECTS: readonly Project[] = [
   PROJECT_TOWER,
   ...PROJECT_PLACEHOLDERS,
@@ -1898,7 +2030,7 @@ export const PROJECTS_PAGE: ProjectsPageContent = {
   spokenTitle: "Commercial projects.",
   lede: "JDKD Developers LLP builds commercial real estate in New Delhi. One building is documented here in full; the rest of the record is still to come.",
   intro:
-    "JDKD Corporate Tower, on Mathura Road, is available for leasing now. The frames beneath it are reserved and assert nothing — they hold space for projects the client has yet to supply.",
+    "JDKD Corporate Tower, on Mathura Road, is available for leasing now. Beneath it are three completed JDKD properties. Their written records are still to come.",
   unresolved: UNRESOLVED.portfolio,
 };
 
@@ -2072,7 +2204,7 @@ export const ABOUT_PAGE: AboutPageContent = {
       { text: "signs it.", style: "italic" },
     ],
     spokenHeading: "Who signs it.",
-    body: "JDKD Corporate Tower is developed by JDKD Developers LLP, New Delhi. Individual profiles are not published here yet, and this page will not carry names until the client confirms them.",
+    body: "JDKD Corporate Tower is developed by JDKD Developers LLP, New Delhi. Individual profiles are not published here yet, and this page will not carry names until they are confirmed.",
     slot: UNRESOLVED.leadership,
   },
 };
@@ -2240,7 +2372,7 @@ export const NOT_FOUND_PAGE: NotFoundPageContent = {
     { text: "found.", style: "italic" },
   ],
   spokenTitle: "Page not found.",
-  lede: "This address does not exist. JDKD Corporate Tower, on Mathura Road, is available for leasing now.",
+  lede: "This page does not exist. JDKD Corporate Tower, on Mathura Road, is available for leasing now.",
   links: [
     { id: "home", label: "Homepage", href: ROUTES.home.path },
     { id: "projects", label: "Projects", href: ROUTES.projects.path },

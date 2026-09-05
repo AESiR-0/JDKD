@@ -52,10 +52,9 @@ export function Faq() {
     <section
       id={SECTIONS.faq.id}
       aria-labelledby={HEADING_ID}
-      // Standard rhythm. The pacing break that precedes the CTA is carried on
-      // the CTA's own `pt-`, the way About carries the break that follows the
-      // hero — never as a `pb-` stacked on top of a `py-` here.
-      className="relative overflow-x-clip py-section lg:py-section-lg"
+      // Pays the beat above it, on top, once. The pacing break before the CTA
+      // is paid by the CTA on its own top (`pt-break`), never as a `pb-` here.
+      className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
       {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
@@ -77,7 +76,7 @@ export function Faq() {
               as="span"
               stagger={0.09}
               duration={1}
-              className="block font-display text-[min(12.2vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink lg:text-[min(5.4vw,5rem)] lg:leading-[0.95]"
+              className="block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-section"
             >
               {FAQ.headingLines.map((line) => (
                 <span key={line}>{line}</span>
@@ -89,7 +88,7 @@ export function Faq() {
         {/* The rows span the frame. They are never wrapped in a Reveal — the
             mask keeps `overflow: hidden` and would clip each button's focus
             ring. */}
-        <FaqRows className="mt-16 lg:mt-28" />
+        <FaqRows className="mt-band lg:mt-band-lg" />
       </div>
     </section>
   );

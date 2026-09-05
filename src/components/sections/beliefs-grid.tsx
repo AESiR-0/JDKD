@@ -55,10 +55,10 @@ import { BELIEFS_GRID, SECTIONS } from "@/lib/content";
  * THE BACKDROP AND THE PACING BREAK.
  *
  * The photograph is a SIBLING of the frame, per the full-bleed contract, and it
- * is inset from the section's foot by exactly the section's bottom padding.
- * This section carries one of the three pacing breaks (~280px, after Beliefs
- * B), and a break filled with photograph is not a break — so the image stops at
- * the top of it and the remaining rhythm is open canvas.
+ * is inset from the section's TOP by exactly the beat the section pays
+ * (`top-beat`), so the gap above lands on open canvas rather than photography.
+ * It runs to the section's foot: the break after this section is paid by
+ * `features.tsx` on its own top edge, not here.
  *
  * `ParallaxImage` directly rather than `ImageCard`: this is a full-bleed
  * background, which is the one case the contract reserves for it.
@@ -169,17 +169,17 @@ export function BeliefsGrid() {
       // This section renders no heading by design, so the accessible name is
       // carried here instead of by `aria-labelledby`.
       aria-label={SECTIONS.beliefs.label}
-      // PACING BREAK BELOW. One of the three points in the scroll that gets
-      // ~280px instead of the standard rhythm. Split into explicit `pt-`/`pb-`
-      // rather than left as a `py-` a second utility has to fight.
-      className="relative overflow-x-clip pt-section pb-[11rem] lg:pt-section-lg lg:pb-[17.5rem]"
+      // Pays the beat above it, on top, once. The pacing break AFTER this
+      // section is paid by Features on its own top (`pt-break`), never as a
+      // `pb-` here — ONE OWNER PER GAP; see `app/page.tsx`.
+      className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
       {/* FULL-BLEED BACKDROP — a sibling of the frame, never a descendant.
-          Stops short of the section's foot by exactly the bottom padding, so
-          the pacing break lands on open canvas rather than on photography. */}
+          Inset from the section's top by the beat it pays (`top-beat`), so the
+          gap above lands on open canvas rather than on photography. */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 bottom-[11rem] lg:bottom-[17.5rem]"
+        className="absolute inset-x-0 top-beat bottom-0 lg:top-beat-lg"
       >
         <ParallaxImage
           src={BELIEFS_GRID.backdrop.src}

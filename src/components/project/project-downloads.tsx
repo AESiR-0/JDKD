@@ -65,13 +65,13 @@ export function ProjectDownloads({ downloads }: ProjectDownloadsProps) {
           </div>
         </div>
 
-        <ul role="list" className={`${EDGE} mt-14 lg:mt-20`}>
+        <ul role="list" className={`${EDGE} mt-band lg:mt-band-lg`}>
           {downloads.files.map((file) => (
             <li
               key={file.id}
               className="border-t border-line last:border-b last:border-line"
             >
-              <a href={file.href} download={file.filename} className={ROW_LINK}>
+              <a data-press="row" href={file.href} download={file.filename} className={ROW_LINK}>
                 <span className="md:w-[38%]">
                   <span className="block font-display text-h3 uppercase tracking-tight text-ink">
                     {file.label}
@@ -94,7 +94,7 @@ export function ProjectDownloads({ downloads }: ProjectDownloadsProps) {
         </ul>
 
         {/* THE BROCHURE THAT DOES NOT EXIST YET. Labelled, visibly empty. */}
-        <div className={`${EDGE} mt-14 lg:mt-20`}>
+        <div className={`${EDGE} mt-band lg:mt-band-lg`}>
           <p className="text-micro uppercase tracking-label text-muted">
             {downloads.unresolved.label}
           </p>

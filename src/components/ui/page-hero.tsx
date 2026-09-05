@@ -116,14 +116,14 @@ export type PageHeroProps = {
  * interpolation — the v4 scanner reads source text, so a class assembled at
  * runtime is never generated.
  *
- * SIZE IS CAPPED, NOT FLAT. `min(13vw, 3.5rem)` holds the 56px unprefixed
+ * SIZE IS CAPPED, NOT FLAT. `text-headline-fluid` (min(12vw, 3.5rem)) holds the 56px unprefixed
  * ceiling everywhere it fits and shrinks only on widths that cannot hold it —
  * the same remedy `sections/about.tsx` uses, chosen over inventing a
  * breakpoint. The arbitrary steps carry no line height of their own, so each
  * one restores it explicitly rather than relying on cascade order.
  */
 const TITLE =
-  "block font-display text-[min(13vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink md:text-h1 md:leading-[0.98] lg:text-[min(6.4vw,7.5rem)] lg:leading-[0.92]";
+  "block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-page";
 
 /**
  * Full bleed both edges. `calc(50% - 50vw)` on each margin resolves to exactly
@@ -157,8 +157,8 @@ export function PageHero({
       // a `position: sticky` sub-nav further down the page.
       //
       // NO BOTTOM PADDING. Like the homepage hero, this contributes no rhythm of
-      // its own: the first `<section>` beneath it owns `py-section
-      // lg:py-section-lg` and that is the whole of the gap. Adding a `pb-` here
+      // its own: the first `<section>` beneath it owns `pt-beat lg:pt-beat-lg`
+      // (or `pt-break lg:pt-break-lg`) and that IS the gap. Adding a `pb-` here
       // doubles it.
       className={`relative overflow-x-clip pt-32 md:pt-40 lg:pt-48 ${className ?? ""}`}
     >

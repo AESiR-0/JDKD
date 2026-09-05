@@ -87,7 +87,7 @@ export function ProjectEnquiry({ enquiry, contact }: ProjectEnquiryProps) {
               and bleeding off the right viewport edge with the documented
               `calc(50%-50vw)` pattern. Below 1440px that calc resolves to 0
               and the panel simply meets the edge. */}
-          <div className="mt-12 bg-pine px-gutter py-12 md:px-gutter-lg lg:mt-0 lg:ml-auto lg:mr-[calc(50%-50vw)] lg:w-[38vw] lg:px-12 lg:py-16">
+          <div className="mt-band bg-pine px-gutter py-band md:px-gutter-lg lg:mt-0 lg:ml-auto lg:mr-[calc(50%-50vw)] lg:w-[38vw] lg:px-12 lg:py-band-lg">
             <Reveal
               as="p"
               start="top bottom"
@@ -102,7 +102,7 @@ export function ProjectEnquiry({ enquiry, contact }: ProjectEnquiryProps) {
                 after it finishes and would clip this link's focus ring. */}
             <p className="mt-9 border-t border-line pt-6 text-caption text-ink/80">
               {contact.leasingContact.role} — {contact.leasingContact.name},{" "}
-              <a
+              <a data-press="row"
                 href={contact.leasingContact.phoneHref}
                 className="text-ink underline decoration-red decoration-2 underline-offset-4"
               >

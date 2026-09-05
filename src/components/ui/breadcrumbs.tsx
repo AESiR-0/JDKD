@@ -87,7 +87,7 @@ export function Breadcrumbs({
                   {crumb.label}
                 </span>
               ) : (
-                <Link
+                <Link data-press="row"
                   href={crumb.href}
                   className="transition-colors duration-200 ease-editorial hover:text-ink"
                 >

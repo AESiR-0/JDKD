@@ -53,7 +53,7 @@ import { CONTACT, NOT_FOUND_PAGE } from "@/lib/content";
    ========================================================================== */
 
 /** The band shell. Owns the rhythm, clips the horizontal axis. */
-const SECTION = "relative overflow-x-clip py-section lg:py-section-lg";
+const SECTION = "relative overflow-x-clip pt-beat lg:pt-beat-lg";
 
 /** The unpadded coordinate space every anchor is measured against. */
 const FRAME = "relative mx-auto w-full max-w-shell";
@@ -92,7 +92,7 @@ export default function NotFound() {
             <ul role="list" className="border-t border-line">
               {NOT_FOUND_PAGE.links.map((link) => (
                 <li key={link.id} className="border-b border-line">
-                  <Link href={link.href} className={LINK_ROW}>
+                  <Link data-press="row" href={link.href} className={LINK_ROW}>
                     {link.label}
                   </Link>
                 </li>
@@ -104,7 +104,7 @@ export default function NotFound() {
               moment to offer. Outside the nav: a phone number is not a page. */}
           <p className={`${EDGE} mt-12 text-small text-muted lg:mt-16`}>
             {CONTACT.leasingContact.role} — {CONTACT.leasingContact.name},{" "}
-            <a
+            <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}
               className="text-ink underline decoration-red decoration-2 underline-offset-4"
             >

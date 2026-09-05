@@ -60,7 +60,7 @@ import {
  *                   differently-composed sections read as a single system.
  *   3. OPTICAL BAND the middle of the frame, where the dominant image sits.
  *
- * Consistency comes from VERTICAL RHYTHM — `py-section` / `lg:py-section-lg`
+ * Consistency comes from VERTICAL RHYTHM — `pt-beat` / `lg:pt-beat-lg`, paid once
  * — not from alignment. Nothing lines up between sections on purpose.
  *
  * THE ONE DOCUMENTED EXCEPTION to the right rail: when an image owns the right
@@ -144,7 +144,7 @@ export const metadata: Metadata = {
    ========================================================================== */
 
 /** The section shell. Full-bleed, owns the rhythm, clips the horizontal axis. */
-const SECTION = "relative overflow-x-clip py-section lg:py-section-lg";
+const SECTION = "relative overflow-x-clip pt-beat lg:pt-beat-lg";
 
 /** The unpadded coordinate space every percentage anchor is measured against. */
 const FRAME = "relative mx-auto w-full max-w-shell";
@@ -157,22 +157,22 @@ const LABEL =
   "font-display text-label uppercase italic tracking-label text-muted";
 
 /**
- * The h1. SIZE IS CAPPED, NOT FLAT: `min(11vw, 3.5rem)` holds the 56px
+ * The h1. SIZE IS CAPPED, NOT FLAT: `text-headline-fluid` (min(12vw, 3.5rem)) holds the 56px
  * unprefixed ceiling everywhere it fits and shrinks only on the narrow widths
  * that cannot hold it — the remedy the system prefers over inventing a
  * breakpoint. The `lg` cap is MEASURED, not guessed: "THE PRACTICE" renders at
  * 6.41em in Cormorant at −0.045em tracking, and the portrait leaves the title a
  * 54% column — 54% of the FRAME, which stops growing at 1440px while a `vw`
  * font size does not. So the two constraints are 6.41em ≤ 0.54·vw below the
- * shell (→ 8.4vw) and 6.41em ≤ 778px above it (→ 121px); 7vw capped at 112px
- * clears both with room to spare.
+ * shell (→ 8.4vw) and 6.41em ≤ 778px above it (→ 121px); `text-display-page`,
+ * 6.6vw capped at 120px, clears both (6.41em × 120px = 769px < 778px).
  */
 const TITLE =
-  "block font-display text-[min(11vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink md:text-h1 md:leading-[0.98] lg:text-[min(7vw,7rem)] lg:leading-[0.9]";
+  "block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-page";
 
 /** Section display heading. One step below the h1 at every width. */
 const DISPLAY =
-  "block font-display text-[min(12vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink md:text-h1 md:leading-[0.98] lg:text-[min(5vw,5rem)] lg:leading-[0.94]";
+  "block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-section";
 
 /** Right-rail copy. `text-small` sits on the rail so `30ch` measures the copy. */
 const RAIL_COPY = "text-small text-muted";
@@ -411,7 +411,7 @@ function Statement() {
       <div className={FRAME}>
         <p className={`${EDGE} ${LABEL}`}>{statement.label}</p>
 
-        <div className="relative mt-12 lg:mt-20">
+        <div className="relative mt-band lg:mt-band-lg">
           {/* TYPE FIRST IN THE DOM. */}
           <div className="lg:absolute lg:right-gutter-lg lg:top-1/2 lg:z-10 lg:w-[46%] lg:-translate-y-1/2">
             {/* A short rule rather than a second label: the section is already
@@ -516,7 +516,7 @@ function Practice() {
 
         {/* DISCIPLINES BAND — the list is in flow and sets the height; the
             picture is absolute and fills it. */}
-        <div className="relative mt-16 lg:mt-32">
+        <div className="relative mt-band lg:mt-band-lg">
           <ol
             // `list-none` strips list semantics in Safari; the role puts them
             // back. This is a LIST, not a grid: three rows, one measure.
@@ -526,7 +526,7 @@ function Practice() {
             {practice.disciplines.map((discipline) => (
               <li
                 key={discipline.id}
-                className="border-t border-line pt-8 pb-8 first:border-t-0 first:pt-0 last:pb-0 lg:pt-12 lg:pb-12"
+                className="border-t border-line pt-8 pb-8 first:border-t-0 first:pt-0 last:pb-0 lg:pt-12 lg:pb-12 lg:first:pt-0 lg:last:pb-0"
               >
                 <Reveal
                   as="h3"
@@ -686,7 +686,7 @@ function Numbers() {
           </p>
         </div>
 
-        <ul role="list" className={`${EDGE} mt-14 lg:mt-24`}>
+        <ul role="list" className={`${EDGE} mt-band lg:mt-band-lg`}>
           {numbers.figures.map((figure) => {
             const placement = FIGURE_PLACEMENT[figure.id] ?? FIGURE_FALLBACK;
 
@@ -761,11 +761,11 @@ function Principles() {
           </div>
         </div>
 
-        <ol role="list" className={`${EDGE} mt-16 lg:mt-32`}>
+        <ol role="list" className={`${EDGE} mt-band lg:mt-band-lg`}>
           {principles.items.map((principle, index) => (
             <li
               key={principle.id}
-              className={`border-t border-line pt-8 pb-8 lg:w-[46%] lg:pt-12 lg:pb-12 ${step(
+              className={`border-t border-line pt-8 pb-8 last:pb-0 lg:w-[46%] lg:pt-12 lg:pb-12 lg:last:pb-0 ${step(
                 CASCADE,
                 index,
               )}`}
@@ -831,7 +831,7 @@ function Leadership() {
         <p className={`${EDGE} ${LABEL}`}>{leadership.label}</p>
 
         <div
-          className={`${EDGE} mt-12 lg:mt-24 lg:flex lg:items-stretch lg:justify-between lg:gap-16`}
+          className={`${EDGE} mt-band lg:mt-band-lg lg:flex lg:items-stretch lg:justify-between lg:gap-16`}
         >
           <div className="lg:w-[46%]">
             <DisplayHeading

@@ -62,7 +62,7 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
  * THE PIN IS AN ENHANCEMENT, AND THE MARKUP BELOW IS THE FALLBACK.
  *
  * What is authored here is a plain `<ul>` of four panels in normal flow, one
- * `py-section` rhythm apart. That is what paints with no JS, with reduced
+ * `pt-beat` rhythm apart. That is what paints with no JS, with reduced
  * motion, below 1024px, and in a viewport too short to hold a panel whole.
  *
  * `FeaturesPin` sets `data-pinned` on the stage — and only after ScrollTrigger
@@ -271,10 +271,9 @@ export function Features() {
       id={SECTIONS.features.id}
       // No heading exists to point `aria-labelledby` at, by design.
       aria-label={SECTIONS.features.label}
-      // Standard rhythm. The ~280px pacing break that follows Beliefs B is
-      // expressed as `pb-` on that section, so adding a `pt-` break here would
-      // double it.
-      className="relative overflow-x-clip mt-16 lg:mt-28 py-section lg:py-section-lg"
+      // Pays the pacing break above it (`pt-break`), on top, once — the ~288px
+      // moment after Beliefs B. No `pb-` anywhere; see `app/page.tsx`.
+      className="relative overflow-x-clip pt-break lg:pt-break-lg"
     >
       <FeaturesPin>
         {/* THE FRAME — unpadded coordinate space, and the list itself.

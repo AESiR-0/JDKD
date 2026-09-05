@@ -34,18 +34,21 @@ import { Hero } from "@/components/sections/hero";
  * NO `<main>` HERE. `layout.tsx` already provides `<main id="main">` around
  * these children, along with the skip link, header and footer.
  *
- * PACING BREAKS. Three points in the scroll get roughly 280px instead of the
- * standard `py-section` / `lg:py-section-lg` rhythm. They are expressed as
- * split padding on the section that OWNS the break — never as a spacer element
- * here, and never as a second utility stacked on a `py-`:
+ * VERTICAL RHYTHM. ONE OWNER PER GAP: every section pays its gap ONCE, on its
+ * TOP, and no section anywhere carries bottom padding. The tokens live in
+ * `globals.css` — `beat` (112/192px) is the standard gap, `break` (168/288px)
+ * the pacing break, `band` (56/96px) the label-to-content step inside one.
  *
- *   after Hero      `about.tsx`        pt-[11rem] lg:pt-[17.5rem]
- *   after Beliefs B `beliefs-grid.tsx` pb-[11rem] lg:pb-[17.5rem]
- *   before CTA      `cta.tsx`          pt-[11rem] lg:pt-[17.5rem]
+ *   standard        `pt-beat lg:pt-beat-lg`   every section not listed below
+ *   after Beliefs B `features.tsx`            pt-break lg:pt-break-lg
+ *   before CTA      `cta.tsx`                 pt-break lg:pt-break-lg
  *
- * The hero contributes no rhythm of its own — it is `min-h-svh` with no
- * vertical padding — so About's `pt-` is the whole of the first break. Adding
- * a `pb-` to a neighbour of any of the three would double it.
+ * The Hero→About seam is NOT a break: the hero's wordmark is pinned at
+ * `lg:bottom-[14%]`, so ~126px of empty photograph already sits below the last
+ * glyph, and About pays a plain beat on top of that. A section that opens on a
+ * full-bleed art layer insets that layer from the top by the same token it
+ * pays (`cta.tsx`, `beliefs-grid.tsx`), so a break paints on canvas, never
+ * behind a photograph. Adding a `pb-` anywhere doubles the seam below it.
  */
 export default function Home() {
   return (

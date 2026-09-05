@@ -80,13 +80,13 @@ export function Cta() {
     <section
       id={SECTIONS.enquire.id}
       aria-labelledby={HEADING_ID}
-      // PACING BREAK. One of the three points in the scroll that gets ~280px
-      // instead of the standard rhythm. Split into explicit `pt-` and `pb-`
-      // rather than a `py-` that a second utility then has to fight.
-      className="relative overflow-x-clip pt-[11rem] pb-section lg:pt-[17.5rem] lg:pb-section-lg"
+      // Pays the pacing break above it (`pt-break`), on top, once. The art
+      // below is inset by the same token so the break paints on canvas, not
+      // behind the photograph. No `pb-`; see `app/page.tsx`.
+      className="relative overflow-x-clip pt-break lg:pt-break-lg"
     >
       {/* FULL-BLEED ART — sibling of the frame, behind the reading content. */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-x-0 bottom-0 top-break lg:top-break-lg">
         <ParallaxImage
           src={CTA.image.src}
           alt={CTA.image.alt}
@@ -150,7 +150,7 @@ export function Cta() {
               it finishes and would clip this link's focus ring. */}
           <p className="mt-9 border-t border-line pt-6 text-caption text-ink/80">
             {CONTACT.leasingContact.role} — {CONTACT.leasingContact.name},{" "}
-            <a
+            <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}
               className="text-ink underline decoration-red decoration-2 underline-offset-4"
             >

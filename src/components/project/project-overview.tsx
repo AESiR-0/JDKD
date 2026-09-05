@@ -79,7 +79,7 @@ export function ProjectOverview({ overview }: ProjectOverviewProps) {
             rule closes the table off; every row supplies its own top rule, so
             the two columns end on the same line whatever the row heights. */}
         <dl
-          className={`${EDGE} mt-16 border-b border-line lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-x-16`}
+          className={`${EDGE} mt-band border-b border-line lg:mt-band-lg lg:grid lg:grid-cols-2 lg:gap-x-16`}
         >
           {overview.specs.map((row) => (
             <div key={row.id} className="border-t border-line py-5 lg:py-6">

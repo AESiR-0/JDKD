@@ -82,7 +82,7 @@ export function ProjectGallery({ gallery }: ProjectGalleryProps) {
         {/* BAND TWO — the gallery proper. */}
         <ul
           role="list"
-          className={`${EDGE} mt-14 md:grid md:grid-cols-2 md:gap-8 lg:mt-24 lg:gap-12`}
+          className={`${EDGE} mt-band md:grid md:grid-cols-2 md:gap-8 lg:mt-band-lg lg:gap-12`}
         >
           {rest.map((image, index) => (
             <li

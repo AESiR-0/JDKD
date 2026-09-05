@@ -108,7 +108,7 @@ export const metadata: Metadata = {
    ========================================================================== */
 
 /** The section shell. Full-bleed, owns the rhythm, clips the horizontal axis. */
-const SECTION = "relative overflow-x-clip py-section lg:py-section-lg";
+const SECTION = "relative overflow-x-clip pt-beat lg:pt-beat-lg";
 
 /** The unpadded coordinate space every percentage anchor is measured against. */
 const FRAME = "relative mx-auto w-full max-w-shell";
@@ -130,11 +130,11 @@ const RAIL_COPY = "text-small text-muted";
  * so each restores one explicitly rather than relying on cascade order.
  */
 const TITLE =
-  "block font-display text-[min(12vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink md:text-h1 md:leading-[0.98] lg:text-[min(6.6vw,8rem)] lg:leading-[0.9]";
+  "block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-page";
 
 /** Section display heading. One step below the h1 at every width. */
 const DISPLAY =
-  "block font-display text-[min(11vw,3.5rem)] uppercase leading-[1.02] tracking-tight text-ink md:text-h1 md:leading-[0.98] lg:text-[min(5vw,4.5rem)] lg:leading-[0.94]";
+  "block font-display text-headline-fluid uppercase text-ink md:text-h1 lg:text-display-section";
 
 /** The site's link treatment for a phone number: red hairline underline. */
 const PHONE_LINK =
@@ -333,7 +333,7 @@ function Call() {
         </div>
 
         <div className={`${EDGE} mt-10 lg:mt-16`}>
-          <a
+          <a data-press="row"
             href={leasingContact.phoneHref}
             aria-label={`Call ${leasingContact.name} on ${leasingContact.phoneDisplay}`}
             className={CALL_LINK}
@@ -451,13 +451,14 @@ function Enquiry() {
     <section
       id={SECTIONS.enquire.id}
       aria-labelledby={ENQUIRY_ID}
-      // No `py` of its own: the pine column carries the rhythm, so the colour
-      // reaches the band's true top and bottom edges.
-      className="relative overflow-x-clip"
+      // Pays its own beat like every section. The pine room INSIDE it pays a
+      // band — a room's interior is not a section gap, and letting the column
+      // carry the rhythm is what made three 384px seams hide behind a colour.
+      className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
       <div className={FRAME}>
         {/* THE ROOM. In flow at every width, so it sets the band's height. */}
-        <div className="bg-pine px-gutter py-section md:px-gutter-lg lg:ml-[calc(50%-50vw)] lg:w-[58vw] lg:min-h-[46rem] lg:py-section-lg lg:pl-[calc(50vw_-_50%_+_3.5rem)] lg:pr-20">
+        <div className="bg-pine px-gutter py-band md:px-gutter-lg lg:ml-[calc(50%-50vw)] lg:w-[58vw] lg:min-h-[46rem] lg:py-band-lg lg:pl-[calc(50vw_-_50%_+_3.5rem)] lg:pr-20">
           {/* On pine, `text-muted` measures 3.4:1 and fails AA, so every small
               element in this room is tinted from `--color-ink` instead. */}
           <p className="font-display text-label uppercase italic tracking-label text-ink/80">
@@ -486,7 +487,7 @@ function Enquiry() {
               so its focus ring is not clipped by a mask. */}
           <p className="mt-12 max-w-[46ch] border-t border-red pt-6 text-small text-ink/85">
             {form.notice}{" "}
-            <a href={contact.leasingContact.phoneHref} className={PHONE_LINK}>
+            <a data-press="row" href={contact.leasingContact.phoneHref} className={PHONE_LINK}>
               {contact.leasingContact.phoneDisplay}
             </a>
             .
@@ -645,7 +646,7 @@ function Directions() {
           </p>
         </div>
 
-        <dl className={`${EDGE} mt-14 lg:mt-24`}>
+        <dl className={`${EDGE} mt-band lg:mt-band-lg`}>
           {directions.items.map((item) => (
             <div
               key={item.id}

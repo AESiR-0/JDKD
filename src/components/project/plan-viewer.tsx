@@ -196,7 +196,7 @@ function PlanReadout({ plan, className }: PlanReadoutProps) {
             {plan.legend.map((entry) => (
               <div
                 key={entry.id}
-                className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-t border-line py-3"
+                className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-t border-line py-3 last:border-b last:border-line"
               >
                 <dt className="w-[8ch] shrink-0 text-micro uppercase tracking-label text-ink">
                   {entry.colour}
@@ -216,7 +216,7 @@ function PlanReadout({ plan, className }: PlanReadoutProps) {
             {plan.notes.map((note) => (
               <li
                 key={note}
-                className="border-t border-line py-3 text-small text-muted"
+                className="border-t border-line py-3 text-small text-muted last:border-b last:border-line"
               >
                 {note}
               </li>
@@ -249,7 +249,7 @@ type IconButtonProps = {
 
 function IconButton({ label, disabled, onPress, children }: IconButtonProps) {
   return (
-    <button
+    <button data-press={disabled ? undefined : ""}
       type="button"
       aria-disabled={disabled}
       onClick={() => {
@@ -751,7 +751,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
           {plans.map((plan, index) => {
             const selected = plan.id === active.id;
             return (
-              <button
+              <button data-press
                 key={plan.id}
                 ref={(node) => {
                   tabRefs.current[index] = node;
@@ -871,7 +871,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
             </span>
           </IconButton>
 
-          <button
+          <button data-press={zoomed ? "" : undefined}
             type="button"
             aria-disabled={!zoomed}
             onClick={() => {

@@ -471,7 +471,7 @@ export function SiteHeader() {
             to the eye, and — unlike a translated absolute child — the nav can
             never ride over either of them at the 768px floor. */}
         <div className="mx-auto flex h-14 w-full max-w-shell items-center justify-between gap-4 px-gutter md:h-16 md:gap-6 md:px-gutter-lg lg:gap-8">
-          <Link
+          <Link data-press="row"
             href="/"
             aria-label={UI.homeLink}
             // The bar stays visible above the open sheet, so this is the one
@@ -505,75 +505,9 @@ export function SiteHeader() {
               {NAV_ITEMS.map((item) => {
                 const current = isCurrent(pathname, item.href);
 
-                if (item.id === "projects") {
-                  return (
-                    <li key={item.id} className="relative group">
-                      <Link
-                        href={item.href}
-                        // `page`, never `true`: these are pages. The attribute
-                        // is what a screen reader announces; the colour below is
-                        // the sighted half of the same statement, and neither is
-                        // allowed to carry it alone.
-                        aria-current={current ? "page" : undefined}
-                        className={cx(
-                          "inline-flex items-center gap-1.5 whitespace-nowrap text-label uppercase tracking-label transition-colors duration-200 ease-editorial",
-                          NAV_LINK_TONE[inverted ? "inverted" : "solid"][
-                            current ? "current" : "other"
-                          ],
-                        )}
-                      >
-                        <span>{item.label}</span>
-                        <svg
-                          className="size-3 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
-                          viewBox="0 0 12 12"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          aria-hidden="true"
-                        >
-                          <path d="M2.5 4.5L6 8L9.5 4.5" />
-                        </svg>
-                      </Link>
-
-                      <div className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 transition-[opacity,transform] duration-200 ease-editorial group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100 -translate-y-1 z-50 min-w-[260px]">
-                        <div className="rounded-card border border-line bg-surface/95 p-2 backdrop-blur-[16px] shadow-2xl">
-                          <Link
-                            href="/projects"
-                            className="flex flex-col rounded-sm px-3 py-2.5 transition-colors duration-150 hover:bg-ink/5 focus-visible:bg-ink/5"
-                          >
-                            <span className="text-micro uppercase tracking-label font-sans font-medium text-ink">
-                              All Projects
-                            </span>
-                            <span className="text-caption text-muted">
-                              Portfolio overview & pipeline
-                            </span>
-                          </Link>
-                          <div className="my-1 border-t border-line" />
-                          <Link
-                            href="/projects/jdkd-corporate-tower"
-                            className="flex flex-col rounded-sm px-3 py-2.5 transition-colors duration-150 hover:bg-ink/5 focus-visible:bg-ink/5"
-                          >
-                            <div className="flex items-center justify-between">
-                              <span className="text-micro uppercase tracking-label font-sans font-medium text-ink">
-                                JDKD Corporate Tower
-                              </span>
-                              <span className="rounded bg-pure/10 px-1.5 py-0.5 font-sans text-[10px] uppercase tracking-wider text-pure">
-                                Leasing
-                              </span>
-                            </div>
-                            <span className="text-caption text-muted">
-                              Mohan Cooperative, New Delhi
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                }
-
                 return (
                   <li key={item.id}>
-                    <Link
+                    <Link data-press="row"
                       href={item.href}
                       // `page`, never `true`: these are pages. The attribute
                       // is what a screen reader announces; the colour below is
@@ -601,7 +535,7 @@ export function SiteHeader() {
                 same-document scroll either way, and from an internal route
                 this makes the hop to `/contact#enquire` a client-side
                 navigation with the destination prefetched. */}
-            <Link
+            <Link data-press
               href={enquireHref}
               className={cx(
                 "inline-flex items-center rounded-chip border px-4 py-2 text-micro uppercase tracking-micro transition-colors duration-200 ease-editorial md:px-5 md:py-2.5",
@@ -613,7 +547,7 @@ export function SiteHeader() {
               {NAV_CTA.label}
             </Link>
 
-            <button
+            <button data-press
               ref={toggleRef}
               type="button"
               onClick={() => setOpen((previous) => !previous)}
@@ -665,7 +599,7 @@ export function SiteHeader() {
                   return (
                     <li key={item.id} className="border-b border-line">
                       <div className="flex items-center justify-between py-5 text-h3">
-                        <Link
+                        <Link data-press="row"
                           href={item.href}
                           aria-current={current ? "page" : undefined}
                           onClick={close}
@@ -682,14 +616,14 @@ export function SiteHeader() {
                         />
                       </div>
                       <div className="mb-4 flex flex-col gap-2 border-l border-line pl-4">
-                        <Link
+                        <Link data-press="row"
                           href="/projects"
                           onClick={close}
                           className="block py-1 text-label uppercase tracking-label text-muted hover:text-ink"
                         >
                           All Projects
                         </Link>
-                        <Link
+                        <Link data-press="row"
                           href="/projects/jdkd-corporate-tower"
                           onClick={close}
                           className="flex items-center justify-between py-1 text-label uppercase tracking-label text-ink hover:text-pure"
@@ -706,7 +640,7 @@ export function SiteHeader() {
 
                 return (
                   <li key={item.id} className="border-b border-line">
-                    <Link
+                    <Link data-press="row"
                       href={item.href}
                       aria-current={current ? "page" : undefined}
                       onClick={close}
@@ -735,7 +669,7 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <Link
+          <Link data-press
             href={enquireHref}
             onClick={close}
             className="mt-10 flex w-full items-center justify-center rounded-card border border-ink bg-ink px-7 py-4 text-label uppercase tracking-micro text-canvas"
@@ -750,7 +684,7 @@ export function SiteHeader() {
             <p className="mt-3 text-body text-ink">
               {CONTACT.leasingContact.name}
             </p>
-            <a
+            <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}
               className="mt-1 inline-block text-h3 text-ink underline decoration-red decoration-2 underline-offset-4"
             >
@@ -776,7 +710,7 @@ export function SiteHeader() {
       >
         <ul className="grid grid-cols-3 gap-px">
           <li>
-            <a
+            <a data-press
               href={CONTACT.leasingContact.phoneHref}
               className="flex h-full items-center justify-center bg-ink px-2 py-4 text-center text-micro uppercase tracking-micro text-canvas focus-visible:-outline-offset-2"
             >
@@ -784,7 +718,7 @@ export function SiteHeader() {
             </a>
           </li>
           <li>
-            <a
+            <a data-press
               href={CONTACT.leasingContact.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
@@ -795,7 +729,7 @@ export function SiteHeader() {
             </a>
           </li>
           <li>
-            <Link
+            <Link data-press
               href={enquireHref}
               className="flex h-full items-center justify-center border-l border-line bg-surface px-2 py-4 text-center text-micro uppercase tracking-micro text-ink focus-visible:-outline-offset-2"
             >

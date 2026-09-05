@@ -1,6 +1,9 @@
 import { ImageCard } from "@/components/motion/image-card";
 import { Reveal } from "@/components/motion/reveal";
-import { BUILDINGS, SECTIONS, UNRESOLVED, type BuildingChapter } from "@/lib/content";
+import { VideoCard } from "@/components/motion/video-card";
+import Link from "next/link";
+
+import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } from "@/lib/content";
 
 /**
  * 03 — BUILDINGS & PARKS. Three chapters, alternating dominance.
@@ -102,6 +105,67 @@ function headingId(chapter: BuildingChapter): string {
 }
 
 /* --------------------------------------------------------------------------
+   THE FRAME
+
+   One place decides whether a chapter is a still or a loop, so the three
+   compositions below stay compositions and never grow a second branch each.
+
+   A chapter with footage gets `VideoCard`, which carries its own poster — so
+   the no-JS, reduced-motion and not-yet-scrolled-to cases all still paint a
+   photograph. Everything else keeps `ImageCard` and its parallax.
+
+   The provisional hairline is drawn from the CHAPTER's flag, not the image's.
+   A chapter now supplies its own artwork, and the two can disagree: the still
+   behind a video frame may still be a stand-in while the footage is real.
+-------------------------------------------------------------------------- */
+
+function ChapterFrame({
+  chapter,
+  sizes,
+  frame,
+  shift,
+  scale,
+}: {
+  chapter: BuildingChapter;
+  sizes: string;
+  frame: string;
+  shift: number;
+  scale: number;
+}) {
+  const className = chapter.placeholder
+    ? `${frame} ${PROVISIONAL_FRAME}`
+    : frame;
+
+  if (chapter.video) {
+    return (
+      <VideoCard
+        src={chapter.video.src}
+        poster={chapter.video.poster}
+        webm={chapter.video.webm}
+        // The FOOTAGE's own description. Never `chapter.image.alt` — the still
+        // behind a video frame may still be a stand-in while the clip is real.
+        alt={chapter.video.alt}
+        delay={0.08}
+        className={className}
+      />
+    );
+  }
+
+  return (
+    <ImageCard
+      src={chapter.image.src}
+      alt={chapter.image.alt}
+      sizes={sizes}
+      surface="ink"
+      shift={shift}
+      scale={scale}
+      delay={0.08}
+      className={className}
+    />
+  );
+}
+
+/* --------------------------------------------------------------------------
    CHAPTER ONE — dominance right
 -------------------------------------------------------------------------- */
 
@@ -124,19 +188,12 @@ function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
 
       {/* EDGE-BLEED-RIGHT — off the right viewport edge from `lg`; a plain
           full-width plate below it. */}
-      <ImageCard
-        src={chapter.image.src}
-        alt={chapter.image.alt}
+      <ChapterFrame
+        chapter={chapter}
         sizes="(min-width: 1024px) 52vw, 100vw"
-        surface="ink"
+        frame={`mt-10 lg:mt-0 ${FRAME_ONE}`}
         shift={5}
         scale={1.06}
-        delay={0.08}
-        className={
-          chapter.image.placeholder
-            ? `mt-10 lg:mt-0 ${FRAME_ONE} ${PROVISIONAL_FRAME}`
-            : `mt-10 lg:mt-0 ${FRAME_ONE}`
-        }
       />
     </article>
   );
@@ -150,7 +207,7 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
   const id = headingId(chapter);
 
   return (
-    <article aria-labelledby={id} className="relative mt-24 lg:mt-44">
+    <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
       {/* RIGHT RAIL — flush to the right gutter and set right-ragged from `lg`,
           so title, rule and copy all hang off the same edge. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[26%] lg:right-gutter-lg lg:z-10 lg:w-[34%] lg:px-0 lg:text-right">
@@ -164,19 +221,12 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
       </div>
 
       {/* EDGE-BLEED-LEFT — off the left viewport edge from `lg`. */}
-      <ImageCard
-        src={chapter.image.src}
-        alt={chapter.image.alt}
+      <ChapterFrame
+        chapter={chapter}
         sizes="(min-width: 1024px) 48vw, 100vw"
-        surface="ink"
+        frame={`mt-10 lg:mt-0 ${FRAME_TWO}`}
         shift={5}
         scale={1.06}
-        delay={0.08}
-        className={
-          chapter.image.placeholder
-            ? `mt-10 lg:mt-0 ${FRAME_TWO} ${PROVISIONAL_FRAME}`
-            : `mt-10 lg:mt-0 ${FRAME_TWO}`
-        }
       />
     </article>
   );
@@ -190,7 +240,7 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
   const id = headingId(chapter);
 
   return (
-    <article aria-labelledby={id} className="relative mt-24 lg:mt-44">
+    <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
       {/* LEFT EDGE — from `lg` the title straddles the image's top edge:
           `-top-[1.375rem]` is exactly half of the 44px line box `text-h2`
           produces, so the line sits centred on the edge rather than above or
@@ -206,19 +256,12 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
           frame's own inset. The section's `overflow-x-clip` absorbs the
           scrollbar delta. */}
       <div className="relative mt-10 ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] lg:mt-0">
-        <ImageCard
-          src={chapter.image.src}
-          alt={chapter.image.alt}
+        <ChapterFrame
+          chapter={chapter}
           sizes="100vw"
-          surface="ink"
+          frame={FRAME_THREE}
           shift={4}
           scale={1.05}
-          delay={0.08}
-          className={
-            chapter.image.placeholder
-              ? `${FRAME_THREE} ${PROVISIONAL_FRAME}`
-              : FRAME_THREE
-          }
         />
 
         {/* Contrast under the crossing title. A static gradient, not a filter:
@@ -260,7 +303,7 @@ export function Buildings() {
       // No visible section heading — the three chapter titles are the headings,
       // so the accessible name comes from the registry.
       aria-label={SECTIONS.buildings.label}
-      className="relative overflow-x-clip py-section lg:py-section-lg"
+      className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
       {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
@@ -286,10 +329,27 @@ export function Buildings() {
 
         {/* ── THE THREE CHAPTERS ─────────────────────────────────────────
             Dominance swings right, then left, then full width. */}
-        <div className="mt-20 lg:mt-36">
+        <div className="mt-band lg:mt-band-lg">
           <ChapterOne chapter={chapterOne} />
           <ChapterTwo chapter={chapterTwo} />
           <ChapterThree chapter={chapterThree} />
+        </div>
+
+        {/* THE WAY OUT. Three chapters is a sample, not the record, so the
+            section that shows them has to say where the rest is. Left edge, on
+            the gutter, in the site's one link treatment: a red hairline under a
+            small uppercase label. NOT inside a `Reveal` — its mask keeps
+            `overflow: hidden` after it finishes and would clip this control's
+            focus ring. */}
+        <div className="mt-beat px-gutter md:px-gutter-lg lg:mt-beat-lg">
+          <Link
+            data-press
+            href={BUILDINGS_CTA.href}
+            className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
+          >
+            {BUILDINGS_CTA.label}
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
         </div>
       </div>
     </section>

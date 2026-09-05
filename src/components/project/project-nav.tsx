@@ -63,13 +63,13 @@ export function ProjectNav({ items, label = "On this page" }: ProjectNavProps) {
   return (
     <nav
       aria-label={label}
-      className="sticky top-14 z-40 border-y border-line bg-canvas/95 md:top-16"
+      className="sticky top-14 z-40 mt-band border-y border-line bg-canvas/95 md:top-16 lg:mt-band-lg"
     >
       {/* `list-none` strips list semantics in Safari; the role puts them back. */}
       <ul role="list" className={SCROLLER}>
         {items.map((item) => (
           <li key={item.id} className="shrink-0">
-            <a href={`#${item.id}`} className={LINK}>
+            <a data-press="row" href={`#${item.id}`} className={LINK}>
               {item.label}
             </a>
           </li>

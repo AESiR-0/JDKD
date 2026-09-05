@@ -76,7 +76,7 @@ export function ProjectLocation({ connectivity }: ProjectLocationProps) {
         </div>
 
         {/* DISTANCES BAND — the list is the flow child and sets the height. */}
-        <div className="relative mt-16 lg:mt-28">
+        <div className="relative mt-band lg:mt-band-lg">
           <ol role="list" className={`${EDGE} lg:w-[46%]`}>
             {connectivity.points.map((point) => (
               <li

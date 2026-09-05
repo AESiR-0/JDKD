@@ -74,7 +74,7 @@ export function FaqRows({ className }: FaqRowsProps) {
         return (
           <li key={item.id} className="border-b border-line">
             <h3>
-              <button
+              <button data-press="row"
                 type="button"
                 id={buttonId}
                 aria-expanded={isOpen}
@@ -90,7 +90,7 @@ export function FaqRows({ className }: FaqRowsProps) {
                 >
                   <span className="absolute left-0 top-1/2 block h-hair w-full -translate-y-1/2 bg-line-strong transition-colors duration-300 ease-editorial group-hover:bg-red" />
                   <span
-                    className={`absolute left-1/2 top-0 block h-full w-hair -translate-x-1/2 bg-line-strong transition-[transform,background-color] duration-500 ease-editorial group-hover:bg-red ${
+                    className={`absolute left-1/2 top-0 block h-full w-hair -translate-x-1/2 bg-line-strong transition-[transform,background-color] duration-[280ms] ease-editorial group-hover:bg-red ${
                       isOpen ? "rotate-90" : "rotate-0"
                     }`}
                   />
@@ -110,7 +110,7 @@ export function FaqRows({ className }: FaqRowsProps) {
               role="region"
               aria-labelledby={buttonId}
               inert={!isOpen}
-              className={`grid transition-[grid-template-rows] duration-500 ease-editorial ${
+              className={`grid transition-[grid-template-rows] duration-[280ms] ease-editorial ${
                 isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}
             >

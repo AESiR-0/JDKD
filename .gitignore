@@ -44,3 +44,9 @@ next-env.d.ts
 .claude/
 
 .vercel
+
+# Client footage — 2.1 GB of raw drone/camera source.
+# The zip and the extracted originals stay OUT of the repo and off the CDN.
+# Only the transcoded web derivatives in public/video/ are committed.
+/public/*.zip
+/assets-source/

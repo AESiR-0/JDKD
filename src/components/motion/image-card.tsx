@@ -47,7 +47,7 @@ export function ImageCard({
   sizes,
   className,
   delay = 0,
-  duration = 1.1,
+  duration = 0.8,
   shift = 6,
   scale = 1.08,
   surface = "ink",
@@ -60,10 +60,37 @@ export function ImageCard({
     if (!frame) return;
 
     let opened = false;
+    let settle = 0;
     const open = () => {
       if (opened) return;
       opened = true;
       frame.setAttribute("data-expand-in", "");
+
+      /*
+       * PER-FRAME FAILSAFE, and the reason this exists.
+       *
+       * `data-expand-in` only asks for the clip to animate open. It does not
+       * make the picture visible — the CSS transition does, and a transition
+       * that never runs leaves the frame clipped to nothing with the attribute
+       * sitting on it, looking for all the world like it worked.
+       *
+       * The boot failsafe in `app/layout.tsx` cannot catch that: it drops
+       * `expand-js` only when NO frame anywhere has opened, and these had. So
+       * every frame now guarantees its own end state — if the transition has
+       * not reported finishing shortly after it should have, `data-expand`
+       * comes off, the element leaves the rule's selector entirely, and the
+       * photograph simply stands. An unanimated picture beats an invisible one.
+       */
+      const ms = (delay + duration) * 1000 + 400;
+      const done = () => {
+        window.clearTimeout(settle);
+        frame.removeEventListener("transitionend", done);
+      };
+      frame.addEventListener("transitionend", done);
+      settle = window.setTimeout(() => {
+        frame.removeEventListener("transitionend", done);
+        frame.removeAttribute("data-expand");
+      }, ms);
     };
 
     // See `Reveal` — an observer that never delivers its initial callback is
@@ -77,7 +104,9 @@ export function ImageCard({
           observer.disconnect();
         }
       },
-      { rootMargin: "0px 0px -10% 0px" },
+      // Opens BEFORE the frame is on screen, so the wipe is finished by the
+      // time it is looked at rather than running under the reader.
+      { rootMargin: "300px 0px" },
     );
     observer.observe(frame);
 
@@ -88,8 +117,11 @@ export function ImageCard({
     return () => {
       observer.disconnect();
       window.clearTimeout(failsafe);
+      window.clearTimeout(settle);
     };
-  }, []);
+    // `delay`/`duration` feed the settle timer, so a change to either must
+    // rebuild it rather than leave a stale deadline running.
+  }, [delay, duration]);
 
   const style = {
     "--expand-delay": `${delay}s`,
