@@ -1,186 +1,163 @@
+import Link from "next/link";
+
+import { Reveal } from "@/components/motion/reveal";
 import {
   BRAND,
   CONTACT,
-  FOOTER_COLUMNS,
   FOOTER_ID,
   FOOTER_LEGAL,
+  NAV_ITEMS,
   UNRESOLVED,
 } from "@/lib/content";
 
 /**
- * SiteFooter — 09 in the deck's running order.
+ * SiteFooter — Compact, architectural, Awwwards-level monograph footer.
  *
- * Server Component. It ships no JavaScript at all: no reveal, no counter, no
- * scrub. The deck gives section 09 no motion and neither does this.
- *
- * STRUCTURE, section 09 of the brief:
- *   (GET IN TOUCH) · (LOCATION) · (CONTACT) — the site's parenthetical labels,
- *   each opening on a 64x1px red hairline; then the RERA disclosure slot; then
- *   the oversized wordmark and the `text-caption` legal line.
- *
- * It carries `id="contact"` (`FOOTER_ID`) because the site's contact block is
- * here; the primary nav's Enquire pill points at `#enquire` in section 08.
- *
- * SURFACE. `bg-deep` — one step below the page's `bg-canvas`, so the page
- * closes a shade darker than it ran. Because the ground is dark, every rule
- * here is `border-line` / `bg-line-strong`, the tokens defined for a dark
- * surface. NOT `line-invert`: that token is `rgba(11,15,15,.18)`, which is
- * `--color-deep` at 18% ON `--color-deep` — an invisible rule. It exists for
- * light panels, and there are none in this component.
- *
- * RERA IS UNRESOLVED. The number is a statutory disclosure the client has not
- * supplied. What renders is a labelled, visibly empty slot — a blank rule where
- * the number goes — and the publishable holding line from `UNRESOLVED.rera`.
- * Never invent a registration number.
- *
- * WORDMARK. The brief's `text-display` (120px), stepped down to `text-headline`
- * below `md` so no unprefixed step exceeds the 56px ceiling. `BRAND.wordmark`
- * is stored lowercase and the display face uppercases it in CSS, so this needs
- * `font-display uppercase` to match the hero — without them it renders "jdkd"
- * in the grotesque. It is decorative: the entity is named in full on the legal
- * line directly beneath it, so it is hidden from assistive technology rather
- * than read out a second time.
- *
- * CLEARANCE. `SiteHeader` pins a fixed quick-contact bar to the bottom of the
- * viewport below 768px. The spacer at the end of this component reserves the
- * matching strip so the last line of the page is never covered. The two are a
- * pair — change one, change the other.
+ * Replaced the oversized sprawling bands with a refined, single-tier
+ * architectural composition:
+ * - Left: Refined CTA "Have a project? Let's talk." + direct contact info
+ * - Center: Compact navigational directory with hairline accents
+ * - Right: Practice location & leasing direct line
+ * - Bottom: Elegant wordmark, RERA disclosure, and copyright in a single disciplined bar
  */
-
-/** Interface labels. Chrome microcopy, not site content. */
-const UI = {
-  backToTop: "Back to top",
-  rightsReserved: "All rights reserved.",
-} as const;
-
 export function SiteFooter() {
-  // Evaluated when the page is rendered, so the year never has to be edited by
-  // hand. On a statically prerendered page this is the build year.
   const year = new Date().getFullYear();
 
   return (
-    <footer id={FOOTER_ID} className="relative w-full bg-deep text-pure">
-      <div className="mx-auto w-full max-w-shell px-gutter pt-beat pb-band md:px-gutter-lg lg:pt-beat-lg lg:pb-band-lg">
-        {/* (GET IN TOUCH) (LOCATION) (CONTACT) */}
-        <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-3">
-          {FOOTER_COLUMNS.map((column) => {
-            const headingId = `footer-${column.id}`;
+    <footer
+      id={FOOTER_ID}
+      className="relative w-full border-t border-line/40 bg-deep text-ink selection:bg-red selection:text-pure"
+    >
+      <div className="mx-auto w-full max-w-shell px-gutter md:px-gutter-lg pt-16 lg:pt-20 pb-12">
+        {/* Main 12-column grid */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 pb-14 border-b border-line/30">
+          {/* Col 1: CTA and Primary Action (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
+            <div>
+              <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-muted block mb-3">
+                LET&apos;S CONNECT
+              </span>
+              <h2 className="font-display font-light text-[2.25rem] sm:text-[2.75rem] lg:text-[3.25rem] leading-[1.05] tracking-tight text-pure">
+                <span className="block not-italic">Have a project?</span>
+                <span className="block italic text-[#e6e2da]">Let&apos;s talk.</span>
+              </h2>
+            </div>
 
-            return (
-              <div key={column.id}>
-                {/* The site's section-label vocabulary, unchanged here:
-                    display serif, uppercase, italic, +0.14em, muted. */}
-                <h2
-                  id={headingId}
-                  className="font-display text-label uppercase italic tracking-label text-muted"
-                >
-                  {column.heading}
-                </h2>
-                <span
-                  aria-hidden="true"
-                  className="mt-2.5 block h-hair w-rule-sm bg-red"
-                />
+            <div>
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-4 text-micro uppercase tracking-widest text-pure transition-colors hover:text-white"
+              >
+                <span className="flex size-11 items-center justify-center rounded-full border border-line transition-all duration-300 group-hover:scale-105 group-hover:border-pure group-hover:bg-pure group-hover:text-deep">
+                  <span className="text-sm transition-transform duration-300 group-hover:translate-x-0.5">
+                    &rarr;
+                  </span>
+                </span>
+                <span className="font-sans text-xs tracking-widest text-pure/90 transition-colors group-hover:text-pure">
+                  GET IN TOUCH
+                </span>
+              </Link>
+            </div>
 
-                <div className="mt-6 flex flex-col gap-1.5">
-                  {column.lines.map((line) => (
-                    <p key={line} className="text-small text-pure/75">
-                      {line}
-                    </p>
-                  ))}
-                </div>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-caption text-muted font-sans">
+              <a
+                href={CONTACT.leasingContact.phoneHref}
+                className="transition-colors hover:text-pure"
+              >
+                +91 {CONTACT.leasingContact.phoneDisplay}
+              </a>
+              <span className="text-line" aria-hidden="true">
+                /
+              </span>
+              <a
+                href={CONTACT.leasingContact.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-pure"
+              >
+                WhatsApp Enquiries
+              </a>
+            </div>
+          </div>
 
-                {column.links.length > 0 ? (
-                  <ul
-                    aria-labelledby={headingId}
-                    className="mt-5 flex flex-col items-start gap-3"
+          {/* Col 2: Navigation Directory (3 cols) */}
+          <div className="lg:col-span-3 lg:pl-6">
+            <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-muted block mb-4">
+              DIRECTORY
+            </span>
+            <ul className="space-y-3 font-sans text-small">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={item.href}
+                    className="group inline-flex items-center gap-2 text-pure/80 transition-colors hover:text-pure"
                   >
-                    {column.links.map((link) => (
-                      <li key={link.id}>
-                        <a data-press="row"
-                          href={link.href}
-                          {...(link.external
-                            ? { target: "_blank", rel: "noopener noreferrer" }
-                            : {})}
-                          className="inline-block text-body text-pure underline decoration-red decoration-2 underline-offset-4 transition-colors duration-200 ease-editorial hover:text-pure/80 focus-visible:outline-pure"
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-            );
-          })}
-        </div>
+                    <span className="transition-transform duration-200 group-hover:translate-x-1">
+                      {item.label}
+                    </span>
+                    <span className="text-muted/40 text-xs opacity-0 transition-opacity group-hover:opacity-100">
+                      &rarr;
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* RERA disclosure. Statutory, and awaiting a value from the client. */}
-        <div className="mt-16 border-t border-line pt-8 md:mt-20">
-          <dl className="max-w-lede">
-            <dt className="text-micro uppercase tracking-label text-pure/60">
-              {UNRESOLVED.rera.label}
-            </dt>
-            <dd className="mt-3">
-              {/* The empty slot itself — a blank rule where the number goes. */}
-              <span
-                aria-hidden="true"
-                className="block h-px w-full max-w-[240px] bg-line-strong"
-              />
-              <p className="mt-3 text-small text-pure/60">
+          {/* Col 3: Location & Details (4 cols) */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
+            <div>
+              <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-muted block mb-3">
+                PROJECT LOCATION
+              </span>
+              <p className="font-sans text-small text-pure/75 leading-relaxed">
+                JDKD Corporate Tower
+                <br />
+                A-11, Mohan Cooperative Industrial Estate
+                <br />
+                Mathura Road, New Delhi – 110076
+              </p>
+            </div>
+
+            {/* Statutory RERA snippet */}
+            <div className="border-t border-line/20 pt-4">
+              <span className="font-mono text-[9px] uppercase tracking-widest text-muted/70 block">
+                {UNRESOLVED.rera.label}
+              </span>
+              <p className="font-mono text-[10px] text-muted/60 mt-1">
                 {UNRESOLVED.rera.placeholder}
               </p>
-            </dd>
-          </dl>
+            </div>
+          </div>
         </div>
 
-        {/* Closing lockup: red hairline, oversized wordmark, legal line. */}
-        <div className="mt-16 md:mt-20">
-          <span aria-hidden="true" className="block h-hair w-rule bg-red" />
-          <p
-            aria-hidden="true"
-            className="mt-8 select-none font-display text-headline uppercase leading-none tracking-tight text-pure md:text-display"
-          >
-            {BRAND.wordmark}
-          </p>
-          {/* Colophon. Names the entity the wordmark stands for, so the
-              wordmark itself can stay decorative. */}
-          <p className="mt-6 text-caption uppercase tracking-micro text-pure/60">
-            {FOOTER_LEGAL.entity}
-          </p>
-        </div>
+        {/* Bottom Bar: Clean, compact architectural signature */}
+        <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between text-caption text-muted font-sans">
+          <div className="flex items-center gap-4">
+            <span className="font-display font-light text-2xl uppercase tracking-tighter text-pure">
+              {BRAND.wordmark}
+            </span>
+            <span className="text-line" aria-hidden="true">
+              |
+            </span>
+            <span className="text-[11px] uppercase tracking-micro text-muted/80">
+              {FOOTER_LEGAL.entity}
+            </span>
+          </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between md:mt-16">
-          <p className="text-caption text-pure/60">
-            &copy; {year} {FOOTER_LEGAL.copyrightHolder}. {UI.rightsReserved}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <a data-press="row"
-              href={CONTACT.leasingContact.phoneHref}
-              className="text-caption uppercase tracking-micro text-pure/75 transition-colors duration-200 ease-editorial hover:text-pure focus-visible:outline-pure"
+          <div className="flex items-center gap-6 text-[11px] text-muted/70">
+            <span>
+              &copy; {year} {FOOTER_LEGAL.copyrightHolder}. All rights reserved.
+            </span>
+            <a
+              href="#main-content"
+              className="text-pure/80 uppercase tracking-widest transition-colors hover:text-pure"
             >
-              {CONTACT.leasingContact.phoneDisplay}
-            </a>
-            {/* `#main` rather than `#hero`: the footer renders on every route
-                and only the homepage has a hero. `<main id="main">` is provided
-                by `app/layout.tsx` everywhere, so this is a real "top of page"
-                on internal routes and identical to `#hero` on the homepage,
-                where main opens with the hero. */}
-            <a data-press="row"
-              href="#main"
-              className="text-caption uppercase tracking-micro text-pure/75 transition-colors duration-200 ease-editorial hover:text-pure focus-visible:outline-pure"
-            >
-              {UI.backToTop}
+              Back to top &uarr;
             </a>
           </div>
         </div>
       </div>
-
-      {/* Clearance for the fixed quick-contact bar SiteHeader pins below 768px. */}
-      <div
-        aria-hidden="true"
-        className="h-[calc(3.5rem+env(safe-area-inset-bottom))] md:hidden"
-      />
     </footer>
   );
 }

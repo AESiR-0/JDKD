@@ -124,11 +124,26 @@
   --text-headline-fluid--line-height: 1.02;
   --text-headline-fluid--letter-spacing: -0.045em;
 
-  --text-display-section: min(5.2vw, 5rem); /* section h2, lg: */
+  /* THE FLOOR IS NOT DECORATION — IT STOPS THE HEADING SHRINKING AS THE
+     WINDOW GROWS.
+
+     Both fluid tiers are the `lg:` step of a chain whose `md:` step is
+     `text-h1` (5rem / 80px). Written as `min()` they had no lower bound, so at
+     the moment the `lg:` breakpoint took over at 1024px a section heading fell
+     from 80px to 53px and a route h1 from 80px to 67.6px — the type got
+     SMALLER as the viewport got BIGGER, and only climbed back at 1538px and
+     1212px respectively. `clamp()` puts the `md:` step in as the floor, so
+     every step in the chain is monotonic: 56px → 80px → fluid.
+
+     The upper bound on the section tier was also 5rem, exactly equal to the
+     `md:` step it replaces — so above 1538px the utility resolved to the size
+     it was stepping up from and did nothing at all. 6.25rem gives it somewhere
+     to go on a wide monitor while leaving every width below 1538px untouched. */
+  --text-display-section: clamp(5rem, 5.2vw, 6.25rem); /* section h2, lg: */
   --text-display-section--line-height: 0.95;
   --text-display-section--letter-spacing: -0.045em;
 
-  --text-display-page: min(6.6vw, 7.5rem); /* route h1, lg: */
+  --text-display-page: clamp(5rem, 6.6vw, 7.5rem); /* route h1, lg: */
   --text-display-page--line-height: 0.92;
   --text-display-page--letter-spacing: -0.045em;
 
@@ -378,7 +393,7 @@ html.expand-js [data-expand][data-expand-in][data-expand-in] {
    this rule and the hover fade would be lost.
 
    TWO SHAPES:
-     default   scale(0.97) — buttons, pills, icon controls
+     default   scale(0.96) — buttons, pills, icon controls
      "row"     opacity     — full-width text rows, where scaling a 24px serif
                              line distorts the type instead of acknowledging
                              the tap
@@ -389,12 +404,16 @@ html.expand-js [data-expand][data-expand-in][data-expand-in] {
 
 [data-press] {
   transition-property: transform, opacity, color, background-color, border-color;
-  transition-duration: 200ms;
+  /* 150ms, not the 200ms this shipped with. Press acknowledgement is the one
+     motion on the site a visitor can trigger repeatedly, and the rule for that
+     tier is a specific value rather than a range: anything slower reads as the
+     interface thinking rather than as the interface hearing. */
+  transition-duration: 150ms;
   transition-timing-function: var(--ease-editorial);
 }
 
 [data-press]:active {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 [data-press="row"]:active {

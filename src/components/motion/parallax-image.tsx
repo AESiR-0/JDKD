@@ -182,7 +182,12 @@ export function ParallaxImage({
     >
       <div
         ref={layerRef}
-        className="absolute inset-x-0 will-change-transform"
+        // NO `will-change`. It was promoting every parallax layer on the
+        // page for the document's whole life — including the ones
+        // off-screen — and this page now hands it a full-bleed 80svh
+        // surface. Add it back only if first-frame stutter is actually
+        // observed, and scope it to a live tween.
+        className="absolute inset-x-0"
         // Overscan: the drift can never reach the frame edge.
         style={{ top: `-${cappedShift}%`, bottom: `-${cappedShift}%` }}
       >
@@ -192,7 +197,16 @@ export function ParallaxImage({
           fill
           sizes={sizes}
           preload={preload}
-          className={cx("object-cover", imageClassName)}
+          // A 1px inset outline at oklch(1 0 0 / 0.1). The frame paints
+        // `bg-deep` behind an image sitting on `canvas`, so a dark edge
+        // in the photograph — a ceiling, a night sky — dissolves into the
+        // ground with nothing separating them. Pure white at 10%, never
+        // `--color-line`: that token is warm-tinted ink and picks up the
+        // surface beneath, which reads as dirt on the image edge.
+        className={cx(
+          "object-cover outline outline-1 -outline-offset-1 outline-[oklch(1_0_0_/_0.1)]",
+          imageClassName,
+        )}
         />
       </div>
       {children}

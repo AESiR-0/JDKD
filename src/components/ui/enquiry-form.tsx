@@ -21,10 +21,18 @@ import { ASSET, CONTACT, CTA, ENQUIRY_FIELDS } from "@/lib/content";
  * markup, labels and states do not need to change.
  *
  * FIELD STYLING follows `design-system/actions-forms.html`: underline-only
- * inputs, no boxes; the underline moves to #C61D24 on focus and to
+ * inputs, no boxes; the underline brightens on focus and moves to
  * `--line-strong` once a field holds a value. The global `:focus-visible` ring
  * is deliberately left intact on top of that — the coloured underline is a
  * decoration, not an accessible focus indicator.
+ *
+ * THE FOCUS UNDERLINE IS WHITE, NOT RED, AND THAT IS A CORRECTION.
+ * It was `focus:border-red`, which is the site's active colour and reads
+ * correctly on `--color-canvas` at 3.1:1. But this form only ever ships on
+ * `--color-pine` — the contact room, the home CTA and the project enquiry
+ * panel are all pine — and #C61D24 on #254441 measures 1.82:1, so the designed
+ * focus state was invisible on every surface it actually had. `--color-pure`
+ * measures 10.6:1 there. A brand colour nobody can see is not a brand cue.
  *
  * NO MOTION. Reveal masks keep `overflow: hidden` after they finish, which would
  * clip the focus ring on anything focusable inside them, so interactive blocks
@@ -36,20 +44,40 @@ type SubmitStatus = "idle" | "unavailable";
 export type EnquiryFormProps = {
   /** Id of the heading that names this form — normally the section's `<h2>`. */
   labelledBy: string;
+  /**
+   * Id of the no-backend disclosure that sits above the fields.
+   *
+   * Sighted visitors meet that sentence on the way down to the first label.
+   * Someone who lands on the form by jumping between form controls does not,
+   * and would start filling in required fields with no idea nothing is sent —
+   * so the page hands its id in here and it is announced with the form itself.
+   * The disclosure stays a real, visible paragraph on the page; this only
+   * makes sure it is not skipped past.
+   */
+  describedBy?: string;
   className?: string;
 };
 
 // `placeholder:text-muted` (5.4:1 on white), not an alpha-reduced variant —
 // the phone field's placeholder carries the only format hint in the form, so it
 // has to clear WCAG AA. `text-muted/60` computed to ~2.4:1.
+// The underline is the only chrome a field has, so it is also the only thing
+// that can carry a state change — hence a real transition on it. `border-color`
+// is named rather than `transition-colors`, which would also animate `color`
+// and `background-color` on an element where neither ever moves. 150ms matches
+// `[data-press]`: a field is touched as often as a button.
 const FIELD_BASE =
-  "w-full border-b bg-transparent py-3 text-body text-ink placeholder:text-muted focus:border-red";
+  "w-full border-b bg-transparent py-3 text-body text-ink transition-[border-color] duration-150 ease-editorial placeholder:text-muted focus:border-pure";
 
 function emptyValues(): Record<string, string> {
   return Object.fromEntries(ENQUIRY_FIELDS.map((field) => [field.id, ""]));
 }
 
-export function EnquiryForm({ labelledBy, className }: EnquiryFormProps) {
+export function EnquiryForm({
+  labelledBy,
+  describedBy,
+  className,
+}: EnquiryFormProps) {
   const uid = useId();
   const [values, setValues] = useState<Record<string, string>>(emptyValues);
   const [status, setStatus] = useState<SubmitStatus>("idle");
@@ -74,7 +102,8 @@ export function EnquiryForm({ labelledBy, className }: EnquiryFormProps) {
     <form
       onSubmit={handleSubmit}
       aria-labelledby={labelledBy}
-      aria-describedby={consentId}
+      // Disclosure first, then consent — reading order, not id order.
+      aria-describedby={describedBy ? `${describedBy} ${consentId}` : consentId}
       className={`w-full max-w-[460px] rounded-card border border-line bg-surface p-6 sm:p-7 ${className ?? ""}`}
     >
       <div className="flex flex-col gap-5">
@@ -141,10 +170,19 @@ export function EnquiryForm({ labelledBy, className }: EnquiryFormProps) {
       </button>
 
       {/* Live region is always mounted so the message is announced when it
-          appears. It collapses to nothing while the form is untouched. */}
+          appears. It collapses to nothing while the form is untouched.
+
+          IT IS SET AT THE WEIGHT OF THE THING IT IS SAYING. This was
+          `text-caption text-muted` — 12px grey, the quietest type in the form
+          and a step BELOW the consent line above it. It is the answer to the
+          only action this form has, and the moment it fires it is the most
+          important sentence on the page, so it takes `text-small text-ink`
+          over the same red hairline the disclosure above the fields uses.
+          Red is legal here for the same reason it is legal there: a 1px rule,
+          never a fill. */}
       <div role="status" aria-live="polite">
         {status === "unavailable" ? (
-          <p className="mt-6 border-t border-line pt-4 text-caption text-muted">
+          <p className="mt-6 border-t border-red pt-4 text-small text-ink">
             Online enquiries are not connected yet, so nothing was sent. Call{" "}
             {CONTACT.leasingContact.name} on{" "}
             <a data-press="row"

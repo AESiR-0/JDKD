@@ -50,3 +50,13 @@ next-env.d.ts
 # Only the transcoded web derivatives in public/video/ are committed.
 /public/*.zip
 /assets-source/
+
+# Client source drops extracted into public/. These are raw camera/drone
+# originals — gigabytes of them — and public/ is served verbatim, so anything
+# left here would deploy. Only the transcoded derivatives in public/video and
+# public/images are committed.
+/public/A-11/
+/public/A23/
+/public/M-82/
+/public/M39/
+/.tmp-hls-src/

@@ -2218,6 +2218,19 @@ export type Direction = {
   readonly id: string;
   readonly mode: string;
   readonly detail: string;
+  /**
+   * The distance, hung under the mode on `/contact` as a measured figure.
+   *
+   * EVERY VALUE HERE IS A VERBATIM SUBSTRING OF `detail` — it is the same
+   * confirmed number, set rather than restated, so the column cannot drift
+   * away from the sentence beside it.
+   *
+   * OPTIONAL, AND THE GAP IS THE POINT. `road` has no distance because none
+   * was ever confirmed for it, so its cell renders empty. A blank cell in a
+   * measured drawing is honest; the moment someone fills it with "~6 min" the
+   * page is inventing facts about a real building. Leave it blank.
+   */
+  readonly mark?: string;
 };
 
 export type ContactPageContent = {
@@ -2328,6 +2341,7 @@ export const CONTACT_PAGE: ContactPageContent = {
       {
         id: "metro",
         mode: "By metro",
+        mark: "350 m",
         detail:
           "Sarita Vihar station on the Violet Line is 350 m from the site — a short walk down Mathura Road.",
       },
@@ -2340,11 +2354,13 @@ export const CONTACT_PAGE: ContactPageContent = {
       {
         id: "landmark",
         mode: "Nearest landmark",
+        mark: "500 m",
         detail: "Apollo Hospital is 500 m away on the same road.",
       },
       {
         id: "noida",
         mode: "From NOIDA",
+        mark: "5 km",
         detail: "The NOIDA business hub is 5 km from the site.",
       },
     ],
