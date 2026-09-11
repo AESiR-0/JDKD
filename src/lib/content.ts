@@ -675,6 +675,7 @@ export type ChapterVideo = {
   readonly src: string;
   readonly poster: string;
   readonly webm: boolean;
+  readonly hls?: string;
   /**
    * Describes THE FOOTAGE, and must never be taken from `image.alt`.
    *
@@ -721,6 +722,7 @@ export const BUILDINGS: readonly [
     image: IMAGES.parkOne,
     video: {
       src: "/video/a23-aerial",
+      hls: "/video/hls/a23-aerial/index.m3u8",
       poster: "/video/a23-aerial-poster.jpg",
       webm: false,
       alt: "Aerial view of JDKD Corporate Park at plot A-23, its green glass elevation running alongside the elevated metro line.",
@@ -734,6 +736,7 @@ export const BUILDINGS: readonly [
     image: IMAGES.parkTwo,
     video: {
       src: "/video/m82-rooftop",
+      hls: "/video/hls/m82-rooftop/index.m3u8",
       poster: "/video/m82-rooftop-poster.jpg",
       webm: false,
       alt: "The M-82 property at dusk, its rooftop level lit and in service above the street.",
@@ -747,6 +750,7 @@ export const BUILDINGS: readonly [
     image: IMAGES.parkThree,
     video: {
       src: "/video/m39-reveal",
+      hls: "/video/hls/m39-reveal/index.m3u8",
       poster: "/video/m39-reveal-poster.jpg",
       webm: true,
       alt: "The JDKD mark on the M-39 frontage, the view drawing back to the market street below.",

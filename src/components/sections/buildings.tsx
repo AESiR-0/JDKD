@@ -140,6 +140,7 @@ function ChapterFrame({
     return (
       <VideoCard
         src={chapter.video.src}
+        hls={chapter.video.hls}
         poster={chapter.video.poster}
         webm={chapter.video.webm}
         // The FOOTAGE's own description. Never `chapter.image.alt` — the still
