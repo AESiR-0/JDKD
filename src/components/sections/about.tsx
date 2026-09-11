@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { Counter } from "@/components/motion/counter";
 import { ImageCard } from "@/components/motion/image-card";
 import { Reveal } from "@/components/motion/reveal";
-import { ABOUT, CLIENTS, SECTIONS } from "@/lib/content";
+import { ABOUT, CLIENT_LOGOS, CLIENT_MORE, SECTIONS } from "@/lib/content";
 
 /**
  * 02 - ABOUT. The worked reference section.
@@ -201,39 +202,38 @@ export function About() {
           </div>
 
           {/* ── CLIENTS SECTION (Directly below stats) ───────────────────── */}
-          <div className="border-t border-line/30 pt-10 pb-16">
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-red" aria-hidden="true" />
-                <h3 className="font-sans text-[11px] uppercase tracking-[0.22em] text-muted">
-                  OUR CLIENTS
-                </h3>
-              </div>
-              <p className="font-sans text-caption text-muted/70">
-                Leading institutions and marquee brands across JDKD developments
-              </p>
+          <div className="border-t border-line/30 pt-12 pb-16">
+            <div className="flex items-center gap-3 mb-8">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-red" aria-hidden="true" />
+              <h3 className="font-sans text-[11px] uppercase tracking-[0.22em] text-muted">
+                OUR CLIENTS
+              </h3>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-              {CLIENTS.map((client) => (
+            {/* Flex row of client logos */}
+            <div className="flex flex-wrap items-center justify-center md:justify-between gap-8 sm:gap-12 lg:gap-16 py-8 border-y border-line/20 px-2">
+              {CLIENT_LOGOS.map((client) => (
                 <div
                   key={client.name}
-                  className="group relative flex flex-col justify-between p-5 border border-line/30 bg-surface/30 backdrop-blur-sm transition-all duration-300 hover:border-line-strong hover:bg-surface/60"
+                  className="flex items-center justify-center transition-all duration-300 opacity-80 hover:opacity-100 hover:scale-105"
+                  title={client.name}
                 >
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-muted/50 group-hover:text-red transition-colors">
-                    {client.sector}
-                  </span>
-                  <span
-                    className={`mt-4 font-display text-base sm:text-lg tracking-tight transition-colors ${
-                      client.isAccent
-                        ? "italic text-pure font-light"
-                        : "text-ink/90 group-hover:text-pure font-normal"
-                    }`}
-                  >
-                    {client.name}
-                  </span>
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    width={client.width}
+                    height={client.height}
+                    className={`object-contain ${client.className}`}
+                  />
                 </div>
               ))}
+            </div>
+
+            {/* Below the flex of logos: "...& many more" */}
+            <div className="mt-6 flex justify-center sm:justify-end">
+              <span className="font-display italic text-muted/80 text-base sm:text-lg tracking-wide">
+                {CLIENT_MORE}
+              </span>
             </div>
           </div>
         </div>

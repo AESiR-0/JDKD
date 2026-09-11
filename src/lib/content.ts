@@ -670,20 +670,53 @@ export const ABOUT: AboutContent = {
    Distinguished corporate enterprises and partners across JDKD properties.
    ========================================================================== */
 
-export type ClientRecord = {
+export type ClientLogoItem = {
   readonly name: string;
-  readonly sector: string;
-  readonly isAccent?: boolean;
+  readonly logo: string;
+  readonly width: number;
+  readonly height: number;
+  readonly className: string;
 };
 
-export const CLIENTS: readonly ClientRecord[] = [
-  { name: "Standard Chartered Bank", sector: "Banking & Financial" },
-  { name: "Benne", sector: "Hospitality & Retail" },
-  { name: "Staple", sector: "Commercial & Design" },
-  { name: "Punjab Grill", sector: "Dining & Lifestyle" },
-  { name: "Wipro", sector: "Technology & IT" },
-  { name: "& many more", sector: "Corporate Network", isAccent: true },
+export const CLIENT_LOGOS: readonly ClientLogoItem[] = [
+  {
+    name: "Standard Chartered Bank",
+    logo: "/images/clients/standard-chartered.svg",
+    width: 240,
+    height: 70,
+    className: "h-7 sm:h-8 md:h-9 w-auto",
+  },
+  {
+    name: "Benne",
+    logo: "/brand/Benne_logo-white.webp",
+    width: 140,
+    height: 60,
+    className: "h-11 sm:h-12 md:h-14 w-auto",
+  },
+  {
+    name: "Staple",
+    logo: "/images/clients/staple.png",
+    width: 150,
+    height: 40,
+    className: "h-6 sm:h-7 md:h-8 w-auto",
+  },
+  {
+    name: "Punjab Grill",
+    logo: "/images/clients/punjab-grill.png",
+    width: 180,
+    height: 70,
+    className: "h-10 sm:h-11 md:h-12 w-auto",
+  },
+  {
+    name: "Wipro",
+    logo: "/images/clients/wipro.svg",
+    width: 140,
+    height: 50,
+    className: "h-9 sm:h-10 md:h-11 w-auto",
+  },
 ] as const;
+
+export const CLIENT_MORE = "...& many more";
 
 /* ==========================================================================
    03 - BUILDINGS & PARKS

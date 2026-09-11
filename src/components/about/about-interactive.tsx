@@ -632,7 +632,7 @@ export function ApproachStackedCards() {
       subtitle: "Urban Fabric & Multimodal Transit Access",
       body: "Seamless pedestrian access off Mathura Road, dedicated multimodal transit drop-offs, curated ground-floor retail, and multi-tier security access infrastructure.",
       image: "/images/contact/atrium-curve.jpg",
-      telemetry: "PEDESTRIAN CORRIDOR // METRO ACCESS",
+      telemetry: "METRO ACCESS",
     },
     {
       id: "05",
@@ -750,12 +750,6 @@ export function ApproachStackedCards() {
           <span className="w-6 h-px bg-red block" aria-hidden="true" />
           <span>04 / OUR APPROACH</span>
         </div>
-        <div className="flex items-center gap-4 font-mono text-[10px] text-muted/70 tracking-widest">
-          <span className="hidden sm:inline">STACKED ARCHITECTURAL MANIFESTO //</span>
-          <span ref={activeLabelRef} className="text-pure font-bold">
-            01 / 05
-          </span>
-        </div>
       </div>
 
       {/* Main Stage: Deck Stacking Container + Sticky Step Rail */}
@@ -800,7 +794,6 @@ export function ApproachStackedCards() {
                     <span className="font-mono text-xs font-semibold text-red">
                       {card.number}
                     </span>
-                    <span className="h-px w-4 bg-line-strong block" />
                     <span className="text-[10px] font-sans uppercase tracking-widest text-muted">
                       DISCIPLINE
                     </span>
@@ -845,8 +838,7 @@ export function ApproachStackedCards() {
                 </div>
 
                 {/* Card Footer */}
-                <div className="flex items-center justify-between border-t border-line/20 pt-3 text-[9px] font-sans uppercase tracking-[0.2em] text-muted/60">
-                  <div>JDKD CORPORATE TOWER // MONOGRAPH ARCHIVE</div>
+                <div className="flex items-center justify-end border-t border-line/20 pt-3 text-[9px] font-sans uppercase tracking-[0.2em] text-muted/60">
                   <div>SCROLL TO ADVANCE</div>
                 </div>
               </div>
@@ -858,7 +850,6 @@ export function ApproachStackedCards() {
       {/* Bottom Footer Note */}
       <div className="relative z-10 flex items-center justify-between pt-4 border-t border-line/30 text-[9px] uppercase tracking-[0.2em] text-muted/60 font-sans">
         <div>THE SYSTEM BECOMES THE STRUCTURE</div>
-        <div>STACKED CARD ARCHITECTURE // 05 PHASES</div>
       </div>
     </div>
   );

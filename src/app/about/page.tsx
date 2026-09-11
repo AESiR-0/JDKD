@@ -11,7 +11,7 @@ import {
 } from "@/components/about/about-interactive";
 import { Counter } from "@/components/motion/counter";
 import { Reveal } from "@/components/motion/reveal";
-import { ROUTES } from "@/lib/content";
+import { CLIENT_LOGOS, CLIENT_MORE, ROUTES } from "@/lib/content";
 
 const ROUTE = ROUTES.about;
 
@@ -267,6 +267,90 @@ export default function AboutPage() {
               <p className="mt-3 text-small text-muted tracking-wide">
                 Happy businesses
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          CLIENTS SECTION - Marquee & Edge Vignettes (Before Who Signs It)
+          ───────────────────────────────────────────────────────────────── */}
+      <section
+        id="clients"
+        aria-label="Our Clients"
+        className="relative overflow-hidden border-t border-line py-16 lg:py-24"
+      >
+        <div className="relative mx-auto w-full max-w-shell px-gutter md:px-gutter-lg">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-12">
+            {/* Left Column (30%): Our Clients & "...& many more" */}
+            <div className="w-full lg:w-[30%] shrink-0 pr-0 lg:pr-8 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="h-px w-6 bg-red block" aria-hidden="true" />
+                  <span className="font-sans text-[11px] uppercase tracking-[0.22em] text-muted">
+                    OUR CLIENTS
+                  </span>
+                </div>
+                <h3 className="font-display font-light text-2xl sm:text-3xl text-pure tracking-tight leading-tight">
+                  Trusted by industry leaders
+                </h3>
+              </div>
+              <div className="mt-4 sm:mt-6">
+                <span className="font-display italic text-muted/80 text-base sm:text-lg tracking-wide">
+                  {CLIENT_MORE}
+                </span>
+              </div>
+            </div>
+
+            {/* Right Column (70%): Marquee with Edge Vignettes */}
+            <div className="w-full lg:w-[70%] relative overflow-hidden py-4">
+              {/* Left & Right Vignette Gradients */}
+              <div
+                className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-canvas via-canvas/90 to-transparent z-10"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-canvas via-canvas/90 to-transparent z-10"
+                aria-hidden="true"
+              />
+
+              {/* Seamless Marquee Track */}
+              <div className="marquee-vignette w-full overflow-hidden">
+                <div className="animate-marquee flex items-center gap-12 sm:gap-16 lg:gap-20 py-2">
+                  {/* Track 1 */}
+                  {CLIENT_LOGOS.map((client, idx) => (
+                    <div
+                      key={`track1-${client.name}-${idx}`}
+                      className="shrink-0 flex items-center justify-center opacity-75 transition-all duration-300 hover:opacity-100 hover:scale-105"
+                      title={client.name}
+                    >
+                      <Image
+                        src={client.logo}
+                        alt={client.name}
+                        width={client.width}
+                        height={client.height}
+                        className={`object-contain max-h-12 ${client.className}`}
+                      />
+                    </div>
+                  ))}
+                  {/* Track 2 (for seamless loop) */}
+                  {CLIENT_LOGOS.map((client, idx) => (
+                    <div
+                      key={`track2-${client.name}-${idx}`}
+                      className="shrink-0 flex items-center justify-center opacity-75 transition-all duration-300 hover:opacity-100 hover:scale-105"
+                      title={client.name}
+                    >
+                      <Image
+                        src={client.logo}
+                        alt={client.name}
+                        width={client.width}
+                        height={client.height}
+                        className={`object-contain max-h-12 ${client.className}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
