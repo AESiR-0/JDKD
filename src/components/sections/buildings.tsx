@@ -140,8 +140,9 @@ function ChapterFrame({
     return (
       <VideoCard
         src={chapter.video.src}
-        hls={chapter.video.hls}
         poster={chapter.video.poster}
+        blurDataURL={chapter.video.blurDataURL}
+        sizes={sizes}
         webm={chapter.video.webm}
         // The FOOTAGE's own description. Never `chapter.image.alt` - the still
         // behind a video frame may still be a stand-in while the clip is real.

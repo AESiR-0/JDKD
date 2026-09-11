@@ -733,9 +733,14 @@ export const CLIENT_MORE = "...& many more";
  */
 export type ChapterVideo = {
   readonly src: string;
+  /**
+   * MUST be frame 0 of the clip at source resolution: the video fades in over
+   * it the moment it starts, so any other frame reads as a jump cut.
+   */
   readonly poster: string;
+  /** ~300-byte inline JPEG of the poster, blurred while the poster loads. */
+  readonly blurDataURL: string;
   readonly webm: boolean;
-  readonly hls?: string;
   /**
    * Describes THE FOOTAGE, and must never be taken from `image.alt`.
    *
@@ -784,7 +789,8 @@ export const BUILDINGS: readonly [
     image: IMAGES.parkOne,
     video: {
       src: "/video/a23-aerial",
-      hls: "/video/hls/a23-aerial/index.m3u8",
+      blurDataURL:
+        "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABrAAADAQEAAAAAAAAAAAAAAAAEBgUBAwEBAQEAAAAAAAAAAAAAAAAAAQACEAABAgQEBAcBAAAAAAAAAAABAhEAAxIhkdExFHGSE1EEIyJioVLwQREBAQADAQAAAAAAAAAAAAAAABESIXFR/8AAEQgADgAYAwEiAAIRAAMRAP/aAAwDAQACEQMRAD8AMlTJyy1aAO6i2ALKUOEEkeIJPS80J1Ul0gYm8LCZ6ZhQKGH8a37vxhp9SyASSzXUonKC9YxRd2oa1DmDRm896uZWUU5kuZXSSk2qdr/Lxy6KvsMBlFv0R//Z",
       poster: "/video/a23-aerial-poster.jpg",
       webm: false,
       alt: "Aerial view of JDKD Corporate Park at plot A-23, its green glass elevation running alongside the elevated metro line.",
@@ -799,7 +805,8 @@ export const BUILDINGS: readonly [
     image: IMAGES.parkTwo,
     video: {
       src: "/video/m82-rooftop",
-      hls: "/video/hls/m82-rooftop/index.m3u8",
+      blurDataURL:
+        "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABjAAEAAwEAAAAAAAAAAAAAAAAGAwIEBwEBAQAAAAAAAAAAAAAAAAAAAAIQAAIBBAEDBQEBAAAAAAAAAAECEQAhAxIxQRMEkaFScbEUUREBAQEBAAAAAAAAAAAAAAAAAAERIf/AABEIAA4AGAMBIgACEQADEQA/AOKYM2RGhFDMemux+h19KW+Bn/ofI2TRLrBUBQJB5JvaOJ4mgquyMGUlSpkEcg1YGZJ63qbNVpH5rJse2UYBReWLGT/oOtqN7GpA7Di1x+1q7+X5+wpOD//Z",
       poster: "/video/m82-rooftop-poster.jpg",
       webm: false,
       alt: "The M-82 property at dusk, its rooftop level lit and in service above the street.",
@@ -814,7 +821,8 @@ export const BUILDINGS: readonly [
     image: IMAGES.parkThree,
     video: {
       src: "/video/m39-reveal",
-      hls: "/video/hls/m39-reveal/index.m3u8",
+      blurDataURL:
+        "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABnAAEBAQEBAAAAAAAAAAAAAAAGAwQFBwEBAQAAAAAAAAAAAAAAAAAAAgMQAAEDAwIDCQEAAAAAAAAAAAECEQMhAAUxBEESoYGSVBRiUiLhFRYRAQEBAQAAAAAAAAAAAAAAAAABAhH/wAARCAAOABgDASIAAhEAAxEA/9oADAMBAAIRAxEAPwA3iV80aBxq51apN9he95FFLChIdxwNwx/lwsiJCklqvozj1G96shtEEhUSiQSD8Ea9qrCoTlazQq9yCehs2xv1afHfpTwJiWI3hMqSoaClGD1rd/5fceJR3fq1xK6f/9k=",
       poster: "/video/m39-reveal-poster.jpg",
       webm: true,
       alt: "The JDKD mark on the M-39 frontage, the view drawing back to the market street below.",
