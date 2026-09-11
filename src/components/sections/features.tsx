@@ -6,11 +6,11 @@ import { FEATURES, SECTIONS } from "@/lib/content";
 /** Ten slats per drape. Fewer reads as a single wipe, more reads as noise. */
 const SLATS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const;
 
-/** "04" — the panel count, taken from the content rather than retyped. */
+/** "04" - the panel count, taken from the content rather than retyped. */
 const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
 
 /**
- * 06 — FEATURES. Four panels advancing in place.
+ * 06 - FEATURES. Four panels advancing in place.
  *
  * Conventions are inherited from `sections/about.tsx`; read that first. What
  * follows is only what this section does differently.
@@ -18,7 +18,7 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
  * ─────────────────────────────────────────────────────────────────────────
  * NOTHING NAMES THIS SECTION.
  *
- * No heading, no parenthetical label, no numeral, no title —
+ * No heading, no parenthetical label, no numeral, no title -
  * `SECTIONS.features.paren` is `null` and that is deliberate, not an omission.
  * The four amenities name themselves. The `<section>` therefore carries
  * `aria-label`, and each panel carries its own `<h2>`: there is no section-level
@@ -38,17 +38,17 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
  *                                        └────────┘
  *                                        placeholder note ────┤ right gutter
  *
- * Two columns, 42% and 44%, with the 14% between them left empty — that gap is
+ * Two columns, 42% and 44%, with the 14% between them left empty - that gap is
  * the composition. `justify-between` inside the panel's own gutter padding puts
  * the type on the LEFT EDGE and the figure's right edge on the right gutter.
  * Neither column is a grid span; both are percentages of the panel, and the
- * exact split is decided by a measurement rather than a preference — see
+ * exact split is decided by a measurement rather than a preference - see
  * `TITLE` and `FIGURE` below.
  *
  * THE RIGHT RAIL, honestly. Every other section puts its small sans copy in a
  * ~30ch measure flush to the right gutter. This one cannot: the right 44% is
  * the image pair, which is what the brief asks for. What carries over is the
- * measure — the description is `max-w-[30ch]` and so is the placeholder note,
+ * measure - the description is `max-w-[30ch]` and so is the placeholder note,
  * and the note is the block that lands on the right gutter. The discipline is
  * kept; only its side changes, and only where an image already occupies it.
  *
@@ -65,7 +65,7 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
  * `pt-beat` rhythm apart. That is what paints with no JS, with reduced
  * motion, below 1024px, and in a viewport too short to hold a panel whole.
  *
- * `FeaturesPin` sets `data-pinned` on the stage — and only after ScrollTrigger
+ * `FeaturesPin` sets `data-pinned` on the stage - and only after ScrollTrigger
  * has been created without throwing. The `lg:group-data-[pinned]:*` utilities
  * on the frame and the panels are the entire pinned layout: the stage becomes
  * one viewport tall, the panels stack on top of one another inside it, and GSAP
@@ -78,7 +78,7 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
  * TWO THINGS RIDE ON THE PIN, AND BOTH ARE AUTHORED IN THEIR OFF STATE.
  *
  * THE DRAPES. Every figure carries a stack of ten slats over its imagery. At
- * rest each slat is `scaleY(0)` — a zero-height line, nothing on screen — and
+ * rest each slat is `scaleY(0)` - a zero-height line, nothing on screen - and
  * that rest state is a CLASS, not an inline style, so it is what the browser
  * paints with no JS, under reduced motion, below `lg`, and again the moment
  * GSAP's inline transform is cleared. `FeaturesPin` swings them shut and open
@@ -88,18 +88,18 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
  * the default is the whole safety argument.
  *
  * THE PROGRESS RAIL. A hairline in the left gutter, `display: none` until the
- * stage carries `data-pinned` — so it is absent below `lg`, absent under
+ * stage carries `data-pinned` - so it is absent below `lg`, absent under
  * reduced motion, and absent if `ScrollTrigger.create` ever throws. It is
  * `aria-hidden`: the four panels carry the semantics and a screen reader has no
  * use for a scroll gauge. Its fill is authored empty for the same reason as the
- * slats, but the stakes are lower — an unfilled track hides nothing.
+ * slats, but the stakes are lower - an unfilled track hides nothing.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * PLACEHOLDERS. All eight frames are client stand-ins. Two things keep that
  * visible: the hairline `PROVISIONAL_FRAME` border used site-wide (see
  * `sections/buildings.tsx`), and the note under each pair. The panel copy
- * itself states confirmed facts — the parapet height, the in-house gym, the
- * dual-side parking — so the copy cannot carry the disclosure the way the
+ * itself states confirmed facts - the parapet height, the in-house gym, the
+ * dual-side parking - so the copy cannot carry the disclosure the way the
  * Buildings chapters do, and the note has to.
  *
  * SERVER COMPONENT. `FeaturesPin` is a client wrapper that only takes
@@ -111,8 +111,8 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
 
    One composition, repeated across all four panels. That is the point of a
    pinned run: the panels advance in place, so the frame the reader is looking
-   at must not move under them. The asymmetry lives INSIDE the panel — the 14%
-   dead gap, the square breaking up and out of the portrait — not between panels.
+   at must not move under them. The asymmetry lives INSIDE the panel - the 14%
+   dead gap, the square breaking up and out of the portrait - not between panels.
 
    Class strings are written out whole. NEVER build a Tailwind class by
    concatenation or interpolation; the v4 scanner reads source text.
@@ -126,14 +126,14 @@ const PANEL_TOTAL = String(FEATURES.length).padStart(2, "0");
 const PANEL =
   "relative mt-section px-gutter first:mt-0 md:px-gutter-lg lg:mt-section-lg lg:flex lg:items-center lg:justify-between lg:group-data-[pinned]:absolute lg:group-data-[pinned]:inset-0 lg:group-data-[pinned]:mt-0";
 
-/** LEFT EDGE — the type column. */
+/** LEFT EDGE - the type column. */
 const TYPE_COLUMN = "lg:w-[42%]";
 
 /**
  * Panel title, capped fluid rather than stepped.
  *
  * MEASURED, NOT GUESSED. "INFRASTRUCTURE" set in Prata uppercase at
- * `tracking-tight` is 9.48em wide — the widest unbreakable word any of the four
+ * `tracking-tight` is 9.48em wide - the widest unbreakable word any of the four
  * titles contains. So the largest size that fits without clipping is the
  * column's width over 9.48, and a flat `text-headline` would already overflow a
  * 375px screen while a flat `text-h1` would overflow the 42% column at every
@@ -159,7 +159,7 @@ const DESCRIPTION_RULE = "mt-8 lg:mt-10";
 const DESCRIPTION = "max-w-[30ch] text-small text-muted";
 
 /**
- * OPTICAL BAND — the image pair, ending on the right gutter.
+ * OPTICAL BAND - the image pair, ending on the right gutter.
  *
  * The `max-w` cap is what keeps a pinned panel inside one viewport. A 4:5 frame
  * at 44% of the shell would stand 644px tall with its note, which overruns the
@@ -174,7 +174,7 @@ const FIGURE = "relative mt-16 w-full lg:mt-0 lg:w-[44%] lg:max-w-[31rem]";
 const PAIR = "relative pt-[8%]";
 
 /**
- * Drawn around every frame whose asset is a client stand-in — the same hairline
+ * Drawn around every frame whose asset is a client stand-in - the same hairline
  * the Buildings chapters use. It is the visible difference between
  * "photograph" and "reserved space".
  */
@@ -198,7 +198,7 @@ const NOTE = "mt-6 max-w-[30ch] text-micro text-muted lg:ml-auto";
 /* --------------------------------------------------------------------------
    THE DRAPES
 
-   A stack of slats laid over the pair — both frames, the note excluded, since
+   A stack of slats laid over the pair - both frames, the note excluded, since
    the note is type and type crossfades with the rest of the panel.
 
    `z-10` puts the stack above the square, which is itself absolutely placed
@@ -213,19 +213,19 @@ const DRAPE = "pointer-events-none absolute inset-0 z-10 flex flex-col";
 /**
  * One slat. `flex-1` gives all ten an equal share of the pair's height without
  * any percentage arithmetic, and `bg-canvas` is the page ground, so a shut
- * drape does not read as a panel laid over the photograph — it reads as the
+ * drape does not read as a panel laid over the photograph - it reads as the
  * photograph being taken away.
  *
  * THE REST STATE IS THE SAFE STATE, AND IT IS A CLASS.
  *
- * `[transform:scaleY(0)]` — an arbitrary property, deliberately not the
+ * `[transform:scaleY(0)]` - an arbitrary property, deliberately not the
  * `scale-y-0` utility. Tailwind v4 compiles `scale-*` to the standalone `scale`
  * property, which COMPOSES with `transform` rather than being replaced by it;
  * GSAP writes `transform`, so the two would multiply and every slat would be
  * pinned to zero height forever. Writing the longhand means GSAP's inline
  * `transform` simply overrides this rule while it animates, and clearing that
- * inline transform — which is what the pin's catch block and `mm.revert()` both
- * do — drops the slat straight back to open.
+ * inline transform - which is what the pin's catch block and `mm.revert()` both
+ * do - drops the slat straight back to open.
  *
  * `transform-origin` is left at its `50% 50%` default: each slat grows and
  * shrinks about its own midline, which is how a real venetian slat moves, and
@@ -239,14 +239,14 @@ const SLAT = "block flex-1 bg-canvas [transform:scaleY(0)]";
    `hidden` by default and `block` only under `lg:group-data-[pinned]`, so it
    exists exactly as long as the pin does and not one breakpoint longer. The
    inner box re-establishes the shell so the rule sits 24px from the SHELL's
-   left edge rather than the viewport's — past 1440px those are not the same
+   left edge rather than the viewport's - past 1440px those are not the same
    place, and the rule belongs beside the type, not floating in the margin.
 -------------------------------------------------------------------------- */
 
 const RAIL_LAYER =
   "pointer-events-none absolute inset-0 hidden lg:group-data-[pinned]:block";
 
-/** LEFT EDGE, one gutter in — 32px clear of the title's own left edge. */
+/** LEFT EDGE, one gutter in - 32px clear of the title's own left edge. */
 const RAIL_SHELL = "mx-auto flex h-full w-full max-w-shell items-center px-gutter";
 
 const RAIL = "flex flex-col items-center gap-4";
@@ -259,7 +259,7 @@ const RAIL_TRACK = "relative block h-[clamp(5rem,16vh,10rem)] w-px bg-line";
 
 /**
  * The filled portion. Same `[transform:scaleY(0)]` rest state and the same
- * reasoning as a slat, with `origin-top` so it fills downward — and
+ * reasoning as a slat, with `origin-top` so it fills downward - and
  * `transform-origin` is a separate property, so GSAP's `transform` leaves it be.
  */
 const RAIL_FILL =
@@ -271,12 +271,12 @@ export function Features() {
       id={SECTIONS.features.id}
       // No heading exists to point `aria-labelledby` at, by design.
       aria-label={SECTIONS.features.label}
-      // Pays the pacing break above it (`pt-break`), on top, once — the ~288px
+      // Pays the pacing break above it (`pt-break`), on top, once - the ~288px
       // moment after Beliefs B. No `pb-` anywhere; see `app/page.tsx`.
       className="relative overflow-x-clip pt-break lg:pt-break-lg"
     >
       <FeaturesPin>
-        {/* THE FRAME — unpadded coordinate space, and the list itself.
+        {/* THE FRAME - unpadded coordinate space, and the list itself.
             `list-none` strips list semantics in Safari; the role puts them
             back. `h-full` is inert until the stage has a height to fill. */}
         <ul
@@ -308,7 +308,7 @@ export function Features() {
                   so both frames take an empty `alt`: the caption already says
                   what they are, and duplicating it would have a screen reader
                   announce the same sentence twice. The asset's own alt text is
-                  the caption — the copy still comes from `@/lib/content`. */}
+                  the caption - the copy still comes from `@/lib/content`. */}
               <figure className={FIGURE}>
                 <div className={PAIR}>
                   <ImageCard
@@ -366,7 +366,7 @@ export function Features() {
         </ul>
 
         {/* THE PROGRESS RAIL. Decorative, and a sibling of the list rather
-            than a child of it — a `<ul>` takes list items and nothing else. */}
+            than a child of it - a `<ul>` takes list items and nothing else. */}
         <div aria-hidden="true" className={RAIL_LAYER}>
           <div className={RAIL_SHELL}>
             <div className={RAIL}>

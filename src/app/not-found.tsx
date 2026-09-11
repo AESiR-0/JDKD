@@ -13,7 +13,7 @@ import { CONTACT, NOT_FOUND_PAGE } from "@/lib/content";
  * NO `metadata` EXPORT, AND THAT IS NOT AN OMISSION.
  *
  * `not-found.js` is the one route file in the App Router that does not read a
- * `metadata` export — the file convention documents that field for
+ * `metadata` export - the file convention documents that field for
  * `global-not-found.js` only, and that file is experimental and would have to
  * re-declare the fonts, the stylesheet and the whole document shell to exist.
  * So the root layout's default title stands here, and Next injects
@@ -24,7 +24,7 @@ import { CONTACT, NOT_FOUND_PAGE } from "@/lib/content";
  *
  * ─────────────────────────────────────────────────────────────────────────
  * WHAT A LOST VISITOR NEEDS: to know the address is wrong, to be told what this
- * site is, and to be handed a way onward. That is the whole page — the hero
+ * site is, and to be handed a way onward. That is the whole page - the hero
  * says the first two, the nav and the phone number are the third. No search
  * box, no illustration, no joke.
  *
@@ -32,14 +32,14 @@ import { CONTACT, NOT_FOUND_PAGE } from "@/lib/content";
  * last place to spend a 21:9 photograph and an LCP preload. Type only.
  *
  * NO BREADCRUMBS EITHER. A trail describes where you are in a hierarchy, and
- * this page is not in one — the requested address does not exist, so there is
+ * this page is not in one - the requested address does not exist, so there is
  * nothing to be the parent of.
  *
  * THE BAND BELOW IS A `<div>`, NOT A `<section>`. Every `<section>` on this site
  * carries `aria-labelledby` pointing at its own heading, and this band has no
  * heading to point at: the copy in `NOT_FOUND_PAGE` deliberately supplies none,
  * and inventing one would be inventing content. The `<nav>` inside carries the
- * landmark and its own accessible name instead, which is the honest structure —
+ * landmark and its own accessible name instead, which is the honest structure -
  * it IS navigation, not a section of prose.
  *
  * SERVER COMPONENT. `PageHero`'s `Reveal` and the links are all it contains,
@@ -49,7 +49,7 @@ import { CONTACT, NOT_FOUND_PAGE } from "@/lib/content";
 
 /* ==========================================================================
    SHARED TREATMENTS
-   Written out whole — never build a Tailwind class by interpolation.
+   Written out whole - never build a Tailwind class by interpolation.
    ========================================================================== */
 
 /** The band shell. Owns the rhythm, clips the horizontal axis. */
@@ -103,7 +103,7 @@ export default function NotFound() {
           {/* The working path to a human, which a broken address is exactly the
               moment to offer. Outside the nav: a phone number is not a page. */}
           <p className={`${EDGE} mt-12 text-small text-muted lg:mt-16`}>
-            {CONTACT.leasingContact.role} — {CONTACT.leasingContact.name},{" "}
+            {CONTACT.leasingContact.role} - {CONTACT.leasingContact.name},{" "}
             <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}
               className="text-ink underline decoration-red decoration-2 underline-offset-4"

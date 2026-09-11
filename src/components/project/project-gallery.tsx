@@ -4,11 +4,11 @@ import { EDGE, FRAME, LABEL, RAIL_COPY, SECTION } from "@/components/project/chr
 import type { RealProject } from "@/lib/content";
 
 /**
- * GALLERY — five renders, and the home `facade-detail.jpg` never had.
+ * GALLERY - five renders, and the home `facade-detail.jpg` never had.
  *
  * TWO BANDS, not one wall of thumbnails.
  *
- *   BAND ONE — the curtain-wall detail bleeds off the LEFT viewport edge and is
+ *   BAND ONE - the curtain-wall detail bleeds off the LEFT viewport edge and is
  *   the only child left in flow at `lg`, so it alone sets the band's height.
  *   The marker and the caption travel together as ONE absolutely positioned
  *   column flush to the right gutter, vertically centred against the picture.
@@ -20,14 +20,14 @@ import type { RealProject } from "@/lib/content";
  *        │  LEFT edge, 42vw     │        │ body, 30ch │
  *        └──────────────────────┘        └────────────┘
  *
- *   BAND TWO — the four remaining renders in a real two-column gallery. This is
+ *   BAND TWO - the four remaining renders in a real two-column gallery. This is
  *   the second and last place on the page where `grid` is earned: a gallery
  *   genuinely IS a grid. It is `grid-cols-2`, never `grid-cols-12`, and no
  *   child carries a `col-span-*`. Every second frame is dropped by `md:mt-16`
- *   so the pairs do not march in lockstep — the offset is a complete literal
+ *   so the pairs do not march in lockstep - the offset is a complete literal
  *   chosen by index parity, never a class assembled from a value.
  *
- * NO DISPLAY HEADING — the content module gives this section a marker and a
+ * NO DISPLAY HEADING - the content module gives this section a marker and a
  * caption and nothing else, so the marker IS the `<h2>`. Inventing a sentence
  * to head it would be inventing copy.
  *
@@ -79,7 +79,7 @@ export function ProjectGallery({ gallery }: ProjectGalleryProps) {
           ) : null}
         </div>
 
-        {/* BAND TWO — the gallery proper. */}
+        {/* BAND TWO - the gallery proper. */}
         <ul
           role="list"
           className={`${EDGE} mt-band md:grid md:grid-cols-2 md:gap-8 lg:mt-band-lg lg:gap-12`}

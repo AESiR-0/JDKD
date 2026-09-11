@@ -3,7 +3,7 @@ import { FaqRows } from "@/components/ui/faq-rows";
 import { FAQ, SECTIONS } from "@/lib/content";
 
 /**
- * 07 — FAQ.
+ * 07 - FAQ.
  *
  * Conventions are copied from `sections/about.tsx`, the worked reference: one
  * full-bleed `<section>` that owns the vertical rhythm and `overflow-x-clip`,
@@ -27,17 +27,17 @@ import { FAQ, SECTIONS } from "@/lib/content";
  * and the rows span the frame edge to edge as 1px rules. There is no card and
  * no rounded accordion anywhere in this section.
  *
- * THE ROWS ARE A REAL GRID in the sense the design system permits — they and
+ * THE ROWS ARE A REAL GRID in the sense the design system permits - they and
  * the Beliefs B bento are the only two places on the site allowed to be one.
  * Even so there is no `grid-cols-12` and no `col-span-*` below: the row is a
  * flex pair (indicator, question) and the answer is anchored at 28%.
  *
  * HEADING SIZE. The spec calls for `text-display-sm` (96px). Measured in Prata
  * at the shipped tracking, "YOU NEED TO KNOW." is 10.76em wide, so 96px needs
- * about 1030px — and the column from the 34% anchor to the right gutter is
+ * about 1030px - and the column from the 34% anchor to the right gutter is
  * 894px at the shell's full width. The fluid size is therefore capped rather
  * than the anchor moved: that is the documented remedy, cap the size and keep
- * the anchor. The unprefixed step is bounded by a different word — "EVERYTHING"
+ * the anchor. The unprefixed step is bounded by a different word - "EVERYTHING"
  * at 6.76em cannot break, so 12.2vw is what keeps it inside a 375px gutter.
  *
  * SERVER COMPONENT. `Reveal` and `FaqRows` are the only client boundaries and
@@ -56,9 +56,9 @@ export function Faq() {
       // is paid by the CTA on its own top (`pt-break`), never as a `pb-` here.
       className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
-      {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
+      {/* THE FRAME - unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
-        {/* LEFT EDGE — the section label. */}
+        {/* LEFT EDGE - the section label. */}
         <p className="px-gutter font-display text-label uppercase italic tracking-label text-muted md:px-gutter-lg">
           {FAQ.label}
         </p>
@@ -85,7 +85,7 @@ export function Faq() {
           </span>
         </h2>
 
-        {/* The rows span the frame. They are never wrapped in a Reveal — the
+        {/* The rows span the frame. They are never wrapped in a Reveal - the
             mask keeps `overflow: hidden` and would clip each button's focus
             ring. */}
         <FaqRows className="mt-band lg:mt-band-lg" />

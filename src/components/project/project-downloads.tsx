@@ -10,7 +10,7 @@ import {
 import type { RealProject } from "@/lib/content";
 
 /**
- * DOWNLOADS — the three plan sheets, and an honest hole where the brochure is.
+ * DOWNLOADS - the three plan sheets, and an honest hole where the brochure is.
  *
  * EVERY FILE LISTED HERE EXISTS IN `/public`. The content module builds each
  * `href` from the same `IMAGES` entry the viewer renders, so a listing cannot
@@ -20,7 +20,7 @@ import type { RealProject } from "@/lib/content";
  * one reads as "not yet supplied", which is the truth.
  *
  * THE WHOLE ROW IS THE LINK. One `<a download>` per sheet carrying its name,
- * its weight and format, and what the drawing shows — so the accessible name is
+ * its weight and format, and what the drawing shows - so the accessible name is
  * a full sentence rather than three identical "Download" links in a row.
  *
  * NOT WRAPPED IN `<Reveal>`. The mask keeps `overflow: hidden` after it
@@ -28,7 +28,7 @@ import type { RealProject } from "@/lib/content";
  * rail above are safe to reveal; the list is not.
  *
  * The `download` attribute is honoured because these are same-origin paths. Red
- * appears here as a 2px underline decoration and nowhere else — a rule, never a
+ * appears here as a 2px underline decoration and nowhere else - a rule, never a
  * fill.
  */
 

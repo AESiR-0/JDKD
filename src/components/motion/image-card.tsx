@@ -5,7 +5,7 @@ import { useEffect, useRef, type CSSProperties } from "react";
 import { ParallaxImage } from "@/components/motion/parallax-image";
 
 /**
- * ImageCard — the site's standard picture frame.
+ * ImageCard - the site's standard picture frame.
  *
  * Two moves composed into one: the frame wipes open from the bottom edge
  * upward, and the image inside drifts against the scroll. They are deliberately
@@ -17,13 +17,13 @@ import { ParallaxImage } from "@/components/motion/parallax-image";
  *   - the drift is GSAP inside `ParallaxImage`, because a parallax that fails
  *     to run is merely a still photograph.
  *
- * Reduced motion disables both — the inline script in `app/layout.tsx` never
+ * Reduced motion disables both - the inline script in `app/layout.tsx` never
  * adds `.reveal-js`, and `ParallaxImage` gates its own timeline.
  */
 export type ImageCardProps = {
   src: string;
   alt: string;
-  /** Responsive `sizes`. Required — these frames vary a lot between sections. */
+  /** Responsive `sizes`. Required - these frames vary a lot between sections. */
   sizes: string;
   /** Aspect and placement classes for the frame. */
   className?: string;
@@ -70,13 +70,13 @@ export function ImageCard({
        * PER-FRAME FAILSAFE, and the reason this exists.
        *
        * `data-expand-in` only asks for the clip to animate open. It does not
-       * make the picture visible — the CSS transition does, and a transition
+       * make the picture visible - the CSS transition does, and a transition
        * that never runs leaves the frame clipped to nothing with the attribute
        * sitting on it, looking for all the world like it worked.
        *
        * The boot failsafe in `app/layout.tsx` cannot catch that: it drops
        * `expand-js` only when NO frame anywhere has opened, and these had. So
-       * every frame now guarantees its own end state — if the transition has
+       * every frame now guarantees its own end state - if the transition has
        * not reported finishing shortly after it should have, `data-expand`
        * comes off, the element leaves the rule's selector entirely, and the
        * photograph simply stands. An unanimated picture beats an invisible one.
@@ -93,7 +93,7 @@ export function ImageCard({
       }, ms);
     };
 
-    // See `Reveal` — an observer that never delivers its initial callback is
+    // See `Reveal` - an observer that never delivers its initial callback is
     // broken, and a closed frame is worse than an unanimated one.
     let observerFired = false;
     const observer = new IntersectionObserver(

@@ -10,21 +10,21 @@ import Image from "next/image";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * ParallaxImage — a full-bleed image frame with a CAPPED scrub.
+ * ParallaxImage - a full-bleed image frame with a CAPPED scrub.
  *
  * Two transforms, both scrubbed against the frame's passage through the
  * viewport: a slow vertical drift and a gentle scale. Both are clamped, because
  * the reference site's uncapped scale is exactly the effect the client rejected.
- * Transform only — no filter, no backdrop-filter, no animated box-shadow.
+ * Transform only - no filter, no backdrop-filter, no animated box-shadow.
  *
  * LAYOUT CONTRACT. The frame is `position: relative; overflow: hidden` and the
- * image fills it. The frame has NO intrinsic height — you must give it one via
+ * image fills it. The frame has NO intrinsic height - you must give it one via
  * `className`, either a height (`h-svh`, `h-[70vh]`) or an aspect ratio
  * (`aspect-[4/5] md:aspect-[16/9]`). Without that the frame collapses.
  *
  * OVERSCAN. The inner layer is inset by `-shift%` top and bottom so the drift
  * can never expose an edge. That means the visible crop is always slightly
- * tighter than the frame — compose for it.
+ * tighter than the frame - compose for it.
  *
  * PRELOAD. `preload` is Next 16's replacement for the deprecated `priority`.
  * Set it on the hero image and nowhere else: exactly one preloaded image per
@@ -79,24 +79,24 @@ export type ParallaxImageProps = {
   className?: string;
   /** Classes on the `<img>` itself. `object-cover` is already applied. */
   imageClassName?: string;
-  /** Preload this image. Hero only — one per page. @default false */
+  /** Preload this image. Hero only - one per page. @default false */
   preload?: boolean;
-  /** Scale at the end of the scrub. Clamped to 1 – 1.12. @default 1.08 */
+  /** Scale at the end of the scrub. Clamped to 1 - 1.12. @default 1.08 */
   scale?: number;
-  /** Peak vertical drift, in percent of frame height. Clamped 0 – 10. @default 6 */
+  /** Peak vertical drift, in percent of frame height. Clamped 0 - 10. @default 6 */
   shift?: number;
   /** ScrollTrigger `start`. @default "top bottom" */
   start?: string;
   /** ScrollTrigger `end`. @default "bottom top" */
   end?: string;
   /**
-   * Rendered over the image, inside the frame — scrims, headlines, markers.
+   * Rendered over the image, inside the frame - scrims, headlines, markers.
    * Position it yourself; the frame is a positioning context.
    */
   /**
    * Background painted behind the image while it decodes.
    *
-   * MUST be `"ink"` wherever the frame carries a dark scrim and white type —
+   * MUST be `"ink"` wherever the frame carries a dark scrim and white type -
    * otherwise the frame flashes #FFFFFF behind white text before the image
    * lands. This cannot be corrected from the call site: a background utility
    * passed through `className` has the same specificity as the base one, so
@@ -183,8 +183,8 @@ export function ParallaxImage({
       <div
         ref={layerRef}
         // NO `will-change`. It was promoting every parallax layer on the
-        // page for the document's whole life — including the ones
-        // off-screen — and this page now hands it a full-bleed 80svh
+        // page for the document's whole life - including the ones
+        // off-screen - and this page now hands it a full-bleed 80svh
         // surface. Add it back only if first-frame stutter is actually
         // observed, and scope it to a live tween.
         className="absolute inset-x-0"
@@ -199,7 +199,7 @@ export function ParallaxImage({
           preload={preload}
           // A 1px inset outline at oklch(1 0 0 / 0.1). The frame paints
         // `bg-deep` behind an image sitting on `canvas`, so a dark edge
-        // in the photograph — a ceiling, a night sky — dissolves into the
+        // in the photograph - a ceiling, a night sky - dissolves into the
         // ground with nothing separating them. Pure white at 10%, never
         // `--color-line`: that token is warm-tinted ink and picks up the
         // surface beneath, which reads as dirt on the image edge.

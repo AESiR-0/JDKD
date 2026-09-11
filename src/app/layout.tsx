@@ -9,7 +9,7 @@ import { IMAGES, SITE } from "@/lib/content";
 import "./globals.css";
 
 /**
- * Both faces are loaded here, once, in the root layout — so both are preloaded
+ * Both faces are loaded here, once, in the root layout - so both are preloaded
  * on every route and neither is instantiated twice. Never call a font loader
  * from a section or page component; reach the fonts through the `font-sans` /
  * `font-display` Tailwind utilities instead.
@@ -32,14 +32,14 @@ const geist = Geist({
 });
 
 /**
- * Cormorant Garamond — the display serif, standing in for the licensed
+ * Cormorant Garamond - the display serif, standing in for the licensed
  * PP Fragment (see `src/fonts/README.md`).
  *
  * A delicate old-style face with very fine hairlines and a light 300 cut, which
  * is what the reference's enormous thin display type actually needs. It is
  * noticeably NARROWER than the faces it replaces, so the fluid heading caps in
- * `features.tsx`, `cta.tsx` and `faq.tsx` — which were sized from measured
- * character widths — are now conservative rather than tight. Nothing clips;
+ * `features.tsx`, `cta.tsx` and `faq.tsx` - which were sized from measured
+ * character widths - are now conservative rather than tight. Nothing clips;
  * those headings simply have room to grow.
  *
  * `globals.css` keeps `font-synthesis-weight: none` on `.font-display`; every
@@ -66,7 +66,7 @@ const cormorantGaramond = Cormorant_Garamond({
 
 /**
  * Share card. `twitter.card: "summary_large_image"` renders blank without an
- * image, so both graphs point at the real dusk render — its intrinsic size is
+ * image, so both graphs point at the real dusk render - its intrinsic size is
  * taken from `IMAGES.heroTower` rather than retyped, so a re-crop cannot leave
  * the dimensions lying.
  */
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.origin),
   title: {
     default:
-      "JDKD Corporate Tower — Grade A commercial leasing, Mathura Road, New Delhi",
+      "JDKD Corporate Tower - Grade A commercial leasing, Mathura Road, New Delhi",
     template: "%s | JDKD",
   },
   description:
@@ -106,14 +106,14 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "JDKD Developers LLP",
     locale: "en_IN",
-    title: "JDKD Corporate Tower — Grade A commercial landmark, New Delhi",
+    title: "JDKD Corporate Tower - Grade A commercial landmark, New Delhi",
     description:
       "A LEED certified Grade A commercial landmark on Mathura Road. Seven office floors, two basements, 14 ft 9 in floor heights. Now available for leasing.",
     images: [SHARE_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JDKD Corporate Tower — Grade A commercial landmark, New Delhi",
+    title: "JDKD Corporate Tower - Grade A commercial landmark, New Delhi",
     description:
       "A LEED certified Grade A commercial landmark on Mathura Road. Now available for leasing.",
     images: [SHARE_IMAGE],
@@ -147,7 +147,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
        * The inline script in <body> adds `reveal-js` to documentElement before
        * React hydrates, so the server's className and the client's differ by
        * exactly that one class and React reports a mismatch. Suppressing is the
-       * documented answer for a pre-hydration script that writes to <html> —
+       * documented answer for a pre-hydration script that writes to <html> -
        * it scopes to THIS element's own attributes and text, never its
        * children, so a real mismatch anywhere inside the tree still surfaces.
        */
@@ -172,7 +172,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           `reveal-js` hides text until a Reveal opens it, `expand-js` holds
           image frames clipped until an ImageCard wipes them open. They were a
           single class, which meant a failure in either mechanism was rescued
-          only if TEXT had failed — reveals working while no image ever opened
+          only if TEXT had failed - reveals working while no image ever opened
           left every frame clipped shut, i.e. a page of visible copy and
           invisible photography. Splitting them lets each recover alone.
 
@@ -200,7 +200,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         {/* The site's single smooth-scroll engine. Renders nothing, and does
             nothing at all under reduced motion or if Lenis fails to construct
-            — native scrolling was never removed. See the component. */}
+            - native scrolling was never removed. See the component. */}
         <SmoothScroll />
         <SiteHeader />
         <main id="main" className="flex-1">

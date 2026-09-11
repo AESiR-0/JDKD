@@ -10,7 +10,7 @@ import { EnquiryForm } from "@/components/ui/enquiry-form";
 import type { Contact, RealProject } from "@/lib/content";
 
 /**
- * ENQUIRE — the page's last statement and its only conversion surface.
+ * ENQUIRE - the page's last statement and its only conversion surface.
  *
  * The composition is the site's established enquiry treatment, the one
  * `sections/cta.tsx` sets on the homepage: two extremes and nothing in the
@@ -25,7 +25,7 @@ import type { Contact, RealProject } from "@/lib/content";
  *      │                                            │  enquiry form │
  *      │                                            └────────────────
  *
- * WHICH CHILD SETS THE HEIGHT — the panel, because it is the only one left in
+ * WHICH CHILD SETS THE HEIGHT - the panel, because it is the only one left in
  * flow at `lg`. That is what makes `lg:top-1/2 lg:-translate-y-1/2` on the
  * statement mean "centred on the panel" rather than "centred on nothing".
  *
@@ -54,7 +54,7 @@ const ENQUIRE_ID = "enquire-heading";
  * (#8D938F) measures 5.3:1 on `--color-surface` but only 3.4:1 on
  * `--color-pine` (#254441), which fails WCAG AA for the field labels, the
  * optional-field note and the consent line. `text-ink/80` restores about
- * 6.6:1 and the placeholder tint about 5.6:1 — both AA at these sizes.
+ * 6.6:1 and the placeholder tint about 5.6:1 - both AA at these sizes.
  */
 const FORM_ON_PINE =
   "mt-9 max-w-none! rounded-none! border-0! bg-transparent! p-0! [&_.text-muted]:text-ink/80 [&_input]:placeholder:text-ink/70 [&_textarea]:placeholder:text-ink/70";
@@ -71,7 +71,7 @@ export function ProjectEnquiry({ enquiry, contact }: ProjectEnquiryProps) {
         <p className={`${EDGE} ${LABEL}`}>{enquiry.label}</p>
 
         <div className="relative mt-10 lg:mt-16">
-          {/* LEFT EDGE — the statement, vertically centred on the panel at
+          {/* LEFT EDGE - the statement, vertically centred on the panel at
               `lg`. Broken for composition, not for reading: the readable
               sentence is `sr-only` inside the `<h2>` and the visible stack is
               hidden from assistive technology. Its id names both this section
@@ -83,7 +83,7 @@ export function ProjectEnquiry({ enquiry, contact }: ProjectEnquiryProps) {
             className={`${EDGE} lg:absolute lg:left-gutter-lg lg:top-1/2 lg:w-[46%] lg:-translate-y-1/2 lg:px-0`}
           />
 
-          {/* RIGHT — the pine panel. In flow, so it sets the band's height,
+          {/* RIGHT - the pine panel. In flow, so it sets the band's height,
               and bleeding off the right viewport edge with the documented
               `calc(50%-50vw)` pattern. Below 1440px that calc resolves to 0
               and the panel simply meets the edge. */}
@@ -101,7 +101,7 @@ export function ProjectEnquiry({ enquiry, contact }: ProjectEnquiryProps) {
             {/* Not wrapped in a Reveal: the mask keeps `overflow: hidden`
                 after it finishes and would clip this link's focus ring. */}
             <p className="mt-9 border-t border-line pt-6 text-caption text-ink/80">
-              {contact.leasingContact.role} — {contact.leasingContact.name},{" "}
+              {contact.leasingContact.role} - {contact.leasingContact.name},{" "}
               <a data-press="row"
                 href={contact.leasingContact.phoneHref}
                 className="text-ink underline decoration-red decoration-2 underline-offset-4"

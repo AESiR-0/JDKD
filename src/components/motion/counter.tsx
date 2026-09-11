@@ -9,12 +9,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * Counter — scroll-triggered count-up for the "By the numbers" band.
+ * Counter - scroll-triggered count-up for the "By the numbers" band.
  *
  * Takes the finished display string and works out for itself whether it can be
  * counted. `"23,456"` and `"41.05"` and `"7"` animate from zero, preserving the
  * source string's thousands separators and decimal places. Anything that is not
- * a plain number — `14'9"`, `LEED`, `7 + 2B` — is simply rendered. That is the
+ * a plain number - `14'9"`, `LEED`, `7 + 2B` - is simply rendered. That is the
  * intended behaviour, not a fallback: the brief's own figures include both.
  *
  * NO REFLOW. The final string is always in the layout as an invisible ghost
@@ -27,7 +27,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  * so a screen reader announces "23,456 sq.ft" once, not a stream of numbers.
  *
  * REDUCED MOTION. The timeline lives inside a `gsap.matchMedia` guard, so the
- * final value is what paints — no count-up at all.
+ * final value is what paints - no count-up at all.
  *
  * @example
  * {FIGURES.map((figure) => (
@@ -43,7 +43,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export type CounterProps = {
   /**
-   * The rendered value, exactly as it should read at rest — separators,
+   * The rendered value, exactly as it should read at rest - separators,
    * quotes and all. Usually `Figure.value` from `@/lib/content`.
    */
   value: string;
@@ -113,14 +113,14 @@ export function Counter({
       if (!root || !figure) return;
 
       const parsed = parse(value);
-      if (!parsed) return; // Non-numeric display — render it and stop.
+      if (!parsed) return; // Non-numeric display - render it and stop.
 
       const format = formatter(parsed);
       const state = { n: 0 };
       const mm = gsap.matchMedia();
 
       /*
-       * FAILSAFE — the reason this exists.
+       * FAILSAFE - the reason this exists.
        *
        * Zeroing the figure is a bet that the tween will run and put the real
        * number back. If that bet loses, the page does not merely lose an
@@ -129,8 +129,8 @@ export function Counter({
        * the same failure class that once left the whole site blank.
        *
        * So the zeroed state is only allowed to persist while the tween is
-       * demonstrably alive. If it has not started within a second and a half —
-       * ticker stalled, trigger never fired, plugin missing — the confirmed
+       * demonstrably alive. If it has not started within a second and a half -
+       * ticker stalled, trigger never fired, plugin missing - the confirmed
        * value is restored and the figure simply stands still.
        */
       let started = false;

@@ -1,10 +1,10 @@
 import { Counter } from "@/components/motion/counter";
 import { ImageCard } from "@/components/motion/image-card";
 import { Reveal } from "@/components/motion/reveal";
-import { ABOUT, SECTIONS, type AboutFigureId } from "@/lib/content";
+import { ABOUT, CLIENTS, SECTIONS } from "@/lib/content";
 
 /**
- * 02 — ABOUT. The worked reference section.
+ * 02 - ABOUT. The worked reference section.
  *
  * Every other section on this page copies its conventions from here, so read
  * this file before writing a new one.
@@ -26,10 +26,10 @@ import { ABOUT, SECTIONS, type AboutFigureId } from "@/lib/content";
  *                   what makes nine differently-composed sections read as a
  *                   single system.
  *   3. OPTICAL BAND roughly the middle 40% of the frame, where the dominant
- *                   image sits. Here that is the portrait at 38%–72%.
+ *                   image sits. Here that is the portrait at 38%-72%.
  *
- * Consistency comes from VERTICAL RHYTHM, not from alignment — `pt-beat` /
- * `lg:pt-beat-lg`, paid once on top by every section — and nothing else lining
+ * Consistency comes from VERTICAL RHYTHM, not from alignment - `pt-beat` /
+ * `lg:pt-beat-lg`, paid once on top by every section - and nothing else lining
  * up on purpose.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -44,7 +44,7 @@ import { ABOUT, SECTIONS, type AboutFigureId } from "@/lib/content";
  * anchor; the frame stays a clean coordinate space from 0% to 100%.
  *
  * `overflow-x-clip` rather than `overflow-hidden`: it clips only the horizontal
- * axis, so a block may still overhang vertically — which the heading does —
+ * axis, so a block may still overhang vertically - which the heading does -
  * and it creates no scroll container, so it cannot break a `position: sticky`
  * or a ScrollTrigger pin further down the page.
  *
@@ -65,7 +65,7 @@ import { ABOUT, SECTIONS, type AboutFigureId } from "@/lib/content";
  *                       23,456          7
  *      14'9"      2
  *
- * The four figures are deliberately NOT aligned to one another — different
+ * The four figures are deliberately NOT aligned to one another - different
  * left offsets, different baselines, one set larger than the rest. That
  * asymmetry IS the section. Do not tidy it into a row.
  *
@@ -80,60 +80,6 @@ import { ABOUT, SECTIONS, type AboutFigureId } from "@/lib/content";
  * boundaries, and they are leaves. Never put `"use client"` on a section.
  */
 
-/* --------------------------------------------------------------------------
-   PLACEMENT
-
-   Where each figure sits. Separated from `@/lib/content` on purpose: content
-   owns what a figure says, the section owns where it goes.
-
-   Keyed by `AboutFigureId`, so adding a fifth figure to the content model is a
-   compile error here rather than a figure that silently fails to appear.
-
-   Class strings are written out whole. NEVER build a Tailwind class by
-   concatenation or interpolation — the v4 scanner reads source text, and a
-   class assembled at runtime is never generated.
--------------------------------------------------------------------------- */
-
-type FigurePlacement = {
-  /** `lg`-only absolute placement inside the figures band. */
-  readonly position: string;
-  /** Size of the numeral. Unprefixed steps stay at or below `text-headline`. */
-  readonly numeral: string;
-  /** Whether this figure carries the band's single hairline. */
-  readonly rule: boolean;
-};
-
-const FIGURE_PLACEMENT: Readonly<Record<AboutFigureId, FigurePlacement>> = {
-  // First below the portrait, just right of centre.
-  "plot-area": {
-    position: "lg:absolute lg:left-[50%] lg:top-10 lg:w-[15rem]",
-    numeral: "font-sans font-light text-headline lg:text-numeral",
-    rule: false,
-  },
-  // Far right and a baseline HIGHER than its neighbour — the deliberate break.
-  "office-floors": {
-    position: "lg:absolute lg:left-[76%] lg:top-0 lg:w-[12rem]",
-    numeral: "font-sans font-light text-headline lg:text-numeral",
-    rule: false,
-  },
-  // Flush to the left edge, largest of the four, lowest on the left.
-  "building-height": {
-    position: "lg:absolute lg:left-gutter-lg lg:top-[13rem] lg:w-[20rem]",
-    numeral: "font-sans font-light text-headline lg:text-display",
-    rule: true,
-  },
-  // Lowest of the four, a third of the way across.
-  certification: {
-    position: "lg:absolute lg:left-[34%] lg:top-[15.5rem] lg:w-[12rem]",
-    numeral: "font-sans font-light text-headline lg:text-numeral",
-    rule: false,
-  },
-};
-
-/** Mobile list behaviour, switched off wholesale at `lg`. */
-const FIGURE_BASE =
-  "mt-7 border-t border-line pt-7 first:mt-0 lg:mt-0 lg:border-t-0 lg:pt-0";
-
 const HEADING_ID = "about-heading";
 
 export function About() {
@@ -141,14 +87,14 @@ export function About() {
     <section
       id={SECTIONS.about.id}
       aria-labelledby={HEADING_ID}
-      // Pays the beat above it, on top, once — no `pb-`. ONE OWNER PER GAP;
+      // Pays the beat above it, on top, once - no `pb-`. ONE OWNER PER GAP;
       // see `app/page.tsx`. The hero's bottom-anchored wordmark already leaves
       // empty photograph below itself, so this seam needs no break token.
       className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
-      {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
+      {/* THE FRAME - unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
-        {/* LEFT EDGE — the section label, top of the frame. */}
+        {/* LEFT EDGE - the section label, top of the frame. */}
         <p className="px-gutter font-display text-label uppercase italic tracking-label text-muted md:px-gutter-lg">
           {ABOUT.label}
         </p>
@@ -156,10 +102,10 @@ export function About() {
         {/* ── BAND ONE ───────────────────────────────────────────────────
             Portrait, rail and heading share one positioning context. The
             portrait is the only child left in flow at `lg`, so it alone sets
-            the band's height — which is what lets the heading hang off the
+            the band's height - which is what lets the heading hang off the
             band's foot and land 40px below the image. */}
         <div className="relative mt-band lg:mt-band-lg">
-          {/* RIGHT RAIL — ~30ch, flush right, top-aligned to the portrait.
+          {/* RIGHT RAIL - ~30ch, flush right, top-aligned to the portrait.
               The measure is set in `ch` on an element that carries the copy's
               own `text-micro`, so 30ch really is thirty characters. */}
           <div className="w-full px-gutter text-micro text-muted md:px-gutter-lg lg:absolute lg:right-gutter-lg lg:top-0 lg:w-[30ch] lg:px-0">
@@ -172,7 +118,7 @@ export function About() {
             </Reveal>
           </div>
 
-          {/* OPTICAL BAND — the portrait. Full-bleed on mobile, a centred
+          {/* OPTICAL BAND - the portrait. Full-bleed on mobile, a centred
               plate on tablet, and the anchored 34% column from `lg`. */}
           <div className="mt-10 lg:mt-0">
             <ImageCard
@@ -187,7 +133,7 @@ export function About() {
             />
           </div>
 
-          {/* LEFT EDGE — the five-line heading, bottom-anchored so its last
+          {/* LEFT EDGE - the five-line heading, bottom-anchored so its last
               line clears the portrait's foot by 40px (`-bottom-10`).
               The lines are broken for composition, not for reading: the
               readable sentence is `sr-only` and the visible stack is hidden
@@ -204,7 +150,7 @@ export function About() {
                   past the viewport, where the section's `overflow-x-clip`
                   trimmed the final glyph. `text-headline-fluid` (min(12vw,3.5rem)) keeps the 56px
                   ceiling everywhere it fits and shrinks only on the narrow
-                  widths that cannot hold it — the contract's remedy, chosen
+                  widths that cannot hold it - the contract's remedy, chosen
                   over a new breakpoint. The arbitrary step carries no line
                   height of its own, so `leading-[1.02]` restores what
                   `text-headline` set and `md:leading-[0.98]` matches
@@ -228,44 +174,69 @@ export function About() {
           </h2>
         </div>
 
-        {/* ── BAND TWO ───────────────────────────────────────────────────
-            The four figures. A fixed-height positioning context at `lg`, a
-            plain hairline-separated list below it. */}
-        <ul
-          // `list-none` strips list semantics in Safari; the role puts them back.
-          role="list"
-          className="relative mt-16 px-gutter md:px-gutter-lg lg:mt-40 lg:h-[24.75rem] lg:px-0"
-        >
-          {ABOUT.figures.map((figure) => {
-            const placement = FIGURE_PLACEMENT[figure.id];
+        {/* ── STATS BAND (Single horizontal line, refined scale) ───────── */}
+        <div className="relative mt-20 px-gutter md:px-gutter-lg lg:mt-32">
+          <div className="border-t border-line/40 pt-10 pb-14">
+            <ul
+              role="list"
+              className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12"
+            >
+              {ABOUT.figures.map((figure) => (
+                <li key={figure.id} className="flex flex-col">
+                  <div className="flex items-baseline">
+                    <Counter
+                      value={figure.value}
+                      unit={figure.unit}
+                      className="whitespace-nowrap font-display font-light text-2xl sm:text-3xl lg:text-[2.5rem] leading-none text-ink tracking-tight"
+                      unitClassName="font-sans text-xs sm:text-sm text-muted font-normal ml-1.5"
+                    />
+                  </div>
 
-            return (
-              <li
-                key={figure.id}
-                className={`${FIGURE_BASE} ${placement.position}`}
-              >
-                {/* The band's single hairline. Sparingly means once. */}
-                {placement.rule ? (
+                  <p className="mt-3 font-sans text-micro tracking-wider uppercase text-muted leading-relaxed max-w-[24ch]">
+                    {figure.descriptor}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── CLIENTS SECTION (Directly below stats) ───────────────────── */}
+          <div className="border-t border-line/30 pt-10 pb-16">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-8">
+              <div className="flex items-center gap-3">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-red" aria-hidden="true" />
+                <h3 className="font-sans text-[11px] uppercase tracking-[0.22em] text-muted">
+                  OUR CLIENTS
+                </h3>
+              </div>
+              <p className="font-sans text-caption text-muted/70">
+                Leading institutions and marquee brands across JDKD developments
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+              {CLIENTS.map((client) => (
+                <div
+                  key={client.name}
+                  className="group relative flex flex-col justify-between p-5 border border-line/30 bg-surface/30 backdrop-blur-sm transition-all duration-300 hover:border-line-strong hover:bg-surface/60"
+                >
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-muted/50 group-hover:text-red transition-colors">
+                    {client.sector}
+                  </span>
                   <span
-                    aria-hidden="true"
-                    className="hidden lg:mb-6 lg:block lg:h-px lg:w-36 lg:bg-line-strong"
-                  />
-                ) : null}
-
-                <Counter
-                  value={figure.value}
-                  unit={figure.unit}
-                  className={`whitespace-nowrap font-display text-ink ${placement.numeral}`}
-                  unitClassName="text-small text-muted lg:text-body-lg"
-                />
-
-                <p className="mt-4 max-w-[24ch] text-micro text-muted">
-                  {figure.descriptor}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
+                    className={`mt-4 font-display text-base sm:text-lg tracking-tight transition-colors ${
+                      client.isAccent
+                        ? "italic text-pure font-light"
+                        : "text-ink/90 group-hover:text-pure font-normal"
+                    }`}
+                  >
+                    {client.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

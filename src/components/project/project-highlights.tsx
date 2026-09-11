@@ -10,7 +10,7 @@ import {
 import type { RealProject } from "@/lib/content";
 
 /**
- * KEY HIGHLIGHTS — the deck's verbatim trio.
+ * KEY HIGHLIGHTS - the deck's verbatim trio.
  *
  * Location Advantage / Future-Ready Infrastructure / Asset Differentiators.
  * Those three titles are the client's own words and are NOT to be reworded,
@@ -18,7 +18,7 @@ import type { RealProject } from "@/lib/content";
  * only places them.
  *
  * NO DISPLAY HEADING. This group has a marker and nothing else to say at
- * section level, so the parenthetical marker IS the `<h2>` — the same device
+ * section level, so the parenthetical marker IS the `<h2>` - the same device
  * `site-footer.tsx` uses for its columns and `about/page.tsx` uses for its
  * numbers band. A section must always be named by a real heading; inventing a
  * sentence to head it would be inventing copy.
@@ -34,7 +34,7 @@ import type { RealProject } from "@/lib/content";
  * NOT A CARD GRID and not a `grid-cols-12`: three flex rows, two children each,
  * and the second is pushed right with `ml-auto` rather than assigned a column
  * span. The points are a ledger of hairline rows on the site-wide right
- * measure — the same measure the rail uses everywhere else on this page, which
+ * measure - the same measure the rail uses everywhere else on this page, which
  * is what ties eight differently-composed sections together.
  */
 
@@ -58,7 +58,7 @@ export function ProjectHighlights({ highlights }: ProjectHighlightsProps) {
               key={item.id}
               className="border-t border-line-strong py-10 last:border-b last:border-line-strong lg:flex lg:items-start lg:gap-16 lg:py-14"
             >
-              {/* LEFT — the verbatim title and its one-line reading. */}
+              {/* LEFT - the verbatim title and its one-line reading. */}
               <div className="lg:w-[42%]">
                 <Reveal as="h3" className={`${BLOCK_TITLE} lg:text-h2`}>
                   {item.title}
@@ -72,7 +72,7 @@ export function ProjectHighlights({ highlights }: ProjectHighlightsProps) {
                 </Reveal>
               </div>
 
-              {/* RIGHT — the facts, one hairline row each, on the ~32ch
+              {/* RIGHT - the facts, one hairline row each, on the ~32ch
                   measure. Pushed right with `ml-auto`; no column span. */}
               <ul
                 role="list"

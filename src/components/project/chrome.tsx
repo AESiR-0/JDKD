@@ -7,7 +7,7 @@ import type { DisplayLine } from "@/lib/content";
  * `app/about/page.tsx` is the worked reference and it declares these same
  * literals at the top of its own file, because it is one file. The detail page
  * is eight sections across eight files, so the identical literals live here and
- * are shared by reference — that is the only difference between the two.
+ * are shared by reference - that is the only difference between the two.
  *
  * NEVER BUILD A TAILWIND CLASS BY CONCATENATION OR INTERPOLATION. The v4
  * scanner reads source text, so a class assembled at runtime is never
@@ -15,14 +15,14 @@ import type { DisplayLine } from "@/lib/content";
  * literals (as every section here does) is fine, splicing a value into one is
  * not.
  *
- * SERVER MODULE. `Reveal` is a client leaf and stays one — nothing in this file
+ * SERVER MODULE. `Reveal` is a client leaf and stays one - nothing in this file
  * may carry `"use client"`.
  */
 
 /**
  * The section shell.
  *
- * Full-bleed, owns the vertical rhythm, and clips the horizontal axis only —
+ * Full-bleed, owns the vertical rhythm, and clips the horizontal axis only -
  * `overflow-x-clip` rather than `overflow-hidden` because clip creates no
  * scroll container and therefore cannot break the sticky sub-nav that rides
  * above these sections for the whole page.
@@ -63,7 +63,7 @@ export const DISPLAY =
 /** Right-rail copy. `text-small` sits on the rail so `30ch` measures the copy. */
 export const RAIL_COPY = "text-small text-muted";
 
-/** A block heading inside a section — one step under the display heading. */
+/** A block heading inside a section - one step under the display heading. */
 export const BLOCK_TITLE =
   "font-display text-h3 uppercase tracking-tight text-ink";
 

@@ -13,7 +13,7 @@ const CONTACT_FAQS: readonly FaqItem[] = [
     id: "walkthrough-protocol",
     question: "What is the site inspection protocol for prospective tenants?",
     answer:
-      "Walkthroughs are conducted privately with our leasing director, Mr. Roy. Visitors can inspect the double-height ground lobby, typical floor plates (Level 05), upper executive suites (Levels 06–07), and the rooftop terrace lounge. Direct advance notice via phone or WhatsApp allows us to arrange dedicated parking and security clearance.",
+      "Walkthroughs are conducted privately with our leasing director, Mr. Roy. Visitors can inspect the double-height ground lobby, typical floor plates (Level 05), upper executive suites (Levels 06-07), and the rooftop terrace lounge. Direct advance notice via phone or WhatsApp allows us to arrange dedicated parking and security clearance.",
   },
   {
     id: "parking-access",

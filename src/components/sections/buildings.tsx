@@ -6,22 +6,22 @@ import Link from "next/link";
 import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } from "@/lib/content";
 
 /**
- * 03 — BUILDINGS & PARKS. Three chapters, alternating dominance.
+ * 03 - BUILDINGS & PARKS. Three chapters, alternating dominance.
  *
- * Conventions are inherited wholesale from `sections/about.tsx` — read that
+ * Conventions are inherited wholesale from `sections/about.tsx` - read that
  * file first. This one adds nothing to the system; it only composes it three
  * more ways.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * THIS IS NOT A GRID. No `grid-cols-12`, no `col-span-*`. Each chapter is one
  * flow child (the image, which alone sets the band's height) with the type
- * anchored absolutely over it — exactly the arrangement About uses for its
+ * anchored absolutely over it - exactly the arrangement About uses for its
  * portrait, rail and heading.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * THE THREE COMPOSITIONS, at `lg` and above. `▓` is the viewport edge.
  *
- *   CHAPTER ONE — image bleeds off the RIGHT edge, type at the left edge.
+ *   CHAPTER ONE - image bleeds off the RIGHT edge, type at the left edge.
  *
  *      ▓                                                            ▓
  *      │  DEVELOPMENT            ┌───────────────────────────────────
@@ -30,7 +30,7 @@ import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } 
  *      │  body 30ch              │                          52vw     │
  *      │                         └───────────────────────────────────
  *
- *   CHAPTER TWO — image bleeds off the LEFT edge, type in the RIGHT RAIL.
+ *   CHAPTER TWO - image bleeds off the LEFT edge, type in the RIGHT RAIL.
  *
  *      ▓                                                            ▓
  *      ───────────────────────────────┐                DEVELOPMENT  │
@@ -39,7 +39,7 @@ import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } 
  *      │            48vw              │                 body 30ch   │
  *      ───────────────────────────────┘                             │
  *
- *   CHAPTER THREE — full-bleed image, the title crossing its top edge.
+ *   CHAPTER THREE - full-bleed image, the title crossing its top edge.
  *
  *      ▓                                                            ▓
  *      ───DEVELOPMENT─THREE──────────────────────────────────────────
@@ -48,7 +48,7 @@ import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } 
  *                                                       body 30ch  ──┤
  *
  * The alternation is the point: dominance swings right, then left, then to the
- * full width. Nothing lines up between chapters on purpose — the only thing
+ * full width. Nothing lines up between chapters on purpose - the only thing
  * they share is the ~30ch measure their copy is set on.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -64,7 +64,7 @@ import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } 
  * ─────────────────────────────────────────────────────────────────────────
  * MOBILE. Every anchor below is `lg:`-prefixed, so what is left when the art
  * direction switches off is one gutter-padded column in DOM order: title,
- * body, image — per chapter, top to bottom. There is no second layout.
+ * body, image - per chapter, top to bottom. There is no second layout.
  *
  * SERVER COMPONENT. `Reveal` and `ImageCard` are the only client boundaries
  * and they are leaves.
@@ -74,7 +74,7 @@ import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } 
    SHARED TREATMENTS
 
    Written out whole and shared by reference. NEVER build a Tailwind class by
-   concatenation or interpolation — the v4 scanner reads source text, so a
+   concatenation or interpolation - the v4 scanner reads source text, so a
    class assembled at runtime is never generated. Joining two complete literals
    (as the frames below do) is fine; splicing a value into one is not.
 -------------------------------------------------------------------------- */
@@ -99,7 +99,7 @@ const FRAME_ONE = "aspect-[4/3] w-full lg:ml-auto lg:mr-[calc(50%-50vw)] lg:w-[5
 const FRAME_TWO = "aspect-[4/3] w-full lg:ml-[calc(50%-50vw)] lg:w-[48vw]";
 const FRAME_THREE = "aspect-[16/9] w-full";
 
-/** Stable, section-scoped heading id — chapter ids are generic on their own. */
+/** Stable, section-scoped heading id - chapter ids are generic on their own. */
 function headingId(chapter: BuildingChapter): string {
   return `buildings-${chapter.id}-title`;
 }
@@ -110,7 +110,7 @@ function headingId(chapter: BuildingChapter): string {
    One place decides whether a chapter is a still or a loop, so the three
    compositions below stay compositions and never grow a second branch each.
 
-   A chapter with footage gets `VideoCard`, which carries its own poster — so
+   A chapter with footage gets `VideoCard`, which carries its own poster - so
    the no-JS, reduced-motion and not-yet-scrolled-to cases all still paint a
    photograph. Everything else keeps `ImageCard` and its parallax.
 
@@ -143,7 +143,7 @@ function ChapterFrame({
         hls={chapter.video.hls}
         poster={chapter.video.poster}
         webm={chapter.video.webm}
-        // The FOOTAGE's own description. Never `chapter.image.alt` — the still
+        // The FOOTAGE's own description. Never `chapter.image.alt` - the still
         // behind a video frame may still be a stand-in while the clip is real.
         alt={chapter.video.alt}
         delay={0.08}
@@ -167,7 +167,7 @@ function ChapterFrame({
 }
 
 /* --------------------------------------------------------------------------
-   CHAPTER ONE — dominance right
+   CHAPTER ONE - dominance right
 -------------------------------------------------------------------------- */
 
 function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
@@ -175,7 +175,7 @@ function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
 
   return (
     <article aria-labelledby={id} className="relative">
-      {/* LEFT EDGE — the type column. Absolute from `lg` so the image alone
+      {/* LEFT EDGE - the type column. Absolute from `lg` so the image alone
           stays in flow and sets the band's height. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[18%] lg:left-gutter-lg lg:z-10 lg:w-[34%] lg:px-0">
         <Reveal as="h2" id={id} className={TITLE}>
@@ -192,13 +192,13 @@ function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
             className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
           >
             Read more
-            <span className="sr-only"> — {chapter.title}</span>
+            <span className="sr-only"> - {chapter.title}</span>
             <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </div>
 
-      {/* EDGE-BLEED-RIGHT — off the right viewport edge from `lg`; a plain
+      {/* EDGE-BLEED-RIGHT - off the right viewport edge from `lg`; a plain
           full-width plate below it. */}
       <ChapterFrame
         chapter={chapter}
@@ -212,7 +212,7 @@ function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
 }
 
 /* --------------------------------------------------------------------------
-   CHAPTER TWO — dominance left
+   CHAPTER TWO - dominance left
 -------------------------------------------------------------------------- */
 
 function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
@@ -220,7 +220,7 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
 
   return (
     <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
-      {/* RIGHT RAIL — flush to the right gutter and set right-ragged from `lg`,
+      {/* RIGHT RAIL - flush to the right gutter and set right-ragged from `lg`,
           so title, rule and copy all hang off the same edge. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[26%] lg:right-gutter-lg lg:z-10 lg:w-[34%] lg:px-0 lg:text-right">
         <Reveal as="h2" id={id} className={TITLE}>
@@ -237,13 +237,13 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
             className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
           >
             Read more
-            <span className="sr-only"> — {chapter.title}</span>
+            <span className="sr-only"> - {chapter.title}</span>
             <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </div>
 
-      {/* EDGE-BLEED-LEFT — off the left viewport edge from `lg`. */}
+      {/* EDGE-BLEED-LEFT - off the left viewport edge from `lg`. */}
       <ChapterFrame
         chapter={chapter}
         sizes="(min-width: 1024px) 48vw, 100vw"
@@ -256,7 +256,7 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
 }
 
 /* --------------------------------------------------------------------------
-   CHAPTER THREE — full width, title crossing the image
+   CHAPTER THREE - full width, title crossing the image
 -------------------------------------------------------------------------- */
 
 function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
@@ -264,7 +264,7 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
 
   return (
     <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
-      {/* LEFT EDGE — from `lg` the title straddles the image's top edge:
+      {/* LEFT EDGE - from `lg` the title straddles the image's top edge:
           `-top-[1.375rem]` is exactly half of the 44px line box `text-h2`
           produces, so the line sits centred on the edge rather than above or
           below it. On smaller screens it is simply the chapter's first line. */}
@@ -274,7 +274,7 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
         </Reveal>
       </div>
 
-      {/* FULL BLEED — `calc(50% - 50vw)` on both margins resolves to exactly
+      {/* FULL BLEED - `calc(50% - 50vw)` on both margins resolves to exactly
           one viewport width: below the shell it is 0, above it, it is the
           frame's own inset. The section's `overflow-x-clip` absorbs the
           scrollbar delta. */}
@@ -296,7 +296,7 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
         />
       </div>
 
-      {/* RIGHT RAIL — the flow variant, beneath the image. */}
+      {/* RIGHT RAIL - the flow variant, beneath the image. */}
       <div className="mt-8 w-full px-gutter text-small md:px-gutter-lg lg:mt-10 lg:mr-gutter-lg lg:ml-auto lg:w-[30ch] lg:px-0">
         <Reveal as="p" className="text-muted" delay={0.06}>
           {chapter.body}
@@ -308,7 +308,7 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
             className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
           >
             Read more
-            <span className="sr-only"> — {chapter.title}</span>
+            <span className="sr-only"> - {chapter.title}</span>
             <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
@@ -334,14 +334,14 @@ export function Buildings() {
   return (
     <section
       id={SECTIONS.buildings.id}
-      // No visible section heading — the three chapter titles are the headings,
+      // No visible section heading - the three chapter titles are the headings,
       // so the accessible name comes from the registry.
       aria-label={SECTIONS.buildings.label}
       className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
-      {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
+      {/* THE FRAME - unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
-        {/* HEADER BAND — label and description on the left */}
+        {/* HEADER BAND - label and description on the left */}
         <div className="px-gutter md:px-gutter-lg">
           {LABEL ? (
             <p className="font-display text-label uppercase italic tracking-label text-muted">
@@ -364,7 +364,7 @@ export function Buildings() {
         {/* THE WAY OUT. Three chapters is a sample, not the record, so the
             section that shows them has to say where the rest is. Left edge, on
             the gutter, in the site's one link treatment: a red hairline under a
-            small uppercase label. NOT inside a `Reveal` — its mask keeps
+            small uppercase label. NOT inside a `Reveal` - its mask keeps
             `overflow: hidden` after it finishes and would clip this control's
             focus ring. */}
         <div className="mt-beat px-gutter md:px-gutter-lg lg:mt-beat-lg">

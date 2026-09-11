@@ -1,8 +1,8 @@
 # Fonts
 
-## PP Fragment Serif — licensed, not bundled
+## PP Fragment Serif - licensed, not bundled
 
-The display face is **PP Fragment** (Pangram Pangram Foundry) — the same family
+The display face is **PP Fragment** (Pangram Pangram Foundry) - the same family
 the reference site uses. It is a commercial typeface and is **not** included in
 this repo: shipping it without a licence would be redistribution.
 
@@ -33,7 +33,7 @@ this repo: shipping it without a licence would be redistribution.
    ```
 
    Then swap `instrumentSerif.variable` for `fragment.variable` on `<html>`.
-   Nothing else changes — every display element already reads the face through
+   Nothing else changes - every display element already reads the face through
    the `--font-serif-display` variable and the `font-display` utility.
 
 `next/font/local` fails the build if a declared file is missing, so the loader

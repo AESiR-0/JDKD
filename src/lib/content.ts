@@ -1,9 +1,9 @@
 /**
- * JDKD — single source of truth for site content.
+ * JDKD - single source of truth for site content.
  *
  * Every value in this file is drawn from the client's leasing deck. Nothing
  * here is invented. Anything the client has not confirmed is exposed through
- * {@link UNRESOLVED} and rendered as a visible, labelled empty slot — never as
+ * {@link UNRESOLVED} and rendered as a visible, labelled empty slot - never as
  * a fabricated fact.
  *
  * Section components import from here. They must not hard-code copy, numbers,
@@ -13,7 +13,7 @@
  * or `align` anywhere below. The site is anchor-composed per section, so where
  * a thing sits is a decision the section component owns; what it says is a
  * decision this file owns. The one exception is {@link DisplayLine.style},
- * which is typography carried by the copy itself — the alternation of italic
+ * which is typography carried by the copy itself - the alternation of italic
  * and roman is part of the writing, not part of the grid.
  */
 
@@ -43,7 +43,7 @@ export type SectionId =
  * what made the page read as a brochure.
  */
 export type SectionMeta = {
-  /** Anchor id — becomes `<section id>`. */
+  /** Anchor id - becomes `<section id>`. */
   readonly id: SectionId;
   /**
    * Human-readable name for assistive technology. Used as `aria-label` when a
@@ -52,7 +52,7 @@ export type SectionMeta = {
   readonly label: string;
   /**
    * The visible parenthetical label, brackets included, e.g. "(ABOUT)".
-   * NULL where the section deliberately renders none — the hero, the bento,
+   * NULL where the section deliberately renders none - the hero, the bento,
    * the pinned features run and the CTA all carry no label by design.
    */
   readonly paren: string | null;
@@ -66,7 +66,7 @@ export type ImageAsset = {
   readonly alt: string;
   /**
    * True for the labelled stand-in frames the client will replace. A section
-   * rendering one MUST make its provisional status visible — never dress a
+   * rendering one MUST make its provisional status visible - never dress a
    * placeholder as finished work.
    */
   readonly placeholder: boolean;
@@ -95,7 +95,7 @@ export const IMAGES = {
   /* -- Portfolio stills, pulled from the client's own footage -------------
      These are frames from the supplied A-23 / M-82 / M-39 video, transcoded
      into /public/video alongside the loops they poster. They are photographs
-     of built, occupied buildings — NOT stand-ins — so `placeholder` is false
+     of built, occupied buildings - NOT stand-ins - so `placeholder` is false
      and no provisional frame is drawn around them. */
   corporateParkAerial: {
     src: "/video/a23-aerial-poster.jpg",
@@ -141,6 +141,13 @@ export const IMAGES = {
     alt: "Render of the lobby at JDKD Corporate Tower, looking toward the entrance.",
     placeholder: false,
   },
+  lobbyAtrium: {
+    src: "/images/about/lobby-atrium.jpg",
+    width: 896,
+    height: 1200,
+    alt: "Architectural photograph of the grand double-height entrance atrium at JDKD Corporate Tower with fluted timber, travertine desk, and balanced natural light.",
+    placeholder: false,
+  },
   lobbyWide: {
     src: "/images/lobby-wide.jpg",
     width: 800,
@@ -177,7 +184,7 @@ export const IMAGES = {
     placeholder: false,
   },
 
-  /* -- Real client drawings — floor plans ---------------------------------
+  /* -- Real client drawings - floor plans ---------------------------------
      Scans of the deck's plan sheets. All three are 1323x552 on disk (read off
      the files, not guessed). They are DRAWINGS, not photographs: they carry
      legends, grid references and dimension strings that are unreadable at any
@@ -187,7 +194,7 @@ export const IMAGES = {
      substitute for that fallback.
 
      There is no site-plan asset. A crop of that sheet failed and the file left
-     on disk is not usable — do not reference it. */
+     on disk is not usable - do not reference it. */
   planBasementTwo: {
     src: "/images/plans/basement-2.jpg",
     width: 1323,
@@ -210,7 +217,7 @@ export const IMAGES = {
     placeholder: false,
   },
 
-  /* -- Portfolio frames — stills from the client's own footage -------------
+  /* -- Portfolio frames - stills from the client's own footage -------------
      One frame per chapter, of the building that chapter is about, cut from the
      same clip that plays over it. They are photographs of built, occupied
      properties, so `placeholder` is false and no provisional hairline is drawn
@@ -237,7 +244,7 @@ export const IMAGES = {
     placeholder: false,
   },
 
-  /* -- Placeholder frame — bento backdrop --------------------------------- */
+  /* -- Placeholder frame - bento backdrop --------------------------------- */
   beliefsBackdrop: {
     src: "/images/beliefs/office-interior.jpg",
     width: 1376,
@@ -251,7 +258,7 @@ export const IMAGES = {
   /* -- Features -----------------------------------------------------------
      Terrace and infrastructure are crops of the tower's own renders. FITNESS
      AND PARKING ARE STILL GENERATED STAND-INS and carry `placeholder: true`,
-     because no photograph of either exists yet — they are the only two frames
+     because no photograph of either exists yet - they are the only two frames
      left on the site that are not of a real JDKD building. Replace them the
      moment the client supplies a gym and a basement shot. */
   terraceLarge: {
@@ -337,13 +344,13 @@ export const BRAND = {
 export type Site = {
   /**
    * Production origin, used for `metadataBase` and canonical URLs.
-   * PLACEHOLDER — the real domain is not confirmed. Set NEXT_PUBLIC_SITE_URL
+   * PLACEHOLDER - the real domain is not confirmed. Set NEXT_PUBLIC_SITE_URL
    * in the deployment environment before launch.
    */
   readonly origin: string;
   /**
    * False while `origin` is still the placeholder. `app/layout.tsx` reads this
-   * to force `robots: { index: false }` — shipping an indexable canonical that
+   * to force `robots: { index: false }` - shipping an indexable canonical that
    * points at a domain which does not exist is a de-indexing event, and this
    * site's whole purpose is inbound leasing enquiries.
    */
@@ -364,7 +371,7 @@ export const SITE: Site = {
 };
 
 /* ==========================================================================
-   THE ASSET — JDKD Corporate Tower
+   THE ASSET - JDKD Corporate Tower
    ========================================================================== */
 
 export type Asset = {
@@ -465,7 +472,7 @@ export const CONTACT: Contact = {
 };
 
 /* ==========================================================================
-   SECTION REGISTRY — the running order
+   SECTION REGISTRY - the running order
    ========================================================================== */
 
 export const SECTIONS: Readonly<Record<SectionId, SectionMeta>> = {
@@ -517,14 +524,14 @@ export const SECTIONS: Readonly<Record<SectionId, SectionMeta>> = {
 };
 
 /**
- * Anchor id on the `<footer>` element. The footer is the site's contact block —
+ * Anchor id on the `<footer>` element. The footer is the site's contact block -
  * address, leasing contact and the RERA slot. Kept here so the nav and the
  * footer cannot drift apart.
  */
 export const FOOTER_ID = "contact" as const;
 
 /* ==========================================================================
-   01 — HERO
+   01 - HERO
    ========================================================================== */
 
 export type HeroContent = {
@@ -547,13 +554,13 @@ export type HeroContent = {
 export const HERO: HeroContent = {
   wordmark: BRAND.wordmark,
   documentTitle:
-    "JDKD Corporate Tower — Grade A commercial office space on Mathura Road, New Delhi",
+    "JDKD Corporate Tower - Grade A commercial office space on Mathura Road, New Delhi",
   serifLines: ["An address", "that works."],
   lede: "A LEED certified Grade A office building at A-11, Mohan Cooperative Industrial Estate. Seven floors over two basements, now available for leasing.",
 };
 
 /* ==========================================================================
-   02 — ABOUT
+   02 - ABOUT
    One composition that absorbs the statistics: a label, a portrait, two short
    rail paragraphs, a five-line heading and four deliberately unaligned figures.
    ========================================================================== */
@@ -580,7 +587,7 @@ export type AboutFigure = {
   /** Small unit set after the figure, e.g. "sq.ft". NULL renders nothing. */
   readonly unit: string | null;
   /**
-   * Sentence beneath the figure. Kept short on purpose — it is set at
+   * Sentence beneath the figure. Kept short on purpose - it is set at
    * `text-micro` on a 24ch measure, so anything long turns into a paragraph.
    */
   readonly descriptor: string;
@@ -590,7 +597,7 @@ export type AboutContent = {
   readonly label: string;
   /**
    * Five lines of display type, alternating italic and roman. They are broken
-   * for composition, not for reading — `spokenHeading` is what a screen reader
+   * for composition, not for reading - `spokenHeading` is what a screen reader
    * gets.
    */
   readonly headingLines: readonly DisplayLine[];
@@ -620,7 +627,7 @@ export const ABOUT: AboutContent = {
   ],
   spokenHeading: "Built for work that endures.",
   paragraphs: [
-    "JDKD Corporate Tower stands at A-11, Mohan Cooperative Industrial Estate, on Mathura Road — a prime corner plot, open on two sides, oriented North and North-West.",
+    "JDKD Corporate Tower stands at A-11, Mohan Cooperative Industrial Estate, on Mathura Road - a prime corner plot, open on two sides, oriented North and North-West.",
     "Seven office floors over two basements. LEED certified, earthquake-resistant and solar integrated, with 14 ft 9 in floor heights that carry daylight past the glass line.",
   ],
   figures: [
@@ -628,7 +635,7 @@ export const ABOUT: AboutContent = {
       id: "plot-area",
       value: "23,456",
       unit: "sq.ft",
-      descriptor: "Plot area — 2,179.13 sq.m",
+      descriptor: "Plot area - 2,179.13 sq.m",
     },
     {
       id: "office-floors",
@@ -639,13 +646,13 @@ export const ABOUT: AboutContent = {
     // Building height replaces the old floor-height figure, and certification
     // replaces the basement count. Both of those read as spec-sheet detail
     // rather than headline: a leasing audience scans total height and green
-    // rating first. The floor height and the basements are still stated — they
+    // rating first. The floor height and the basements are still stated - they
     // moved into the rail paragraphs, where the detail belongs.
     {
       id: "building-height",
       value: "41",
       unit: "m",
-      descriptor: "To terrace parapet — 41.05 m",
+      descriptor: "To terrace parapet - 41.05 m",
     },
     {
       // Non-numeric. `Counter` renders this verbatim rather than animating it.
@@ -655,18 +662,38 @@ export const ABOUT: AboutContent = {
       descriptor: "Certified green building",
     },
   ],
-  image: IMAGES.lobby,
+  image: IMAGES.lobbyAtrium,
 };
 
 /* ==========================================================================
-   03 — BUILDINGS & PARKS
+   CLIENTS & TENANTS
+   Distinguished corporate enterprises and partners across JDKD properties.
+   ========================================================================== */
+
+export type ClientRecord = {
+  readonly name: string;
+  readonly sector: string;
+  readonly isAccent?: boolean;
+};
+
+export const CLIENTS: readonly ClientRecord[] = [
+  { name: "Standard Chartered Bank", sector: "Banking & Financial" },
+  { name: "Benne", sector: "Hospitality & Retail" },
+  { name: "Staple", sector: "Commercial & Design" },
+  { name: "Punjab Grill", sector: "Dining & Lifestyle" },
+  { name: "Wipro", sector: "Technology & IT" },
+  { name: "& many more", sector: "Corporate Network", isAccent: true },
+] as const;
+
+/* ==========================================================================
+   03 - BUILDINGS & PARKS
    Three chapters of the client's own footage of completed buildings. Names for
-   two, and areas and dates for all three, are unconfirmed — see
+   two, and areas and dates for all three, are unconfirmed - see
    UNRESOLVED.portfolio. Nothing below asserts what the footage cannot show.
    ========================================================================== */
 
 /**
- * A silent, looping clip for a chapter frame. Paths are extensionless — the
+ * A silent, looping clip for a chapter frame. Paths are extensionless - the
  * component appends `.mp4`, and `.webm` when `webm` is true. Both live in
  * /public/video, transcoded from the client's own footage; the 2 GB of source
  * is deliberately not in the repo (see .gitignore).
@@ -696,11 +723,11 @@ export type BuildingChapter = {
   /**
    * When present the frame plays footage instead of showing a still. The
    * poster is what a visitor gets with no JS, with reduced motion, and before
-   * the frame is near the viewport — so a chapter is never empty without it.
+   * the frame is near the viewport - so a chapter is never empty without it.
    */
   readonly video?: ChapterVideo;
   /**
-   * A section rendering a placeholder MUST show its provisional status — that
+   * A section rendering a placeholder MUST show its provisional status - that
    * frame is a composition holder, not a project. False for the three
    * chapters below, which are the client's own footage of built work.
    */
@@ -719,7 +746,7 @@ export const BUILDINGS: readonly [
     // Everything asserted here is visible in the client's own footage: the
     // curtain wall, the elevated metro line beside it, the manned reception
     // and the let floors. The name is read off the lobby graphic. No area,
-    // no date and no floor count — none of those were supplied.
+    // no date and no floor count - none of those were supplied.
     body: "JDKD Corporate Park, plot A-23. A completed multi-tenant office building in green glass, running alongside the elevated metro line, with a manned lobby and let floors.",
     image: IMAGES.parkOne,
     video: {
@@ -765,7 +792,7 @@ export const BUILDINGS: readonly [
 
 
 /* ==========================================================================
-   04 — BELIEFS A / VISION
+   04 - BELIEFS A / VISION
    ========================================================================== */
 
 export type BeliefsVisionContent = {
@@ -783,12 +810,12 @@ export const BELIEFS_VISION: BeliefsVisionContent = {
   headingLines: ["A vision of", "considered work"],
   spokenHeading: "A vision of considered work.",
   paragraph:
-    "The decisions that matter in an office building are made once, at construction, and lived with for decades — the floor height, the orientation, the power, the light. We made them deliberately, so the people who work here never have to think about them.",
+    "The decisions that matter in an office building are made once, at construction, and lived with for decades - the floor height, the orientation, the power, the light. We made them deliberately, so the people who work here never have to think about them.",
   image: IMAGES.lobbyWide,
 };
 
 /* ==========================================================================
-   05 — BELIEFS B / THE BENTO
+   05 - BELIEFS B / THE BENTO
    Five principles, each grounded in a confirmed fact. No new claims.
    ========================================================================== */
 
@@ -840,14 +867,14 @@ export const BELIEFS_GRID: {
       id: "stewardship",
       index: "05",
       title: "Stewardship",
-      body: "Solar panels, rainwater harvesting, a sewage treatment plant and planters around the building — a green building that keeps its own house in order.",
+      body: "Solar panels, rainwater harvesting, a sewage treatment plant and planters around the building - a green building that keeps its own house in order.",
     },
   ],
   backdrop: IMAGES.beliefsBackdrop,
 };
 
 /* ==========================================================================
-   06 — FEATURES
+   06 - FEATURES
    Four panels advancing in place. No section heading, no label, no numerals.
    ========================================================================== */
 
@@ -897,7 +924,7 @@ export const FEATURES: readonly [Feature, Feature, Feature, Feature] = [
 ];
 
 /* ==========================================================================
-   07 — FAQ
+   07 - FAQ
    Written from confirmed facts only. If the deck does not state it, it is not
    answered here.
    ========================================================================== */
@@ -931,7 +958,7 @@ export const FAQ: FaqContent = {
       id: "size",
       question: "How large is the building?",
       answer:
-        "The plot measures 2,179.13 sq.m — 23,456.16 sq.ft. Above it sit seven office floors over two basement levels, with the terrace parapet at +41.05 m.",
+        "The plot measures 2,179.13 sq.m - 23,456.16 sq.ft. Above it sit seven office floors over two basement levels, with the terrace parapet at +41.05 m.",
     },
     {
       id: "floor-height",
@@ -954,7 +981,7 @@ export const FAQ: FaqContent = {
 };
 
 /* ==========================================================================
-   08 — CTA / ENQUIRY
+   08 - CTA / ENQUIRY
    ========================================================================== */
 
 export type CtaContent = {
@@ -972,8 +999,8 @@ export const CTA: CtaContent = {
   // Templated, not concatenated: the contact's name and number are values, and
   // the sentence around them stays whole. The disclosure sits HERE, above the
   // fields, because an error shown after three required fields and a press is
-  // not a warning — it is a receipt.
-  body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} — we will come back with availability, floor plates and a time to walk the building.`,
+  // not a warning - it is a receipt.
+  body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} - we will come back with availability, floor plates and a time to walk the building.`,
   submitLabel: "Send enquiry",
   image: IMAGES.towerExterior,
 };
@@ -1039,7 +1066,7 @@ export const ENQUIRY_FIELDS: readonly FormField[] = [
    `title` is the SHORT form: `app/layout.tsx` sets a title template of
    "%s | JDKD", so what ships is "About | JDKD". `ogTitle` is the standalone
    sentence for the share card, because the template does NOT apply to
-   `openGraph.title` — Next only templates the field it is declared on.
+   `openGraph.title` - Next only templates the field it is declared on.
    ========================================================================== */
 
 export type RouteKey =
@@ -1066,7 +1093,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
   home: {
     path: "/",
     title: "JDKD Corporate Tower",
-    ogTitle: "JDKD Corporate Tower — Grade A commercial landmark, New Delhi",
+    ogTitle: "JDKD Corporate Tower - Grade A commercial landmark, New Delhi",
     description:
       "A LEED certified Grade A commercial office building at A-11, Mohan Cooperative Industrial Estate, Mathura Road, New Delhi. Now available for leasing.",
     ogImage: IMAGES.heroTower,
@@ -1076,13 +1103,13 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     title: "About",
     ogTitle: "About JDKD Developers LLP",
     description:
-      "JDKD Developers LLP builds commercial real estate in New Delhi. Its current work is JDKD Corporate Tower — a LEED certified, earthquake-resistant Grade A office building of seven floors over two basements at A-11, Mohan Cooperative Industrial Estate, Mathura Road.",
+      "JDKD Developers LLP builds commercial real estate in New Delhi. Its current work is JDKD Corporate Tower - a LEED certified, earthquake-resistant Grade A office building of seven floors over two basements at A-11, Mohan Cooperative Industrial Estate, Mathura Road.",
     ogImage: IMAGES.towerExterior,
   },
   projects: {
     path: "/projects",
     title: "Projects",
-    ogTitle: "Projects — JDKD Developers LLP",
+    ogTitle: "Projects - JDKD Developers LLP",
     description:
       "The commercial projects of JDKD Developers LLP. JDKD Corporate Tower, a Grade A office building on Mathura Road, New Delhi, is available for leasing now.",
     ogImage: IMAGES.towerExterior,
@@ -1107,7 +1134,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
   notFound: {
     path: "/404",
     title: "Page not found",
-    ogTitle: "Page not found — JDKD",
+    ogTitle: "Page not found - JDKD",
     description:
       "This page does not exist. JDKD Corporate Tower on Mathura Road, New Delhi is available for leasing now.",
     ogImage: IMAGES.heroTower,
@@ -1139,8 +1166,8 @@ export type NavItem = {
 /**
  * Primary nav. Every item is a REAL ROUTE, not a homepage anchor.
  *
- * It used to be four homepage fragments — `/#about`, `/#buildings`,
- * `/#features`, `/#beliefs` — which was the only wayfinding a one-page site
+ * It used to be four homepage fragments - `/#about`, `/#buildings`,
+ * `/#features`, `/#beliefs` - which was the only wayfinding a one-page site
  * could offer. Now that `/about`, `/projects` and `/contact` exist, a fragment
  * would mean the same label did two different things depending on where the
  * visitor already was: an in-page scroll on `/`, a jump back to the homepage
@@ -1152,8 +1179,8 @@ export type NavItem = {
  * it against `usePathname()`. Keep it that way: add a fragment to one of these
  * and the active state silently stops matching.
  *
- * The order is the site's own hierarchy — who we are, what we have built, how
- * to reach us — not alphabetical.
+ * The order is the site's own hierarchy - who we are, what we have built, how
+ * to reach us - not alphabetical.
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: "about", label: "About", href: ROUTES.about.path },
@@ -1171,7 +1198,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
  *              same-document scroll and costs no navigation.
  *   `awayHref` the `/contact` page's own form. Used from every other route,
  *              because `/#enquire` from `/about` or a project page throws the
- *              visitor back to the homepage — the opposite of what a button
+ *              visitor back to the homepage - the opposite of what a button
  *              labelled Enquire promises.
  *
  * Both resolve to a section that exists: `SECTIONS.enquire.id` names the panel
@@ -1191,7 +1218,7 @@ export const NAV_CTA: NavCta = {
 };
 
 /* ==========================================================================
-   09 — FOOTER
+   09 - FOOTER
    ========================================================================== */
 
 export type FooterLink = {
@@ -1289,7 +1316,7 @@ export const UNRESOLVED: Readonly<Record<string, UnresolvedSlot>> = {
     label: "Project portfolio",
     placeholder:
       "Three completed properties are shown here. Names, areas and dates are still to be confirmed.",
-    note: "Footage for A-23, M-82 and M-39 has been supplied and is in use. What is still missing is the written record: confirmed project names, areas, completion dates and the full list. The lobby directory at A-23 names its tenants — publishing them is the client's decision and must be cleared before it goes anywhere near this site.",
+    note: "Footage for A-23, M-82 and M-39 has been supplied and is in use. What is still missing is the written record: confirmed project names, areas, completion dates and the full list. The lobby directory at A-23 names its tenants - publishing them is the client's decision and must be cleared before it goes anywhere near this site.",
   },
   leadership: {
     id: "leadership",
@@ -1314,7 +1341,7 @@ export const UNRESOLVED: Readonly<Record<string, UnresolvedSlot>> = {
 /**
  * A figure for a count-up band. Structurally identical to {@link AboutFigure}
  * but with an open `id`, so a page may carry as many as its composition places.
- * `value` is exactly what renders at rest — `Counter` animates it when it parses
+ * `value` is exactly what renders at rest - `Counter` animates it when it parses
  * as a number and prints it verbatim when it does not.
  */
 export type Figure = {
@@ -1349,7 +1376,7 @@ export type CopyBlock = {
      link anywhere.
 
    `generateStaticParams` reads PROJECT_SLUGS, derived from the real entries
-   only — so a placeholder cannot grow a route by accident.
+   only - so a placeholder cannot grow a route by accident.
    ========================================================================== */
 
 /** Anchor ids on a project detail page. Also the sub-nav's targets. */
@@ -1371,7 +1398,7 @@ export type ProjectNavItem = {
 
 /**
  * One of the deck's three key-highlight groups. `title` is VERBATIM from the
- * deck — Location Advantage / Future-Ready Infrastructure / Asset
+ * deck - Location Advantage / Future-Ready Infrastructure / Asset
  * Differentiators. Do not reword them.
  */
 export type Highlight = {
@@ -1394,7 +1421,7 @@ export type FloorPlanId = "basement-2" | "fifth-floor" | "sixth-seventh-floor";
 /**
  * One row of a drawing's own legend.
  *
- * `colour` is the colour the DRAWING uses, written as a word — never painted as
+ * `colour` is the colour the DRAWING uses, written as a word - never painted as
  * a swatch. The sheets key their legends in red and yellow; this site's red is a
  * hairline and focus colour only and must not appear as a fill, and the legend
  * has to survive being read aloud regardless. Naming the colour in text does
@@ -1411,7 +1438,7 @@ export type FloorPlanLegendEntry = {
  *
  * `summary`, `legend` and `notes` are NOT decoration. The sheets carry legends,
  * grid references and dimension strings that no phone can render legibly, so a
- * viewer MUST expose all three as real text — that is the accessible route to
+ * viewer MUST expose all three as real text - that is the accessible route to
  * the same information, and the only one a screen reader has.
  */
 export type FloorPlan = {
@@ -1434,7 +1461,7 @@ export type AmenityGroup = {
 };
 
 /**
- * A file that EXISTS in /public. Never list a download that is not on disk —
+ * A file that EXISTS in /public. Never list a download that is not on disk -
  * `UNRESOLVED.brochure` is how the missing brochure gets disclosed instead.
  */
 export type Download = {
@@ -1449,7 +1476,7 @@ export type Download = {
   readonly meta: string;
 };
 
-/** Fields both kinds of entry carry — everything the INDEX needs. */
+/** Fields both kinds of entry carry - everything the INDEX needs. */
 export type ProjectCommon = {
   readonly id: string;
   readonly name: string;
@@ -1595,7 +1622,7 @@ export const PROJECT_TOWER: RealProject = {
     spokenHeading: "A corner plot, open on two sides.",
     paragraphs: [
       "JDKD Corporate Tower stands at A-11, Mohan Cooperative Industrial Estate, with direct access off Main Mathura Road. The plot is a prime corner, open on two sides and oriented North and North-West, which is what carries daylight and ventilation past the glass line and into the floor plate.",
-      "Seven office floors sit over two basement levels, each 14 ft 9 in — 4.5 metres — floor to floor, with the terrace parapet at +41.05 m. The building is LEED certified and earthquake-resistant, with solar panels, rainwater harvesting and a sewage treatment plant of its own.",
+      "Seven office floors sit over two basement levels, each 14 ft 9 in - 4.5 metres - floor to floor, with the terrace parapet at +41.05 m. The building is LEED certified and earthquake-resistant, with solar panels, rainwater harvesting and a sewage treatment plant of its own.",
     ],
     specs: [
       { id: "asset-class", term: "Asset class", value: ASSET.assetClass },
@@ -1604,7 +1631,7 @@ export const PROJECT_TOWER: RealProject = {
       {
         id: "plot-area",
         term: "Plot area",
-        value: `${ASSET.plotArea.sqm} — ${ASSET.plotArea.sqft}`,
+        value: `${ASSET.plotArea.sqm} - ${ASSET.plotArea.sqft}`,
       },
       {
         id: "floors",
@@ -1726,7 +1753,7 @@ export const PROJECT_TOWER: RealProject = {
         title: "Basement 2 floor plan",
         image: IMAGES.planBasementTwo,
         summary:
-          "The lower of the two basement levels. Car parking bays are drawn in two runs across the middle of the slab and a third along the north edge. The core — passenger and service elevators, staircases and fire exits — is grouped along the south side, next to a marked security room. Service areas sit at the north-east corner and on the south edge. Arrows across the deck set out the one-way vehicle circulation, and a ramp enters from the west.",
+          "The lower of the two basement levels. Car parking bays are drawn in two runs across the middle of the slab and a third along the north edge. The core - passenger and service elevators, staircases and fire exits - is grouped along the south side, next to a marked security room. Service areas sit at the north-east corner and on the south edge. Arrows across the deck set out the one-way vehicle circulation, and a ramp enters from the west.",
         legend: [
           { id: "service", colour: "Red", label: "Service area" },
           { id: "parking", colour: "Yellow", label: "Car parking slots" },
@@ -1890,7 +1917,7 @@ export const PROJECT_TOWER: RealProject = {
           "Parking layout, core, service areas, and the building height detail.",
         href: IMAGES.planBasementTwo.src,
         filename: "jdkd-corporate-tower-basement-2.jpg",
-        meta: "JPG — 1323 × 552 px — 123 KB",
+        meta: "JPG - 1323 × 552 px - 123 KB",
       },
       {
         id: "fifth-floor",
@@ -1899,7 +1926,7 @@ export const PROJECT_TOWER: RealProject = {
           "Open office plate, core, refuge area, and an elevation of the building.",
         href: IMAGES.planFifthFloor.src,
         filename: "jdkd-corporate-tower-fifth-floor.jpg",
-        meta: "JPG — 1323 × 552 px — 104 KB",
+        meta: "JPG - 1323 × 552 px - 104 KB",
       },
       {
         id: "sixth-seventh-floor",
@@ -1908,7 +1935,7 @@ export const PROJECT_TOWER: RealProject = {
           "The repeating upper plate, its column grid, and the building height section.",
         href: IMAGES.planSixthSeventhFloor.src,
         filename: "jdkd-corporate-tower-sixth-seventh-floor.jpg",
-        meta: "JPG — 1323 × 552 px — 89 KB",
+        meta: "JPG - 1323 × 552 px - 89 KB",
       },
     ],
     unresolved: UNRESOLVED.brochure,
@@ -1921,7 +1948,7 @@ export const PROJECT_TOWER: RealProject = {
       { text: "building.", style: "italic" },
     ],
     spokenHeading: "Walk the building.",
-    body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} — we will come back with availability, floor plates and a time to walk the building.`,
+    body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} - we will come back with availability, floor plates and a time to walk the building.`,
   },
 
   contact: CONTACT,
@@ -1939,13 +1966,13 @@ export const PROJECT_TOWER: RealProject = {
 /**
  * The portfolio beyond the tower.
  *
- * These are REAL, COMPLETED buildings — the client supplied footage of all
+ * These are REAL, COMPLETED buildings - the client supplied footage of all
  * three and the JDKD mark is visible on two of them. What has NOT been
  * supplied is the written record: confirmed names, areas, completion dates.
  *
  * So they stay `PlaceholderProject`, and the type is doing exactly the job it
  * was designed for. `slug: null` is the contract, and it means no detail
- * route — which is correct twice over: there is no specification to fill a
+ * route - which is correct twice over: there is no specification to fill a
  * detail page with, and the brief asked for no sub-pages beneath a project.
  * The marker reads "(COMPLETED)" rather than "(RESERVED)" because that much
  * is visible in the footage; everything past it waits on the client.
@@ -2434,7 +2461,7 @@ export const PROJECT_SLUGS: readonly string[] = REAL_PROJECTS.map(
   (project) => project.slug,
 );
 
-/** Resolve a slug. Undefined for an unknown one — the page then calls notFound(). */
+/** Resolve a slug. Undefined for an unknown one - the page then calls notFound(). */
 export function getProject(slug: string): RealProject | undefined {
   return REAL_PROJECTS.find((project) => project.slug === slug);
 }
@@ -2445,7 +2472,7 @@ export function projectPath(project: RealProject): string {
 }
 
 /* ==========================================================================
-   /projects — INDEX PAGE COPY
+   /projects - INDEX PAGE COPY
    ========================================================================== */
 
 export type ProjectsPageContent = {
@@ -2471,7 +2498,7 @@ export const PROJECTS_PAGE: ProjectsPageContent = {
 };
 
 /* ==========================================================================
-   /about — PAGE COPY
+   /about - PAGE COPY
    The worked reference route: statement, practice, numbers, principles,
    leadership. The five principles are the homepage's own, read straight from
    BELIEFS_GRID so the two renderings can never drift apart.
@@ -2540,7 +2567,7 @@ export const ABOUT_PAGE: AboutPageContent = {
     ],
     spokenHeading: "Decisions made once, lived with for decades.",
     paragraphs: [
-      "The choices that shape a working day in an office building — the floor height, the orientation, the power, the light — are all made before anyone moves in, and they are lived with for the whole life of the building.",
+      "The choices that shape a working day in an office building - the floor height, the orientation, the power, the light - are all made before anyone moves in, and they are lived with for the whole life of the building.",
       "JDKD Corporate Tower was specified that way: 14 ft 9 in floor to floor, a corner plot open on two sides, North and North-West facing, LEED certified and earthquake-resistant. None of it is visible from the street. All of it is the reason the building works.",
     ],
     image: IMAGES.lobby,
@@ -2556,7 +2583,7 @@ export const ABOUT_PAGE: AboutPageContent = {
     spokenHeading: "Commercial work, start to finish.",
     paragraphs: [
       // "and no plan for one" was cut. That was a forward-looking claim about
-      // the LLP's strategy which appears nowhere in the client's material — it
+      // the LLP's strategy which appears nowhere in the client's material - it
       // leaked in from a build instruction ("commercial only, do not create a
       // residential portfolio") that described what to BUILD, not what the
       // company intends. This page is the client speaking; it may only say
@@ -2577,7 +2604,7 @@ export const ABOUT_PAGE: AboutPageContent = {
       {
         id: "stewardship",
         title: "Stewardship",
-        body: "A green building kept in its own order — solar panels, rainwater harvesting, a sewage treatment plant and planters around the perimeter, behind an earthquake-resistant structure and LEED certification.",
+        body: "A green building kept in its own order - solar panels, rainwater harvesting, a sewage treatment plant and planters around the perimeter, behind an earthquake-resistant structure and LEED certification.",
       },
     ],
     image: IMAGES.lobbyWide,
@@ -2590,7 +2617,7 @@ export const ABOUT_PAGE: AboutPageContent = {
         id: "plot-area",
         value: "23,456",
         unit: "sq.ft",
-        descriptor: "Plot area — 2,179.13 sq.m",
+        descriptor: "Plot area - 2,179.13 sq.m",
       },
       {
         id: "office-floors",
@@ -2608,7 +2635,7 @@ export const ABOUT_PAGE: AboutPageContent = {
         id: "floor-height",
         value: "14'9\"",
         unit: null,
-        descriptor: "Floor height — 4.5 metres",
+        descriptor: "Floor height - 4.5 metres",
       },
       {
         id: "parapet",
@@ -2646,7 +2673,7 @@ export const ABOUT_PAGE: AboutPageContent = {
 };
 
 /* ==========================================================================
-   /contact — PAGE COPY
+   /contact - PAGE COPY
    ========================================================================== */
 
 /** One way of arriving. Drawn only from the confirmed location facts. */
@@ -2657,7 +2684,7 @@ export type Direction = {
   /**
    * The distance, hung under the mode on `/contact` as a measured figure.
    *
-   * EVERY VALUE HERE IS A VERBATIM SUBSTRING OF `detail` — it is the same
+   * EVERY VALUE HERE IS A VERBATIM SUBSTRING OF `detail` - it is the same
    * confirmed number, set rather than restated, so the column cannot drift
    * away from the sentence beside it.
    *
@@ -2676,7 +2703,7 @@ export type ContactPageContent = {
   readonly lede: string;
   /**
    * The direct-channel band. The phone number is the ONLY path on this page
-   * that reaches a human today, so the page prints it at display scale — which
+   * that reaches a human today, so the page prints it at display scale - which
    * is why this block carries no copy beyond a marker and one factual line.
    * The number itself is never duplicated here; it is read from `contact`.
    */
@@ -2694,7 +2721,7 @@ export type ContactPageContent = {
     readonly heading: string;
     readonly body: string;
     /**
-     * The no-backend disclosure, rendered ABOVE the fields — never after them.
+     * The no-backend disclosure, rendered ABOVE the fields - never after them.
      * It deliberately stops before the phone number so the page can print that
      * number as a real `tel:` link rather than freeze it into a sentence.
      */
@@ -2726,8 +2753,8 @@ export const CONTACT_PAGE: ContactPageContent = {
     { text: "building.", style: "roman" },
   ],
   spokenTitle: "Enquire about the building.",
-  // Leads with the path that actually works. The form has no backend yet —
-  // `EnquiryForm.handleSubmit` only reports that nothing was sent — so telling
+  // Leads with the path that actually works. The form has no backend yet -
+  // `EnquiryForm.handleSubmit` only reports that nothing was sent - so telling
   // the visitor to "send the form" above the fold, and disclosing the truth
   // only after they have filled three required fields, gets the order exactly
   // backwards. The phone number is the live channel; say so first.
@@ -2736,7 +2763,7 @@ export const CONTACT_PAGE: ContactPageContent = {
   // back". That is a promise nothing on this page can keep: the form posts
   // nowhere, so no call back can follow. Phone-first ordering is preserved and
   // the promise is replaced with the truth.
-  lede: "JDKD Corporate Tower is available for leasing now. Call Mr. Roy on 9811998811 — the enquiry form below is not connected yet, so the phone is the channel that works.",
+  lede: "JDKD Corporate Tower is available for leasing now. Call Mr. Roy on 9811998811 - the enquiry form below is not connected yet, so the phone is the channel that works.",
   call: {
     label: "(CALL)",
     note: "The leasing contact for JDKD Corporate Tower.",
@@ -2757,7 +2784,7 @@ export const CONTACT_PAGE: ContactPageContent = {
     label: "(ENQUIRY)",
     heading: "Send an enquiry",
     body: "Every field marked optional can be left blank. Nothing is shared with third parties.",
-    // Rendered above the first field. Ends without the number on purpose — the
+    // Rendered above the first field. Ends without the number on purpose - the
     // page prints it immediately after as a tel: link.
     notice:
       "This form is not connected yet, so submitting it sends nothing anywhere. To reach us today, call Mr. Roy on",
@@ -2779,7 +2806,7 @@ export const CONTACT_PAGE: ContactPageContent = {
         mode: "By metro",
         mark: "350 m",
         detail:
-          "Sarita Vihar station on the Violet Line is 350 m from the site — a short walk down Mathura Road.",
+          "Sarita Vihar station on the Violet Line is 350 m from the site - a short walk down Mathura Road.",
       },
       {
         id: "road",
@@ -2805,7 +2832,7 @@ export const CONTACT_PAGE: ContactPageContent = {
 };
 
 /* ==========================================================================
-   404 — PAGE COPY
+   404 - PAGE COPY
    ========================================================================== */
 
 export type NotFoundPageContent = {

@@ -9,20 +9,20 @@ import Lenis from "lenis";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * SmoothScroll — the site's single smooth-scroll engine.
+ * SmoothScroll - the site's single smooth-scroll engine.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * WHY THIS EXISTS.
  *
  * Every parallax on this site is scrubbed against the scroll position. With
  * native scrolling that position arrives in whatever increments the input
- * device produces — and a Windows mouse wheel produces discrete jumps of
+ * device produces - and a Windows mouse wheel produces discrete jumps of
  * roughly 100px. So a transform bound to it moves in visible steps. The
  * reference this site is measured against reads as liquid for exactly one
  * reason: its scroll position is interpolated before anything is bound to it.
  *
  * Lenis lerps `window.scrollY`, so every ScrollTrigger downstream inherits the
- * smoothing for free. There is no second engine — Locomotive was not installed
+ * smoothing for free. There is no second engine - Locomotive was not installed
  * and must not be. One engine, or the two fight over the same scroll position.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -31,8 +31,8 @@ gsap.registerPlugin(ScrollTrigger);
  * A smooth-scroll engine sits between the visitor and the ability to READ THE
  * PAGE. That is a heavier failure than a missing animation, so the whole
  * initialisation is inside a try/catch: if Lenis throws for any reason, this
- * component does nothing at all and the browser's own scrolling — which was
- * never removed — carries the page. `globals.css` sets `scroll-behavior: auto`
+ * component does nothing at all and the browser's own scrolling - which was
+ * never removed - carries the page. `globals.css` sets `scroll-behavior: auto`
  * rather than `smooth`, so the native fallback is immediate rather than
  * animated, which is correct: CSS smooth scrolling is what was fighting
  * ScrollTrigger's pin in the first place.
@@ -50,17 +50,17 @@ gsap.registerPlugin(ScrollTrigger);
  * ─────────────────────────────────────────────────────────────────────────
  * WIRING TO GSAP. Three lines, and each one matters:
  *
- *   1. `lenis.on("scroll", ScrollTrigger.update)` — triggers read the lerped
+ *   1. `lenis.on("scroll", ScrollTrigger.update)` - triggers read the lerped
  *      position rather than the raw one.
- *   2. `gsap.ticker.add(...)` with `autoRaf: false` — one requestAnimationFrame
+ *   2. `gsap.ticker.add(...)` with `autoRaf: false` - one requestAnimationFrame
  *      loop for the whole page instead of two racing each other. The `* 1000`
  *      is a unit conversion: the ticker reports seconds, `raf` wants ms.
- *   3. `lagSmoothing(0)` — GSAP otherwise skips ahead after a long frame to
+ *   3. `lagSmoothing(0)` - GSAP otherwise skips ahead after a long frame to
  *      "catch up", which desynchronises the tween time from the scroll
  *      position and shows up as a jump in the pinned run.
  *
  * ANCHORS are handed to Lenis (`anchors: true`) because in-page links are the
- * one navigation this site has — the header nav is entirely `#section` hrefs.
+ * one navigation this site has - the header nav is entirely `#section` hrefs.
  * With CSS smooth scrolling gone, this is what animates them, and it animates
  * them through the same engine ScrollTrigger is synchronised with.
  *
@@ -83,7 +83,7 @@ export function SmoothScroll() {
 
     try {
       lenis = new Lenis({
-        // 0.1 is a slow, heavy glide — right for a building, wrong for a
+        // 0.1 is a slow, heavy glide - right for a building, wrong for a
         // dashboard. Higher tracks the wheel more literally; 1 is native.
         lerp: 0.1,
         // Roughly one wheel notch per gesture. The default overshoots on the

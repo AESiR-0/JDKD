@@ -10,13 +10,13 @@ import {
 import type { RealProject } from "@/lib/content";
 
 /**
- * AMENITIES & BUILDING SYSTEMS — five groups, thirty-odd lines of plant.
+ * AMENITIES & BUILDING SYSTEMS - five groups, thirty-odd lines of plant.
  *
  * COLUMN FLOW, NOT A GRID. This is a specification index: five headed groups of
  * short lines, read down rather than across. Multi-column text flow is what
  * that content is, so the groups are set in two columns at `md` and three at
  * `lg` with `break-inside-avoid` keeping a group whole. No `grid-cols-12`, no
- * `col-span-*`, and no cards — a bento of five tiles would give equal weight to
+ * `col-span-*`, and no cards - a bento of five tiles would give equal weight to
  * "Two service elevators" and "LEED certified green building" and turn a
  * technical list into marketing.
  *
@@ -31,7 +31,7 @@ import type { RealProject } from "@/lib/content";
  *      │  Two passenger…  Switch gear…    Fresh air system          │
  *
  * GROUP HEADINGS ARE PARENTHETICAL, like every marker on this site, but they
- * are real `<h3>`s and they take `text-ink` rather than `text-muted` — a
+ * are real `<h3>`s and they take `text-ink` rather than `text-muted` - a
  * heading inside a section is not the same object as the section's own marker,
  * and the colour is what keeps the two readable as different things.
  */
@@ -46,7 +46,7 @@ export function ProjectAmenities({ amenities }: ProjectAmenitiesProps) {
   return (
     <section id="amenities" aria-labelledby={AMENITIES_ID} className={SECTION}>
       <div className={FRAME}>
-        {/* HEADER BAND — heading in flow sets the height, rail hangs off the
+        {/* HEADER BAND - heading in flow sets the height, rail hangs off the
             right gutter from `lg`. */}
         <div className="relative">
           <p className={`${EDGE} ${LABEL}`}>{amenities.label}</p>

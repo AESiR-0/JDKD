@@ -33,7 +33,7 @@ export function ReferenceForm() {
   }
 
   const whatsAppUrl = `https://wa.me/919811998811?text=${encodeURIComponent(
-    `*ENQUIRY — JDKD CORPORATE TOWER*\nName: ${formData.name || "Executive"}\nCompany: ${
+    `*ENQUIRY - JDKD CORPORATE TOWER*\nName: ${formData.name || "Executive"}\nCompany: ${
       formData.company || "Not specified"
     }\nPhone: ${formData.phone || "Not specified"}\nEmail: ${
       formData.email || "Not specified"

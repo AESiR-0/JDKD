@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { CONTACT } from "@/lib/content";
 
 const AREA_OPTIONS = [
-  "5,000 – 10,000 sq ft",
+  "5,000 - 10,000 sq ft",
   "18,000 sq ft (Single Floor)",
   "36,000+ sq ft (Multi-Floor)",
   "Full Building Anchor HQ",
@@ -12,9 +12,9 @@ const AREA_OPTIONS = [
 
 const FLOOR_OPTIONS = [
   "Penthouse Terrace & Sky Lounge",
-  "Levels 06 – 07 (Top Floors)",
+  "Levels 06 - 07 (Top Floors)",
   "Level 05 (High-Efficiency Plate)",
-  "Levels 02 – 04 (Mid-Rise)",
+  "Levels 02 - 04 (Mid-Rise)",
   "Ground Floor Commercial Suite",
 ];
 
@@ -51,7 +51,7 @@ export function WalkthroughScheduler({
 
   function generateWhatsAppUrl(): string {
     const text = [
-      `*LEASING ENQUIRY — JDKD CORPORATE TOWER (A-11 MCIE)*`,
+      `*LEASING ENQUIRY - JDKD CORPORATE TOWER (A-11 MCIE)*`,
       `---------------------------------------`,
       `*Entity:* ${company || "Corporate Tenant"}`,
       `*Contact:* ${name || "Executive"}`,

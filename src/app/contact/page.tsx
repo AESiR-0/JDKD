@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: ROUTE.path,
-    title: "Contact — JDKD Corporate Tower",
+    title: "Contact - JDKD Corporate Tower",
     description:
       "Start a conversation with the JDKD leasing desk at A-11 Mathura Road, New Delhi.",
     images: [
@@ -48,7 +48,7 @@ export default function ContactPage() {
   return (
     <div className="relative min-h-screen bg-canvas text-ink selection:bg-ink selection:text-canvas">
       {/* =====================================================================
-          01 — HERO ("LET'S CONNECT — Start a conversation.")
+          01 - HERO ("LET'S CONNECT - Start a conversation.")
           ===================================================================== */}
       <section
         id="hero"
@@ -148,7 +148,7 @@ export default function ContactPage() {
       </section>
 
       {/* =====================================================================
-          02 — ENQUIRY ("ENQUIRE NOW — We're here to help.")
+          02 - ENQUIRY ("ENQUIRE NOW - We're here to help.")
           ===================================================================== */}
       <section
         id={SECTIONS.enquire.id}
@@ -225,7 +225,7 @@ export default function ContactPage() {
       </section>
 
       {/* =====================================================================
-          03 — LOCATION ("OUR LOCATION — In the heart of opportunity.")
+          03 - LOCATION ("OUR LOCATION - In the heart of opportunity.")
           ===================================================================== */}
       <section
         id="location"
@@ -236,7 +236,7 @@ export default function ContactPage() {
       </section>
 
       {/* =====================================================================
-          04 — PRE-FOOTER ("DISCOVER JDKD — More than buildings, a better tomorrow.")
+          04 - PRE-FOOTER ("DISCOVER JDKD - More than buildings, a better tomorrow.")
           ===================================================================== */}
       <section
         id="discover"

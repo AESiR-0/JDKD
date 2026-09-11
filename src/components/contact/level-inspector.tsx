@@ -41,8 +41,8 @@ export const BUILDING_LEVELS: readonly BuildingLevel[] = [
   },
   {
     id: "floors-6-7",
-    name: "Levels 06 & 07 — Penthouse Office Suites",
-    shortLabel: "L06 – L07",
+    name: "Levels 06 & 07 - Penthouse Office Suites",
+    shortLabel: "L06 - L07",
     elevation: "+32.05 m to +36.55 m",
     area: "18,000 sq ft / floor",
     ceiling: "14 ft 9 in (4.50 m)",
@@ -57,7 +57,7 @@ export const BUILDING_LEVELS: readonly BuildingLevel[] = [
   },
   {
     id: "floor-5",
-    name: "Level 05 — Typical High-Efficiency Plate",
+    name: "Level 05 - Typical High-Efficiency Plate",
     shortLabel: "L05",
     elevation: "+27.55 m",
     area: "18,000 sq ft",
@@ -73,8 +73,8 @@ export const BUILDING_LEVELS: readonly BuildingLevel[] = [
   },
   {
     id: "floors-2-4",
-    name: "Levels 02 – 04 — Mid-Rise Workspace",
-    shortLabel: "L02 – L04",
+    name: "Levels 02 - 04 - Mid-Rise Workspace",
+    shortLabel: "L02 - L04",
     elevation: "+14.05 m to +23.05 m",
     area: "18,000 sq ft / floor",
     ceiling: "14 ft 9 in (4.50 m)",
@@ -89,7 +89,7 @@ export const BUILDING_LEVELS: readonly BuildingLevel[] = [
   },
   {
     id: "ground-lobby",
-    name: "Ground Level — Grand Atrium & Reception",
+    name: "Ground Level - Grand Atrium & Reception",
     shortLabel: "Ground",
     elevation: "±0.00 m",
     area: "14,200 sq ft",
@@ -105,8 +105,8 @@ export const BUILDING_LEVELS: readonly BuildingLevel[] = [
   },
   {
     id: "basements",
-    name: "Basements B1 & B2 — Dedicated Parking & Plant",
-    shortLabel: "B1 – B2",
+    name: "Basements B1 & B2 - Dedicated Parking & Plant",
+    shortLabel: "B1 - B2",
     elevation: "-4.50 m to -9.00 m",
     area: "Two Full Slabs",
     ceiling: "12 ft Clear Driveway",

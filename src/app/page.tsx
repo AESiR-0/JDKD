@@ -8,7 +8,7 @@ import { Features } from "@/components/sections/features";
 import { Hero } from "@/components/sections/hero";
 
 /**
- * Homepage — the nine-section running order.
+ * Homepage - the nine-section running order.
  *
  *   01 Hero            full-bleed dusk tower, wordmark on the left edge
  *   02 About           one composition that absorbs the statistics
@@ -22,8 +22,8 @@ import { Hero } from "@/components/sections/hero";
  *
  * SERVER COMPONENT, and it must stay one. Every section is also a Server
  * Component; the only client boundaries on this page are the leaves those
- * sections compose — `Reveal`, `ImageCard`, `Counter`, `ParallaxImage`,
- * `FeaturesPin`, `FaqRows`, `EnquiryForm` — plus `SiteHeader` in the layout.
+ * sections compose - `Reveal`, `ImageCard`, `Counter`, `ParallaxImage`,
+ * `FeaturesPin`, `FaqRows`, `EnquiryForm` - plus `SiteHeader` in the layout.
  *
  * Sections take no props. Each reads its own anchor id, label and copy from
  * `@/lib/content`, so the order of the JSX below is the only thing this file
@@ -36,7 +36,7 @@ import { Hero } from "@/components/sections/hero";
  *
  * VERTICAL RHYTHM. ONE OWNER PER GAP: every section pays its gap ONCE, on its
  * TOP, and no section anywhere carries bottom padding. The tokens live in
- * `globals.css` — `beat` (112/192px) is the standard gap, `break` (168/288px)
+ * `globals.css` - `beat` (112/192px) is the standard gap, `break` (168/288px)
  * the pacing break, `band` (56/96px) the label-to-content step inside one.
  *
  *   standard        `pt-beat lg:pt-beat-lg`   every section not listed below

@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 
 /**
- * VideoCard — ImageCard's moving sibling, upgraded with HLS streaming.
+ * VideoCard - ImageCard's moving sibling, upgraded with HLS streaming.
  *
  * Same frame, same bottom-to-top clip wipe, same parallax vocabulary. The only
  * difference is what is inside the frame. Read `motion/image-card.tsx` first;
@@ -31,11 +31,11 @@ import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
  * viewport, the page carries a poster and nothing else.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * WCAG 2.2.2 — PAUSE, STOP, HIDE.
+ * WCAG 2.2.2 - PAUSE, STOP, HIDE.
  *
  * Loops run indefinitely, so a pause control is REQUIRED. It is a real
  * `<button>`, keyboard reachable, with label changing with state.
- * Once a visitor pauses, `pausedByUser` latches — the viewport observer will
+ * Once a visitor pauses, `pausedByUser` latches - the viewport observer will
  * not undo a deliberate pause.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -55,7 +55,7 @@ export type VideoCardProps = {
   /** Poster image path. Painted before, instead of, and behind the video. */
   poster: string;
   /**
-   * Describes what the footage shows. Carried by a visually-hidden node —
+   * Describes what the footage shows. Carried by a visually-hidden node -
    * the video itself is `aria-hidden`, exactly as the site's wordmark is.
    */
   alt: string;

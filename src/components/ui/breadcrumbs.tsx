@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 /**
- * Breadcrumbs — the internal routes' one piece of orientation chrome.
+ * Breadcrumbs - the internal routes' one piece of orientation chrome.
  *
  * SERVER COMPONENT. It has no state and no effects; do not add `"use client"`.
  *
@@ -18,7 +18,7 @@ import Link from "next/link";
  * after it finishes and would clip the focus ring off the crumb links. `PageHero`
  * renders the `breadcrumbs` slot outside every mask for exactly this reason.
  *
- * TYPE. `text-micro` uppercase on `tracking-label`, muted — the site's label
+ * TYPE. `text-micro` uppercase on `tracking-label`, muted - the site's label
  * vocabulary, one step below a section marker so it reads as chrome rather than
  * as content.
  *
@@ -35,7 +35,7 @@ import Link from "next/link";
 export type Crumb = {
   readonly label: string;
   /**
-   * Internal path. Omit it — or pass null — for the crumb that IS the current
+   * Internal path. Omit it - or pass null - for the crumb that IS the current
    * page. The last crumb is treated as current whether or not it carries an
    * href, so a trail can be built from a route table without special-casing
    * its tail.
@@ -66,7 +66,7 @@ export function Breadcrumbs({
     <nav aria-label={label} className={className}>
       {/* `list-none` strips list semantics in Safari; the role puts them back.
           `flex-wrap` is what keeps a long trail off the horizontal scrollbar at
-          375px — the trail wraps, the page never widens. */}
+          375px - the trail wraps, the page never widens. */}
       <ol
         role="list"
         className="flex flex-wrap items-center gap-x-2 gap-y-1 text-micro uppercase tracking-label text-muted"

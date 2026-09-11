@@ -10,7 +10,7 @@ export function VCardDownload({ className = "" }: { className?: string }) {
       "BEGIN:VCARD",
       "VERSION:3.0",
       "N:Roy;Mr.;;;",
-      "FN:Mr. Roy — JDKD Leasing",
+      "FN:Mr. Roy - JDKD Leasing",
       "ORG:JDKD Developers LLP",
       "TITLE:Director of Commercial Leasing",
       "TEL;TYPE=CELL,VOICE;VALUE=uri:tel:+919811998811",

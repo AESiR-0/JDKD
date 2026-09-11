@@ -3,7 +3,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { BELIEFS_VISION, SECTIONS } from "@/lib/content";
 
 /**
- * 04 — BELIEFS A / THE VISION STATEMENT.
+ * 04 - BELIEFS A / THE VISION STATEMENT.
  *
  * Conventions come from `sections/about.tsx`; read that file first. What this
  * section adds to the vocabulary is the EDGE BLEED and the OVERLAP.
@@ -30,7 +30,7 @@ import { BELIEFS_VISION, SECTIONS } from "@/lib/content";
  *
  * THE OVERLAP IS THE POINT. `calc(50% - 50vw)` puts the image's left edge on
  * the viewport edge, so its RIGHT edge lands at `calc(50% - 50vw) + 48vw`
- * — which resolves to roughly 46–48% of the frame at every width from 1024px
+ * - which resolves to roughly 46-48% of the frame at every width from 1024px
  * up. The heading starts at 40%, so its opening characters always sit on top of
  * the photograph rather than beside it. Do not "fix" the collision.
  *
@@ -46,14 +46,14 @@ import { BELIEFS_VISION, SECTIONS } from "@/lib/content";
  * than a drift in the system.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * BAND HEIGHT. The image is the only child left in flow at `lg` — the heading
- * and the rail are both absolute — so the image alone sets the band's height
+ * BAND HEIGHT. The image is the only child left in flow at `lg` - the heading
+ * and the rail are both absolute - so the image alone sets the band's height
  * (48vw at 4:5 = 60vw). Everything else is positioned as a percentage of that.
  *
  * MOBILE. One gutter-padded column in DOM order: label, image, heading,
  * paragraph. Every anchor is `lg:`-prefixed, so the mobile view is what is left
  * when the art direction switches off. At `md` the image simply runs flush to
- * the left of the frame at 72% — a left bleed already, without the `vw` maths.
+ * the left of the frame at 72% - a left bleed already, without the `vw` maths.
  *
  * SERVER COMPONENT. `ImageCard` and `Reveal` are the only client boundaries.
  */
@@ -69,10 +69,10 @@ export function BeliefsVision() {
       // by Features and the CTA on their own top edges; see `app/page.tsx`.
       className="relative overflow-x-clip pt-beat lg:pt-beat-lg"
     >
-      {/* THE FRAME — unpadded coordinate space, capped at the shell. Every
+      {/* THE FRAME - unpadded coordinate space, capped at the shell. Every
           percentage below is measured against it. */}
       <div className="relative mx-auto w-full max-w-shell">
-        {/* RIGHT GUTTER — the section label. See the note above on why this one
+        {/* RIGHT GUTTER - the section label. See the note above on why this one
             marker hangs off the right rather than the left edge. */}
         <p className="px-gutter text-right font-display text-label uppercase italic tracking-label text-muted md:px-gutter-lg">
           {BELIEFS_VISION.label}
@@ -99,14 +99,14 @@ export function BeliefsVision() {
 
           {/* The heading's first characters land on the photograph. This ramp
               buys them their contrast back. A plain gradient: no filters of any
-              kind, and no frosting — the one frosted surface on this site is the
+              kind, and no frosting - the one frosted surface on this site is the
               bento below. Its geometry mirrors the image exactly. */}
           <div
             aria-hidden="true"
             className="pointer-events-none hidden lg:absolute lg:top-0 lg:left-[calc(50%-50vw)] lg:block lg:h-full lg:w-[48vw] lg:bg-linear-to-r lg:from-transparent lg:via-deep/25 lg:to-deep/90"
           />
 
-          {/* THE HEADING — opens at 40%, over the image's right edge, z-above
+          {/* THE HEADING - opens at 40%, over the image's right edge, z-above
               it. Two lines, broken for composition rather than for reading, so
               the readable sentence is `sr-only` and the visible stack is hidden
               from assistive technology.
@@ -114,7 +114,7 @@ export function BeliefsVision() {
               The size is capped rather than stepped: `text-display-section` (min(5.2vw, 5rem)) keeps
               "CONSIDERED WORK" on one line inside a 54%-wide column at every
               width from 1024px up, which the flat 96px display step would not.
-              Capping beats adding breakpoints — see the contract. */}
+              Capping beats adding breakpoints - see the contract. */}
           <h2
             id={HEADING_ID}
             className="mt-12 px-gutter md:px-gutter-lg lg:absolute lg:top-[36%] lg:left-[40%] lg:z-10 lg:mt-0 lg:w-[54%] lg:px-0"
@@ -138,7 +138,7 @@ export function BeliefsVision() {
             </span>
           </h2>
 
-          {/* RIGHT RAIL — the ~30ch measure flush to the right gutter, sitting
+          {/* RIGHT RAIL - the ~30ch measure flush to the right gutter, sitting
               in the band's lower third. This is the repetition that ties nine
               differently-composed sections into one system: all small sans copy
               lives here. Do not centre it and do not widen it.

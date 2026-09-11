@@ -3,14 +3,14 @@
 import { Children, useEffect, useRef, type ElementType, type ReactNode } from "react";
 
 /**
- * Reveal — the site's signature mask-up reveal.
+ * Reveal - the site's signature mask-up reveal.
  *
  * An `overflow: hidden` wrapper clips an inner element that travels from
  * `translateY(100%)` to `0` with a fade. Transform and opacity only.
  *
  * WHY THIS USES NO ANIMATION LIBRARY. Every visible word on the page passes
  * through this component. When the reveal was driven by a scroll library, a
- * single misfire left the entire site blank — the hidden state applied and the
+ * single misfire left the entire site blank - the hidden state applied and the
  * tween that would undo it never ran. The visibility of the page must not
  * depend on a JS animation succeeding.
  *
@@ -26,7 +26,7 @@ import { Children, useEffect, useRef, type ElementType, type ReactNode } from "r
  * @example Single block
  * <Reveal as="h2" className="font-display text-headline">Built upward.</Reveal>
  *
- * @example Line-by-line stagger — each child becomes its own masked line
+ * @example Line-by-line stagger - each child becomes its own masked line
  * <Reveal as="h2" stagger={0.09}>
  *   {LINES.map((line) => <span key={line}>{line}</span>)}
  * </Reveal>
@@ -55,7 +55,7 @@ export type RevealProps = {
    */
   children: ReactNode;
   /**
-   * Root element type — `"h2"` for a section heading, `"div"` for a copy
+   * Root element type - `"h2"` for a section heading, `"div"` for a copy
    * block, `"li"` inside a list. @default "div"
    */
   as?: ElementType;
@@ -76,7 +76,7 @@ export type RevealProps = {
   /** Seconds per line. @default 0.9 */
   duration?: number;
   /**
-   * When the reveal fires, in ScrollTrigger's vocabulary — kept for API
+   * When the reveal fires, in ScrollTrigger's vocabulary - kept for API
    * stability. Only the coarse distinction is honoured: a value containing
    * "bottom" reveals as soon as any part enters the viewport, otherwise the
    * block must be meaningfully inside it. @default "top 85%"
@@ -131,7 +131,7 @@ export function Reveal({
 
     // An IntersectionObserver always delivers an initial callback for an
     // observed element, so `observerFired` staying false means the observer
-    // itself is broken — in which case show the content rather than hide it.
+    // itself is broken - in which case show the content rather than hide it.
     let observerFired = false;
     const observer = new IntersectionObserver(
       (entries) => {
@@ -165,7 +165,7 @@ export function Reveal({
     <Tag ref={rootRef} id={id} className={className}>
       {lines.map((line, index) => (
         <Line
-          // Lines are a static, authored list — index keys are stable here.
+          // Lines are a static, authored list - index keys are stable here.
           key={index}
           className={cx(
             // `pb`/`-mb` give descenders room inside the clip without

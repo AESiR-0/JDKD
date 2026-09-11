@@ -4,15 +4,15 @@ import type { ProjectNavItem } from "@/lib/content";
  * The project detail page's sticky sub-nav.
  *
  * One long page, eight anchors. This is the only navigation that exists inside
- * the document, so it has to stay reachable the whole way down — hence sticky
+ * the document, so it has to stay reachable the whole way down - hence sticky
  * rather than a block that scrolls away with the hero.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * WHY IT IS A DIRECT CHILD OF `<main>` AND FULL-BLEED.
  *
  * `position: sticky` travels only inside its own parent's box. Nested in a
- * gutter-padded wrapper of its own — a wrapper whose height is the bar's height
- * — it would unstick the moment that wrapper left the viewport, which is one
+ * gutter-padded wrapper of its own - a wrapper whose height is the bar's height
+ * - it would unstick the moment that wrapper left the viewport, which is one
  * scroll tick. So the bar IS the block: the page renders it as a sibling of the
  * sections, its parent is `<main>`, and it therefore stays pinned for the whole
  * document.
@@ -23,7 +23,7 @@ import type { ProjectNavItem } from "@/lib/content";
  * edge as every `(LABEL)` below it. Nothing negative-margins out of a padded
  * parent, so there is no horizontal overflow at 375px.
  *
- * `top-14` / `md:top-16` are `SiteHeader`'s own two heights — the bar parks
+ * `top-14` / `md:top-16` are `SiteHeader`'s own two heights - the bar parks
  * directly under the fixed header. Keep them in sync with it.
  *
  * NO `backdrop-blur`. `bg-canvas/95` is a plain alpha, not a filter; the
@@ -50,7 +50,7 @@ export type ProjectNavProps = {
 
 /**
  * Scrollbar is hidden on both engines: `scrollbar-width` for Firefox, the
- * pseudo-element for WebKit and Blink. The row still scrolls — it simply has no
+ * pseudo-element for WebKit and Blink. The row still scrolls - it simply has no
  * chrome under a row of 13px labels.
  */
 const SCROLLER =

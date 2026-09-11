@@ -9,7 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * ScrollOffset — a scroll-scrubbed vertical drift.
+ * ScrollOffset - a scroll-scrubbed vertical drift.
  *
  * Wraps content in a `<div>` that translates along Y as it crosses the
  * viewport. Combined with elements that scroll at native speed (or with

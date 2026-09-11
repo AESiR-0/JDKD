@@ -5,11 +5,11 @@ import { useId, useState } from "react";
 import { FAQ } from "@/lib/content";
 
 /**
- * FaqRows — the interactive half of section 07.
+ * FaqRows - the interactive half of section 07.
  *
  * CLIENT LEAF, and it must stay a leaf. `sections/faq.tsx` is a Server
  * Component; only the rows need state, so only the rows cross the boundary.
- * Same arrangement as `ui/enquiry-form.tsx` — never lift `"use client"` up onto
+ * Same arrangement as `ui/enquiry-form.tsx` - never lift `"use client"` up onto
  * a section.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -25,23 +25,23 @@ import { FAQ } from "@/lib/content";
  * The question is right-aligned italic serif against the right gutter; the
  * indicator hangs off the left edge; the answer opens in the centre band at
  * 28%. That left-to-right disagreement between question and answer is the
- * composition — do not align them.
+ * composition - do not align them.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * BEHAVIOUR. One answer open at a time, and the open one can be closed again.
  * The first row is open on first paint, so the section is never a stack of
- * five closed rules — and so a visitor whose JavaScript never arrives still
+ * five closed rules - and so a visitor whose JavaScript never arrives still
  * reads an answer.
  *
  * ACCESSIBILITY follows the APG disclosure pattern: a real `<button>` inside an
  * `<h3>`, `aria-expanded` on the button, `aria-controls` pointing at a panel
  * that is a labelled `region`. A collapsed panel carries `inert`, which takes
- * its text out of the accessibility tree and out of the tab order — clipping it
+ * its text out of the accessibility tree and out of the tab order - clipping it
  * visually is not enough on its own.
  *
  * THE HEIGHT ANIMATION is the `grid-template-rows: 0fr → 1fr` transition on a
  * single-row grid whose child is `overflow-hidden`. It animates a layout
- * property, which the site's motion rules otherwise forbid — the exception is
+ * property, which the site's motion rules otherwise forbid - the exception is
  * deliberate and confined to this file, because an accordion that snaps open is
  * not the specified behaviour. No `filter`, no animated `box-shadow`, and the
  * global reduced-motion rule in `globals.css` zeroes the duration.
@@ -82,7 +82,7 @@ export function FaqRows({ className }: FaqRowsProps) {
                 onClick={() => setOpenId(isOpen ? null : item.id)}
                 className="group flex w-full cursor-pointer items-start gap-8 px-gutter py-7 text-left md:px-gutter-lg lg:gap-20 lg:py-10"
               >
-                {/* LEFT EDGE — a plus that lies down into a minus. Two 1px
+                {/* LEFT EDGE - a plus that lies down into a minus. Two 1px
                     rules and a rotation: transform only, no glyph, no icon. */}
                 <span
                   aria-hidden="true"

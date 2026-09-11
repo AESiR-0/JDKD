@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
@@ -11,7 +13,7 @@ import {
 } from "@/lib/content";
 
 /**
- * SiteFooter — Compact, architectural, Awwwards-level monograph footer.
+ * SiteFooter - Compact, architectural, Awwwards-level monograph footer.
  *
  * Replaced the oversized sprawling bands with a refined, single-tier
  * architectural composition:
@@ -115,7 +117,7 @@ export function SiteFooter() {
                 <br />
                 A-11, Mohan Cooperative Industrial Estate
                 <br />
-                Mathura Road, New Delhi – 110076
+                Mathura Road, New Delhi - 110076
               </p>
             </div>
 
@@ -149,12 +151,17 @@ export function SiteFooter() {
             <span>
               &copy; {year} {FOOTER_LEGAL.copyrightHolder}. All rights reserved.
             </span>
-            <a
-              href="#main-content"
-              className="text-pure/80 uppercase tracking-widest transition-colors hover:text-pure"
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              className="text-pure/80 uppercase tracking-widest transition-colors hover:text-pure cursor-pointer"
             >
               Back to top &uarr;
-            </a>
+            </button>
           </div>
         </div>
       </div>

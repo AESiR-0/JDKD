@@ -23,7 +23,7 @@ import {
 } from "@/lib/content";
 
 /**
- * SiteHeader — persistent site chrome.
+ * SiteHeader - persistent site chrome.
  *
  * CLIENT COMPONENT, and one of only three in the tree. It owns three pieces of
  * runtime state and nothing else: whether the bar has cleared the hero, whether
@@ -31,15 +31,15 @@ import {
  * section content, so nothing else is dragged across the boundary.
  *
  * THREE AFFORDANCES, per docs/FLOW.md §2:
- *   1. Desktop bar — mark on the left edge, the route links centred, persistent
+ *   1. Desktop bar - mark on the left edge, the route links centred, persistent
  *      Enquire pill on the right, over a 1px divider.
  *      ABOUT → /about · PROJECTS → /projects · CONTACT → /contact · the pill →
  *      the enquiry form. Every href is built in `@/lib/content` from
  *      `ROUTES[…].path` (or, for the pill, `SECTIONS.enquire.id`), so a moved
- *      route or a renamed anchor is a compile error rather than a dead link —
+ *      route or a renamed anchor is a compile error rather than a dead link -
  *      never retype one here.
- *   2. Mobile panel — hamburger opens a full-screen sheet beneath the bar.
- *   3. Mobile quick-contact bar — Call / WhatsApp / Enquire, pinned to the
+ *   2. Mobile panel - hamburger opens a full-screen sheet beneath the bar.
+ *   3. Mobile quick-contact bar - Call / WhatsApp / Enquire, pinned to the
  *      bottom above the safe-area inset. Tap-to-call is the dominant
  *      conversion path in Indian commercial leasing, so it is always visible
  *      below 768px and is the one thing on this page that never scrolls away.
@@ -47,33 +47,33 @@ import {
  * REAL ROUTES, NOT FRAGMENTS. The nav used to be four homepage anchors, which
  * is all a one-page site could offer. It is now three routes that exist, so the
  * links behave identically wherever they are clicked from, and the one the
- * visitor is already on is marked `aria-current="page"` — see `isCurrent`.
+ * visitor is already on is marked `aria-current="page"` - see `isCurrent`.
  * They are `next/link`s so the navigation is client-side and prefetched; the
  * pill and the quick-contact bar stay plain `<a>` only where they target a
  * fragment or a `tel:` / WhatsApp URL.
  *
- * TRANSPARENT OVER THE HERO — HOMEPAGE ONLY. The bar is `fixed`, so on the
+ * TRANSPARENT OVER THE HERO - HOMEPAGE ONLY. The bar is `fixed`, so on the
  * homepage, which opens with a full-bleed hero, it starts transparent with
  * white type and picks up a solid canvas background once the hero has passed
  * beneath it. That crossing is detected with an IntersectionObserver rather
- * than a scroll listener — passive, nothing per frame, honest about the 60fps
+ * than a scroll listener - passive, nothing per frame, honest about the 60fps
  * mid-range Android target.
  *
  * EVERY OTHER ROUTE IS SOLID FROM THE FIRST PIXEL, and that is not a detail:
  * internal routes open with `PageHero`, whose `<h1>` sits directly beneath the
  * bar rather than under a photograph. A transparent bar there would leave white
- * type over the canvas background — invisible — and the title reading as though
+ * type over the canvas background - invisible - and the title reading as though
  * it were underneath the header. The initial state is derived from the
  * pathname, which is known during prerender, so the first paint is already
  * correct on both kinds of route and neither flashes. If the homepage somehow
  * renders no hero element, the observer effect falls back to solid.
  *
  * FROSTED, AND THE SECOND `backdrop-filter` ON THIS SITE. The solid state is a
- * translucent plate over a capped blur rather than a flat fill — see
+ * translucent plate over a capped blur rather than a flat fill - see
  * `BAR_TREATMENT`. The blur is `md:`-prefixed exactly as the homepage bento's
  * is: below 768px the plate is flat translucent and no filter is composited at
  * all. That is the performance floor, and it is also what keeps the sheet
- * working — a live `backdrop-filter` would make the bar the containing block
+ * working - a live `backdrop-filter` would make the bar the containing block
  * for the `fixed` sheet inside it, and the sheet would collapse onto the bar's
  * own 56px box. The sheet is a below-768px affordance, so the two never meet.
  * `data-frost` carries the `prefers-reduced-transparency` override in
@@ -82,7 +82,7 @@ import {
  * RETRACT ON THE WAY DOWN, RETURN ON THE WAY UP. Scrolling down slides the bar
  * off the top edge; any upward travel brings it straight back. Four things pin
  * it open regardless of direction: the top of the document, an open sheet,
- * focus anywhere inside the header, and `prefers-reduced-motion` — under which
+ * focus anywhere inside the header, and `prefers-reduced-motion` - under which
  * it never retracts at all, rather than snapping in and out. See `retracted`.
  *
  * The quick-contact bar does NOT retract. It is a sibling of the header, so
@@ -90,7 +90,7 @@ import {
  * phone, tap-to-call is the conversion path and it does not get to scroll away.
  *
  * MOTION. Colour transitions and a single `translate`, both on discrete state
- * changes — nothing is animated per frame, so this still spends none of the
+ * changes - nothing is animated per frame, so this still spends none of the
  * page's motion budget. The global reduced-motion block neutralises the
  * transitions, and the retract is additionally gated on the same media query in
  * JS so reduced motion means "stays put", not "teleports".
@@ -103,7 +103,7 @@ import {
 /**
  * The one route that opens with a full-bleed hero, so the one route where the
  * bar may start transparent. Every internal route opens with `PageHero`, which
- * has no plate behind the title — those must be solid from the first paint.
+ * has no plate behind the title - those must be solid from the first paint.
  */
 const HERO_ROUTE = ROUTES.home.path;
 
@@ -117,7 +117,7 @@ const PANEL_ID = "site-nav-panel";
  * never generate a class built by interpolation.
  *
  * The current route reads at full strength and the rest sit back. Over the hero
- * the whole set is white, so there the distinction is opacity rather than hue —
+ * the whole set is white, so there the distinction is opacity rather than hue -
  * and `hover:text-ink` is dropped from the current link because it is already
  * ink and a hover that changes nothing is a lie.
  */
@@ -133,13 +133,13 @@ const NAV_LINK_TONE = {
 } as const;
 
 /**
- * The bar's two treatments, looked up rather than assembled — same reason as
+ * The bar's two treatments, looked up rather than assembled - same reason as
  * `NAV_LINK_TONE`: the Tailwind v4 scanner reads source text.
  *
  * `frosted` is the solid state. The unprefixed half is the phone: a flat
  * translucent plate, no filter, which is both the cheap path and the only one
  * compatible with the `fixed` sheet this element contains. The `md:` half adds
- * the frosting — a thinner plate over a blur capped at 10px, which is chrome
+ * the frosting - a thinner plate over a blur capped at 10px, which is chrome
  * that lets the page move underneath rather than a glass slab. Written WITH
  * the prefix here and in the prose above so the scanner cannot emit an
  * unprefixed frosting utility, the same discipline `BeliefsGrid` keeps.
@@ -173,13 +173,13 @@ const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 /**
- * Interface labels. These are chrome microcopy — they assert no fact about the
+ * Interface labels. These are chrome microcopy - they assert no fact about the
  * asset, the entity or the address, so they do not belong in `@/lib/content`.
  * Everything that IS a fact (labels, hrefs, the phone number, the mark) is read
  * from content.
  */
 const UI = {
-  homeLink: `${SITE.name} — home`,
+  homeLink: `${SITE.name} - home`,
   primaryNav: "Primary",
   panelNav: "Menu",
   openMenu: "Open menu",
@@ -205,14 +205,14 @@ function cx(...parts: (string | false | null | undefined)[]): string {
 /**
  * Is `href` the route the visitor is on?
  *
- * A nav href is a bare path — that is enforced by the comment on `NAV_ITEMS`
+ * A nav href is a bare path - that is enforced by the comment on `NAV_ITEMS`
  * and it is what makes this comparison possible at all.
  *
  * The `startsWith` arm is what marks PROJECTS while the visitor is on
  * `/projects/jdkd-corporate-tower`: the trailing slash is required, or
  * `/projects` would also claim a hypothetical `/projects-archive`. `/` is
  * excluded because every path starts with it, and the mark is not in the nav
- * anyway — there is no HOME item to light up.
+ * anyway - there is no HOME item to light up.
  */
 function isCurrent(pathname: string, href: string): boolean {
   if (href === ROUTES.home.path) return pathname === href;
@@ -257,7 +257,7 @@ export function SiteHeader() {
       ? document.getElementById(SECTIONS.hero.id)
       : null;
 
-    // Not the homepage, no hero to watch, or no observer to watch it with —
+    // Not the homepage, no hero to watch, or no observer to watch it with -
     // either way the bar is solid from the first pixel. Never leave it
     // transparent by default: white type on the canvas background would be
     // unreadable.
@@ -341,7 +341,7 @@ export function SiteHeader() {
 
   /**
    * The sheet is a below-768px affordance, and the toggle that opens it is
-   * `md:hidden` — so it can only ever be opened on a narrow viewport. The one
+   * `md:hidden` - so it can only ever be opened on a narrow viewport. The one
    * way to end up with an open sheet on a wide one is a resize, so this
    * subscribes to that crossing and nothing else. Without it the sheet would
    * vanish behind the media query while its scroll lock and focus trap stayed
@@ -371,7 +371,7 @@ export function SiteHeader() {
     setRetracted(false);
 
     // NEVER while the sheet is open. The toggle that closes it lives in the
-    // bar, so retracting it would strip the only way out of the sheet — and
+    // bar, so retracting it would strip the only way out of the sheet - and
     // the sheet is `fixed` to `top-14`, which assumes the bar is still there.
     if (open) return;
 
@@ -383,7 +383,7 @@ export function SiteHeader() {
 
     /**
      * Runs at most once a frame, and reads NOTHING from the DOM that could
-     * force a layout — `latest` was captured by the listener and
+     * force a layout - `latest` was captured by the listener and
      * `document.activeElement` is a pointer, not a measurement.
      */
     function settle() {
@@ -392,7 +392,7 @@ export function SiteHeader() {
 
       // Pinned open: the top of the document, reduced motion (which means the
       // bar simply never hides, not that it hides without a transition), or
-      // focus somewhere inside the header — a keyboard visitor must not have
+      // focus somewhere inside the header - a keyboard visitor must not have
       // the nav slide out from under them mid-tab.
       if (
         y <= TOP_ZONE ||
@@ -420,8 +420,8 @@ export function SiteHeader() {
     }
 
     /**
-     * A retracted bar keeps its links in the tab order — it is off-screen, not
-     * hidden — so focus arriving from the page below has to bring it back or
+     * A retracted bar keeps its links in the tab order - it is off-screen, not
+     * hidden - so focus arriving from the page below has to bring it back or
      * the focus ring lands somewhere the visitor cannot see. `focusin` bubbles,
      * so one listener on the header covers every control in it.
      */
@@ -455,7 +455,7 @@ export function SiteHeader() {
           // every page and nothing else on it is allowed to animate.
           "fixed inset-x-0 top-0 z-50 border-b transition-[color,background-color,border-color,translate] duration-300 ease-editorial",
           inverted ? BAR_TREATMENT.inverted : BAR_TREATMENT.frosted,
-          // Applied ONLY while retracted — never a `translate-y-0` counterpart.
+          // Applied ONLY while retracted - never a `translate-y-0` counterpart.
           // Any non-`none` translate makes this element the containing block
           // for the `fixed` sheet inside it, which would collapse the sheet
           // onto the bar's own box; the resting state therefore carries no
@@ -468,7 +468,7 @@ export function SiteHeader() {
         {/* Logo left, nav centre, action right. The nav takes `flex-1` rather
             than an absolute centre: the mark and the pill measure within a few
             pixels of one another, so the remaining space is centred on the bar
-            to the eye, and — unlike a translated absolute child — the nav can
+            to the eye, and - unlike a translated absolute child - the nav can
             never ride over either of them at the 768px floor. */}
         <div className="mx-auto flex h-14 w-full max-w-shell items-center justify-between gap-4 px-gutter md:h-16 md:gap-6 md:px-gutter-lg lg:gap-8">
           <Link data-press="row"
@@ -488,7 +488,7 @@ export function SiteHeader() {
               // Deliberately left at the default `loading="lazy"`. Next 16
               // emits a <link rel="preload" as="image"> for `loading="eager"`
               // as well as for `preload`, and that link lands in the head ahead
-              // of the hero's — two image preloads competing, with the LCP
+              // of the hero's - two image preloads competing, with the LCP
               // element losing. Verified in the served HTML. The mark is in the
               // initial viewport, so the lazy threshold is already satisfied
               // and the browser fetches it on the first pass anyway; it is 15KB
@@ -561,7 +561,7 @@ export function SiteHeader() {
               <span className="sr-only">
                 {open ? UI.closeMenu : UI.openMenu}
               </span>
-              {/* Two rules, not three — the deck's hairline vocabulary. They
+              {/* Two rules, not three - the deck's hairline vocabulary. They
                   cross into an X when the sheet is open. Transform only. */}
               <span
                 aria-hidden="true"
@@ -653,7 +653,7 @@ export function SiteHeader() {
                     >
                       <span>{item.label}</span>
                       {/* The red hairline is the row's own marker at rest and
-                          grows on the current row — the one place red widens,
+                          grows on the current row - the one place red widens,
                           and still a hairline, never a fill. */}
                       <span
                         aria-hidden="true"

@@ -11,7 +11,7 @@ import {
 import type { RealProject } from "@/lib/content";
 
 /**
- * LOCATION & CONNECTIVITY — the first band on this page with a photograph, and
+ * LOCATION & CONNECTIVITY - the first band on this page with a photograph, and
  * the home `location-aerial.jpg` never had.
  *
  *      ▓                                                            ▓
@@ -22,15 +22,15 @@ import type { RealProject } from "@/lib/content";
  *      │                                                            │
  *      │  350 m   Sarita Vihar Metro   ┌──────────────────────────  │
  *      │  500 m   Apollo Hospital      │  location-aerial.jpg      │
- *      │  ——      Main Mathura Road    │  full band height,        │
+ *      │  --      Main Mathura Road    │  full band height,        │
  *      │  5 km    NOIDA business hub   │  bleeds off the RIGHT     │
  *      │                               └──────────────────────────  │
  *
- * WHICH CHILD SETS THE BAND'S HEIGHT — the DISTANCE LIST, not the picture, and
+ * WHICH CHILD SETS THE BAND'S HEIGHT - the DISTANCE LIST, not the picture, and
  * that inversion is deliberate. A list of proximity facts grows with its copy;
  * an absolutely positioned list would overflow the photograph it was measured
  * against. So the list stays in flow and the picture is stretched to match it
- * with `lg:inset-y-0` plus `lg:aspect-auto lg:h-full` — the `aspect-auto` is
+ * with `lg:inset-y-0` plus `lg:aspect-auto lg:h-full` - the `aspect-auto` is
  * required, it cancels the mobile aspect ratio so `h-full` can take over.
  *
  * `aspect-square` on mobile because the asset is 864 × 900 on disk; a 4:3 frame
@@ -38,7 +38,7 @@ import type { RealProject } from "@/lib/content";
  * thing the aerial is here to show.
  *
  * NOT EVERY POINT HAS A DISTANCE. `LocationPoint.distance` is null for Mathura
- * Road because the deck states none, and nothing here invents one — that row
+ * Road because the deck states none, and nothing here invents one - that row
  * simply leads with the place. A dash in the numeral slot would read as a
  * measured value of zero.
  */
@@ -53,7 +53,7 @@ export function ProjectLocation({ connectivity }: ProjectLocationProps) {
   return (
     <section id="location" aria-labelledby={LOCATION_ID} className={SECTION}>
       <div className={FRAME}>
-        {/* HEADER BAND — heading in flow at the left edge sets the height; the
+        {/* HEADER BAND - heading in flow at the left edge sets the height; the
             rail hangs off the right gutter from `lg`. No picture in this band,
             so the rail behaves normally. */}
         <div className="relative">
@@ -75,7 +75,7 @@ export function ProjectLocation({ connectivity }: ProjectLocationProps) {
           </div>
         </div>
 
-        {/* DISTANCES BAND — the list is the flow child and sets the height. */}
+        {/* DISTANCES BAND - the list is the flow child and sets the height. */}
         <div className="relative mt-band lg:mt-band-lg">
           <ol role="list" className={`${EDGE} lg:w-[46%]`}>
             {connectivity.points.map((point) => (

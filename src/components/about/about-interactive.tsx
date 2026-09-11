@@ -244,7 +244,7 @@ export function BeliefPinnedDrawing() {
           </h2>
           <p className="mt-8 max-w-[420px] text-small text-muted leading-relaxed">
             It should inspire, enable and create the conditions for great work.
-            We design spaces that go beyond function — spaces that foster
+            We design spaces that go beyond function - spaces that foster
             collaboration, focus and long-term value.
           </p>
         </div>
@@ -257,11 +257,11 @@ export function BeliefPinnedDrawing() {
             className="relative w-48 h-64 sm:w-56 sm:h-72 overflow-hidden border border-line/40 bg-surface shadow-2xl shrink-0"
           >
             <Image
-              src="/images/beliefs/office-interior.jpg"
-              alt="JDKD interior workspace architectural volume with timber and concrete acoustics"
+              src="/images/about/workspace-open.jpg"
+              alt="JDKD open collaborative workspace with generous daylight, timber baffles, and integrated greenery"
               fill
               sizes="(max-width: 640px) 192px, 224px"
-              className="object-cover grayscale-[20%] contrast-[1.08]"
+              className="object-cover contrast-[1.05]"
             />
             <div
               className="pointer-events-none absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent"
@@ -622,7 +622,7 @@ export function ApproachStackedCards() {
       title: "Create value",
       subtitle: "Operational Efficiency & Smart BMS Systems",
       body: "Centralized energy-efficient VRV HVAC systems, rainwater harvesting, 100% DG power backup, and destination-controlled high-speed elevators reducing long-term overhead.",
-      image: "/images/office-floor.jpg",
+      image: "/images/about/boardroom-value.jpg",
       telemetry: "ENERGY EFFICIENCY -34% // VRV 4-PIPE",
     },
     {
@@ -640,7 +640,7 @@ export function ApproachStackedCards() {
       title: "A better tomorrow",
       subtitle: "The Future of Workspace & Sky Pavilion",
       body: "A landscaped rooftop terrace pavilion, electric vehicle charging bays, and flexible column-free floor plans tailored for high-growth modern enterprises.",
-      image: "/images/features/terrace-large.jpg",
+      image: "/images/about/sky-terrace-clear.jpg",
       telemetry: "SKY RETREAT // ZERO CARBON TARGET",
     },
   ];
@@ -660,7 +660,7 @@ export function ApproachStackedCards() {
         // Position all cards 1..n off-screen downwards
         cardEls.forEach((card, i) => {
           if (i > 0) {
-            gsap.set(card, { yPercent: 110, scale: 0.95 });
+            gsap.set(card, { yPercent: 105, scale: 1 });
           }
         });
 
@@ -671,7 +671,7 @@ export function ApproachStackedCards() {
             start: "top top",
             end: `+=${totalSteps * 900}`,
             pin: true,
-            scrub: 0.6,
+            scrub: 0.5,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
@@ -689,47 +689,47 @@ export function ApproachStackedCards() {
           },
         });
 
-        // Sequence: Each incoming card slides up over the previous one,
-        // while the previous card scales down slightly and darkens.
+        // Sequence: Each incoming card slides up over the previous one smoothly.
+        // Clean physical stacking: NO dark fade, NO filter brightness.
+        // Previous card subtly settles (scale: 0.96), incoming card glides up to yPercent: 0.
         for (let i = 1; i < cardEls.length; i++) {
           const prevCard = cardEls[i - 1];
           const currCard = cardEls[i];
 
-          // Scale down & dim previous card
+          // Subtly scale previous card down to 0.96 for soft physical depth without dimming
           tl.to(
             prevCard,
             {
-              scale: 0.92,
-              filter: "brightness(0.65)",
-              duration: 1,
-              ease: "power2.inOut",
+              scale: 0.96,
+              duration: 1.2,
+              ease: "power1.out",
             },
             (i - 1) * 1.2
           );
 
-          // If there are cards behind previous card, scale them even further
+          // If there are cards behind previous card, gently maintain their layered scale
           for (let j = 0; j < i - 1; j++) {
             tl.to(
               cardEls[j],
               {
-                scale: 0.92 - (i - 1 - j) * 0.04,
-                duration: 1,
-                ease: "power2.inOut",
+                scale: Math.max(0.92, 0.96 - (i - 1 - j) * 0.02),
+                duration: 1.2,
+                ease: "power1.out",
               },
               (i - 1) * 1.2
             );
           }
 
-          // Slide current card up into place
+          // Slide current card up into place smoothly
           tl.to(
             currCard,
             {
               yPercent: 0,
               scale: 1,
               duration: 1.2,
-              ease: "power2.out",
+              ease: "power1.out",
             },
-            (i - 1) * 1.2 + 0.1
+            (i - 1) * 1.2
           );
         }
       });
@@ -791,7 +791,7 @@ export function ApproachStackedCards() {
             {CARDS.map((card, idx) => (
               <div
                 key={card.id}
-                className="stacked-card absolute inset-0 rounded-xs border border-line/50 bg-[#161c1b] p-6 sm:p-8 lg:p-10 shadow-2xl overflow-hidden flex flex-col justify-between transition-shadow duration-300"
+                className="stacked-card absolute inset-0 rounded-xs border border-line/60 bg-[#141513] p-6 sm:p-8 lg:p-10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col justify-between"
                 style={{ zIndex: idx + 1 }}
               >
                 {/* Card Top: Number & Telemetry */}

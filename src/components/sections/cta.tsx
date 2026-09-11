@@ -4,7 +4,7 @@ import { EnquiryForm } from "@/components/ui/enquiry-form";
 import { CONTACT, CTA, SECTIONS } from "@/lib/content";
 
 /**
- * 08 — CTA. The page's last statement and its only conversion surface.
+ * 08 - CTA. The page's last statement and its only conversion surface.
  *
  * Conventions are copied from `sections/about.tsx`, the worked reference.
  *
@@ -26,7 +26,7 @@ import { CONTACT, CTA, SECTIONS } from "@/lib/content";
  * is the whole reason the scrim clears on the right at `lg`.
  *
  * WHICH ELEMENT SETS THE HEIGHT. The panel, because it is the only child left
- * in flow at `lg` — exactly as About's portrait is. That is what makes
+ * in flow at `lg` - exactly as About's portrait is. That is what makes
  * `lg:top-1/2 lg:-translate-y-1/2` on the statement mean "centred on the
  * panel" rather than "centred on nothing".
  *
@@ -35,8 +35,8 @@ import { CONTACT, CTA, SECTIONS } from "@/lib/content";
  * it. `ParallaxImage` directly, not `ImageCard`: this is a background, and the
  * clip wipe belongs to framed pictures.
  *
- * THE RIGHT RAIL, in this section, is the panel. All the small sans copy — the
- * lede, the field labels, the consent line, the phone — sits inside it on a
+ * THE RIGHT RAIL, in this section, is the panel. All the small sans copy - the
+ * lede, the field labels, the consent line, the phone - sits inside it on a
  * ~34ch measure flush to the right, which is the one repetition every section
  * shares.
  *
@@ -44,7 +44,7 @@ import { CONTACT, CTA, SECTIONS } from "@/lib/content";
  * value caps there. Below the cap it is bounded by the longest word that cannot
  * break: "WALKTHROUGH." measures 8.61em in Prata at the shipped tracking, so
  * 9.7vw is what keeps it inside a 375px gutter, and at `lg` the whole second
- * line — "PRIVATE WALKTHROUGH.", 13.05em — has to clear the pine panel, which
+ * line - "PRIVATE WALKTHROUGH.", 13.05em - has to clear the pine panel, which
  * is what sets 3.8vw there.
  *
  * SERVER COMPONENT. `ParallaxImage`, `Reveal` and `EnquiryForm` are the client
@@ -55,7 +55,7 @@ const HEADING_ID = "enquire-heading";
 
 /**
  * Restyling of the shared `EnquiryForm` for the pine panel, applied entirely
- * from the outside — `ui/enquiry-form.tsx` itself is untouched.
+ * from the outside - `ui/enquiry-form.tsx` itself is untouched.
  *
  * The form was authored as a self-contained card on `bg-surface`. Here the
  * panel is the card, so the form's own chrome is stripped. Those five
@@ -68,7 +68,7 @@ const HEADING_ID = "enquire-heading";
  * (#8D938F) measures 5.3:1 on `--color-surface` but only 3.4:1 on
  * `--color-pine` (#254441), which fails WCAG AA for the field labels, the
  * optional-field note and the consent line. `text-ink/80` restores about
- * 6.6:1, and the placeholder tint about 5.6:1 — both AA at these sizes. Those
+ * 6.6:1, and the placeholder tint about 5.6:1 - both AA at these sizes. Those
  * two win on specificity alone, so neither needs a bang: the descendant
  * selectors score (0,2,0) and (0,1,2) against (0,1,0) and (0,1,1).
  */
@@ -85,7 +85,7 @@ export function Cta() {
       // behind the photograph. No `pb-`; see `app/page.tsx`.
       className="relative overflow-x-clip pt-break lg:pt-break-lg"
     >
-      {/* FULL-BLEED ART — sibling of the frame, behind the reading content. */}
+      {/* FULL-BLEED ART - sibling of the frame, behind the reading content. */}
       <div className="absolute inset-x-0 bottom-0 top-break lg:top-break-lg">
         <ParallaxImage
           src={CTA.image.src}
@@ -105,9 +105,9 @@ export function Cta() {
         />
       </div>
 
-      {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
+      {/* THE FRAME - unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
-        {/* LEFT EDGE — the statement, vertically centred on the panel at `lg`.
+        {/* LEFT EDGE - the statement, vertically centred on the panel at `lg`.
             Broken for composition, not for reading: the readable sentence is
             `sr-only` and the visible stack is hidden from assistive
             technology. Its id names both this section and the form. */}
@@ -130,7 +130,7 @@ export function Cta() {
           </span>
         </h2>
 
-        {/* RIGHT — the pine panel. In flow, so it sets the frame's height, and
+        {/* RIGHT - the pine panel. In flow, so it sets the frame's height, and
             bleeding off the right viewport edge with the documented
             `calc(50%-50vw)` pattern rather than any scrollbar arithmetic of
             its own. Below 1440px that calc resolves to 0 and the panel simply
@@ -149,7 +149,7 @@ export function Cta() {
           {/* Not wrapped in a Reveal: the mask keeps `overflow: hidden` after
               it finishes and would clip this link's focus ring. */}
           <p className="mt-9 border-t border-line pt-6 text-caption text-ink/80">
-            {CONTACT.leasingContact.role} — {CONTACT.leasingContact.name},{" "}
+            {CONTACT.leasingContact.role} - {CONTACT.leasingContact.name},{" "}
             <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}
               className="text-ink underline decoration-red decoration-2 underline-offset-4"

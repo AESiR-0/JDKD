@@ -17,7 +17,7 @@ import {
 } from "@/lib/content";
 
 /**
- * /projects — THE EDITORIAL INDEX.
+ * /projects - THE EDITORIAL INDEX.
  *
  * Conventions are inherited wholesale from `app/about/page.tsx`, the worked
  * reference route; read that file first. This one adds nothing to the system,
@@ -27,15 +27,15 @@ import {
  * THIS IS NOT A CARD GRID, AND THAT IS THE WHOLE BRIEF.
  *
  * No `grid-cols-12`, no `col-span-*`, and no repeated card either. Each entry
- * is a CHAPTER — one flow child (the image, which alone sets the band's height)
- * with a type column anchored absolutely over it — and dominance flips from
+ * is a CHAPTER - one flow child (the image, which alone sets the band's height)
+ * with a type column anchored absolutely over it - and dominance flips from
  * chapter to chapter, exactly as `sections/buildings.tsx` does on the homepage.
  * Nothing lines up between chapters on purpose; the only things they share are
  * the ~30ch measure their copy is set on and the vertical rhythm between them.
  *
  * THE THREE COMPOSITIONS, at `lg` and above. `▓` is the viewport edge.
  *
- *   ONE — THE TOWER. Dominance RIGHT, and the tallest plate on the page: a
+ *   ONE - THE TOWER. Dominance RIGHT, and the tallest plate on the page: a
  *   4:5 portrait bleeding off the right edge, type at the LEFT EDGE, top-
  *   anchored. This is the only entry with facts, a red hairline and a link.
  *
@@ -49,7 +49,7 @@ import {
  *      │  facts ─ ─ ─                        │                        │
  *      │  VIEW PROJECT →                     └────────────────────────
  *
- *   TWO — PORTFOLIO. Dominance flips LEFT: a 4:3 frame bleeding off the left
+ *   TWO - PORTFOLIO. Dominance flips LEFT: a 4:3 frame bleeding off the left
  *   edge, type in the RIGHT RAIL and set right-ragged so title, rule and copy
  *   all hang off the same edge.
  *
@@ -60,7 +60,7 @@ import {
  *      │             46vw              │                summary 30ch│
  *      ────────────────────────────────┘                            │
  *
- *   THREE — PORTFOLIO. Dominance swings back RIGHT but the plate is smaller
+ *   THREE - PORTFOLIO. Dominance swings back RIGHT but the plate is smaller
  *   (38vw) and the type column is anchored to the band's FOOT rather than its
  *   head, so the chapter reads as a diminuendo rather than a repeat of one.
  *
@@ -76,7 +76,7 @@ import {
  *
  * The client supplied footage of all three; the JDKD mark is visible on two.
  * What has not been supplied is the specification, so `PlaceholderProject`
- * still carries `slug: null` — the contract that there is no page behind it —
+ * still carries `slug: null` - the contract that there is no page behind it -
  * and three devices keep that visible: the labelled `UNRESOLVED.portfolio` slot
  * in the header rail, the `(COMPLETED)` marker above each title, which claims
  * only what the footage shows, and the hairline frame drawn around any
@@ -85,8 +85,8 @@ import {
  *
  * ─────────────────────────────────────────────────────────────────────────
  * MOBILE. Every anchor below is `lg:`-prefixed. What is left at 375px is one
- * gutter-padded column in DOM order — per chapter: marker, title, copy, image
- * — which is the layout, not a fallback for it.
+ * gutter-padded column in DOM order - per chapter: marker, title, copy, image
+ * - which is the layout, not a fallback for it.
  *
  * ONE H1. `PageHero` renders it. The three chapter titles are the `<h2>`s.
  *
@@ -127,7 +127,7 @@ export const metadata: Metadata = {
    INTERFACE MICROCOPY
 
    Chrome, not content: these strings assert no fact about the asset, the
-   entity or the address, so they live here rather than in `@/lib/content` —
+   entity or the address, so they live here rather than in `@/lib/content` -
    the same split `site-header.tsx` makes for its own `UI` block.
    ========================================================================== */
 
@@ -142,14 +142,14 @@ const UI = {
    SHARED TREATMENTS
 
    Written out whole and shared by reference. NEVER build a Tailwind class by
-   concatenation or interpolation — the v4 scanner reads source text, so a
+   concatenation or interpolation - the v4 scanner reads source text, so a
    class assembled at runtime is never generated. Joining two COMPLETE literals
    (as the chapters below do) is fine; splicing a value into one is not.
    ========================================================================== */
 
 /**
  * The index shell. `PageHero` on this route renders NO plate, so the page
- * opens type-only and the gap beneath it is doing all the pacing work — hence
+ * opens type-only and the gap beneath it is doing all the pacing work - hence
  * the pacing break (`pt-break`, 288px) on the top edge rather than the standard
  * `pt-beat`. No bottom padding: the footer pays its own gap (ONE OWNER PER GAP).
  */
@@ -170,7 +170,7 @@ const LABEL =
  * Chapter title. `text-h2` is the homepage's chapter step.
  *
  * The tower alone grows at `lg`, because it is the one entry that is a building
- * rather than a portfolio entry — and it grows on a CAP, not a flat step:
+ * rather than a portfolio entry - and it grows on a CAP, not a flat step:
  * `min(4.2vw, 3.5rem)` reaches the 56px ceiling from 1440px up and shrinks
  * below it, which is the remedy this system prefers over inventing a breakpoint.
  * It also keeps the title from pushing the type column past the foot of its
@@ -198,13 +198,13 @@ const FRAME_ONE = "aspect-[4/5] w-full md:w-[78%] lg:ml-auto lg:mr-[calc(50%-50v
 const FRAME_TWO = "aspect-[4/3] w-full lg:ml-[calc(50%-50vw)] lg:w-[46vw]";
 const FRAME_THREE = "aspect-[4/3] w-full md:ml-auto md:w-[78%] lg:ml-auto lg:mr-[calc(50%-50vw)] lg:w-[38vw]";
 
-/** Stable, page-scoped heading id — project ids are generic on their own. */
+/** Stable, page-scoped heading id - project ids are generic on their own. */
 function headingId(id: string): string {
   return `projects-${id}-title`;
 }
 
 /* ==========================================================================
-   CHAPTER ONE — JDKD CORPORATE TOWER
+   CHAPTER ONE - JDKD CORPORATE TOWER
 
    Dominance RIGHT, type at the LEFT EDGE. The plate is the only child left in
    flow at `lg`, so it alone sets the band's height and the type column is
@@ -219,7 +219,7 @@ function headingId(id: string): string {
 function ChapterTower({ project }: { readonly project: RealProject }) {
   const id = headingId(project.id);
 
-  /* The facts strip. Values only, no invented term labels — each line is a
+  /* The facts strip. Values only, no invented term labels - each line is a
      verbatim field off the project record. */
   const facts: readonly string[] = [
     project.assetClass,
@@ -229,15 +229,15 @@ function ChapterTower({ project }: { readonly project: RealProject }) {
 
   return (
     <article aria-labelledby={id} className="relative">
-      {/* LEFT EDGE — the type column. Absolute from `lg` so the plate alone
+      {/* LEFT EDGE - the type column. Absolute from `lg` so the plate alone
           stays in flow and sets the band's height.
           `top-[6%]` is as low as this column can hang: it carries more than the
-          reserved ones do — status, title, rule, summary, facts and a link —
+          reserved ones do - status, title, rule, summary, facts and a link -
           and the band is at its shortest at exactly 1024px, where 6% of the
           plate still leaves the column's foot ~55px clear of the plate's. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[6%] lg:left-gutter-lg lg:z-10 lg:w-[40%] lg:px-0">
         {/* The page's single red rule. Red is a HAIRLINE colour on this site,
-            never a fill — it marks the one entry that is genuinely available. */}
+            never a fill - it marks the one entry that is genuinely available. */}
         <span aria-hidden="true" className="block h-hair w-rule-sm bg-red" />
 
         <p className="mt-5 text-micro uppercase tracking-label text-ink">
@@ -265,18 +265,18 @@ function ChapterTower({ project }: { readonly project: RealProject }) {
           ))}
         </ul>
 
-        {/* NOT wrapped in a Reveal — see the note above. */}
+        {/* NOT wrapped in a Reveal - see the note above. */}
         <Link data-press
           href={projectPath(project)}
           className="mt-9 inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
         >
           {UI.view}
-          <span className="sr-only"> — {project.name}</span>
+          <span className="sr-only"> - {project.name}</span>
           <span aria-hidden="true">&rarr;</span>
         </Link>
       </div>
 
-      {/* EDGE-BLEED-RIGHT — off the right viewport edge from `lg`; a plain
+      {/* EDGE-BLEED-RIGHT - off the right viewport edge from `lg`; a plain
           plate below it. `preload` marks the LCP image: `PageHero` renders no
           plate on this route, so this is the largest image on the page and the
           only one that may carry it. */}
@@ -296,13 +296,13 @@ function ChapterTower({ project }: { readonly project: RealProject }) {
 }
 
 /* ==========================================================================
-   CHAPTER TWO — PORTFOLIO
+   CHAPTER TWO - PORTFOLIO
 
    Dominance flips LEFT and the type moves to the RIGHT RAIL, set right-ragged
    so the marker, title, rule and copy all hang off the same edge.
 
    It links nowhere: `PlaceholderProject.slug` is null, so there is no `href` to
-   build — a real building, but no confirmed specification to put behind a route.
+   build - a real building, but no confirmed specification to put behind a route.
    ========================================================================== */
 
 function ChapterPortfolioLeft({
@@ -314,7 +314,7 @@ function ChapterPortfolioLeft({
 
   return (
     <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
-      {/* RIGHT RAIL — flush to the right gutter, right-ragged from `lg`. */}
+      {/* RIGHT RAIL - flush to the right gutter, right-ragged from `lg`. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[22%] lg:right-gutter-lg lg:z-10 lg:w-[34%] lg:px-0 lg:text-right">
         <p className={LABEL}>{project.marker}</p>
 
@@ -336,7 +336,7 @@ function ChapterPortfolioLeft({
               className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
             >
               {UI.view}
-              <span className="sr-only"> — {project.name}</span>
+              <span className="sr-only"> - {project.name}</span>
               <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
@@ -363,7 +363,7 @@ function ChapterPortfolioLeft({
 }
 
 /* ==========================================================================
-   CHAPTER THREE — PORTFOLIO
+   CHAPTER THREE - PORTFOLIO
 
    Dominance swings back RIGHT, but this is not chapter one again: the plate is
    smaller (38vw against 46vw), it is landscape rather than portrait, and the
@@ -404,7 +404,7 @@ function ChapterPortfolioRight({
               className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
             >
               {UI.view}
-              <span className="sr-only"> — {project.name}</span>
+              <span className="sr-only"> - {project.name}</span>
               <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
@@ -435,7 +435,7 @@ function ChapterPortfolioRight({
 
    ONE section holding the header band and the three chapters. Its accessible
    name comes from the route table rather than a visible heading, because the
-   chapter titles ARE this section's headings — the same arrangement
+   chapter titles ARE this section's headings - the same arrangement
    `sections/buildings.tsx` uses on the homepage.
 
    Header band: the intro at the LEFT EDGE, set one step up at `text-body-lg`
@@ -451,7 +451,7 @@ function ChapterPortfolioRight({
    THEY ARE NOT RESERVED FRAMES ANY MORE. All three are completed buildings,
    shown in the client's own photography. They remain `PlaceholderProject`
    only because no written specification for them has been supplied, which is
-   what `slug: null` — and therefore no detail route — actually encodes.
+   what `slug: null` - and therefore no detail route - actually encodes.
    ========================================================================== */
 
 const [portfolioOne, portfolioTwo, portfolioThree] = PROJECT_PLACEHOLDERS;
@@ -511,7 +511,7 @@ function Index() {
    No wrapper element and no `className` here on purpose: the section is
    full-bleed and owns its own frame, so anything this function wrapped it in
    would become a second, competing coordinate space. `app/layout.tsx` already
-   provides `<main id="main">`, the skip link, the header and the footer — do
+   provides `<main id="main">`, the skip link, the header and the footer - do
    not add a second `<main>`.
 
    `PageHero` renders NO plate on this route. The chapters below carry the

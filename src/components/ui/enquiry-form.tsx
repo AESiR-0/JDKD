@@ -10,27 +10,27 @@ import {
 import { ASSET, CONTACT, CTA, ENQUIRY_FIELDS } from "@/lib/content";
 
 /**
- * EnquiryForm — the walkthrough request, section 08's primary conversion.
+ * EnquiryForm - the walkthrough request, section 08's primary conversion.
  *
  * Client leaf. It owns nothing but its own field state, so the section that
  * renders it stays a Server Component. Do not lift this boundary upward.
  *
  * NOT WIRED. There is no endpoint yet, so submit is intercepted, nothing leaves
  * the browser, and the form says so in a live region and hands the visitor
- * Mr. Roy's number instead. When a backend exists, replace `handleSubmit` — the
+ * Mr. Roy's number instead. When a backend exists, replace `handleSubmit` - the
  * markup, labels and states do not need to change.
  *
  * FIELD STYLING follows `design-system/actions-forms.html`: underline-only
  * inputs, no boxes; the underline brightens on focus and moves to
  * `--line-strong` once a field holds a value. The global `:focus-visible` ring
- * is deliberately left intact on top of that — the coloured underline is a
+ * is deliberately left intact on top of that - the coloured underline is a
  * decoration, not an accessible focus indicator.
  *
  * THE FOCUS UNDERLINE IS WHITE, NOT RED, AND THAT IS A CORRECTION.
  * It was `focus:border-red`, which is the site's active colour and reads
  * correctly on `--color-canvas` at 3.1:1. But this form only ever ships on
- * `--color-pine` — the contact room, the home CTA and the project enquiry
- * panel are all pine — and #C61D24 on #254441 measures 1.82:1, so the designed
+ * `--color-pine` - the contact room, the home CTA and the project enquiry
+ * panel are all pine - and #C61D24 on #254441 measures 1.82:1, so the designed
  * focus state was invisible on every surface it actually had. `--color-pure`
  * measures 10.6:1 there. A brand colour nobody can see is not a brand cue.
  *
@@ -42,14 +42,14 @@ import { ASSET, CONTACT, CTA, ENQUIRY_FIELDS } from "@/lib/content";
 type SubmitStatus = "idle" | "unavailable";
 
 export type EnquiryFormProps = {
-  /** Id of the heading that names this form — normally the section's `<h2>`. */
+  /** Id of the heading that names this form - normally the section's `<h2>`. */
   labelledBy: string;
   /**
    * Id of the no-backend disclosure that sits above the fields.
    *
    * Sighted visitors meet that sentence on the way down to the first label.
    * Someone who lands on the form by jumping between form controls does not,
-   * and would start filling in required fields with no idea nothing is sent —
+   * and would start filling in required fields with no idea nothing is sent -
    * so the page hands its id in here and it is announced with the form itself.
    * The disclosure stays a real, visible paragraph on the page; this only
    * makes sure it is not skipped past.
@@ -58,11 +58,11 @@ export type EnquiryFormProps = {
   className?: string;
 };
 
-// `placeholder:text-muted` (5.4:1 on white), not an alpha-reduced variant —
+// `placeholder:text-muted` (5.4:1 on white), not an alpha-reduced variant -
 // the phone field's placeholder carries the only format hint in the form, so it
 // has to clear WCAG AA. `text-muted/60` computed to ~2.4:1.
 // The underline is the only chrome a field has, so it is also the only thing
-// that can carry a state change — hence a real transition on it. `border-color`
+// that can carry a state change - hence a real transition on it. `border-color`
 // is named rather than `transition-colors`, which would also animate `color`
 // and `background-color` on an element where neither ever moves. 150ms matches
 // `[data-press]`: a field is touched as often as a button.
@@ -102,7 +102,7 @@ export function EnquiryForm({
     <form
       onSubmit={handleSubmit}
       aria-labelledby={labelledBy}
-      // Disclosure first, then consent — reading order, not id order.
+      // Disclosure first, then consent - reading order, not id order.
       aria-describedby={describedBy ? `${describedBy} ${consentId}` : consentId}
       className={`w-full max-w-[460px] rounded-card border border-line bg-surface p-6 sm:p-7 ${className ?? ""}`}
     >
@@ -120,7 +120,7 @@ export function EnquiryForm({
               >
                 {field.label}
                 {/* Which fields are optional is meaningful information, not
-                    decoration — so it carries full `text-muted` (5.4:1) rather
+                    decoration - so it carries full `text-muted` (5.4:1) rather
                     than an alpha-reduced tint that computed to ~2.9:1. */}
                 {!field.required ? (
                   <span className="text-muted"> (optional)</span>
@@ -173,7 +173,7 @@ export function EnquiryForm({
           appears. It collapses to nothing while the form is untouched.
 
           IT IS SET AT THE WEIGHT OF THE THING IT IS SAYING. This was
-          `text-caption text-muted` — 12px grey, the quietest type in the form
+          `text-caption text-muted` - 12px grey, the quietest type in the form
           and a step BELOW the consent line above it. It is the answer to the
           only action this form has, and the moment it fires it is the most
           important sentence on the page, so it takes `text-small text-ink`

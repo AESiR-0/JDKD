@@ -9,13 +9,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * FeaturesPin — the scroll pin for 06 FEATURES, and nothing else.
+ * FeaturesPin - the scroll pin for 06 FEATURES, and nothing else.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * WHY THIS FILE EXISTS.
  *
  * Sections are Server Components and must stay Server Components. A pin needs
- * GSAP, GSAP needs the browser, so the client boundary has to sit somewhere —
+ * GSAP, GSAP needs the browser, so the client boundary has to sit somewhere -
  * and the one place it can sit without dragging four panels of copy and eight
  * images across it is a wrapper that takes `children`. Everything passed in
  * stays server-rendered; this component owns a `<div>`, a ref and a timeline.
@@ -36,7 +36,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  *     is what the browser paints with no JS, with reduced motion, below 1024px,
  *     and in any viewport too short to hold a pinned panel.
  *   - The stacked-in-place composition is pure CSS, gated on a single
- *     `data-pinned` attribute this component sets on the stage — and sets ONLY
+ *     `data-pinned` attribute this component sets on the stage - and sets ONLY
  *     after `ScrollTrigger.create` has returned without throwing. No attribute,
  *     no rewrite of the layout.
  *   - If any step throws, the catch strips the attribute and clears the inline
@@ -46,14 +46,14 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  * long, readable, four-item list. It is never an empty viewport.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * THE TIMELINE. Opacity and scaleY — transform and opacity are the whole
+ * THE TIMELINE. Opacity and scaleY - transform and opacity are the whole
  * permitted vocabulary, and a crossfade that moved anything would fight the pin.
  *
  * One "unit" below is one viewport height of scrolling. Each panel holds for
  * `DWELL`, then hands over across `FADE`, and the last panel gets a closing
  * `DWELL` of its own before the pin releases. With four panels that is
  * 3 × (0.45 + 0.35) + 0.45 = 2.85 units of pinned scroll, plus the viewport the
- * pin occupies — so the run reads as a shade under four screens.
+ * pin occupies - so the run reads as a shade under four screens.
  *
  * Accessibility: the hidden panels are faded, never `visibility: hidden` and
  * never `aria-hidden`. All four stay in the accessibility tree in DOM order, so
@@ -61,14 +61,14 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  * inside a panel is focusable, so there is no tab stop behind a faded panel.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * THE DRAPES — what the handover actually looks like.
+ * THE DRAPES - what the handover actually looks like.
  *
  * A crossfade alone dissolves one photograph into another. The reference wipes
  * the imagery with a set of horizontal bands instead, so each figure carries a
  * stack of ten slats (`features.tsx`, `SLAT`) and one handover runs:
  *
  *   handover −0.10   the OUTGOING drape swings shut, slat by slat, over a
- *                    panel that is still at full opacity — this is the half
+ *                    panel that is still at full opacity - this is the half
  *                    the reader actually sees as blinds closing
  *   handover         the INCOMING drape is set shut in one frame. It is
  *                    invisible at that instant: the panel it belongs to is at
@@ -81,7 +81,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  *                    photograph as its panel reaches full opacity
  *
  * A slat's every scaleY comes from a tween. Nothing here sets one shut at
- * build time, and `timeline.set` is explicitly `immediateRender: false` — a
+ * build time, and `timeline.set` is explicitly `immediateRender: false` - a
  * zero-duration tween would otherwise apply the moment it is created, which is
  * how you ship a permanently shut drape over a photograph nobody can see.
  * Playhead at 0, or a scrub that never runs at all, means every slat is still
@@ -90,8 +90,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  * SPANS ARE CHOSEN SO THE CYCLE STILL BREATHES. A drape sweep takes
  * 0.10 + 9 × 0.012 = 0.208 units end to end. Panel n's drape finishes opening
  * at handover +0.378 and does not start shutting again until handover +0.70,
- * which leaves 0.27 units — a third of the cycle, and the part a reader who
- * stops scrolling mid-dwell is most likely to be looking at — with the
+ * which leaves 0.27 units - a third of the cycle, and the part a reader who
+ * stops scrolling mid-dwell is most likely to be looking at - with the
  * photograph completely clear.
  *
  * ─────────────────────────────────────────────────────────────────────────
@@ -178,7 +178,7 @@ export function FeaturesPin({ children }: FeaturesPinProps) {
         if (panels.length < 2) return;
 
         // Every slat and both rail parts, so the catch below can hand them all
-        // back at once. Queried once — the markup is static.
+        // back at once. Queried once - the markup is static.
         const drapes = panels.map((panel) =>
           gsap.utils.toArray<HTMLElement>(SLAT_SELECTOR, panel),
         );
@@ -225,7 +225,7 @@ export function FeaturesPin({ children }: FeaturesPinProps) {
               // `immediateRender: false` is load-bearing, not defensive.
               // `timeline.set` builds a zero-duration tween, and a
               // zero-duration tween renders the instant it is created unless
-              // told otherwise — which would leave every incoming drape shut
+              // told otherwise - which would leave every incoming drape shut
               // over its photograph before a single pixel of scrolling had
               // happened. With it off, the playhead has to actually arrive
               // here before a slat is ever anything but open.
@@ -282,7 +282,7 @@ export function FeaturesPin({ children }: FeaturesPinProps) {
             start: "top top",
             // One viewport height per timeline unit. Measured on a 900px-tall
             // window that is 2565px of scrubbing, which with the pinned screen
-            // itself makes the run 3465px — a shade under four screens.
+            // itself makes the run 3465px - a shade under four screens.
             end: () =>
               `+=${Math.round(window.innerHeight * timeline.duration())}`,
             pin: true,
@@ -308,7 +308,7 @@ export function FeaturesPin({ children }: FeaturesPinProps) {
           // four screens taller, so every trigger below this one is holding
           // stale bounds. Deferring this to `requestAnimationFrame` looks
           // equivalent and is not: rAF never fires in a background tab, which
-          // leaves the pin created with a zero-length range — spacing of 0, a
+          // leaves the pin created with a zero-length range - spacing of 0, a
           // timeline that never advances, and four panels stacked invisibly on
           // top of one another. Refresh here, where nothing can defer it.
           ScrollTrigger.refresh();
@@ -319,7 +319,7 @@ export function FeaturesPin({ children }: FeaturesPinProps) {
           gsap.set(panels, { clearProps: "opacity" });
           // And give the photography back too. Clearing the inline transform
           // drops every slat onto the `scaleY(0)` its class carries, which is
-          // open — the rest state is authored so that losing the animation
+          // open - the rest state is authored so that losing the animation
           // reveals the images rather than hiding them. Same for the rail's
           // fill, though nothing is behind it and it is hidden by then anyway.
           drapes.forEach((slats) => {

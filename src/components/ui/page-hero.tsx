@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import type { DisplayLine, ImageAsset } from "@/lib/content";
 
 /**
- * PageHero — the opener for every internal route.
+ * PageHero - the opener for every internal route.
  *
  * SERVER COMPONENT. `Reveal` and `ImageCard` are the only client boundaries and
  * both are leaves. Never put `"use client"` on this file or on a page that uses
@@ -24,7 +24,7 @@ import type { DisplayLine, ImageAsset } from "@/lib/content";
  * So this component's top padding is CLEARANCE, not taste. The bar is `h-14`
  * (56px) and `md:h-16` (64px); `pt-32 md:pt-40 lg:pt-48` leaves 72 / 96 / 128px
  * of air beneath it. Do not reduce it, and do not widen `HERO_ROUTE` into a set
- * because a page uses this component — the two are alternatives, not partners.
+ * because a page uses this component - the two are alternatives, not partners.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * THIS IS NOT A GRID. No `grid-cols-12`, no `col-span-*`. Three anchors:
@@ -42,7 +42,7 @@ import type { DisplayLine, ImageAsset } from "@/lib/content";
  *   └──────────────────────────────────────────────────────────────────┘
  *
  * The h1 is the only child left in flow inside the type band, so IT sets that
- * band's height — which is what makes `lg:bottom-0` on the rail mean "aligned to
+ * band's height - which is what makes `lg:bottom-0` on the rail mean "aligned to
  * the foot of the title" rather than "aligned to nothing". Same mechanism as
  * `sections/about.tsx`; read that file for the full statement of the system.
  *
@@ -52,20 +52,20 @@ import type { DisplayLine, ImageAsset } from "@/lib/content";
  * `headingId` exists so the page can point `aria-labelledby` at it.
  *
  * DISPLAY LINES ARE BROKEN FOR COMPOSITION, NOT FOR READING. The visible stack
- * is `aria-hidden` and `spokenTitle` carries the readable sentence `sr-only` —
+ * is `aria-hidden` and `spokenTitle` carries the readable sentence `sr-only` -
  * otherwise a screen reader announces the line breaks as sentence breaks.
  *
  * BREADCRUMBS ARE NOT WRAPPED IN A `Reveal`. The mask keeps `overflow: hidden`
  * after it finishes and would clip the focus ring off the crumb links.
  *
  * MOBILE. Every anchor below is `lg:`-prefixed. What is left at 375px is one
- * gutter-padded column in DOM order — crumbs, label, title, lede, image — which
+ * gutter-padded column in DOM order - crumbs, label, title, lede, image - which
  * is the layout, not a fallback for it.
  */
 
 export type PageHeroProps = {
   /**
-   * Parenthetical section marker, brackets included — "(ABOUT)". Pass null to
+   * Parenthetical section marker, brackets included - "(ABOUT)". Pass null to
    * render none. There are NO numerals in this vocabulary; "02 /" was removed
    * from the system deliberately.
    */
@@ -113,11 +113,11 @@ export type PageHeroProps = {
 
 /**
  * Written out whole. NEVER build a Tailwind class by concatenation or
- * interpolation — the v4 scanner reads source text, so a class assembled at
+ * interpolation - the v4 scanner reads source text, so a class assembled at
  * runtime is never generated.
  *
  * SIZE IS CAPPED, NOT FLAT. `text-headline-fluid` (min(12vw, 3.5rem)) holds the 56px unprefixed
- * ceiling everywhere it fits and shrinks only on widths that cannot hold it —
+ * ceiling everywhere it fits and shrinks only on widths that cannot hold it -
  * the same remedy `sections/about.tsx` uses, chosen over inventing a
  * breakpoint. The arbitrary steps carry no line height of their own, so each
  * one restores it explicitly rather than relying on cascade order.
@@ -152,7 +152,7 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <header
-      // CLEARANCE, not taste — see the note above. `overflow-x-clip` clips only
+      // CLEARANCE, not taste - see the note above. `overflow-x-clip` clips only
       // the horizontal axis, so it creates no scroll container and cannot break
       // a `position: sticky` sub-nav further down the page.
       //
@@ -162,7 +162,7 @@ export function PageHero({
       // doubles it.
       className={`relative overflow-x-clip pt-32 md:pt-40 lg:pt-48 ${className ?? ""}`}
     >
-      {/* THE FRAME — an unpadded coordinate space capped at the shell. It
+      {/* THE FRAME - an unpadded coordinate space capped at the shell. It
           carries no padding on purpose: an absolutely positioned child resolves
           `right: 3.5rem` against its containing block's PADDING box, so a padded
           frame would put percentage anchors and flow children one gutter out of
@@ -187,7 +187,7 @@ export function PageHero({
             height; the rail is absolute from `lg` and hangs off its foot. */}
         <div className="relative mt-8 lg:mt-14">
           {/* LEFT EDGE. The h1 stays in FLOW at every width, so the page gutter
-              is what anchors it — no absolute positioning and therefore no
+              is what anchors it - no absolute positioning and therefore no
               `px-0` / `pl-*` pair whose winner would depend on the order
               Tailwind happens to emit them in. `w-[62%]` keeps the longest line
               clear of the rail. */}
@@ -210,7 +210,7 @@ export function PageHero({
             </span>
           </h1>
 
-          {/* RIGHT RAIL — the ~30ch measure flush to the right gutter. ALL
+          {/* RIGHT RAIL - the ~30ch measure flush to the right gutter. ALL
               small sans copy on this site lives here; that single repetition is
               what ties differently-composed pages into one system. Do not
               centre it and do not widen it. `text-small` is set on the rail
@@ -224,7 +224,7 @@ export function PageHero({
           ) : null}
         </div>
 
-        {/* OPTIONAL PLATE — full bleed. The section's `overflow-x-clip`
+        {/* OPTIONAL PLATE - full bleed. The section's `overflow-x-clip`
             absorbs the scrollbar delta that `w-screen` introduces. */}
         {image ? (
           <ImageCard

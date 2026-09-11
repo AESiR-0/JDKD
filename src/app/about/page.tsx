@@ -28,15 +28,15 @@ export const metadata: Metadata = {
 };
 
 /**
- * /about — The practice behind the building.
+ * /about - The practice behind the building.
  *
  * Six-Section Architectural Monograph with Continuous Scroll Pinning:
- * 01 / ABOUT JDKD       — The practice behind the building (Aperture & HUD)
- * 02 / OUR BELIEF       — Pinned blueprint draw with real-time wireframe arcs
- * 03 / A PRIME LOCATION — Pinned satellite cartography explorer (Contact page style)
- * 04 / OUR APPROACH     — Pinned horizontal scroll architectural gallery (5 panels)
- * 05 / A TRACK RECORD   — Kinetic metric monolith wall
- * 06 / WHO SIGNS IT     — Framed monograph manifesto & colophon
+ * 01 / ABOUT JDKD       - The practice behind the building (Aperture & HUD)
+ * 02 / OUR BELIEF       - Pinned blueprint draw with real-time wireframe arcs
+ * 03 / A PRIME LOCATION - Pinned satellite cartography explorer (Contact page style)
+ * 04 / OUR APPROACH     - Pinned horizontal scroll architectural gallery (5 panels)
+ * 05 / A TRACK RECORD   - Kinetic metric monolith wall
+ * 06 / WHO SIGNS IT     - Framed monograph manifesto & colophon
  */
 export default function AboutPage() {
   return (
@@ -46,7 +46,7 @@ export default function AboutPage() {
       className="relative min-h-screen bg-canvas text-ink selection:bg-red selection:text-pure focus:outline-none"
     >
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 01 — ABOUT JDKD (Masthead)
+          SECTION 01 - ABOUT JDKD (Masthead)
           ───────────────────────────────────────────────────────────────── */}
       <section
         id="masthead"
@@ -71,7 +71,7 @@ export default function AboutPage() {
                 </span>
               </div>
 
-              {/* Display Headline — Scaled down per user constraint */}
+              {/* Display Headline - Scaled down per user constraint */}
               <Reveal>
                 <h1 className="font-display font-light text-[2.5rem] sm:text-[3rem] lg:text-[3.5rem] leading-[1.04] tracking-[-0.035em] text-ink">
                   <span className="block text-ink">The practice</span>
@@ -162,7 +162,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 02 — OUR BELIEF (Pinned Blueprint Drawing Stage)
+          SECTION 02 - OUR BELIEF (Pinned Blueprint Drawing Stage)
           ───────────────────────────────────────────────────────────────── */}
       <section
         id="belief"
@@ -173,7 +173,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 03 — A PRIME LOCATION (Pinned Satellite Map Explorer)
+          SECTION 03 - A PRIME LOCATION (Pinned Satellite Map Explorer)
           ───────────────────────────────────────────────────────────────── */}
       <section
         id="location"
@@ -184,7 +184,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 04 — OUR APPROACH (Pinned Scroll Stacked Cards)
+          SECTION 04 - OUR APPROACH (Pinned Scroll Stacked Cards)
           ───────────────────────────────────────────────────────────────── */}
       <section
         id="approach"
@@ -195,7 +195,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 05 — A TRACK RECORD (Kinetic Metric Wall)
+          SECTION 05 - A TRACK RECORD (Kinetic Metric Wall)
           ───────────────────────────────────────────────────────────────── */}
       <section
         id="track-record"
@@ -273,7 +273,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 06 — WHO SIGNS IT (Framed Monograph Climax)
+          SECTION 06 - WHO SIGNS IT (Framed Monograph Climax)
           ───────────────────────────────────────────────────────────────── */}
       <section
         id="who-signs-it"

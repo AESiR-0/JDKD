@@ -18,29 +18,29 @@ import {
 import type { FloorPlan } from "@/lib/content";
 
 /**
- * PlanViewer — the floor-plan reader for `/projects/[slug]`.
+ * PlanViewer - the floor-plan reader for `/projects/[slug]`.
  *
  * The sheets are DRAWINGS, not photographs. Each one carries a legend, grid
  * references and dimension strings printed at a size no phone can resolve, so
  * this component does two jobs that must both work independently:
  *
  *   1. it lets a visitor magnify and move around the drawing, and
- *   2. it writes the same information out in words — `summary`, `legend` and
- *      `notes` — as real, visible, selectable text.
+ *   2. it writes the same information out in words - `summary`, `legend` and
+ *      `notes` - as real, visible, selectable text.
  *
  * (2) is not a fallback for (1). It is the only route a screen-reader user, or
  * anyone who cannot read a fine-line CAD scan, has to the content, so it is
  * always rendered and never collapsed behind a toggle.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * IT DEGRADES TO PLAIN IMAGES. The first render — the server render, and the
- * hydration render — is a stack of all three sheets: heading, plain `next/image`
+ * IT DEGRADES TO PLAIN IMAGES. The first render - the server render, and the
+ * hydration render - is a stack of all three sheets: heading, plain `next/image`
  * at full width, full written readout. No tabs, no controls, no transforms.
  * Only after `useEffect` confirms the component is alive in a browser does it
  * swap to the tabbed viewer.
  *
  * That ordering is the point. If the bundle never arrives, or hydration throws,
- * what is left on screen is every drawing and every word of its description —
+ * what is left on screen is every drawing and every word of its description -
  * not a dead tab strip hiding two thirds of the content behind buttons that do
  * nothing. It follows the same instinct as `Reveal` and `ImageCard`: the
  * content must not depend on the JavaScript succeeding.
@@ -50,28 +50,28 @@ import type { FloorPlan } from "@/lib/content";
  * a phone, and the rule is: a gesture is only captured once the visitor has
  * ACTIVELY zoomed in.
  *
- *   at 100%    `touch-action: pan-y` — one finger scrolls the page straight
+ *   at 100%    `touch-action: pan-y` - one finger scrolls the page straight
  *              through the frame, exactly as if it were a static image. Plain
  *              wheel scrolls the page too.
- *   zoomed in  `touch-action: none` — one finger now pans the drawing, and
+ *   zoomed in  `touch-action: none` - one finger now pans the drawing, and
  *              plain wheel zooms. Both self-release: wheel down keeps zooming
  *              out, and the moment the scale returns to 100% the frame hands
  *              the page its scroll back. `Reset` does it in one press.
  *
  *   always     ctrl/⌘ + wheel zooms (this is also what a trackpad pinch sends),
  *              two fingers pinch, and the arrow keys only move the drawing
- *              while it is zoomed — otherwise they stay the page's keys.
+ *              while it is zoomed - otherwise they stay the page's keys.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * PAN AND SCALE ARE WRITTEN STRAIGHT TO THE DOM. `viewRef` is the single source
  * of truth and `applyView` writes one `transform` on the stage. React state
- * mirrors only what the CONTROLS need — the scale, for the readout and the
- * limit states — so a drag repaints one composited transform instead of
+ * mirrors only what the CONTROLS need - the scale, for the readout and the
+ * limit states - so a drag repaints one composited transform instead of
  * re-rendering the tree sixty times a second. Transform only: no `filter`, no
  * `backdrop-filter`, nothing this site's motion rules forbid.
  *
  * REDUCED MOTION is handled by `globals.css`, which zeroes every transition
- * duration with `!important` — that beats the inline duration written below, so
+ * duration with `!important` - that beats the inline duration written below, so
  * the glide on the buttons becomes an instant jump and the gestures, which are
  * untransitioned anyway, are unaffected.
  *
@@ -114,7 +114,7 @@ type Point = { readonly x: number; readonly y: number };
 
 /**
  * The gesture in progress. `origin*` is the view at the moment the gesture
- * started — every frame is computed from that snapshot rather than from the
+ * started - every frame is computed from that snapshot rather than from the
  * previous frame, so rounding cannot accumulate across a long drag.
  */
 type Gesture =
@@ -144,7 +144,7 @@ function clamp(value: number, min: number, max: number): number {
 /* ==========================================================================
    THE ENHANCEMENT GATE
 
-   `useSyncExternalStore` with two constant snapshots — false on the server and
+   `useSyncExternalStore` with two constant snapshots - false on the server and
    through hydration, true from the first client render after it. It is the
    supported way to ask "am I hydrated?": a `useEffect` + `setState` gate says
    the same thing but trips `react-hooks/set-state-in-effect`, and reading
@@ -161,8 +161,8 @@ const notHydrated = () => false;
 /* ==========================================================================
    THE WRITTEN SHEET
 
-   Summary, legend and notes as text. Rendered in BOTH modes — the plain stack
-   and the tabbed viewer — because it is the accessible route to the drawing,
+   Summary, legend and notes as text. Rendered in BOTH modes - the plain stack
+   and the tabbed viewer - because it is the accessible route to the drawing,
    not an enhancement of it.
 
    The legend names its colours as WORDS and paints no swatches. The drawings
@@ -184,7 +184,7 @@ function PlanReadout({ plan, className }: PlanReadoutProps) {
   return (
     <div className={className}>
       <div className="lg:flex lg:items-start lg:gap-16">
-        {/* Summary and legend — the description of the drawing itself. */}
+        {/* Summary and legend - the description of the drawing itself. */}
         <div className="lg:w-[52%]">
           <h4 className={SUB_LABEL}>(WHAT THIS SHEET SHOWS)</h4>
           <p className="mt-4 max-w-[58ch] text-small text-ink">
@@ -270,7 +270,7 @@ function IconButton({ label, disabled, onPress, children }: IconButtonProps) {
 /**
  * One sheet, as the viewer wants it.
  *
- * `FloorPlan` from `@/lib/content` satisfies this as-is — pass
+ * `FloorPlan` from `@/lib/content` satisfies this as-is - pass
  * `PROJECT_TOWER.plans.sheets` straight through. `label` and `description` are
  * accepted as aliases of `tabLabel` and `summary` so a caller that has already
  * renamed them does not have to rename them back; everything else is required,
@@ -278,9 +278,9 @@ function IconButton({ label, disabled, onPress, children }: IconButtonProps) {
  * drawing and a sheet without them cannot be published.
  */
 export type PlanViewerSheet = FloorPlan & {
-  /** Alias for `tabLabel` — the short form used in the selector. */
+  /** Alias for `tabLabel` - the short form used in the selector. */
   readonly label?: string;
-  /** Alias for `summary` — what the drawing shows, in words. */
+  /** Alias for `summary` - what the drawing shows, in words. */
   readonly description?: string;
 };
 
@@ -292,7 +292,7 @@ export type PlanViewerProps = {
    */
   readonly plans: readonly PlanViewerSheet[];
   /**
-   * How to work the viewer, in the client's own words — `PROJECT_TOWER.plans
+   * How to work the viewer, in the client's own words - `PROJECT_TOWER.plans
    * .instructions`. Rendered as visible copy, never only as a `title`. It is
    * shown only in the enhanced mode, because in the plain stack there is
    * nothing to zoom and the sentence would be a lie.
@@ -312,7 +312,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
     notHydrated,
   );
   const [activeId, setActiveId] = useState<string>(() => plans[0]?.id ?? "");
-  /** Mirror of `viewRef.current.scale` — for the readout and the limit states. */
+  /** Mirror of `viewRef.current.scale` - for the readout and the limit states. */
   const [scale, setScale] = useState(MIN_SCALE);
   /** Debounced copy of the same, so a live region announces once per gesture. */
   const [announced, setAnnounced] = useState(100);
@@ -386,7 +386,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
   );
 
   /**
-   * Zooms about a focal point, given in pixels from the CENTRE of the frame —
+   * Zooms about a focal point, given in pixels from the CENTRE of the frame -
    * the same origin the transform uses, so the point under the cursor or
    * between the fingers stays under it.
    */
@@ -679,7 +679,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
     );
   }
 
-  /* -- Keyboard on the tab strip — APG tabs, manual activation ------------ */
+  /* -- Keyboard on the tab strip - APG tabs, manual activation ------------ */
   function handleTabKeyDown(
     event: ReactKeyboardEvent<HTMLButtonElement>,
     index: number,
@@ -737,7 +737,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
     <div className={className}>
       <p className="max-w-[58ch] text-small text-muted">{instructions}</p>
 
-      {/* SELECTOR — scrolls inside itself on a narrow screen, so a long set of
+      {/* SELECTOR - scrolls inside itself on a narrow screen, so a long set of
           sheet names can never put the page into horizontal overflow. The
           vertical padding is what keeps the focus ring off the scroller's own
           clipped edge. */}
@@ -761,7 +761,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
                 id={`${uid}-tab-${plan.id}`}
                 aria-selected={selected}
                 // Only the selected sheet's panel is in the document, so only
-                // the selected tab may claim to control one — `aria-controls`
+                // the selected tab may claim to control one - `aria-controls`
                 // pointing at an id that does not exist is worse than none.
                 aria-controls={selected ? panelId : undefined}
                 tabIndex={selected ? 0 : -1}
@@ -772,7 +772,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
                 }`}
               >
                 {plan.label ?? plan.tabLabel}
-                {/* The active marker is a hairline — red is a rule colour on
+                {/* The active marker is a hairline - red is a rule colour on
                     this site, never a fill. */}
                 <span
                   aria-hidden="true"
@@ -847,7 +847,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
           The same information is written out in words below.
         </p>
 
-        {/* CONTROLS — under the frame, never over the drawing. */}
+        {/* CONTROLS - under the frame, never over the drawing. */}
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <IconButton
             label="Zoom out"
@@ -894,7 +894,7 @@ export function PlanViewer({ plans, instructions, className }: PlanViewerProps) 
       </div>
 
       {/* THE ANNOUNCEMENT, outside the keyed panel so the live region survives
-          a change of sheet — a region that is inserted rather than updated is
+          a change of sheet - a region that is inserted rather than updated is
           a region most screen readers will not read. `announced` lags the
           scale by 400ms on purpose: a pinch would otherwise announce forty
           times on its way to 300%. */}

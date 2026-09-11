@@ -11,12 +11,12 @@ import { PlanViewer } from "@/components/project/plan-viewer";
 import type { RealProject } from "@/lib/content";
 
 /**
- * FLOOR PLANS — the section that frames the viewer.
+ * FLOOR PLANS - the section that frames the viewer.
  *
  * THE DRAWINGS ARE 1323 × 552 SCANS carrying legends, grid references and
  * dimension strings that no phone can render legibly. Everything that follows
- * from that — the sheet selector, pinch-zoom and pan, the real `<button>`
- * controls, and the written record of each sheet's summary, legend and notes —
+ * from that - the sheet selector, pinch-zoom and pan, the real `<button>`
+ * controls, and the written record of each sheet's summary, legend and notes -
  * belongs to `@/components/project/plan-viewer`, which is a client leaf with
  * its own file and its own contract. THIS SECTION DOES NOT DUPLICATE ANY OF IT.
  *
@@ -31,12 +31,12 @@ import type { RealProject } from "@/lib/content";
  *      │  DRAWINGS.                          │  body, ~30ch     │   │
  *      │                                     └──────────────────┘   │
  *      │  ┌──────────────────────────────────────────────────────┐  │
- *      │  │  PlanViewer — selector, frame, controls, written     │  │
+ *      │  │  PlanViewer - selector, frame, controls, written     │  │
  *      │  │  record of every sheet                               │  │
  *      │  └──────────────────────────────────────────────────────┘  │
  *
  * NOT A GRID: a type-only header band on the flex rail idiom, then one
- * full-width block. The viewer is never wrapped in a `Reveal` — the mask keeps
+ * full-width block. The viewer is never wrapped in a `Reveal` - the mask keeps
  * `overflow: hidden` after it finishes and would clip the focus rings off its
  * controls.
  */
@@ -53,7 +53,7 @@ export function ProjectPlans({ plans }: ProjectPlansProps) {
       <div className={FRAME}>
         <p className={`${EDGE} ${LABEL}`}>{plans.label}</p>
 
-        {/* HEADER BAND — flex rail idiom: nothing here is a picture, so
+        {/* HEADER BAND - flex rail idiom: nothing here is a picture, so
             nothing has to leave the flow and the rail cannot overflow. */}
         <div
           className={`${EDGE} mt-10 lg:mt-14 lg:flex lg:items-start lg:justify-between lg:gap-16`}
