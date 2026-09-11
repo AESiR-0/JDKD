@@ -187,9 +187,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               "var d=document.documentElement;" +
               "d.classList.add('reveal-js');d.classList.add('expand-js');" +
               "setTimeout(function(){" +
-              "if(!document.querySelector('[data-reveal-in]'))d.classList.remove('reveal-js');" +
-              "if(!document.querySelector('[data-expand-in]'))d.classList.remove('expand-js');" +
-              "},4000)}}catch(e){}",
+              "d.classList.remove('reveal-js');" +
+              "d.classList.remove('expand-js');" +
+              "},3500)}}catch(e){}",
           }}
         />
         <a

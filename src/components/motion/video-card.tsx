@@ -59,7 +59,8 @@ export function VideoCard({
   delay = 0,
   duration = 0.8,
 }: VideoCardProps) {
-  const frameRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const expandRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const pausedByUser = useRef(false);
   const descId = useId();
@@ -77,34 +78,31 @@ export function VideoCard({
     return () => query.removeEventListener("change", sync);
   }, []);
 
-  /* --- The wipe. Identical contract to ImageCard. ------------------------ */
+  /* --- The wipe. Observes the unclipped container. ----------------------- */
   useEffect(() => {
-    const frame = frameRef.current;
-    if (!frame) return;
+    const container = containerRef.current;
+    const expand = expandRef.current;
+    if (!container || !expand) return;
 
     let opened = false;
     let settle = 0;
     const open = () => {
       if (opened) return;
       opened = true;
-      frame.setAttribute("data-expand-in", "");
+      expand.setAttribute("data-expand-in", "");
 
       const ms = (delay + duration) * 1000 + 400;
       const done = () => {
         window.clearTimeout(settle);
-        frame.removeEventListener("transitionend", done);
+        expand.removeEventListener("transitionend", done);
+        expand.removeAttribute("data-expand");
       };
-      frame.addEventListener("transitionend", done);
-      settle = window.setTimeout(() => {
-        frame.removeEventListener("transitionend", done);
-        frame.removeAttribute("data-expand");
-      }, ms);
+      expand.addEventListener("transitionend", done);
+      settle = window.setTimeout(done, ms);
     };
 
-    let observerFired = false;
     const observer = new IntersectionObserver(
       (entries) => {
-        observerFired = true;
         if (entries.some((entry) => entry.isIntersecting)) {
           open();
           observer.disconnect();
@@ -112,11 +110,11 @@ export function VideoCard({
       },
       { rootMargin: "300px 0px" },
     );
-    observer.observe(frame);
+    observer.observe(container);
 
     const failsafe = window.setTimeout(() => {
-      if (!observerFired) open();
-    }, 1500);
+      if (!opened) open();
+    }, 2500);
 
     return () => {
       observer.disconnect();
@@ -127,8 +125,9 @@ export function VideoCard({
 
   /* --- Warm one viewport ahead, play only while on screen ---------------- */
   useEffect(() => {
+    const container = containerRef.current;
     const video = videoRef.current;
-    if (!video || !motionOk) return;
+    if (!container || !video || !motionOk) return;
 
     let warmed = false;
     const warm = () => {
@@ -161,7 +160,7 @@ export function VideoCard({
       },
       { rootMargin: "100% 0px" },
     );
-    warmObserver.observe(video);
+    warmObserver.observe(container);
 
     const playObserver = new IntersectionObserver((entries) => {
       for (const entry of entries) {
@@ -169,11 +168,11 @@ export function VideoCard({
         else pause();
       }
     });
-    playObserver.observe(video);
+    playObserver.observe(container);
 
     const onVisibility = () => {
       if (document.hidden) pause();
-      else if (video.getBoundingClientRect().bottom > 0) play();
+      else if (container.getBoundingClientRect().bottom > 0) play();
     };
     document.addEventListener("visibilitychange", onVisibility);
 
@@ -212,62 +211,67 @@ export function VideoCard({
 
   return (
     <div
-      ref={frameRef}
-      data-expand=""
-      style={style}
-      className={`relative overflow-hidden bg-deep ${className ?? ""}`}
+      ref={containerRef}
+      className={`relative ${className ?? ""}`}
     >
-      <span id={descId} className="sr-only">
-        {alt}
-      </span>
-
-      <Image
-        src={poster}
-        alt=""
-        fill
-        sizes={sizes}
-        quality={85}
-        placeholder="blur"
-        blurDataURL={blurDataURL}
-        className="object-cover"
-      />
-
-      <video
-        ref={videoRef}
-        aria-hidden="true"
-        muted
-        loop
-        playsInline
-        preload="none"
-        data-shown={shown ? "" : undefined}
-        className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ease-editorial data-shown:opacity-100"
+      <div
+        ref={expandRef}
+        data-expand=""
+        style={style}
+        className="relative h-full w-full overflow-hidden bg-deep"
       >
-        {webm ? <source src={`${src}.webm`} type="video/webm" /> : null}
-        <source src={`${src}.mp4`} type="video/mp4" />
-      </video>
+        <span id={descId} className="sr-only">
+          {alt}
+        </span>
 
-      {/* THE PAUSE CONTROL (WCAG 2.2.2) */}
-      {motionOk ? (
-        <button
-          data-press
-          type="button"
-          onClick={toggle}
-          aria-label={playing ? "Pause video" : "Play video"}
-          aria-describedby={descId}
-          className="absolute bottom-gutter right-gutter z-10 flex size-10 cursor-pointer items-center justify-center rounded-card border border-line bg-deep/55 text-ink transition-colors duration-200 ease-editorial hover:border-line-strong lg:bottom-gutter-lg lg:right-gutter-lg"
+        <Image
+          src={poster}
+          alt=""
+          fill
+          sizes={sizes}
+          quality={85}
+          placeholder="blur"
+          blurDataURL={blurDataURL}
+          className="object-cover"
+        />
+
+        <video
+          ref={videoRef}
+          aria-hidden="true"
+          muted
+          loop
+          playsInline
+          preload="none"
+          data-shown={shown ? "" : undefined}
+          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ease-editorial data-shown:opacity-100"
         >
-          <span aria-hidden="true" className="flex items-center gap-[3px]">
-            {playing ? (
-              <>
-                <span className="block h-3 w-px bg-current" />
-                <span className="block h-3 w-px bg-current" />
-              </>
-            ) : (
-              <span className="ml-px block size-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-current" />
-            )}
-          </span>
-        </button>
-      ) : null}
+          {webm ? <source src={`${src}.webm`} type="video/webm" /> : null}
+          <source src={`${src}.mp4`} type="video/mp4" />
+        </video>
+
+        {/* THE PAUSE CONTROL (WCAG 2.2.2) */}
+        {motionOk ? (
+          <button
+            data-press
+            type="button"
+            onClick={toggle}
+            aria-label={playing ? "Pause video" : "Play video"}
+            aria-describedby={descId}
+            className="absolute bottom-gutter right-gutter z-10 flex size-10 cursor-pointer items-center justify-center rounded-card border border-line bg-deep/55 text-ink transition-colors duration-200 ease-editorial hover:border-line-strong lg:bottom-gutter-lg lg:right-gutter-lg"
+          >
+            <span aria-hidden="true" className="flex items-center gap-[3px]">
+              {playing ? (
+                <>
+                  <span className="block h-3 w-px bg-current" />
+                  <span className="block h-3 w-px bg-current" />
+                </>
+              ) : (
+                <span className="ml-px block size-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-current" />
+              )}
+            </span>
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }

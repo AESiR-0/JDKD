@@ -53,74 +53,51 @@ export function ImageCard({
   surface = "ink",
   preload = false,
 }: ImageCardProps) {
-  const frameRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const expandRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const frame = frameRef.current;
-    if (!frame) return;
+    const container = containerRef.current;
+    const expand = expandRef.current;
+    if (!container || !expand) return;
 
     let opened = false;
     let settle = 0;
     const open = () => {
       if (opened) return;
       opened = true;
-      frame.setAttribute("data-expand-in", "");
+      expand.setAttribute("data-expand-in", "");
 
-      /*
-       * PER-FRAME FAILSAFE, and the reason this exists.
-       *
-       * `data-expand-in` only asks for the clip to animate open. It does not
-       * make the picture visible - the CSS transition does, and a transition
-       * that never runs leaves the frame clipped to nothing with the attribute
-       * sitting on it, looking for all the world like it worked.
-       *
-       * The boot failsafe in `app/layout.tsx` cannot catch that: it drops
-       * `expand-js` only when NO frame anywhere has opened, and these had. So
-       * every frame now guarantees its own end state - if the transition has
-       * not reported finishing shortly after it should have, `data-expand`
-       * comes off, the element leaves the rule's selector entirely, and the
-       * photograph simply stands. An unanimated picture beats an invisible one.
-       */
       const ms = (delay + duration) * 1000 + 400;
       const done = () => {
         window.clearTimeout(settle);
-        frame.removeEventListener("transitionend", done);
+        expand.removeEventListener("transitionend", done);
+        expand.removeAttribute("data-expand");
       };
-      frame.addEventListener("transitionend", done);
-      settle = window.setTimeout(() => {
-        frame.removeEventListener("transitionend", done);
-        frame.removeAttribute("data-expand");
-      }, ms);
+      expand.addEventListener("transitionend", done);
+      settle = window.setTimeout(done, ms);
     };
 
-    // See `Reveal` - an observer that never delivers its initial callback is
-    // broken, and a closed frame is worse than an unanimated one.
-    let observerFired = false;
     const observer = new IntersectionObserver(
       (entries) => {
-        observerFired = true;
         if (entries.some((entry) => entry.isIntersecting)) {
           open();
           observer.disconnect();
         }
       },
-      // Opens BEFORE the frame is on screen, so the wipe is finished by the
-      // time it is looked at rather than running under the reader.
       { rootMargin: "300px 0px" },
     );
-    observer.observe(frame);
+    observer.observe(container);
 
     const failsafe = window.setTimeout(() => {
-      if (!observerFired) open();
-    }, 1500);
+      if (!opened) open();
+    }, 2500);
 
     return () => {
       observer.disconnect();
       window.clearTimeout(failsafe);
       window.clearTimeout(settle);
     };
-    // `delay`/`duration` feed the settle timer, so a change to either must
-    // rebuild it rather than leave a stale deadline running.
   }, [delay, duration]);
 
   const style = {
@@ -129,17 +106,24 @@ export function ImageCard({
   } as CSSProperties;
 
   return (
-    <div ref={frameRef} data-expand="" style={style} className={className}>
-      <ParallaxImage
-        src={src}
-        alt={alt}
-        sizes={sizes}
-        shift={shift}
-        scale={scale}
-        surface={surface}
-        preload={preload}
-        className="h-full w-full"
-      />
+    <div ref={containerRef} className={className}>
+      <div
+        ref={expandRef}
+        data-expand=""
+        style={style}
+        className="relative h-full w-full overflow-hidden"
+      >
+        <ParallaxImage
+          src={src}
+          alt={alt}
+          sizes={sizes}
+          shift={shift}
+          scale={scale}
+          surface={surface}
+          preload={preload}
+          className="h-full w-full"
+        />
+      </div>
     </div>
   );
 }
