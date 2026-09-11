@@ -185,6 +185,17 @@ function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
         <Reveal as="p" className={BODY} delay={0.06}>
           {chapter.body}
         </Reveal>
+        <div className="mt-8">
+          <Link
+            data-press
+            href={`/projects/${chapter.slug}`}
+            className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
+          >
+            Read more
+            <span className="sr-only"> — {chapter.title}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
       </div>
 
       {/* EDGE-BLEED-RIGHT — off the right viewport edge from `lg`; a plain
@@ -219,6 +230,17 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
         <Reveal as="p" className={`${BODY} lg:ml-auto`} delay={0.06}>
           {chapter.body}
         </Reveal>
+        <div className="mt-8 lg:flex lg:justify-end">
+          <Link
+            data-press
+            href={`/projects/${chapter.slug}`}
+            className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
+          >
+            Read more
+            <span className="sr-only"> — {chapter.title}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
       </div>
 
       {/* EDGE-BLEED-LEFT — off the left viewport edge from `lg`. */}
@@ -279,6 +301,17 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
         <Reveal as="p" className="text-muted" delay={0.06}>
           {chapter.body}
         </Reveal>
+        <div className="mt-8">
+          <Link
+            data-press
+            href={`/projects/${chapter.slug}`}
+            className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
+          >
+            Read more
+            <span className="sr-only"> — {chapter.title}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
       </div>
     </article>
   );
@@ -308,24 +341,16 @@ export function Buildings() {
     >
       {/* THE FRAME — unpadded coordinate space, capped at the shell. */}
       <div className="relative mx-auto w-full max-w-shell">
-        {/* HEADER BAND — label at the left edge, unresolved slot in the rail. */}
-        <div className="relative">
+        {/* HEADER BAND — label and description on the left */}
+        <div className="px-gutter md:px-gutter-lg">
           {LABEL ? (
-            <p className="px-gutter font-display text-label uppercase italic tracking-label text-muted md:px-gutter-lg">
+            <p className="font-display text-label uppercase italic tracking-label text-muted">
               {LABEL}
             </p>
           ) : null}
-
-          {/* THE UNRESOLVED SLOT. Labelled and visibly empty. The client's
-              project record is pending; a rule with nothing above it is the
-              honest rendering of that, and never a fabricated project list. */}
-          <div className="mt-10 w-full px-gutter text-small md:px-gutter-lg lg:absolute lg:top-0 lg:right-gutter-lg lg:mt-0 lg:w-[30ch] lg:px-0">
-            <p className="text-micro uppercase tracking-label text-muted">
-              {UNRESOLVED.portfolio.label}
-            </p>
-            <span aria-hidden="true" className="mt-4 block h-px w-full bg-line" />
-            <p className="mt-4 text-muted">{UNRESOLVED.portfolio.placeholder}</p>
-          </div>
+          <p className="mt-3 max-w-[50ch] text-small text-muted leading-relaxed">
+            {UNRESOLVED.portfolio.placeholder}
+          </p>
         </div>
 
         {/* ── THE THREE CHAPTERS ─────────────────────────────────────────

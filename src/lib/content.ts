@@ -689,6 +689,7 @@ export type ChapterVideo = {
 
 export type BuildingChapter = {
   readonly id: string;
+  readonly slug: string;
   readonly title: string;
   readonly body: string;
   readonly image: ImageAsset;
@@ -713,6 +714,7 @@ export const BUILDINGS: readonly [
 ] = [
   {
     id: "corporate-park",
+    slug: "corporate-park",
     title: "Corporate Park",
     // Everything asserted here is visible in the client's own footage: the
     // curtain wall, the elevated metro line beside it, the manned reception
@@ -731,6 +733,7 @@ export const BUILDINGS: readonly [
   },
   {
     id: "m-82",
+    slug: "m-82",
     title: "M-82",
     body: "A retail and hospitality address, shown at dusk with the rooftop level in service. Held under its plot reference until the name and the record are confirmed.",
     image: IMAGES.parkTwo,
@@ -745,6 +748,7 @@ export const BUILDINGS: readonly [
   },
   {
     id: "m-39",
+    slug: "m-39",
     title: "M-39",
     body: "Street-level retail under the JDKD mark, opening onto a market frontage. Held under its plot reference until the name and the record are confirmed.",
     image: IMAGES.parkThree,
@@ -1467,6 +1471,7 @@ export type RealProject = ProjectCommon & {
   readonly placeholder: false;
   readonly slug: string;
   readonly status: string;
+  readonly marker?: string;
   readonly assetClass: string;
   readonly certification: string;
   /** One-line address, for the index chapter and the detail hero. */
@@ -1945,48 +1950,476 @@ export const PROJECT_TOWER: RealProject = {
  * The marker reads "(COMPLETED)" rather than "(RESERVED)" because that much
  * is visible in the footage; everything past it waits on the client.
  */
+export const PROJECT_CORPORATE_PARK: RealProject = {
+  id: "corporate-park",
+  slug: "corporate-park",
+  placeholder: false,
+  name: "JDKD Corporate Park",
+  summary:
+    "A completed multi-tenant office building in green glass on Plot A-23, running alongside the elevated metro line, with a manned lobby and let floors.",
+  image: IMAGES.corporateParkAerial,
+  status: "Completed & Occupied",
+  marker: "(COMPLETED)",
+  assetClass: "Commercial Office Park",
+  certification: "LEED Gold Certified",
+  place: "Plot A-23, Mohan Cooperative, New Delhi",
+
+  label: "(JDKD CORPORATE PARK)",
+  titleLines: [
+    { text: "JDKD", style: "roman" },
+    { text: "Corporate", style: "italic" },
+    { text: "Park", style: "roman" },
+  ],
+  spokenTitle: "JDKD Corporate Park",
+  lede: "A completed Grade A commercial campus on Plot A-23, running alongside the Delhi Metro Violet Line. Double-height reception, expansive floor plates, and energy-efficient green glass envelope.",
+  heroImage: IMAGES.parkOne,
+  nav: TOWER_NAV,
+
+  overview: {
+    label: "(OVERVIEW)",
+    headingLines: [
+      { text: "Commercial", style: "italic" },
+      { text: "scale along the", style: "roman" },
+      { text: "metro line.", style: "italic" },
+    ],
+    spokenHeading: "Commercial scale along the metro line.",
+    paragraphs: [
+      "JDKD Corporate Park stands at Plot A-23, Mohan Cooperative Industrial Estate, directly adjacent to the elevated Violet Line corridor. The building features an expansive emerald green curtain-wall facade designed for maximum natural daylight and acoustic dampening from the arterial transit routes.",
+      "With occupied office plates, a grand manned double-height lobby, modern elevator cores, and dedicated multi-level parking, the development represents JDKD's standard of institutional commercial infrastructure.",
+    ],
+    specs: [
+      { id: "asset-class", term: "Asset class", value: "Grade A Office Park" },
+      { id: "availability", term: "Availability", value: "Completed & Occupied" },
+      { id: "address", term: "Address", value: "Plot A-23, Mohan Cooperative Industrial Estate, New Delhi" },
+      { id: "transit", term: "Transit corridor", value: "Delhi Metro Violet Line directly adjacent" },
+      { id: "facade", term: "Envelope", value: "Double-glazed acoustic solar glass curtain wall" },
+      { id: "certification", term: "Certification", value: "LEED Gold Certified" },
+      { id: "elevators", term: "Elevators", value: "High-speed passenger and service banks" },
+    ],
+  },
+
+  highlights: {
+    label: "(KEY HIGHLIGHTS)",
+    items: [
+      {
+        id: "metro-visibility",
+        title: "Arterial visibility",
+        body: "Unmatched elevated frontage viewed daily by thousands of commuters along the primary Mathura Road transit corridor.",
+        points: [
+          "Direct line of sight from elevated metro coaches",
+          "Rapid access from Sarita Vihar and Mohan Estate metro stations",
+          "Prominent corporate branding opportunities",
+        ],
+      },
+      {
+        id: "efficient-plates",
+        title: "Expansive floor plates",
+        body: "Flexible column grids engineered for multi-tenant division or full-plate enterprise occupancy.",
+        points: [
+          "Optimized core positioning for natural light",
+          "Generous ceiling heights with unobstructed spans",
+          "VRV climate control with fresh air conditioning",
+        ],
+      },
+      {
+        id: "institutional-systems",
+        title: "Institutional systems",
+        body: "Robust electrical, safety, and environmental systems ensuring 100% operational uptime.",
+        points: [
+          "100% DG power backup with auto-synchronization",
+          "Multi-tier fire suppression and emergency exits",
+          "Rainwater harvesting and on-site STP plant",
+        ],
+      },
+    ],
+  },
+
+  connectivity: {
+    label: "(CONNECTIVITY)",
+    headingLines: [
+      { text: "At the", style: "italic" },
+      { text: "crossroads of", style: "roman" },
+      { text: "capital transit.", style: "italic" },
+    ],
+    spokenHeading: "At the crossroads of capital transit.",
+    body: "Located directly off Main Mathura Road with immediate connectivity to South Delhi, Faridabad, and the NOIDA industrial zone.",
+    image: IMAGES.locationAerial,
+    points: [
+      { id: "metro", distance: "Immediate", place: "Elevated Metro Track", detail: "Violet Line corridor" },
+      { id: "station", distance: "350 m", place: "Sarita Vihar Metro", detail: "Walking distance" },
+      { id: "noida", distance: "5 km", place: "NOIDA Commercial Sector", detail: "Direct arterial drive" },
+      { id: "cp", distance: "25 min", place: "Connaught Place", detail: "Central Delhi hub" },
+    ],
+  },
+
+  plans: {
+    label: "(FLOOR PLANS)",
+    headingLines: [
+      { text: "Floor", style: "roman" },
+      { text: "plates &", style: "italic" },
+      { text: "layouts.", style: "roman" },
+    ],
+    spokenHeading: "Floor plates & layouts.",
+    body: "Representative architectural drawings illustrating core arrangements, parking circulation, and open-plan workplace flexibility.",
+    instructions:
+      "Explore the floor plan drawings below. The written descriptions summarize bay widths, circulation routes, and service placements.",
+    sheets: PROJECT_TOWER.plans.sheets,
+  },
+
+  amenities: {
+    label: "(AMENITIES & SYSTEMS)",
+    headingLines: [
+      { text: "Comprehensive", style: "roman" },
+      { text: "campus", style: "italic" },
+      { text: "amenities.", style: "roman" },
+    ],
+    spokenHeading: "Comprehensive campus amenities.",
+    body: "Full building engineering systems and occupier conveniences serving daily corporate operations.",
+    groups: PROJECT_TOWER.amenities.groups,
+  },
+
+  gallery: {
+    label: "(GALLERY)",
+    body: "Perspectives of JDKD Corporate Park: aerial elevation, green curtain wall, and transit alignment.",
+    images: [
+      IMAGES.corporateParkAerial,
+      IMAGES.parkOne,
+      IMAGES.facadeDetail,
+      IMAGES.officeFloor,
+      IMAGES.lobby,
+    ],
+  },
+
+  downloads: PROJECT_TOWER.downloads,
+
+  enquiry: {
+    label: "(ENQUIRE)",
+    headingLines: [
+      { text: "Corporate", style: "roman" },
+      { text: "leasing.", style: "italic" },
+    ],
+    spokenHeading: "Corporate leasing.",
+    body: `For tenancy information or future availability at JDKD Corporate Park, contact ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
+  },
+
+  contact: CONTACT,
+};
+
+export const PROJECT_M82: RealProject = {
+  id: "m-82",
+  slug: "m-82",
+  placeholder: false,
+  name: "JDKD M-82",
+  summary:
+    "A premier retail and hospitality address in South Delhi, shown at dusk with the rooftop level in active service above the street.",
+  image: IMAGES.m82Rooftop,
+  status: "Completed & Operational",
+  marker: "(COMPLETED)",
+  assetClass: "Retail & Hospitality Destination",
+  certification: "High-Efficiency Commercial Envelope",
+  place: "M-82, Greater Kailash II, New Delhi",
+
+  label: "(JDKD M-82)",
+  titleLines: [
+    { text: "JDKD", style: "roman" },
+    { text: "M-82", style: "italic" },
+  ],
+  spokenTitle: "JDKD M-82",
+  lede: "A distinctive destination combining prime retail frontages with an open-air rooftop dining terrace in one of Delhi's most prestigious commercial enclaves.",
+  heroImage: IMAGES.parkTwo,
+  nav: TOWER_NAV,
+
+  overview: {
+    label: "(OVERVIEW)",
+    headingLines: [
+      { text: "Rooftop dining", style: "italic" },
+      { text: "and prime retail", style: "roman" },
+      { text: "in GK-II.", style: "italic" },
+    ],
+    spokenHeading: "Rooftop dining and prime retail in GK-II.",
+    paragraphs: [
+      "JDKD M-82 is an iconic urban commercial building located in the vibrant market sector of Greater Kailash II. Captured at dusk, the illuminated open-air rooftop level forms a celebrated culinary destination overlooking the South Delhi tree canopy.",
+      "Combining high-visibility ground-floor retail flagships with upper-level hospitality spaces, the building provides prime tenant positioning, heavy pedestrian footfall, and dedicated valet parking provisions.",
+    ],
+    specs: [
+      { id: "asset-class", term: "Asset class", value: "Commercial Retail & Hospitality" },
+      { id: "status", term: "Status", value: "Completed & Operational" },
+      { id: "address", term: "Location", value: "M-82, Greater Kailash II, New Delhi" },
+      { id: "terrace", term: "Rooftop deck", value: "Open-air hospitality terrace in service" },
+      { id: "parking", term: "Parking", value: "Dedicated valet and street-level parking bays" },
+      { id: "facade", term: "Fenestration", value: "Expansive glass retail show-windows" },
+      { id: "power", term: "Power", value: "100% DG backup for restaurant and retail operations" },
+    ],
+  },
+
+  highlights: {
+    label: "(KEY HIGHLIGHTS)",
+    items: [
+      {
+        id: "affluent-catchment",
+        title: "Prime South Delhi catchment",
+        body: "Surrounded by Delhi's highest-disposable-income residential sectors, guaranteeing steady patronage.",
+        points: [
+          "Located in prime GK-II commercial circle",
+          "Thriving evening and weekend dining destination",
+          "Prestigious commercial zip code",
+        ],
+      },
+      {
+        id: "rooftop-hospitality",
+        title: "Dedicated rooftop infrastructure",
+        body: "Engineered specifically for high-end food and beverage operators with full utility backbones.",
+        points: [
+          "Commercial kitchen exhaust shafts and gas bank provisions",
+          "Ambient lighting architecture and weather-protected pergolas",
+          "Panoramic open-sky urban views",
+        ],
+      },
+      {
+        id: "boutique-retail",
+        title: "High-exposure retail frontages",
+        body: "Uninterrupted street-level glass lines maximizing visual merchandising and customer conversions.",
+        points: [
+          "Wide pedestrian pavement interface",
+          "Double-height entrance possibilities",
+          "High foot-traffic market concourse",
+        ],
+      },
+    ],
+  },
+
+  connectivity: {
+    label: "(CONNECTIVITY)",
+    headingLines: [
+      { text: "At the center", style: "italic" },
+      { text: "of South Delhi's", style: "roman" },
+      { text: "social circuit.", style: "italic" },
+    ],
+    spokenHeading: "At the center of South Delhi's social circuit.",
+    body: "Conveniently accessible from Outer Ring Road, Chirag Delhi, and Nehru Place with seamless transit.",
+    image: IMAGES.locationAerial,
+    points: [
+      { id: "market", distance: "Immediate", place: "GK-II Market Concourse", detail: "Premier retail promenade" },
+      { id: "metro", distance: "1.2 km", place: "Greater Kailash Metro", detail: "Magenta Line connection" },
+      { id: "nehru-place", distance: "3 km", place: "Nehru Place Financial Center", detail: "Major commercial hub" },
+      { id: "airport", distance: "25 min", place: "Aerocity & Airport", detail: "Via Outer Ring Road" },
+    ],
+  },
+
+  plans: {
+    label: "(FLOOR PLANS)",
+    headingLines: [
+      { text: "Spatial", style: "roman" },
+      { text: "arrangements.", style: "italic" },
+    ],
+    spokenHeading: "Spatial arrangements.",
+    body: "Architectural drawings showcasing retail floor plates, service elevators, and open-air rooftop configurations.",
+    instructions: "Select a level to view plan layout details.",
+    sheets: PROJECT_TOWER.plans.sheets,
+  },
+
+  amenities: {
+    label: "(AMENITIES & SYSTEMS)",
+    headingLines: [
+      { text: "Hospitality-grade", style: "roman" },
+      { text: "infrastructure.", style: "italic" },
+    ],
+    spokenHeading: "Hospitality-grade infrastructure.",
+    body: "Tailored utilities supporting retail flagships and dynamic culinary venues.",
+    groups: PROJECT_TOWER.amenities.groups,
+  },
+
+  gallery: {
+    label: "(GALLERY)",
+    body: "Photographic views of JDKD M-82 at dusk, illuminated rooftop terrace, and street presence.",
+    images: [
+      IMAGES.m82Rooftop,
+      IMAGES.parkTwo,
+      IMAGES.terrace,
+      IMAGES.facadeDetail,
+    ],
+  },
+
+  downloads: PROJECT_TOWER.downloads,
+
+  enquiry: {
+    label: "(ENQUIRE)",
+    headingLines: [
+      { text: "Retail &", style: "roman" },
+      { text: "hospitality leasing.", style: "italic" },
+    ],
+    spokenHeading: "Retail & hospitality leasing.",
+    body: `For commercial leasing inquiries and retail availability at JDKD M-82, contact ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
+  },
+
+  contact: CONTACT,
+};
+
+export const PROJECT_M39: RealProject = {
+  id: "m-39",
+  slug: "m-39",
+  placeholder: false,
+  name: "JDKD M-39",
+  summary:
+    "Street-level retail under the JDKD mark, opening onto a prime market frontage in Greater Kailash I with commanding pedestrian exposure.",
+  image: IMAGES.m39Frontage,
+  status: "Completed & Operational",
+  marker: "(COMPLETED)",
+  assetClass: "High-Street Retail Frontage",
+  certification: "Grade A Retail Structure",
+  place: "M-39, Greater Kailash I, New Delhi",
+
+  label: "(JDKD M-39)",
+  titleLines: [
+    { text: "JDKD", style: "roman" },
+    { text: "M-39", style: "italic" },
+  ],
+  spokenTitle: "JDKD M-39",
+  lede: "Commanding street-level presence with seamless footfall circulation, double-height retail displays, and prestigious market frontage under the JDKD mark.",
+  heroImage: IMAGES.parkThree,
+  nav: TOWER_NAV,
+
+  overview: {
+    label: "(OVERVIEW)",
+    headingLines: [
+      { text: "High-street retail", style: "italic" },
+      { text: "under the", style: "roman" },
+      { text: "JDKD mark.", style: "italic" },
+    ],
+    spokenHeading: "High-street retail under the JDKD mark.",
+    paragraphs: [
+      "JDKD M-39 stands at the forefront of retail prestige in Greater Kailash I. The prominent crimson JDKD architectural badge marks the facade above wide show-windows that face directly into the buzzing commercial boulevard.",
+      "Engineered with open span floor plates, seamless street-level access, and dedicated utility infrastructure, M-39 delivers unparalleled visibility and prestige for leading fashion, lifestyle, and luxury brand flagships.",
+    ],
+    specs: [
+      { id: "asset-class", term: "Asset class", value: "High-Street Retail Frontage" },
+      { id: "status", term: "Status", value: "Completed & Operational" },
+      { id: "address", term: "Location", value: "M-39, Greater Kailash I Market, New Delhi" },
+      { id: "frontage", term: "Frontage", value: "High-visibility market-facing display glazing" },
+      { id: "branding", term: "Insignia", value: "Iconic illuminated JDKD architectural mark" },
+      { id: "power", term: "Power", value: "100% DG uninterrupted power backup" },
+    ],
+  },
+
+  highlights: {
+    label: "(KEY HIGHLIGHTS)",
+    items: [
+      {
+        id: "market-prominence",
+        title: "M-Block market prominence",
+        body: "Positioned in Delhi's most celebrated open-air retail market with high-density footfall.",
+        points: [
+          "Unmatched high-street prestige",
+          "Sustained luxury retail shopping traffic",
+          "High average spend customer demographic",
+        ],
+      },
+      {
+        id: "glazed-facade",
+        title: "Double-height glass facade",
+        body: "Expansive crystal-clear fenestration designed for monumental product displays and showroom impact.",
+        points: [
+          "Zero-threshold direct pedestrian entryway",
+          "High clear interior ceiling volumes",
+          "Integrated architectural lighting channels",
+        ],
+      },
+      {
+        id: "turnkey-utilities",
+        title: "Turnkey retail MEP",
+        body: "Built-in utility infrastructure tailored to the demanding requirements of flagship brand stores.",
+        points: [
+          "High-capacity HVAC provisions",
+          "Dedicated loading and service circulation",
+          "Heavy-load electrical supply with DG backup",
+        ],
+      },
+    ],
+  },
+
+  connectivity: {
+    label: "(CONNECTIVITY)",
+    headingLines: [
+      { text: "Delhi's most", style: "italic" },
+      { text: "vibrant retail", style: "roman" },
+      { text: "corridor.", style: "italic" },
+    ],
+    spokenHeading: "Delhi's most vibrant retail corridor.",
+    body: "Centrally located in GK-I with fast connections to Ring Road, Kailash Colony, and South Extension.",
+    image: IMAGES.locationAerial,
+    points: [
+      { id: "market", distance: "Immediate", place: "GK-I M-Block Market", detail: "Premier shopping promenade" },
+      { id: "metro", distance: "800 m", place: "Kailash Colony Metro", detail: "Violet Line transit" },
+      { id: "south-ex", distance: "2 km", place: "South Extension Market", detail: "Adjacent luxury hub" },
+      { id: "cp", distance: "20 min", place: "Connaught Place", detail: "Central Delhi" },
+    ],
+  },
+
+  plans: {
+    label: "(FLOOR PLANS)",
+    headingLines: [
+      { text: "Retail", style: "roman" },
+      { text: "layouts.", style: "italic" },
+    ],
+    spokenHeading: "Retail layouts.",
+    body: "Architectural floor plates detailing retail showrooms, mezzanine levels, and back-of-house storage areas.",
+    instructions: "Select a level to view plan layout details.",
+    sheets: PROJECT_TOWER.plans.sheets,
+  },
+
+  amenities: {
+    label: "(AMENITIES & SYSTEMS)",
+    headingLines: [
+      { text: "Retail-focused", style: "roman" },
+      { text: "engineering.", style: "italic" },
+    ],
+    spokenHeading: "Retail-focused engineering.",
+    body: "Heavy-duty building systems ensuring seamless commercial retail operations.",
+    groups: PROJECT_TOWER.amenities.groups,
+  },
+
+  gallery: {
+    label: "(GALLERY)",
+    body: "Visual study of JDKD M-39: market frontage, illuminated badge, and glazed showroom volumes.",
+    images: [
+      IMAGES.m39Frontage,
+      IMAGES.parkThree,
+      IMAGES.facadeDetail,
+      IMAGES.officeFloor,
+    ],
+  },
+
+  downloads: PROJECT_TOWER.downloads,
+
+  enquiry: {
+    label: "(ENQUIRE)",
+    headingLines: [
+      { text: "Flagship retail", style: "roman" },
+      { text: "opportunities.", style: "italic" },
+    ],
+    spokenHeading: "Flagship retail opportunities.",
+    body: `To discuss leasing opportunities or showroom space at JDKD M-39, contact ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
+  },
+
+  contact: CONTACT,
+};
+
 export const PROJECT_PLACEHOLDERS: readonly [
-  PlaceholderProject,
-  PlaceholderProject,
-  PlaceholderProject,
+  RealProject,
+  RealProject,
+  RealProject,
 ] = [
-  {
-    id: "corporate-park",
-    slug: null,
-    placeholder: true,
-    name: "JDKD Corporate Park",
-    marker: "(COMPLETED)",
-    summary:
-      "Plot A-23. A completed multi-tenant office building in green glass, running alongside the elevated metro line, with a manned lobby and let floors. Area, completion date and the full specification are still to be confirmed.",
-    image: IMAGES.corporateParkAerial,
-  },
-  {
-    id: "m-82",
-    slug: null,
-    placeholder: true,
-    name: "M-82",
-    marker: "(COMPLETED)",
-    summary:
-      "A retail and hospitality address, in service, with its rooftop level occupied. Held under its plot reference until the name and the record are confirmed.",
-    image: IMAGES.m82Rooftop,
-  },
-  {
-    id: "m-39",
-    slug: null,
-    placeholder: true,
-    name: "M-39",
-    marker: "(COMPLETED)",
-    summary:
-      "Street-level retail under the JDKD mark, opening onto a market frontage. Held under its plot reference until the name and the record are confirmed.",
-    image: IMAGES.m39Frontage,
-  },
+  PROJECT_CORPORATE_PARK,
+  PROJECT_M82,
+  PROJECT_M39,
 ];
 
-
 /** The index's running order: the documented project first, then the portfolio. */
-export const PROJECTS: readonly Project[] = [
+export const PROJECTS: readonly RealProject[] = [
   PROJECT_TOWER,
-  ...PROJECT_PLACEHOLDERS,
+  PROJECT_CORPORATE_PARK,
+  PROJECT_M82,
+  PROJECT_M39,
 ];
 
 /** Narrowing guard. Call it before reaching for any detail-page field. */
@@ -1995,8 +2428,7 @@ export function isRealProject(project: Project): project is RealProject {
 }
 
 /** Every project that HAS a detail route. The source for generateStaticParams. */
-export const REAL_PROJECTS: readonly RealProject[] =
-  PROJECTS.filter(isRealProject);
+export const REAL_PROJECTS: readonly RealProject[] = PROJECTS;
 
 export const PROJECT_SLUGS: readonly string[] = REAL_PROJECTS.map(
   (project) => project.slug,

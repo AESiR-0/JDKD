@@ -13,6 +13,7 @@ import {
   projectPath,
   type PlaceholderProject,
   type RealProject,
+  type Project,
 } from "@/lib/content";
 
 /**
@@ -307,7 +308,7 @@ function ChapterTower({ project }: { readonly project: RealProject }) {
 function ChapterPortfolioLeft({
   project,
 }: {
-  readonly project: PlaceholderProject;
+  readonly project: Project;
 }) {
   const id = headingId(project.id);
 
@@ -326,6 +327,20 @@ function ChapterPortfolioLeft({
         <Reveal as="p" className={`${BODY} lg:ml-auto`} delay={0.06}>
           {project.summary}
         </Reveal>
+
+        {project.slug ? (
+          <div className="mt-8 lg:flex lg:justify-end">
+            <Link
+              data-press
+              href={`/projects/${project.slug}`}
+              className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
+            >
+              {UI.view}
+              <span className="sr-only"> — {project.name}</span>
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        ) : null}
       </div>
 
       {/* EDGE-BLEED-LEFT, with the provisional frame drawn around it. */}
@@ -360,7 +375,7 @@ function ChapterPortfolioLeft({
 function ChapterPortfolioRight({
   project,
 }: {
-  readonly project: PlaceholderProject;
+  readonly project: Project;
 }) {
   const id = headingId(project.id);
 
@@ -380,6 +395,20 @@ function ChapterPortfolioRight({
         <Reveal as="p" className={BODY} delay={0.06}>
           {project.summary}
         </Reveal>
+
+        {project.slug ? (
+          <div className="mt-8">
+            <Link
+              data-press
+              href={`/projects/${project.slug}`}
+              className="inline-flex items-center gap-3 border-b border-red pb-2 text-label uppercase tracking-label text-ink transition-colors duration-200 ease-editorial hover:text-pure"
+            >
+              {UI.view}
+              <span className="sr-only"> — {project.name}</span>
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        ) : null}
       </div>
 
       {/* EDGE-BLEED-RIGHT, narrower than chapter one, provisional frame drawn. */}
