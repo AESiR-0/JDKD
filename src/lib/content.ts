@@ -695,9 +695,9 @@ export const CLIENT_LOGOS: readonly ClientLogoItem[] = [
   },
   {
     name: "Staple",
-    logo: "/images/clients/staple.png",
-    width: 150,
-    height: 40,
+    logo: "/images/clients/staple.svg",
+    width: 200,
+    height: 80,
     className: "h-6 sm:h-7 md:h-8 w-auto",
   },
   {

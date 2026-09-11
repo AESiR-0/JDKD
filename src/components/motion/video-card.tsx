@@ -177,13 +177,19 @@ export function VideoCard({
     document.addEventListener("visibilitychange", onVisibility);
 
     const onPlaying = () => setShown(true);
+    const onError = () => {
+      setPlaying(false);
+      setShown(false);
+    };
     video.addEventListener("playing", onPlaying);
+    video.addEventListener("error", onError);
 
     return () => {
       warmObserver.disconnect();
       playObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       video.removeEventListener("playing", onPlaying);
+      video.removeEventListener("error", onError);
       video.pause();
     };
   }, [motionOk]);
@@ -242,6 +248,7 @@ export function VideoCard({
           loop
           playsInline
           preload="none"
+          poster={poster}
           data-shown={shown ? "" : undefined}
           className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ease-editorial data-shown:opacity-100"
         >
