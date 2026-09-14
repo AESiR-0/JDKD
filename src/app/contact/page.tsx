@@ -116,7 +116,7 @@ export default function ContactPage() {
               <div className="relative">
                 <ImageCard
                   src="/images/contact/hero-facade.jpg"
-                  alt="JDKD Corporate Tower illuminated facade at dusk"
+                  alt="JDKD Corporate Park entrance and curtain wall facade"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   surface="ink"
                   shift={5}
@@ -171,7 +171,7 @@ export default function ContactPage() {
               <div className="relative h-full min-h-[480px]">
                 <ImageCard
                   src="/images/contact/concrete-wall.jpg"
-                  alt="Curved textured concrete wall with olive tree in sunlight"
+                  alt="Architectural fluted stone wall with geometric sconce lighting and planters"
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   surface="ink"
                   shift={5}
@@ -263,7 +263,7 @@ export default function ContactPage() {
             <div className="relative lg:col-span-5 px-gutter md:px-gutter-lg lg:px-0">
               <ImageCard
                 src="/images/contact/atrium-curve.jpg"
-                alt="Sweeping curved concrete atrium with warm LED cove illumination"
+                alt="Curved architectural glass facade and entrance stairs at JDKD Corporate Park"
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 surface="ink"
                 shift={4}

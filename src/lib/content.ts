@@ -143,9 +143,9 @@ export const IMAGES = {
   },
   lobbyAtrium: {
     src: "/images/about/lobby-atrium.jpg",
-    width: 896,
+    width: 900,
     height: 1200,
-    alt: "Architectural photograph of the grand double-height entrance atrium at JDKD Corporate Tower with fluted timber, travertine desk, and balanced natural light.",
+    alt: "Architectural photograph of the grand double-height entrance atrium at JDKD Corporate Tower with fluted timber, Italian marble counter, and illuminated tenant directory.",
     placeholder: false,
   },
   lobbyWide: {
@@ -178,9 +178,9 @@ export const IMAGES = {
   },
   terrace: {
     src: "/images/terrace.jpg",
-    width: 398,
-    height: 570,
-    alt: "Render of the landscaped rooftop terrace lounge, looking out over the city.",
+    width: 1600,
+    height: 900,
+    alt: "Architectural photograph of the landscaped rooftop sky terrace and lounge at JDKD Corporate Tower.",
     placeholder: false,
   },
 
@@ -1081,7 +1081,7 @@ export const FAQ: FaqContent = {
     {
       id: "walkthrough",
       question: "How do I arrange a walkthrough?",
-      answer: `Call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}. The enquiry form on this page is not connected yet, so the phone is the channel that works. JDKD Corporate Tower is available for leasing now.`,
+      answer: `Send the enquiry form on this page, or call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}. JDKD Corporate Tower is available for leasing now.`,
     },
   ],
 };
@@ -1103,10 +1103,8 @@ export const CTA: CtaContent = {
   headlineLines: ["Schedule a", "private walkthrough."],
   spokenHeadline: "Schedule a private walkthrough.",
   // Templated, not concatenated: the contact's name and number are values, and
-  // the sentence around them stays whole. The disclosure sits HERE, above the
-  // fields, because an error shown after three required fields and a press is
-  // not a warning - it is a receipt.
-  body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} - we will come back with availability, floor plates and a time to walk the building.`,
+  // the sentence around them stays whole.
+  body: `Tell us the floor area you need and when you want to occupy - we will come back with availability, floor plates and a time to walk the building. Prefer to talk? Call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
   submitLabel: "Send enquiry",
   image: IMAGES.towerExterior,
 };
@@ -2054,7 +2052,7 @@ export const PROJECT_TOWER: RealProject = {
       { text: "building.", style: "italic" },
     ],
     spokenHeading: "Walk the building.",
-    body: `Tell us the floor area you need and when you want to occupy. The form below is not connected yet, so call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay} - we will come back with availability, floor plates and a time to walk the building.`,
+    body: `Tell us the floor area you need and when you want to occupy - we will come back with availability, floor plates and a time to walk the building. Prefer to talk? Call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
   },
 
   contact: CONTACT,
@@ -2827,7 +2825,7 @@ export type ContactPageContent = {
     readonly heading: string;
     readonly body: string;
     /**
-     * The no-backend disclosure, rendered ABOVE the fields - never after them.
+     * A short line above the fields pointing at the phone as the alternative.
      * It deliberately stops before the phone number so the page can print that
      * number as a real `tel:` link rather than freeze it into a sentence.
      */
@@ -2859,17 +2857,9 @@ export const CONTACT_PAGE: ContactPageContent = {
     { text: "building.", style: "roman" },
   ],
   spokenTitle: "Enquire about the building.",
-  // Leads with the path that actually works. The form has no backend yet -
-  // `EnquiryForm.handleSubmit` only reports that nothing was sent - so telling
-  // the visitor to "send the form" above the fold, and disclosing the truth
-  // only after they have filled three required fields, gets the order exactly
-  // backwards. The phone number is the live channel; say so first.
-  //
-  // The second clause used to read "leave your details below and we will call
-  // back". That is a promise nothing on this page can keep: the form posts
-  // nowhere, so no call back can follow. Phone-first ordering is preserved and
-  // the promise is replaced with the truth.
-  lede: "JDKD Corporate Tower is available for leasing now. Call Mr. Roy on 9811998811 - the enquiry form below is not connected yet, so the phone is the channel that works.",
+  // Both channels are live: the form posts to /api/enquiry (Google Sheet via
+  // Apps Script) and the phone reaches Mr. Roy directly.
+  lede: `JDKD Corporate Tower is available for leasing now. Send an enquiry below, or call ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
   call: {
     label: "(CALL)",
     note: "The leasing contact for JDKD Corporate Tower.",
@@ -2892,8 +2882,7 @@ export const CONTACT_PAGE: ContactPageContent = {
     body: "Every field marked optional can be left blank. Nothing is shared with third parties.",
     // Rendered above the first field. Ends without the number on purpose - the
     // page prints it immediately after as a tel: link.
-    notice:
-      "This form is not connected yet, so submitting it sends nothing anywhere. To reach us today, call Mr. Roy on",
+    notice: `Prefer to talk? Call ${CONTACT.leasingContact.name} on`,
   },
   enquiryImage: IMAGES.lobby,
   address: {
