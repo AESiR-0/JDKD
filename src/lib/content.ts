@@ -695,10 +695,12 @@ export const CLIENT_LOGOS: readonly ClientLogoItem[] = [
   },
   {
     name: "Staple",
-    logo: "/images/clients/staple.svg",
-    width: 200,
-    height: 80,
-    className: "h-6 sm:h-7 md:h-8 w-auto",
+    // Keyed from the client's own "STAPLE. Bar & Bistro" artwork
+    // (public/brand/staple logo.jpg): maroon ground removed, cream lettering kept.
+    logo: "/images/clients/staple-bar-bistro.png",
+    width: 804,
+    height: 447,
+    className: "h-10 sm:h-11 md:h-12 w-auto",
   },
   {
     name: "Punjab Grill",
