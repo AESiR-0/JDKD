@@ -142,10 +142,10 @@ export const IMAGES = {
     placeholder: false,
   },
   lobbyAtrium: {
-    src: "/images/about/lobby-atrium.jpg",
-    width: 900,
-    height: 1200,
-    alt: "Architectural photograph of the grand double-height entrance atrium at JDKD Corporate Tower with fluted timber, Italian marble counter, and illuminated tenant directory.",
+    src: "/images/about/lobby-lifts.jpg",
+    width: 810,
+    height: 1080,
+    alt: "The ground-floor lift lobby at a JDKD building, with fluted stone cladding, planters and a marble reception counter.",
     placeholder: false,
   },
   lobbyWide: {
@@ -256,23 +256,25 @@ export const IMAGES = {
   },
 
   /* -- Features -----------------------------------------------------------
-     Terrace and infrastructure are crops of the tower's own renders. FITNESS
+     Terrace frames are stills cut from the client's M-82 drone footage of
+     the Staple rooftop lounge - the portrait by day, the square at night;
+     infrastructure is a crop of the tower's own renders. FITNESS
      AND PARKING ARE STILL GENERATED STAND-INS and carry `placeholder: true`,
      because no photograph of either exists yet - they are the only two frames
      left on the site that are not of a real JDKD building. Replace them the
      moment the client supplies a gym and a basement shot. */
   terraceLarge: {
-    src: "/images/features/terrace-large.jpg",
-    width: 896,
+    src: "/images/features/terrace-staple-day.jpg",
+    width: 960,
     height: 1200,
-    alt: "The landscaped rooftop terrace lounge at JDKD Corporate Tower, looking out over the city.",
+    alt: "The rooftop terrace lounge above Staple Bar & Bistro at the JDKD M-82 property.",
     placeholder: false,
   },
   terraceSmall: {
-    src: "/images/features/terrace-small.jpg",
+    src: "/images/features/terrace-staple-night.jpg",
     width: 1024,
     height: 1024,
-    alt: "Planting and seating on the JDKD Corporate Tower roof terrace.",
+    alt: "The same rooftop lounge lit up at night.",
     placeholder: false,
   },
   fitnessLarge: {
