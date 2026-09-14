@@ -1,13 +1,20 @@
 "use client";
 
 import {
+  useEffect,
   useId,
+  useRef,
   useState,
   type ChangeEvent,
   type FormEvent,
 } from "react";
 
 import { ASSET, CONTACT, CTA, ENQUIRY_FIELDS } from "@/lib/content";
+import {
+  HONEYPOT_FIELD,
+  submitEnquiry,
+  type EnquiryError,
+} from "@/lib/enquiry";
 
 /**
  * EnquiryForm - the walkthrough request, section 08's primary conversion.
@@ -15,10 +22,9 @@ import { ASSET, CONTACT, CTA, ENQUIRY_FIELDS } from "@/lib/content";
  * Client leaf. It owns nothing but its own field state, so the section that
  * renders it stays a Server Component. Do not lift this boundary upward.
  *
- * NOT WIRED. There is no endpoint yet, so submit is intercepted, nothing leaves
- * the browser, and the form says so in a live region and hands the visitor
- * Mr. Roy's number instead. When a backend exists, replace `handleSubmit` - the
- * markup, labels and states do not need to change.
+ * WIRED to `/api/enquiry` (see `@/lib/enquiry`), which forwards to the Google
+ * Apps Script web app. Success is only ever reported after the route confirms
+ * the row was written; any failure hands the visitor Mr. Roy's number.
  *
  * FIELD STYLING follows `design-system/actions-forms.html`: underline-only
  * inputs, no boxes; the underline brightens on focus and moves to
@@ -26,33 +32,22 @@ import { ASSET, CONTACT, CTA, ENQUIRY_FIELDS } from "@/lib/content";
  * is deliberately left intact on top of that - the coloured underline is a
  * decoration, not an accessible focus indicator.
  *
- * THE FOCUS UNDERLINE IS WHITE, NOT RED, AND THAT IS A CORRECTION.
- * It was `focus:border-red`, which is the site's active colour and reads
- * correctly on `--color-canvas` at 3.1:1. But this form only ever ships on
- * `--color-pine` - the contact room, the home CTA and the project enquiry
- * panel are all pine - and #C61D24 on #254441 measures 1.82:1, so the designed
- * focus state was invisible on every surface it actually had. `--color-pure`
- * measures 10.6:1 there. A brand colour nobody can see is not a brand cue.
+ * THE FOCUS UNDERLINE IS WHITE, NOT RED: this form only ships on
+ * `--color-pine`, where #C61D24 measures 1.82:1 and `--color-pure` 10.6:1.
  *
  * NO MOTION. Reveal masks keep `overflow: hidden` after they finish, which would
  * clip the focus ring on anything focusable inside them, so interactive blocks
  * are never wrapped in one.
  */
 
-type SubmitStatus = "idle" | "unavailable";
+type SubmitStatus = "idle" | "sending" | "sent" | EnquiryError;
 
 export type EnquiryFormProps = {
   /** Id of the heading that names this form - normally the section's `<h2>`. */
   labelledBy: string;
   /**
-   * Id of the no-backend disclosure that sits above the fields.
-   *
-   * Sighted visitors meet that sentence on the way down to the first label.
-   * Someone who lands on the form by jumping between form controls does not,
-   * and would start filling in required fields with no idea nothing is sent -
-   * so the page hands its id in here and it is announced with the form itself.
-   * The disclosure stays a real, visible paragraph on the page; this only
-   * makes sure it is not skipped past.
+   * Id of an explanatory paragraph above the fields, announced with the form
+   * so someone jumping between form controls does not skip past it.
    */
   describedBy?: string;
   className?: string;
@@ -60,11 +55,8 @@ export type EnquiryFormProps = {
 
 // `placeholder:text-muted` (5.4:1 on white), not an alpha-reduced variant -
 // the phone field's placeholder carries the only format hint in the form, so it
-// has to clear WCAG AA. `text-muted/60` computed to ~2.4:1.
-// The underline is the only chrome a field has, so it is also the only thing
-// that can carry a state change - hence a real transition on it. `border-color`
-// is named rather than `transition-colors`, which would also animate `color`
-// and `background-color` on an element where neither ever moves. 150ms matches
+// has to clear WCAG AA. `border-color` is named rather than `transition-colors`,
+// which would also animate `color` and `background-color`. 150ms matches
 // `[data-press]`: a field is touched as often as a button.
 const FIELD_BASE =
   "w-full border-b bg-transparent py-3 text-body text-ink transition-[border-color] duration-150 ease-editorial placeholder:text-muted focus:border-pure";
@@ -81,9 +73,16 @@ export function EnquiryForm({
   const uid = useId();
   const [values, setValues] = useState<Record<string, string>>(emptyValues);
   const [status, setStatus] = useState<SubmitStatus>("idle");
+  const honeypotRef = useRef<HTMLInputElement | null>(null);
+  const openedAt = useRef(0);
+
+  useEffect(() => {
+    openedAt.current = Date.now();
+  }, []);
 
   const consentId = `${uid}-consent`;
   const fieldId = (id: string) => `${uid}-${id}`;
+  const sending = status === "sending";
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -92,20 +91,61 @@ export function EnquiryForm({
     setValues((previous) => ({ ...previous, [name]: value }));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    // No endpoint yet. Never let the browser navigate away with the payload.
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("unavailable");
+    if (sending) return;
+    setStatus("sending");
+
+    // Known fields map to their own sheet columns; anything added to
+    // ENQUIRY_FIELDS later lands in "Details" without code changes here.
+    const { name, organisation, email, phone, requirement, message, ...rest } =
+      values;
+    const result = await submitEnquiry({
+      form: "walkthrough",
+      name: name ?? "",
+      email,
+      phone,
+      company: organisation,
+      // The walkthrough form's free-text field is `requirement`.
+      message: requirement ?? message,
+      details: rest,
+      website: honeypotRef.current?.value ?? "",
+      elapsedMs: Date.now() - openedAt.current,
+      page: window.location.pathname,
+    });
+
+    if (result.ok) {
+      setValues(emptyValues());
+      setStatus("sent");
+    } else {
+      setStatus(result.error);
+    }
   }
 
   return (
     <form
       onSubmit={handleSubmit}
       aria-labelledby={labelledBy}
-      // Disclosure first, then consent - reading order, not id order.
       aria-describedby={describedBy ? `${describedBy} ${consentId}` : consentId}
+      aria-busy={sending}
       className={`w-full max-w-[460px] rounded-card border border-line bg-surface p-6 sm:p-7 ${className ?? ""}`}
     >
+      {/* Spam trap: invisible, unfocusable and hidden from assistive tech. A
+          person never fills it; a bot filling every input does. */}
+      <div aria-hidden="true" className="sr-only">
+        <label>
+          Website
+          <input
+            ref={honeypotRef}
+            type="text"
+            name={HONEYPOT_FIELD}
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
+        </label>
+      </div>
+
       <div className="flex flex-col gap-5">
         {ENQUIRY_FIELDS.map((field) => {
           const id = fieldId(field.id);
@@ -119,9 +159,6 @@ export function EnquiryForm({
                 className="block text-micro uppercase tracking-label text-muted"
               >
                 {field.label}
-                {/* Which fields are optional is meaningful information, not
-                    decoration - so it carries full `text-muted` (5.4:1) rather
-                    than an alpha-reduced tint that computed to ~2.9:1. */}
                 {!field.required ? (
                   <span className="text-muted"> (optional)</span>
                 ) : null}
@@ -164,26 +201,30 @@ export function EnquiryForm({
 
       <button data-press
         type="submit"
-        className="mt-6 w-full cursor-pointer rounded-card border border-ink bg-ink px-7 py-3.5 text-label uppercase tracking-micro text-canvas transition-colors duration-200 ease-editorial hover:border-pure hover:bg-pure"
+        disabled={sending}
+        className="mt-6 w-full cursor-pointer rounded-card border border-ink bg-ink px-7 py-3.5 text-label uppercase tracking-micro text-canvas transition-colors duration-200 ease-editorial hover:border-pure hover:bg-pure disabled:cursor-wait disabled:opacity-70"
       >
-        {CTA.submitLabel}
+        {sending ? "Sending…" : CTA.submitLabel}
       </button>
 
-      {/* Live region is always mounted so the message is announced when it
-          appears. It collapses to nothing while the form is untouched.
-
-          IT IS SET AT THE WEIGHT OF THE THING IT IS SAYING. This was
-          `text-caption text-muted` - 12px grey, the quietest type in the form
-          and a step BELOW the consent line above it. It is the answer to the
-          only action this form has, and the moment it fires it is the most
-          important sentence on the page, so it takes `text-small text-ink`
-          over the same red hairline the disclosure above the fields uses.
-          Red is legal here for the same reason it is legal there: a 1px rule,
-          never a fill. */}
+      {/* Always mounted so the result is announced when it appears. Set at the
+          weight of what it says (`text-small text-ink`) over a red hairline -
+          a 1px rule, never a fill. */}
       <div role="status" aria-live="polite">
-        {status === "unavailable" ? (
+        {status === "sent" ? (
           <p className="mt-6 border-t border-red pt-4 text-small text-ink">
-            Online enquiries are not connected yet, so nothing was sent. Call{" "}
+            Thank you - your enquiry has reached the leasing desk.{" "}
+            {CONTACT.leasingContact.name} will be in touch shortly.
+          </p>
+        ) : status === "invalid" ? (
+          <p className="mt-6 border-t border-red pt-4 text-small text-ink">
+            Please check your name, email and phone number, then try again.
+          </p>
+        ) : status === "not_configured" ||
+          status === "upstream" ||
+          status === "network" ? (
+          <p className="mt-6 border-t border-red pt-4 text-small text-ink">
+            Your enquiry could not be sent just now. Please call{" "}
             {CONTACT.leasingContact.name} on{" "}
             <a data-press="row"
               href={CONTACT.leasingContact.phoneHref}

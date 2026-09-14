@@ -1,18 +1,43 @@
 "use client";
 
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
+
 import { CONTACT } from "@/lib/content";
+import {
+  HONEYPOT_FIELD,
+  submitEnquiry,
+  type EnquiryError,
+} from "@/lib/enquiry";
+
+type SubmitStatus = "idle" | "sending" | EnquiryError;
+
+const EMPTY = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  message: "",
+};
 
 export function ReferenceForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState(EMPTY);
+  const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
   const [copiedPhone, setCopiedPhone] = useState(false);
+  const honeypotRef = useRef<HTMLInputElement | null>(null);
+  const openedAt = useRef(0);
+
+  useEffect(() => {
+    openedAt.current = Date.now();
+  }, []);
+
+  const sending = status === "sending";
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -21,9 +46,30 @@ export function ReferenceForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    if (sending) return;
+    setStatus("sending");
+
+    const result = await submitEnquiry({
+      form: "contact",
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      company: formData.company,
+      message: formData.message,
+      website: honeypotRef.current?.value ?? "",
+      elapsedMs: Date.now() - openedAt.current,
+      page: window.location.pathname,
+    });
+
+    if (result.ok) {
+      setSubmittedName(formData.name);
+      setFormData(EMPTY);
+      setStatus("idle");
+    } else {
+      setStatus(result.error);
+    }
   }
 
   function handleCopyPhone() {
@@ -33,7 +79,7 @@ export function ReferenceForm() {
   }
 
   const whatsAppUrl = `https://wa.me/919811998811?text=${encodeURIComponent(
-    `*ENQUIRY - JDKD CORPORATE TOWER*\nName: ${formData.name || "Executive"}\nCompany: ${
+    `*ENQUIRY - JDKD CORPORATE TOWER*\nName: ${formData.name || submittedName || "Executive"}\nCompany: ${
       formData.company || "Not specified"
     }\nPhone: ${formData.phone || "Not specified"}\nEmail: ${
       formData.email || "Not specified"
@@ -42,20 +88,23 @@ export function ReferenceForm() {
 
   return (
     <div className="w-full">
-      {submitted ? (
-        <div className="border border-line/60 bg-surface/40 p-8 sm:p-10 text-ink">
+      {submittedName !== null ? (
+        <div
+          role="status"
+          className="border border-line/60 bg-surface/40 p-8 sm:p-10 text-ink"
+        >
           <div className="flex items-center gap-2.5 text-micro uppercase tracking-label text-[#C9AD7F]">
             <span className="size-2 rounded-full bg-emerald-400" />
             <span>Enquiry Received</span>
           </div>
 
           <h3 className="mt-4 font-display text-h3 uppercase text-ink">
-            Thank you, {formData.name || "Executive"}.
+            Thank you, {submittedName || "Executive"}.
           </h3>
           <p className="mt-3 text-small text-muted leading-relaxed max-w-[46ch]">
-            Your enquiry has been delivered directly to Mr. Roy at our leasing
-            office. A formal availability brief and walkthrough coordination
-            will follow shortly.
+            Your enquiry has reached the JDKD leasing desk.{" "}
+            {CONTACT.leasingContact.name}&apos;s team will be in touch shortly
+            with availability and a time to walk the building.
           </p>
 
           <div className="mt-6 border-t border-line/40 pt-5 flex flex-wrap items-center gap-4">
@@ -71,7 +120,7 @@ export function ReferenceForm() {
 
             <button
               type="button"
-              onClick={() => setSubmitted(false)}
+              onClick={() => setSubmittedName(null)}
               data-press
               className="cursor-pointer border border-line/50 px-5 py-2.5 text-label uppercase tracking-label text-muted transition-colors hover:border-line hover:text-ink"
             >
@@ -80,7 +129,26 @@ export function ReferenceForm() {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6 lg:space-y-8">
+        <form
+          onSubmit={handleSubmit}
+          aria-busy={sending}
+          className="space-y-6 lg:space-y-8"
+        >
+          {/* Spam trap: invisible, unfocusable, hidden from assistive tech. */}
+          <div aria-hidden="true" className="sr-only">
+            <label>
+              Website
+              <input
+                ref={honeypotRef}
+                type="text"
+                name={HONEYPOT_FIELD}
+                tabIndex={-1}
+                autoComplete="off"
+                defaultValue=""
+              />
+            </label>
+          </div>
+
           {/* Row 1: Full name* | Company name */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
             <div>
@@ -95,9 +163,9 @@ export function ReferenceForm() {
                 name="name"
                 type="text"
                 required
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder=""
                 className="mt-1 w-full border-b border-line bg-transparent py-2.5 text-body text-ink transition-colors duration-150 focus:border-pure focus:outline-none"
               />
             </div>
@@ -113,9 +181,9 @@ export function ReferenceForm() {
                 id="ref-company"
                 name="company"
                 type="text"
+                autoComplete="organization"
                 value={formData.company}
                 onChange={handleChange}
-                placeholder=""
                 className="mt-1 w-full border-b border-line bg-transparent py-2.5 text-body text-ink transition-colors duration-150 focus:border-pure focus:outline-none"
               />
             </div>
@@ -135,9 +203,9 @@ export function ReferenceForm() {
                 name="email"
                 type="email"
                 required
+                autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder=""
                 className="mt-1 w-full border-b border-line bg-transparent py-2.5 text-body text-ink transition-colors duration-150 focus:border-pure focus:outline-none"
               />
             </div>
@@ -154,9 +222,9 @@ export function ReferenceForm() {
                 name="phone"
                 type="tel"
                 required
+                autoComplete="tel"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder=""
                 className="mt-1 w-full border-b border-line bg-transparent py-2.5 text-body text-ink transition-colors duration-150 focus:border-pure focus:outline-none"
               />
             </div>
@@ -177,7 +245,6 @@ export function ReferenceForm() {
               required
               value={formData.message}
               onChange={handleChange}
-              placeholder=""
               className="mt-1 w-full resize-y border-b border-line bg-transparent py-2.5 text-body text-ink transition-colors duration-150 focus:border-pure focus:outline-none"
             />
           </div>
@@ -186,8 +253,9 @@ export function ReferenceForm() {
           <div className="flex flex-wrap items-center justify-between gap-6 pt-2">
             <button
               type="submit"
+              disabled={sending}
               data-press
-              className="group inline-flex cursor-pointer items-center gap-4 text-left"
+              className="group inline-flex cursor-pointer items-center gap-4 text-left disabled:cursor-wait disabled:opacity-70"
             >
               <span className="flex size-11 items-center justify-center rounded-full border border-line text-ink transition-[border-color,background-color,color] duration-300 ease-editorial group-hover:border-pure group-hover:bg-ink group-hover:text-canvas">
                 <span className="text-body font-light transition-transform duration-300 ease-editorial group-hover:translate-x-0.5">
@@ -195,7 +263,7 @@ export function ReferenceForm() {
                 </span>
               </span>
               <span className="font-display text-small uppercase tracking-label text-ink transition-colors duration-200 group-hover:text-pure">
-                Submit enquiry
+                {sending ? "Sending…" : "Submit enquiry"}
               </span>
             </button>
 
@@ -208,6 +276,29 @@ export function ReferenceForm() {
             >
               Or compose on WhatsApp &rarr;
             </a>
+          </div>
+
+          <div role="status" aria-live="polite">
+            {status === "invalid" ? (
+              <p className="border-t border-red pt-4 text-small text-ink">
+                Please check your name, email and phone number, then try again.
+              </p>
+            ) : status === "not_configured" ||
+              status === "upstream" ||
+              status === "network" ? (
+              <p className="border-t border-red pt-4 text-small text-ink">
+                Your enquiry could not be sent just now. Please call{" "}
+                {CONTACT.leasingContact.name} on{" "}
+                <a
+                  data-press="row"
+                  href={CONTACT.leasingContact.phoneHref}
+                  className="text-ink underline decoration-red decoration-2 underline-offset-4"
+                >
+                  {CONTACT.leasingContact.phoneDisplay}
+                </a>{" "}
+                or use WhatsApp.
+              </p>
+            ) : null}
           </div>
         </form>
       )}

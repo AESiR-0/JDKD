@@ -32,11 +32,10 @@ import type { Contact, RealProject } from "@/lib/content";
  * NO BACKGROUND ART here, unlike the homepage: the gallery band sits directly
  * above this section and a sixth photograph would be one too many.
  *
- * THE FORM IS NOT WIRED, AND IT SAYS SO. `EnquiryForm` intercepts submit,
- * sends nothing, and hands the visitor Mr. Roy's number in a live region. That
- * behaviour is the honest one and it is not to be replaced with a fake success
- * state; this section restyles the form only from the OUTSIDE, exactly as
- * `sections/cta.tsx` does, and does not touch `ui/enquiry-form.tsx`.
+ * THE FORM IS WIRED. `EnquiryForm` posts to `/api/enquiry` and only reports
+ * success once the Sheet row is written; on failure it hands the visitor
+ * Mr. Roy's number. This section restyles the form only from the OUTSIDE,
+ * exactly as `sections/cta.tsx` does, and does not touch `ui/enquiry-form.tsx`.
  */
 
 const ENQUIRE_ID = "enquire-heading";
