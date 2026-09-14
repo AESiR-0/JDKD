@@ -7,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 import { Counter } from "@/components/motion/counter";
+import { ImageCard } from "@/components/motion/image-card";
+import { Reveal } from "@/components/motion/reveal";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -28,7 +30,7 @@ export function OurStoryButton() {
       onClick={handleClick}
       className="group inline-flex items-center gap-4 text-micro uppercase tracking-micro text-ink transition-colors hover:text-pure focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red"
     >
-      <span className="flex h-10 w-10 items-center justify-center rounded-full border border-line transition-all duration-300 group-hover:border-ink group-hover:scale-105 group-hover:bg-line/20">
+      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-line transition-[border-color,background-color,transform] duration-300 group-hover:border-ink group-hover:scale-105 group-hover:bg-line/20">
         <svg
           className="h-3.5 w-3.5 text-muted transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-pure"
           viewBox="0 0 24 24"
@@ -237,16 +239,18 @@ export function BeliefPinnedDrawing() {
       <div className="relative z-10 my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-10">
         <div className="lg:col-span-6">
           <h2 className="font-display font-light text-[2.25rem] sm:text-[2.75rem] lg:text-[3.25rem] leading-[1.05] tracking-[-0.03em] text-ink max-w-[560px]">
-            <span className="block text-ink">An office</span>
-            <span className="block italic text-[#e6e2da]">should do</span>
-            <span className="block text-ink">more than</span>
-            <span className="block text-ink">hold a team.</span>
+            <Reveal as="span" stagger={0.08} duration={1}>
+              <span className="block text-ink">An office</span>
+              <span className="block italic text-[#e6e2da]">should do</span>
+              <span className="block text-ink">more than</span>
+              <span className="block text-ink">hold a team.</span>
+            </Reveal>
           </h2>
-          <p className="mt-8 max-w-[420px] text-small text-muted leading-relaxed">
+          <Reveal as="p" delay={0.2} className="mt-8 max-w-[420px] text-small text-muted leading-relaxed">
             It should inspire, enable and create the conditions for great work.
             We design spaces that go beyond function - spaces that foster
             collaboration, focus and long-term value.
-          </p>
+          </Reveal>
         </div>
 
         {/* Right: Architectural Photo Plate & Principles */}
@@ -256,12 +260,18 @@ export function BeliefPinnedDrawing() {
             ref={imageCardRef}
             className="relative w-48 h-64 sm:w-56 sm:h-72 overflow-hidden border border-line/40 bg-surface shadow-2xl shrink-0"
           >
-            <Image
+            {/* Wipe only - no drift or scale: the pinned timeline already scales
+                this plate on desktop, and two scrubs on one image fight. */}
+            <ImageCard
               src="/images/about/workspace-open.jpg"
               alt="JDKD open collaborative workspace with generous daylight, timber baffles, and integrated greenery"
-              fill
               sizes="(max-width: 640px) 192px, 224px"
-              className="object-cover contrast-[1.05]"
+              surface="ink"
+              shift={0}
+              scale={1}
+              duration={1}
+              imageClassName="contrast-[1.05]"
+              className="absolute inset-0"
             />
             <div
               className="pointer-events-none absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent"
@@ -282,7 +292,7 @@ export function BeliefPinnedDrawing() {
             ].map((item) => (
               <div
                 key={item.id}
-                className="group flex cursor-default items-center justify-between border-t border-line py-3.5 text-micro uppercase tracking-micro text-muted transition-all duration-300 hover:border-line-strong hover:pl-3 hover:text-ink"
+                className="group flex cursor-default items-center justify-between border-t border-line py-3.5 text-micro uppercase tracking-micro text-muted transition-[border-color,color,padding] duration-300 hover:border-line-strong hover:pl-3 hover:text-ink"
               >
                 <span className="font-sans text-[11px] text-muted/60 transition-colors group-hover:text-red">
                   {item.id}
@@ -297,7 +307,7 @@ export function BeliefPinnedDrawing() {
       </div>
 
       {/* Bottom Footer Note */}
-      <div className="relative z-10 flex items-center justify-between pt-4 border-t border-line/30 text-[9px] uppercase tracking-[0.2em] text-muted/60 font-sans">
+      <div className="relative z-10 flex flex-col gap-1 pt-4 border-t border-line/30 text-[9px] uppercase tracking-[0.2em] text-muted/60 font-sans sm:flex-row sm:items-center sm:justify-between">
         <div>CONTINUE / THE DRAWING DEVELOPS</div>
         <div>JDKD PRACTICE ARCHIVE // REF 02</div>
       </div>
@@ -327,7 +337,11 @@ export function LocationPinnedMap() {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 1024px)", () => {
+      mm.add(
+        { isDesktop: "(min-width: 1024px)", motionOk: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+        const { isDesktop, motionOk } = ctx.conditions as { isDesktop: boolean; motionOk: boolean };
+        if (!motionOk) return;
         const radar = radarSweepRef.current;
         const route = routePathRef.current;
         const metrics = metricsRef.current;
@@ -341,7 +355,7 @@ export function LocationPinnedMap() {
           scrollTrigger: {
             trigger: stage,
             start: "top top",
-            end: "+=1400",
+            end: isDesktop ? "+=1400" : "+=700",
             pin: true,
             scrub: 0.5,
             anticipatePin: 1,
@@ -394,7 +408,7 @@ export function LocationPinnedMap() {
   return (
     <div
       ref={stageRef}
-      className="relative flex flex-col justify-between min-h-screen w-full overflow-hidden bg-deep"
+      className="relative flex flex-col justify-between min-h-svh w-full overflow-hidden bg-deep"
     >
       {/* ── MAP ARTWORK GROUND (Matching Contact Page) ── */}
       <div
@@ -406,14 +420,13 @@ export function LocationPinnedMap() {
           alt="Satellite map of Mathura Road corridor and JDKD Corporate Tower"
           fill
           sizes="100vw"
-          priority
           className="object-cover object-center opacity-65 grayscale-[15%] contrast-[1.1]"
         />
 
         {/* Gradient Scrims for Legibility */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/80 to-transparent lg:via-canvas/60"
+          className="absolute inset-0 bg-gradient-to-r from-canvas/85 via-canvas/40 to-transparent sm:from-canvas sm:via-canvas/80 lg:via-canvas/60"
         />
         <div
           aria-hidden="true"
@@ -459,7 +472,7 @@ export function LocationPinnedMap() {
 
         <div
           aria-hidden="true"
-          className="absolute left-[46%] top-[22%] flex flex-col items-center gap-1 select-none text-[10px] uppercase tracking-widest text-muted/90"
+          className="absolute left-[8%] top-[46%] sm:left-[46%] sm:top-[22%] flex flex-col items-center gap-1 select-none text-[10px] uppercase tracking-widest text-muted/90"
         >
           <span className="flex size-4 items-center justify-center rounded-full border border-muted/50 text-[9px] bg-canvas/80">
             ◎
@@ -482,17 +495,19 @@ export function LocationPinnedMap() {
         </div>
 
         {/* JDKD Corporate Tower Pinpoint */}
+        {/* Same position as desktop. On phones the label hangs to the LEFT of the
+            beacon, so it stays inside the frame. */}
         <div className="absolute left-[62%] top-[38%] flex items-center gap-3.5 z-20">
           <span className="relative flex size-5 items-center justify-center">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#c61d24] opacity-80" />
             <span className="relative inline-flex size-3.5 rounded-full bg-[#c61d24] shadow-[0_0_18px_#c61d24]" />
           </span>
 
-          <div className="rounded-xs border border-line/60 bg-surface/90 px-4 py-2.5 backdrop-blur-md shadow-2xl">
-            <span className="block font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-pure">
+          <div className="rounded-xs border border-line/60 bg-surface/90 px-3 py-2 backdrop-blur-md shadow-2xl whitespace-nowrap max-sm:absolute max-sm:right-[calc(100%+0.625rem)] max-sm:top-1/2 max-sm:-translate-y-1/2 sm:px-4 sm:py-2.5">
+            <span className="block font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-pure sm:text-[11px] sm:tracking-[0.16em]">
               JDKD CORPORATE TOWER
             </span>
-            <span className="block text-[10px] text-muted font-sans mt-0.5">
+            <span className="hidden sm:block text-[10px] text-muted font-sans mt-0.5">
               A-11, Mathura Road, New Delhi, 110076
             </span>
           </div>
@@ -508,7 +523,8 @@ export function LocationPinnedMap() {
       </div>
 
       {/* ── FOREGROUND CONTENT OVERLAY ── */}
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-shell flex-col justify-between px-gutter md:px-gutter-lg py-16 lg:py-24">
+      {/* pt-20 clears the always-visible site header (h-14) while pinned. */}
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-shell flex-col justify-between px-gutter md:px-gutter-lg pt-20 pb-8 sm:py-16 md:pt-20 lg:py-24">
         <div className="flex items-center justify-between border-b border-line/40 pb-4">
           <div className="flex items-center gap-3 text-micro uppercase tracking-[0.2em] text-muted">
             <span className="w-6 h-px bg-red block" aria-hidden="true" />
@@ -519,62 +535,67 @@ export function LocationPinnedMap() {
           </div>
         </div>
 
-        <div className="my-auto max-w-[560px] py-10">
+        {/* Phones: headline sits at the top so the pin and labels, which keep
+            their desktop positions, land on open map rather than on the type. */}
+        <div className="mt-6 mb-auto max-w-[560px] sm:my-auto sm:py-10">
           <h2 className="font-display font-light text-[2.25rem] sm:text-[2.75rem] lg:text-[3.25rem] leading-[1.05] tracking-[-0.03em] text-ink">
-            <span className="block text-ink">Where the city</span>
-            <span className="block italic text-[#e6e2da]">moves,</span>
-            <span className="block text-ink">business</span>
-            <span className="block text-ink">follows.</span>
+            <Reveal as="span" stagger={0.08} duration={1}>
+              <span className="block text-ink">Where the city</span>
+              <span className="block italic text-[#e6e2da]">moves,</span>
+              <span className="block text-ink">business</span>
+              <span className="block text-ink">follows.</span>
+            </Reveal>
           </h2>
-          <p className="mt-8 max-w-[440px] text-small text-muted leading-relaxed">
+          {/* Phones keep the headline only, so the map stays visible. */}
+          <Reveal as="p" delay={0.2} className="mt-8 hidden max-w-[440px] text-small text-muted leading-relaxed sm:block">
             Strategically situated at Mathura Road, with seamless metro access
             and close to key commercial hubs, JDKD Corporate Tower offers the
             connectivity and convenience that modern businesses need.
-          </p>
+          </Reveal>
         </div>
 
         <div
           ref={metricsRef}
-          className="border-t border-line/40 pt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-12"
+          className="border-t border-line/40 pt-5 sm:pt-6 grid grid-cols-3 gap-3 sm:gap-6 lg:gap-12"
         >
-          <div className="border-l border-line pl-4">
+          <div className="border-l border-line pl-2.5 sm:pl-4">
             <div className="flex items-baseline gap-1">
               <Counter
                 value="2"
                 unit="min"
-                className="font-display text-3xl sm:text-4xl text-ink font-light"
+                className="font-display text-2xl sm:text-4xl text-ink font-light"
                 unitClassName="font-sans text-xs uppercase tracking-widest text-muted ml-1"
               />
             </div>
-            <p className="text-[11px] uppercase tracking-widest text-muted mt-1">
+            <p className="text-[9px] uppercase tracking-wider text-muted mt-1 sm:text-[11px] sm:tracking-widest">
               Sarai Kale Khan Metro
             </p>
           </div>
 
-          <div className="border-l border-line pl-4">
+          <div className="border-l border-line pl-2.5 sm:pl-4">
             <div className="flex items-baseline gap-1">
               <Counter
                 value="10"
                 unit="min"
-                className="font-display text-3xl sm:text-4xl text-ink font-light"
+                className="font-display text-2xl sm:text-4xl text-ink font-light"
                 unitClassName="font-sans text-xs uppercase tracking-widest text-muted ml-1"
               />
             </div>
-            <p className="text-[11px] uppercase tracking-widest text-muted mt-1">
+            <p className="text-[9px] uppercase tracking-wider text-muted mt-1 sm:text-[11px] sm:tracking-widest">
               Nizamuddin Station
             </p>
           </div>
 
-          <div className="border-l border-line pl-4">
+          <div className="border-l border-line pl-2.5 sm:pl-4">
             <div className="flex items-baseline gap-1">
               <Counter
                 value="25"
                 unit="min"
-                className="font-display text-3xl sm:text-4xl text-ink font-light"
+                className="font-display text-2xl sm:text-4xl text-ink font-light"
                 unitClassName="font-sans text-xs uppercase tracking-widest text-muted ml-1"
               />
             </div>
-            <p className="text-[11px] uppercase tracking-widest text-muted mt-1">
+            <p className="text-[9px] uppercase tracking-wider text-muted mt-1 sm:text-[11px] sm:tracking-widest">
               Connaught Place Hub
             </p>
           </div>
@@ -653,14 +674,21 @@ export function ApproachStackedCards() {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 1024px)", () => {
+      mm.add(
+        { isDesktop: "(min-width: 1024px)", motionOk: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+        const { isDesktop, motionOk } = ctx.conditions as { isDesktop: boolean; motionOk: boolean };
+        // Reduced motion keeps the plain list (see the motion-safe classes below).
+        if (!motionOk) return;
         const cardEls = gsap.utils.toArray<HTMLElement>(".stacked-card");
         if (cardEls.length === 0) return;
 
         // Position all cards 1..n off-screen downwards
         cardEls.forEach((card, i) => {
           if (i > 0) {
-            gsap.set(card, { yPercent: 105, scale: 1 });
+            // Phones park incoming cards further down: the deck fills the
+            // stage there, so 105% would leave the next card peeking out.
+            gsap.set(card, { yPercent: isDesktop ? 105 : 125, scale: 1 });
           }
         });
 
@@ -669,7 +697,7 @@ export function ApproachStackedCards() {
           scrollTrigger: {
             trigger: stage,
             start: "top top",
-            end: `+=${totalSteps * 900}`,
+            end: `+=${totalSteps * (isDesktop ? 900 : 560)}`,
             pin: true,
             scrub: 0.5,
             anticipatePin: 1,
@@ -742,7 +770,8 @@ export function ApproachStackedCards() {
   return (
     <div
       ref={stageRef}
-      className="relative flex flex-col justify-between min-h-screen w-full overflow-hidden bg-canvas px-gutter md:px-gutter-lg py-12 lg:py-16"
+      // Top padding clears the always-visible site header while pinned.
+      className="relative flex flex-col justify-between min-h-svh w-full overflow-hidden bg-canvas px-gutter md:px-gutter-lg pt-20 pb-6 md:pt-24 lg:pb-16"
     >
       {/* Top Header */}
       <div className="relative z-10 flex items-center justify-between border-b border-line/40 pb-4">
@@ -753,7 +782,7 @@ export function ApproachStackedCards() {
       </div>
 
       {/* Main Stage: Deck Stacking Container + Sticky Step Rail */}
-      <div className="relative z-10 my-auto flex items-center justify-center py-6">
+      <div className="relative z-10 my-auto flex items-center justify-center py-4 lg:py-6">
         <div className="relative w-full max-w-5xl flex gap-8 items-center">
           {/* Side Indicator Rail (Desktop) */}
           <div className="hidden lg:flex flex-col items-center gap-4 text-micro font-mono text-muted/60 shrink-0">
@@ -780,12 +809,17 @@ export function ApproachStackedCards() {
           {/* Stacking Card Deck */}
           <div
             ref={cardsContainerRef}
-            className="relative w-full h-[540px] sm:h-[500px] lg:h-[520px]"
+            // The deck stacks wherever GSAP pins it - every width, unless the
+            // visitor prefers reduced motion. Then it is a plain list, because
+            // absolute cards without the timeline would hide all but the last.
+            // Phones: the deck fills what the header, labels and padding leave
+            // (~12.5rem), so there is no empty band above or below the card.
+            className="relative flex w-full flex-col gap-6 motion-safe:block motion-safe:h-[calc(100svh_-_12.5rem)] sm:motion-safe:h-[min(calc(100svh_-_14rem),560px)] lg:motion-safe:h-[520px]"
           >
             {CARDS.map((card, idx) => (
               <div
                 key={card.id}
-                className="stacked-card absolute inset-0 rounded-xs border border-line/60 bg-[#141513] p-6 sm:p-8 lg:p-10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col justify-between"
+                className="stacked-card relative motion-safe:absolute motion-safe:inset-0 rounded-xs border border-line/60 bg-[#141513] p-5 sm:p-8 lg:p-10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col justify-between"
                 style={{ zIndex: idx + 1 }}
               >
                 {/* Card Top: Number & Telemetry */}
@@ -798,28 +832,32 @@ export function ApproachStackedCards() {
                       DISCIPLINE
                     </span>
                   </div>
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-muted/70">
+                  <span className="hidden sm:inline font-mono text-[9px] uppercase tracking-widest text-muted/70">
                     {card.telemetry}
                   </span>
                 </div>
 
                 {/* Card Body: Split Content & Architecture Photo */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-center my-auto">
+                {/* Below md the body is a flex column whose photo takes the spare
+                    height; from md it is the original two-column grid. */}
+                <div className="flex min-h-0 flex-1 flex-col gap-4 py-4 md:my-auto md:grid md:flex-none md:grid-cols-12 md:items-center md:gap-6 md:py-0 lg:gap-10">
                   {/* Copy Column */}
-                  <div className="md:col-span-6 lg:col-span-7 space-y-4">
-                    <h3 className="font-display font-light text-[2rem] sm:text-[2.5rem] lg:text-[3rem] leading-[1.04] tracking-tight text-pure">
+                  <div className="md:col-span-6 lg:col-span-7 space-y-3 sm:space-y-4">
+                    {/* On desktop the deck clips cards below the stage, so each
+                        title reveals as its card slides into view. */}
+                    <Reveal as="h3" duration={1} className="font-display font-light text-[2rem] sm:text-[2.5rem] lg:text-[3rem] leading-[1.04] tracking-tight text-pure">
                       {card.title}
-                    </h3>
+                    </Reveal>
                     <p className="font-sans text-xs uppercase tracking-wider text-[#e6e2da] font-medium">
                       {card.subtitle}
                     </p>
-                    <p className="text-small text-muted leading-relaxed max-w-lg">
+                    <p className="hidden sm:block text-small text-muted leading-relaxed max-w-lg">
                       {card.body}
                     </p>
                   </div>
 
                   {/* High-Resolution Architectural Photography Column */}
-                  <div className="md:col-span-6 lg:col-span-5 relative h-52 sm:h-64 lg:h-72 w-full overflow-hidden border border-line/40 bg-surface">
+                  <div className="md:col-span-6 lg:col-span-5 relative min-h-40 w-full flex-1 md:h-56 md:flex-none lg:h-72 overflow-hidden border border-line/40 bg-surface">
                     <Image
                       src={card.image}
                       alt={card.title}
@@ -838,7 +876,7 @@ export function ApproachStackedCards() {
                 </div>
 
                 {/* Card Footer */}
-                <div className="flex items-center justify-end border-t border-line/20 pt-3 text-[9px] font-sans uppercase tracking-[0.2em] text-muted/60">
+                <div className="hidden motion-safe:flex items-center justify-end border-t border-line/20 pt-3 text-[9px] font-sans uppercase tracking-[0.2em] text-muted/60">
                   <div>SCROLL TO ADVANCE</div>
                 </div>
               </div>

@@ -7,6 +7,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
+// Phones fire resize as the address bar collapses; refreshing pinned sections
+// on each one makes them jump mid-scroll.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 /**
  * SmoothScroll - the site's single smooth-scroll engine.

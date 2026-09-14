@@ -39,6 +39,8 @@ export type ImageCardProps = {
   surface?: "pure" | "ink";
   /** Marks the LCP image. At most one per page. */
   preload?: boolean;
+  /** Classes on the `<img>` itself - grading, object-position. */
+  imageClassName?: string;
 };
 
 export function ImageCard({
@@ -52,6 +54,7 @@ export function ImageCard({
   scale = 1.08,
   surface = "ink",
   preload = false,
+  imageClassName,
 }: ImageCardProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const expandRef = useRef<HTMLDivElement | null>(null);
@@ -121,6 +124,7 @@ export function ImageCard({
           scale={scale}
           surface={surface}
           preload={preload}
+          imageClassName={imageClassName}
           className="h-full w-full"
         />
       </div>

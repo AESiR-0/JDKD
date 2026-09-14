@@ -189,7 +189,7 @@ export function ReferenceForm() {
               data-press
               className="group inline-flex cursor-pointer items-center gap-4 text-left"
             >
-              <span className="flex size-11 items-center justify-center rounded-full border border-line text-ink transition-all duration-300 ease-editorial group-hover:border-pure group-hover:bg-ink group-hover:text-canvas">
+              <span className="flex size-11 items-center justify-center rounded-full border border-line text-ink transition-[border-color,background-color,color] duration-300 ease-editorial group-hover:border-pure group-hover:bg-ink group-hover:text-canvas">
                 <span className="text-body font-light transition-transform duration-300 ease-editorial group-hover:translate-x-0.5">
                   &rarr;
                 </span>

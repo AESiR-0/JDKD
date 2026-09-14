@@ -210,12 +210,12 @@ export function About() {
               </h3>
             </div>
 
-            {/* Flex row of client logos */}
-            <div className="flex flex-wrap items-center justify-center md:justify-between gap-8 sm:gap-12 lg:gap-16 py-8 border-y border-line/20 px-2">
+            {/* Logo grid: even rows at every width (14 logos = two rows of 7 on desktop). */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 items-center justify-items-center gap-x-6 gap-y-10 sm:gap-x-10 py-10 border-y border-line/20 px-2">
               {CLIENT_LOGOS.map((client) => (
                 <div
                   key={client.name}
-                  className="flex items-center justify-center transition-all duration-300 opacity-80 hover:opacity-100 hover:scale-105"
+                  className="flex h-14 w-full items-center justify-center transition-[opacity,transform] duration-300 opacity-80 hover:opacity-100 hover:scale-105"
                   title={client.name}
                 >
                   <Image
@@ -223,7 +223,7 @@ export function About() {
                     alt={client.name}
                     width={client.width}
                     height={client.height}
-                    className={`object-contain ${client.className}`}
+                    className={`max-w-full object-contain ${client.className}`}
                   />
                 </div>
               ))}

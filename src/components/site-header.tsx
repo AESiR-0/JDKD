@@ -54,10 +54,11 @@ import {
  *
  * TRANSPARENT OVER THE HERO - HOMEPAGE ONLY. The bar is `fixed`, so on the
  * homepage, which opens with a full-bleed hero, it starts transparent with
- * white type and picks up a solid canvas background once the hero has passed
- * beneath it. That crossing is detected with an IntersectionObserver rather
- * than a scroll listener - passive, nothing per frame, honest about the 60fps
- * mid-range Android target.
+ * white type and frosts as soon as the page scrolls (~24px). It cannot wait for
+ * the hero to pass: the bar never retracts, so the hero's own headline would
+ * slide under a see-through bar. The crossing is a 1px sentinel watched by an
+ * IntersectionObserver rather than a scroll listener - passive, nothing per
+ * frame, honest about the 60fps mid-range Android target.
  *
  * EVERY OTHER ROUTE IS SOLID FROM THE FIRST PIXEL, and that is not a detail:
  * internal routes open with `PageHero`, whose `<h1>` sits directly beneath the
@@ -79,21 +80,16 @@ import {
  * `data-frost` carries the `prefers-reduced-transparency` override in
  * `globals.css`, which drops the translucency and the filter together.
  *
- * RETRACT ON THE WAY DOWN, RETURN ON THE WAY UP. Scrolling down slides the bar
- * off the top edge; any upward travel brings it straight back. Four things pin
- * it open regardless of direction: the top of the document, an open sheet,
- * focus anywhere inside the header, and `prefers-reduced-motion` - under which
- * it never retracts at all, rather than snapping in and out. See `retracted`.
+ * STICKY. The bar stays visible at the top for the whole page - it no longer
+ * retracts on scroll. Pinned sections therefore pad their top by at least the
+ * bar's height (h-14 / md:h-16) so their labels are never tucked under it.
  *
- * The quick-contact bar does NOT retract. It is a sibling of the header, so
- * nothing above touches it, and it stays pinned for the reason it exists: on a
- * phone, tap-to-call is the conversion path and it does not get to scroll away.
+ * The quick-contact bar is sticky for the same reason it exists: on a phone,
+ * tap-to-call is the conversion path and it does not get to scroll away.
  *
- * MOTION. Colour transitions and a single `translate`, both on discrete state
- * changes - nothing is animated per frame, so this still spends none of the
- * page's motion budget. The global reduced-motion block neutralises the
- * transitions, and the retract is additionally gated on the same media query in
- * JS so reduced motion means "stays put", not "teleports".
+ * MOTION. Colour transitions only, on discrete state changes - nothing is
+ * animated per frame, so this spends none of the page's motion budget. The
+ * global reduced-motion block neutralises them.
  *
  * CLEARANCE. The quick-contact bar is fixed, so it would otherwise sit on top
  * of the last few lines of the page. `SiteFooter` reserves the matching strip
@@ -151,22 +147,6 @@ const BAR_TREATMENT = {
   inverted: "border-transparent bg-transparent",
   frosted: "border-line bg-canvas/90 md:bg-canvas/75 md:backdrop-blur-[10px]",
 } as const;
-
-/**
- * Scroll travel, in px, that has to accumulate in ONE direction before the bar
- * changes state. A fling's momentum and a trackpad both emit a few pixels of
- * counter-travel, and a bar that toggled on those would flicker. Travel under
- * this is ignored AND leaves the baseline where it was, so a slow deliberate
- * drag still adds up to a change rather than being swallowed frame by frame.
- */
-const SCROLL_STEP = 8;
-
-/**
- * Above this offset the bar is pinned open whatever the direction of travel.
- * Comfortably clears both bar heights (h-14 / md:h-16), so the visitor can
- * never be at the top of a document with the chrome retracted.
- */
-const TOP_ZONE = 96;
 
 /** Tabbable descendants, for the panel's focus trap. */
 const FOCUSABLE =
@@ -233,12 +213,6 @@ export function SiteHeader() {
 
   const [solid, setSolid] = useState(!opensOnHero);
   const [open, setOpen] = useState(false);
-  /**
-   * Slid off the top edge by the scroll direction. Always starts false: the
-   * first paint of any route is the top of a document, and this must never be
-   * the reason a visitor cannot find the nav.
-   */
-  const [retracted, setRetracted] = useState(false);
 
   const headerRef = useRef<HTMLElement | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
@@ -266,18 +240,26 @@ export function SiteHeader() {
       return;
     }
 
-    // Shrinking the observer root by the bar's own height makes the callback
-    // fire exactly when the hero's lower edge passes under the bar.
+    // A 1px sentinel 24px into the hero: once it scrolls above the viewport the
+    // bar frosts, before any hero type can reach it. `boundingClientRect.top`
+    // separates "scrolled past" from "not yet in view".
+    const sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText =
+      "position:absolute;top:24px;left:0;width:1px;height:1px;pointer-events:none;";
+    hero.prepend(sentinel);
+
     const observer = new IntersectionObserver(
-      ([entry]) => setSolid(!entry.isIntersecting),
-      {
-        rootMargin: `-${Math.round(header.offsetHeight)}px 0px 0px 0px`,
-        threshold: 0,
-      },
+      ([entry]) =>
+        setSolid(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+      { threshold: 0 },
     );
 
-    observer.observe(hero);
-    return () => observer.disconnect();
+    observer.observe(sentinel);
+    return () => {
+      observer.disconnect();
+      sentinel.remove();
+    };
   }, [opensOnHero, pathname]);
 
   /* --- Mobile panel: scroll lock, Escape, focus trap, focus restore ------- */
@@ -359,87 +341,16 @@ export function SiteHeader() {
     return () => query.removeEventListener("change", handleChange);
   }, [open, close]);
 
-  /* --- Retract on scroll down, return on scroll up ------------------------ */
-
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    // Every re-entry starts from a visible bar: the sheet has just opened or
-    // closed, or a client-side navigation has moved the document to the top.
-    // `pathname` is in the deps for that second case and nothing else.
-    setRetracted(false);
-
-    // NEVER while the sheet is open. The toggle that closes it lives in the
-    // bar, so retracting it would strip the only way out of the sheet - and
-    // the sheet is `fixed` to `top-14`, which assumes the bar is still there.
-    if (open) return;
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    let baseline = window.scrollY;
-    let latest = baseline;
-    let frame = 0;
-
-    /**
-     * Runs at most once a frame, and reads NOTHING from the DOM that could
-     * force a layout - `latest` was captured by the listener and
-     * `document.activeElement` is a pointer, not a measurement.
-     */
-    function settle() {
-      frame = 0;
-      const y = latest;
-
-      // Pinned open: the top of the document, reduced motion (which means the
-      // bar simply never hides, not that it hides without a transition), or
-      // focus somewhere inside the header - a keyboard visitor must not have
-      // the nav slide out from under them mid-tab.
-      if (
-        y <= TOP_ZONE ||
-        reducedMotion.matches ||
-        header!.contains(document.activeElement)
-      ) {
-        baseline = y;
-        setRetracted(false);
-        return;
-      }
-
-      const travel = y - baseline;
-      // Under the threshold: leave the baseline alone so the next event
-      // measures from the same point and slow travel still accumulates.
-      if (Math.abs(travel) < SCROLL_STEP) return;
-
-      baseline = y;
-      setRetracted(travel > 0);
-    }
-
-    function handleScroll() {
-      latest = window.scrollY;
-      if (frame) return;
-      frame = requestAnimationFrame(settle);
-    }
-
-    /**
-     * A retracted bar keeps its links in the tab order - it is off-screen, not
-     * hidden - so focus arriving from the page below has to bring it back or
-     * the focus ring lands somewhere the visitor cannot see. `focusin` bubbles,
-     * so one listener on the header covers every control in it.
-     */
-    function handleFocusIn() {
-      setRetracted(false);
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    header.addEventListener("focusin", handleFocusIn);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      header.removeEventListener("focusin", handleFocusIn);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, [open, pathname]);
-
   const inverted = !solid && !open;
+
+  /** Sheet rows follow the sheet in, 40ms apart; on close they leave together. */
+  const sheetRow = (index: number) => ({
+    className: cx(
+      "transition-[opacity,transform] duration-250 ease-editorial",
+      open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
+    ),
+    style: { transitionDelay: open ? `${80 + index * 40}ms` : "0ms" },
+  });
 
   return (
     <>
@@ -450,19 +361,11 @@ export function SiteHeader() {
         // must not repaint a deliberately transparent bar as a solid one.
         data-frost={inverted ? undefined : ""}
         className={cx(
-          // The `translate` in the transition list is the retract. It is an
-          // explicit list rather than `transition-all`: this element sits over
-          // every page and nothing else on it is allowed to animate.
-          "fixed inset-x-0 top-0 z-50 border-b transition-[color,background-color,border-color,translate] duration-300 ease-editorial",
+          // Sticky: the bar stays put on scroll. An explicit list rather than
+          // `transition-all`, and NO transform ever - any transform makes this
+          // element the containing block for the `fixed` sheet inside it.
+          "fixed inset-x-0 top-0 z-50 border-b transition-[color,background-color,border-color] duration-300 ease-editorial",
           inverted ? BAR_TREATMENT.inverted : BAR_TREATMENT.frosted,
-          // Applied ONLY while retracted - never a `translate-y-0` counterpart.
-          // Any non-`none` translate makes this element the containing block
-          // for the `fixed` sheet inside it, which would collapse the sheet
-          // onto the bar's own box; the resting state therefore carries no
-          // transform at all. Retracted, the sheet is `hidden`, so the two
-          // cannot overlap. `none` → `0 -100%` interpolates as identity, so the
-          // return still transitions.
-          retracted && "-translate-y-full",
         )}
       >
         {/* Logo left, nav centre, action right. The nav takes `flex-1` rather
@@ -515,13 +418,26 @@ export function SiteHeader() {
                       // allowed to carry it alone.
                       aria-current={current ? "page" : undefined}
                       className={cx(
-                        "whitespace-nowrap text-label uppercase tracking-label transition-colors duration-200 ease-editorial",
+                        "group relative whitespace-nowrap py-1 text-label uppercase tracking-label transition-colors duration-200 ease-editorial",
                         NAV_LINK_TONE[inverted ? "inverted" : "solid"][
                           current ? "current" : "other"
                         ],
                       )}
                     >
                       {item.label}
+                      {/* Red hairline: open under the current route, wiped in
+                          from the left on hover/focus. clip-path, not width, and
+                          it hands off between links on a route change because
+                          the header persists across navigations. */}
+                      <span
+                        aria-hidden="true"
+                        className={cx(
+                          "pointer-events-none absolute inset-x-0 -bottom-px h-px bg-red transition-[clip-path] duration-200 ease-editorial",
+                          current
+                            ? "[clip-path:inset(0_0_0_0)]"
+                            : "[clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)]",
+                        )}
+                      />
                     </Link>
                   </li>
                 );
@@ -566,14 +482,14 @@ export function SiteHeader() {
               <span
                 aria-hidden="true"
                 className={cx(
-                  "block h-px w-5 bg-current transition-transform duration-300 ease-editorial",
+                  "block h-px w-5 bg-current transition-transform duration-250 ease-editorial",
                   open && "translate-y-[3px] rotate-45",
                 )}
               />
               <span
                 aria-hidden="true"
                 className={cx(
-                  "block h-px w-5 bg-current transition-transform duration-300 ease-editorial",
+                  "block h-px w-5 bg-current transition-transform duration-250 ease-editorial",
                   open && "-translate-y-[3px] -rotate-45",
                 )}
               />
@@ -582,22 +498,36 @@ export function SiteHeader() {
         </div>
 
         {/* Full-screen sheet. Always in the DOM so `aria-controls` always
-            resolves; `hidden` takes it out of the tab order and the a11y tree
-            while closed. */}
+            resolves. `inert` (not `hidden`) takes it out of the tab order and
+            the a11y tree while closed - `hidden` is display:none, which cannot
+            transition. Opens with a short drop + fade, closes faster. */}
         <div
           id={PANEL_ID}
           ref={panelRef}
-          hidden={!open}
-          className="fixed inset-x-0 bottom-0 top-14 overflow-y-auto overscroll-contain bg-canvas px-gutter pb-12 pt-8 md:hidden"
+          inert={!open}
+          className={cx(
+            "fixed inset-x-0 bottom-0 top-14 overflow-y-auto overscroll-contain bg-canvas px-gutter pb-12 pt-8 ease-editorial md:hidden",
+            // Opening: visibility flips INSTANTLY (not in the transition list),
+            // or the focus moved into the sheet on open lands on a still-hidden
+            // element and is refused. Closing: visibility rides the transition
+            // so the sheet stays visible until it has faded out.
+            open
+              ? "visible translate-y-0 opacity-100 transition-[opacity,transform] duration-250"
+              : "invisible -translate-y-2 opacity-0 transition-[opacity,transform,visibility] duration-150",
+          )}
         >
           <nav aria-label={UI.panelNav}>
             <ul className="flex flex-col border-t border-line">
-              {NAV_ITEMS.map((item) => {
+              {NAV_ITEMS.map((item, index) => {
                 const current = isCurrent(pathname, item.href);
 
                 if (item.id === "projects") {
                   return (
-                    <li key={item.id} className="border-b border-line">
+                    <li
+                      key={item.id}
+                      className={cx("border-b border-line", sheetRow(index).className)}
+                      style={sheetRow(index).style}
+                    >
                       <div className="flex items-center justify-between py-5 text-h3">
                         <Link data-press="row"
                           href={item.href}
@@ -639,7 +569,11 @@ export function SiteHeader() {
                 }
 
                 return (
-                  <li key={item.id} className="border-b border-line">
+                  <li
+                    key={item.id}
+                    className={cx("border-b border-line", sheetRow(index).className)}
+                    style={sheetRow(index).style}
+                  >
                     <Link data-press="row"
                       href={item.href}
                       aria-current={current ? "page" : undefined}
@@ -669,15 +603,28 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <Link data-press
-            href={enquireHref}
-            onClick={close}
-            className="mt-10 flex w-full items-center justify-center rounded-card border border-ink bg-ink px-7 py-4 text-label uppercase tracking-micro text-canvas"
+          {/* Wrapped so the stagger's transition does not collide with the
+              `[data-press]` rule on the link itself. */}
+          <div
+            className={cx("mt-10", sheetRow(NAV_ITEMS.length).className)}
+            style={sheetRow(NAV_ITEMS.length).style}
           >
-            {NAV_CTA.label}
-          </Link>
+            <Link data-press
+              href={enquireHref}
+              onClick={close}
+              className="flex w-full items-center justify-center rounded-card border border-ink bg-ink px-7 py-4 text-label uppercase tracking-micro text-canvas"
+            >
+              {NAV_CTA.label}
+            </Link>
+          </div>
 
-          <div className="mt-10 border-t border-line pt-6">
+          <div
+            className={cx(
+              "mt-10 border-t border-line pt-6",
+              sheetRow(NAV_ITEMS.length + 1).className,
+            )}
+            style={sheetRow(NAV_ITEMS.length + 1).style}
+          >
             <p className="text-micro uppercase tracking-label text-muted">
               {CONTACT.leasingContact.role}
             </p>

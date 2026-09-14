@@ -126,21 +126,30 @@ export default function ContactPage() {
                   className="aspect-[2/3] w-full max-w-[540px] lg:ml-auto"
                 />
 
+                {/* Overlays follow the wipe (0.08s + 1.1s) rather than racing it. */}
                 {/* Overlay Top Right */}
-                <div className="pointer-events-none absolute right-6 top-8 text-right text-micro uppercase tracking-label text-ink/90 md:right-10 md:top-10">
+                <Reveal
+                  stagger={0.07}
+                  delay={0.7}
+                  className="pointer-events-none absolute right-6 top-8 text-right text-micro uppercase tracking-label text-ink/90 md:right-10 md:top-10"
+                >
                   <span className="block text-muted">&mdash;</span>
                   <span className="mt-2 block">PEOPLE</span>
                   <span className="block">PLACES</span>
                   <span className="block">POSSIBILITIES</span>
-                </div>
+                </Reveal>
 
                 {/* Overlay Bottom Right */}
-                <div className="pointer-events-none absolute bottom-6 right-6 text-right text-micro uppercase tracking-label text-ink/90 md:bottom-10 md:right-10">
+                <Reveal
+                  stagger={0.07}
+                  delay={0.9}
+                  className="pointer-events-none absolute bottom-6 right-6 text-right text-micro uppercase tracking-label text-ink/90 md:bottom-10 md:right-10"
+                >
                   <span className="block font-semibold">JDKD CORPORATE TOWER</span>
                   <span className="mt-1 block text-muted">
                     Mathura Road, New Delhi
                   </span>
-                </div>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -175,12 +184,17 @@ export default function ContactPage() {
                 {/* Motto Overlay on Concrete: "SPACES FOR A BRIGHTER TOMORROW" */}
                 <div className="pointer-events-none absolute inset-0 flex flex-col justify-center px-8 text-ink/85 md:px-12">
                   <span className="text-micro text-muted">&mdash;</span>
-                  <div className="mt-4 font-display text-h3 uppercase leading-tight tracking-wider text-ink/90 md:text-h2">
+                  <Reveal
+                    stagger={0.08}
+                    delay={0.6}
+                    duration={1}
+                    className="mt-4 font-display text-h3 uppercase leading-tight tracking-wider text-ink/90 md:text-h2"
+                  >
                     <span className="block">SPACES</span>
                     <span className="block">FOR A</span>
                     <span className="block">BRIGHTER</span>
                     <span className="block">TOMORROW</span>
-                  </div>
+                  </Reveal>
                   <span className="mt-4 text-micro text-muted">&mdash;</span>
                 </div>
               </div>
