@@ -6,9 +6,14 @@ import type { EnquiryFormId } from "@/lib/enquiry";
  * enquiries Sheet and optionally emails the leasing desk.
  *
  * Configuration is server-only and never reaches the browser:
- *   ENQUIRY_WEBHOOK_URL     the Apps Script web app /exec URL
- *   ENQUIRY_WEBHOOK_SECRET  must equal the script's SHARED_SECRET property
+ *   ENQUIRY_WEBHOOK_URL     optional; overrides DEFAULT_WEBHOOK_URL
+ *   ENQUIRY_WEBHOOK_SECRET  optional; only needed if the script has a
+ *                           SHARED_SECRET property, and must equal it
  */
+
+/** The deployed JDKD Apps Script web app. */
+const DEFAULT_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbz8iI0KXmG8mdo9dj0qjhvQgn5FP3e0wZQwQ914SBR5FPSAvkCA3jxUJJMEiJZ_SwGYXw/exec";
 
 const FORMS: readonly EnquiryFormId[] = ["walkthrough", "contact"];
 
@@ -93,12 +98,8 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
-  const url = process.env.ENQUIRY_WEBHOOK_URL;
+  const url = process.env.ENQUIRY_WEBHOOK_URL || DEFAULT_WEBHOOK_URL;
   const secret = process.env.ENQUIRY_WEBHOOK_SECRET;
-  if (!url || !secret) {
-    console.error("[enquiry] ENQUIRY_WEBHOOK_URL or ENQUIRY_WEBHOOK_SECRET is not set");
-    return Response.json({ ok: false, error: "not_configured" }, { status: 503 });
-  }
 
   try {
     // Apps Script answers a POST with a redirect to the response body; fetch
@@ -106,7 +107,11 @@ export async function POST(request: Request) {
     const upstream = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ secret, submittedAt: new Date().toISOString(), ...enquiry }),
+      body: JSON.stringify({
+        ...(secret ? { secret } : {}),
+        submittedAt: new Date().toISOString(),
+        ...enquiry,
+      }),
       redirect: "follow",
       cache: "no-store",
       signal: AbortSignal.timeout(10_000),

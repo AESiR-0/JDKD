@@ -2,35 +2,29 @@
  * JDKD enquiry intake - Google Apps Script web app.
  *
  * The website never talks to this script from the browser. Its own route,
- * `/api/enquiry`, validates each submission and forwards it here with a shared
- * secret, so the web app URL and the secret stay server-side.
+ * `/api/enquiry`, validates each submission and forwards it here, so the web
+ * app URL stays server-side.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * SETUP (once)
  *
- *  1. Create a Google Sheet for enquiries and copy its URL.
- *  2. Open https://script.google.com → New project (or, in the Sheet,
- *     Extensions → Apps Script). Replace the contents of Code.gs with this file.
- *  3. Project Settings (gear icon) → Script properties → add:
- *       SHEET_URL      The Sheet URL from step 1.
- *       SHARED_SECRET  A long random string (32+ characters). The site's
- *                      ENQUIRY_WEBHOOK_SECRET must be exactly the same value.
- *       NOTIFY_EMAIL   Optional. Comma-separated addresses that get an email
- *                      for every enquiry.
- *       SHEET_NAME     Optional. Tab to write to. Defaults to "Enquiries".
- *  4. In the editor, choose `setup` in the function dropdown and Run it once.
+ *  1. Open the script project and replace the contents of Code.gs with this file.
+ *  2. In the editor, choose `setup` in the function dropdown and Run it once.
  *     Accept the permissions prompt. It creates the tab and its header row.
- *  5. Deploy → New deployment → Select type: Web app.
+ *  3. Deploy → New deployment → Select type: Web app.
  *       Execute as:     Me
  *       Who has access: Anyone
- *     Deploy, then copy the Web app URL (it ends in /exec).
- *  6. In Vercel → Project → Settings → Environment Variables (Production):
- *       ENQUIRY_WEBHOOK_URL     the /exec URL from step 5
- *       ENQUIRY_WEBHOOK_SECRET  the SHARED_SECRET from step 3
- *     Then redeploy the site.
+ *
+ * Script properties are all OPTIONAL (Project Settings → Script properties):
+ *   SHEET_URL      Overrides DEFAULT_SHEET_URL below.
+ *   SHARED_SECRET  When set, requests must carry the same value; set the site's
+ *                  ENQUIRY_WEBHOOK_SECRET to match. Unset = no secret check.
+ *   NOTIFY_EMAIL   Comma-separated addresses that get an email per enquiry.
+ *   SHEET_NAME     Tab to write to. Defaults to "Enquiries".
  *
  * "Anyone" access is required because the website calls this as a server, not
- * as a signed-in Google user. SHARED_SECRET is what keeps everyone else out.
+ * as a signed-in Google user. Without SHARED_SECRET, anyone who learns the
+ * /exec URL can add rows, so keep that URL out of the browser.
  *
  * AFTER EDITING THIS SCRIPT: Deploy → Manage deployments → Edit (pencil) →
  * Version: New version → Deploy. The /exec URL does not change.
@@ -53,14 +47,17 @@ const HEADERS = [
 
 const MAX_CELL = 5000;
 
+/** The JDKD enquiries Sheet. The SHEET_URL script property overrides it. */
+const DEFAULT_SHEET_URL =
+  "https://docs.google.com/spreadsheets/d/1_4CqXOyBmF9bCgaRl1aOZQBGwNj97VRduFsdPR--nNo/edit";
+
 function doPost(e) {
   try {
     const props = PropertiesService.getScriptProperties();
     const secret = props.getProperty("SHARED_SECRET");
-    if (!secret) return json_({ ok: false, error: "not_configured" });
 
     const body = JSON.parse((e && e.postData && e.postData.contents) || "{}");
-    if (!safeEqual_(String(body.secret || ""), secret)) {
+    if (secret && !safeEqual_(String(body.secret || ""), secret)) {
       return json_({ ok: false, error: "unauthorized" });
     }
 
@@ -115,13 +112,9 @@ function setup() {
 
 function getSheet_() {
   const props = PropertiesService.getScriptProperties();
-  const url = props.getProperty("SHEET_URL");
-  const spreadsheet = url
-    ? SpreadsheetApp.openByUrl(url)
-    : SpreadsheetApp.getActiveSpreadsheet();
-  if (!spreadsheet) {
-    throw new Error("Set the SHEET_URL script property (Project Settings → Script properties).");
-  }
+  const spreadsheet = SpreadsheetApp.openByUrl(
+    props.getProperty("SHEET_URL") || DEFAULT_SHEET_URL,
+  );
 
   const name = props.getProperty("SHEET_NAME") || "Enquiries";
   const sheet = spreadsheet.getSheetByName(name) || spreadsheet.insertSheet(name);
