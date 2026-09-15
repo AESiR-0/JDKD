@@ -113,9 +113,9 @@ export const IMAGES = {
   },
   m39Frontage: {
     src: "/images/buildings/park-03.jpg",
-    width: 1376,
-    height: 768,
-    alt: "The M-39 frontage on its market street, under the JDKD mark.",
+    width: 1600,
+    height: 1200,
+    alt: "The JDKD M-39 property frontage, illuminated mark and upper terrace lounge.",
     placeholder: false,
   },
 
@@ -238,9 +238,9 @@ export const IMAGES = {
   },
   parkThree: {
     src: "/images/buildings/park-03.jpg",
-    width: 1376,
-    height: 768,
-    alt: "The M-39 frontage under the JDKD mark, above the market street.",
+    width: 1600,
+    height: 1200,
+    alt: "The JDKD M-39 property frontage, illuminated mark and upper terrace lounge.",
     placeholder: false,
   },
 
@@ -889,10 +889,10 @@ export const BUILDINGS: readonly [
     video: {
       src: "/video/m39-reveal",
       blurDataURL:
-        "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABnAAEBAQEBAAAAAAAAAAAAAAAGAwQFBwEBAQAAAAAAAAAAAAAAAAAAAgMQAAEDAwIDCQEAAAAAAAAAAAECEQMhAAUxBEESoYGSVBRiUiLhFRYRAQEBAQAAAAAAAAAAAAAAAAABAhH/wAARCAAOABgDASIAAhEAAxEA/9oADAMBAAIRAxEAPwA3iV80aBxq51apN9he95FFLChIdxwNwx/lwsiJCklqvozj1G96shtEEhUSiQSD8Ea9qrCoTlazQq9yCehs2xv1afHfpTwJiWI3hMqSoaClGD1rd/5fceJR3fq1xK6f/9k=",
+        "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAMABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDMtLt5RHHbsPMYgD6d/BM1o3V7LDdPCsJZFbG7af8KfYW8EbqyQRqw6EIMiq+s67dafMY4Y4WAIHzgn+tS9S9kf/Z",
       poster: "/video/m39-reveal-poster.jpg",
       webm: true,
-      alt: "The JDKD mark on the M-39 frontage, the view drawing back to the market street below.",
+      alt: "The illuminated JDKD mark and terrace lounge on the M-39 building facade.",
     },
     placeholder: false,
   },
