@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ImageCard } from "@/components/motion/image-card";
 import { Reveal } from "@/components/motion/reveal";
+import { VideoCard } from "@/components/motion/video-card";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { PageHero } from "@/components/ui/page-hero";
 import {
@@ -344,20 +345,37 @@ function ChapterPortfolioLeft({
       </div>
 
       {/* EDGE-BLEED-LEFT, with the provisional frame drawn around it. */}
-      <ImageCard
-        src={project.image.src}
-        alt={project.image.alt}
-        sizes="(min-width: 1024px) 46vw, 100vw"
-        surface="ink"
-        shift={5}
-        scale={1.06}
-        delay={0.08}
-        className={
-          project.image.placeholder
-            ? `mt-10 lg:mt-0 ${FRAME_TWO} ${PROVISIONAL_FRAME}`
-            : `mt-10 lg:mt-0 ${FRAME_TWO}`
-        }
-      />
+      {project.video ? (
+        <VideoCard
+          src={project.video.src}
+          poster={project.video.poster}
+          blurDataURL={project.video.blurDataURL}
+          sizes="(min-width: 1024px) 46vw, 100vw"
+          webm={project.video.webm}
+          alt={project.video.alt}
+          delay={0.08}
+          className={
+            project.image.placeholder
+              ? `mt-10 lg:mt-0 ${FRAME_TWO} ${PROVISIONAL_FRAME}`
+              : `mt-10 lg:mt-0 ${FRAME_TWO}`
+          }
+        />
+      ) : (
+        <ImageCard
+          src={project.image.src}
+          alt={project.image.alt}
+          sizes="(min-width: 1024px) 46vw, 100vw"
+          surface="ink"
+          shift={5}
+          scale={1.06}
+          delay={0.08}
+          className={
+            project.image.placeholder
+              ? `mt-10 lg:mt-0 ${FRAME_TWO} ${PROVISIONAL_FRAME}`
+              : `mt-10 lg:mt-0 ${FRAME_TWO}`
+          }
+        />
+      )}
     </article>
   );
 }
@@ -412,20 +430,37 @@ function ChapterPortfolioRight({
       </div>
 
       {/* EDGE-BLEED-RIGHT, narrower than chapter one, provisional frame drawn. */}
-      <ImageCard
-        src={project.image.src}
-        alt={project.image.alt}
-        sizes="(min-width: 1024px) 38vw, (min-width: 768px) 78vw, 100vw"
-        surface="ink"
-        shift={5}
-        scale={1.06}
-        delay={0.08}
-        className={
-          project.image.placeholder
-            ? `mt-10 lg:mt-0 ${FRAME_THREE} ${PROVISIONAL_FRAME}`
-            : `mt-10 lg:mt-0 ${FRAME_THREE}`
-        }
-      />
+      {project.video ? (
+        <VideoCard
+          src={project.video.src}
+          poster={project.video.poster}
+          blurDataURL={project.video.blurDataURL}
+          sizes="(min-width: 1024px) 38vw, (min-width: 768px) 78vw, 100vw"
+          webm={project.video.webm}
+          alt={project.video.alt}
+          delay={0.08}
+          className={
+            project.image.placeholder
+              ? `mt-10 lg:mt-0 ${FRAME_THREE} ${PROVISIONAL_FRAME}`
+              : `mt-10 lg:mt-0 ${FRAME_THREE}`
+          }
+        />
+      ) : (
+        <ImageCard
+          src={project.image.src}
+          alt={project.image.alt}
+          sizes="(min-width: 1024px) 38vw, (min-width: 768px) 78vw, 100vw"
+          surface="ink"
+          shift={5}
+          scale={1.06}
+          delay={0.08}
+          className={
+            project.image.placeholder
+              ? `mt-10 lg:mt-0 ${FRAME_THREE} ${PROVISIONAL_FRAME}`
+              : `mt-10 lg:mt-0 ${FRAME_THREE}`
+          }
+        />
+      )}
     </article>
   );
 }

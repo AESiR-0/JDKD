@@ -129,21 +129,38 @@ export function VideoCard({
     const video = videoRef.current;
     if (!container || !video || !motionOk) return;
 
+    // Autoplay compliance: ensure muted and playsInline are applied to DOM properties
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
     let warmed = false;
     const warm = () => {
       if (warmed) return;
       warmed = true;
       video.preload = "auto";
-      video.load();
+      if (video.readyState === 0) {
+        video.load();
+      }
     };
 
     const play = () => {
       if (pausedByUser.current || document.hidden) return;
       warm();
-      video.play().then(
-        () => setPlaying(true),
-        () => setPlaying(false),
-      );
+      video.muted = true;
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise
+          .then(() => setPlaying(true))
+          .catch(() => {
+            // Autoplay may have been blocked or aborted: retry with explicit muted
+            video.muted = true;
+            video
+              .play()
+              .then(() => setPlaying(true))
+              .catch(() => setPlaying(false));
+          });
+      }
     };
 
     const pause = () => {
@@ -171,24 +188,49 @@ export function VideoCard({
     playObserver.observe(container);
 
     const onVisibility = () => {
-      if (document.hidden) pause();
-      else if (container.getBoundingClientRect().bottom > 0) play();
+      if (document.hidden) {
+        pause();
+      } else {
+        const rect = container.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          play();
+        }
+      }
     };
     document.addEventListener("visibilitychange", onVisibility);
 
-    const onPlaying = () => setShown(true);
+    const markActive = () => {
+      setShown(true);
+      setPlaying(true);
+    };
+
+    const onTimeUpdate = () => {
+      if (video.currentTime > 0) {
+        markActive();
+      }
+    };
+
     const onError = () => {
       setPlaying(false);
       setShown(false);
     };
-    video.addEventListener("playing", onPlaying);
+
+    video.addEventListener("playing", markActive);
+    video.addEventListener("timeupdate", onTimeUpdate);
     video.addEventListener("error", onError);
+
+    // Initial check: if already in view on mount, trigger playback immediately
+    const rect = container.getBoundingClientRect();
+    if (rect.bottom > 0 && rect.top < window.innerHeight) {
+      play();
+    }
 
     return () => {
       warmObserver.disconnect();
       playObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      video.removeEventListener("playing", onPlaying);
+      video.removeEventListener("playing", markActive);
+      video.removeEventListener("timeupdate", onTimeUpdate);
       video.removeEventListener("error", onError);
       video.pause();
     };
@@ -199,6 +241,7 @@ export function VideoCard({
     if (!video) return;
     if (video.paused) {
       pausedByUser.current = false;
+      video.muted = true;
       video.play().then(
         () => setPlaying(true),
         () => setPlaying(false),
@@ -242,12 +285,20 @@ export function VideoCard({
         />
 
         <video
-          ref={videoRef}
+          ref={(node) => {
+            videoRef.current = node;
+            if (node) {
+              node.muted = true;
+              node.defaultMuted = true;
+              node.playsInline = true;
+            }
+          }}
           aria-hidden="true"
           muted
           loop
           playsInline
-          preload="none"
+          autoPlay
+          preload="metadata"
           poster={poster}
           data-shown={shown ? "" : undefined}
           className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ease-editorial data-shown:opacity-100"

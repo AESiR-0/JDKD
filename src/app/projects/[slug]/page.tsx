@@ -144,6 +144,7 @@ export default async function ProjectDetailPage({
         spokenTitle={project.spokenTitle}
         lede={project.lede}
         image={project.heroImage}
+        video={project.video}
       />
 
       <ProjectNav items={project.nav} />

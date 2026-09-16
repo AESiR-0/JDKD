@@ -2,7 +2,8 @@ import type { ReactNode } from "react";
 
 import { ImageCard } from "@/components/motion/image-card";
 import { Reveal } from "@/components/motion/reveal";
-import type { DisplayLine, ImageAsset } from "@/lib/content";
+import { VideoCard } from "@/components/motion/video-card";
+import type { ChapterVideo, DisplayLine, ImageAsset } from "@/lib/content";
 
 /**
  * PageHero - the opener for every internal route.
@@ -81,6 +82,8 @@ export type PageHeroProps = {
   readonly lede?: string | null;
   /** Optional full-bleed plate beneath the type. */
   readonly image?: ImageAsset | null;
+  /** Optional full-bleed video loop beneath the type. */
+  readonly video?: ChapterVideo | null;
   /**
    * Responsive `sizes` for that plate. The default is correct for the
    * full-bleed frame this component draws; override only if you also override
@@ -143,6 +146,7 @@ export function PageHero({
   spokenTitle,
   lede = null,
   image = null,
+  video = null,
   imageSizes = "100vw",
   imageClassName = IMAGE_FRAME,
   imagePreload = true,
@@ -224,9 +228,20 @@ export function PageHero({
           ) : null}
         </div>
 
-        {/* OPTIONAL PLATE - full bleed. The section's `overflow-x-clip`
+        {/* OPTIONAL PLATE OR VIDEO - full bleed. The section's `overflow-x-clip`
             absorbs the scrollbar delta that `w-screen` introduces. */}
-        {image ? (
+        {video ? (
+          <VideoCard
+            src={video.src}
+            poster={video.poster}
+            blurDataURL={video.blurDataURL}
+            sizes={imageSizes}
+            webm={video.webm}
+            alt={video.alt}
+            delay={0.08}
+            className={imageClassName}
+          />
+        ) : image ? (
           <ImageCard
             src={image.src}
             alt={image.alt}

@@ -859,7 +859,7 @@ export const BUILDINGS: readonly [
       blurDataURL:
         "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABrAAADAQEAAAAAAAAAAAAAAAAEBgUBAwEBAQEAAAAAAAAAAAAAAAAAAQACEAABAgQEBAcBAAAAAAAAAAABAhEAAxIhkdExFHGSE1EEIyJioVLwQREBAQADAQAAAAAAAAAAAAAAABESIXFR/8AAEQgADgAYAwEiAAIRAAMRAP/aAAwDAQACEQMRAD8AMlTJyy1aAO6i2ALKUOEEkeIJPS80J1Ul0gYm8LCZ6ZhQKGH8a37vxhp9SyASSzXUonKC9YxRd2oa1DmDRm896uZWUU5kuZXSSk2qdr/Lxy6KvsMBlFv0R//Z",
       poster: "/video/a23-aerial-poster.jpg",
-      webm: false,
+      webm: true,
       alt: "Aerial view of JDKD Corporate Park at plot A-23, its green glass elevation running alongside the elevated metro line.",
     },
     placeholder: false,
@@ -875,7 +875,7 @@ export const BUILDINGS: readonly [
       blurDataURL:
         "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABjAAEAAwEAAAAAAAAAAAAAAAAGAwIEBwEBAQAAAAAAAAAAAAAAAAAAAAIQAAIBBAEDBQEBAAAAAAAAAAECEQAhAxIxQRMEkaFScbEUUREBAQEBAAAAAAAAAAAAAAAAAAERIf/AABEIAA4AGAMBIgACEQADEQA/AOKYM2RGhFDMemux+h19KW+Bn/ofI2TRLrBUBQJB5JvaOJ4mgquyMGUlSpkEcg1YGZJ63qbNVpH5rJse2UYBReWLGT/oOtqN7GpA7Di1x+1q7+X5+wpOD//Z",
       poster: "/video/m82-rooftop-poster.jpg",
-      webm: false,
+      webm: true,
       alt: "The M-82 property at dusk, its rooftop level lit and in service above the street.",
     },
     placeholder: false,
@@ -1590,6 +1590,8 @@ export type ProjectCommon = {
   readonly summary: string;
   /** Index image. `image.placeholder` drives the provisional frame. */
   readonly image: ImageAsset;
+  /** Optional video asset for moving chapters. */
+  readonly video?: ChapterVideo;
 };
 
 export type PlaceholderProject = ProjectCommon & {
@@ -2091,6 +2093,14 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
   summary:
     "A completed multi-tenant office building in green glass on Plot A-23, running alongside the elevated metro line, with a manned lobby and let floors.",
   image: IMAGES.corporateParkAerial,
+  video: {
+    src: "/video/a23-aerial",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABrAAADAQEAAAAAAAAAAAAAAAAEBgUBAwEBAQEAAAAAAAAAAAAAAAAAAQACEAABAgQEBAcBAAAAAAAAAAABAhEAAxIhkdExFHGSE1EEIyJioVLwQREBAQADAQAAAAAAAAAAAAAAABESIXFR/8AAEQgADgAYAwEiAAIRAAMRAP/aAAwDAQACEQMRAD8AMlTJyy1aAO6i2ALKUOEEkeIJPS80J1Ul0gYm8LCZ6ZhQKGH8a37vxhp9SyASSzXUonKC9YxRd2oa1DmDRm896uZWUU5kuZXSSk2qdr/Lxy6KvsMBlFv0R//Z",
+    poster: "/video/a23-aerial-poster.jpg",
+    webm: true,
+    alt: "Aerial view of JDKD Corporate Park at plot A-23, its green glass elevation running alongside the elevated metro line.",
+  },
   status: "Completed & Occupied",
   marker: "(COMPLETED)",
   assetClass: "Commercial Office Park",
@@ -2246,6 +2256,14 @@ export const PROJECT_M82: RealProject = {
   summary:
     "A premier retail and hospitality address in South Delhi, shown at dusk with the rooftop level in active service above the street.",
   image: IMAGES.m82Rooftop,
+  video: {
+    src: "/video/m82-rooftop",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABjAAEAAwEAAAAAAAAAAAAAAAAGAwIEBwEBAQAAAAAAAAAAAAAAAAAAAAIQAAIBBAEDBQEBAAAAAAAAAAECEQAhAxIxQRMEkaFScbEUUREBAQEBAAAAAAAAAAAAAAAAAAERIf/AABEIAA4AGAMBIgACEQADEQA/AOKYM2RGhFDMemux+h19KW+Bn/ofI2TRLrBUBQJB5JvaOJ4mgquyMGUlSpkEcg1YGZJ63qbNVpH5rJse2UYBReWLGT/oOtqN7GpA7Di1x+1q7+X5+wpOD//Z",
+    poster: "/video/m82-rooftop-poster.jpg",
+    webm: true,
+    alt: "The M-82 property at dusk, its rooftop level lit and in service above the street.",
+  },
   status: "Completed & Operational",
   marker: "(COMPLETED)",
   assetClass: "Retail & Hospitality Destination",
@@ -2396,6 +2414,14 @@ export const PROJECT_M39: RealProject = {
   summary:
     "Street-level retail under the JDKD mark, opening onto a prime market frontage in Greater Kailash I with commanding pedestrian exposure.",
   image: IMAGES.m39Frontage,
+  video: {
+    src: "/video/m39-reveal",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAMABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDMtLt5RHHbsPMYgD6d/BM1o3V7LDdPCsJZFbG7af8KfYW8EbqyQRqw6EIMiq+s67dafMY4Y4WAIHzgn+tS9S9kf/Z",
+    poster: "/video/m39-reveal-poster.jpg",
+    webm: true,
+    alt: "The illuminated JDKD mark and terrace lounge on the M-39 building facade.",
+  },
   status: "Completed & Operational",
   marker: "(COMPLETED)",
   assetClass: "High-Street Retail Frontage",

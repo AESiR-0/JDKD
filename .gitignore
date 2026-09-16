@@ -60,3 +60,6 @@ next-env.d.ts
 /public/M-82/
 /public/M39/
 /.tmp-hls-src/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
