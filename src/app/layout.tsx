@@ -4,7 +4,7 @@ import { Cormorant_Garamond, Geist } from "next/font/google";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { IMAGES, SITE } from "@/lib/content";
+import { ROUTES, SITE } from "@/lib/content";
 
 import "./globals.css";
 
@@ -66,15 +66,20 @@ const cormorantGaramond = Cormorant_Garamond({
 
 /**
  * Share card. `twitter.card: "summary_large_image"` renders blank without an
- * image, so both graphs point at the real dusk render - its intrinsic size is
- * taken from `IMAGES.heroTower` rather than retyped, so a re-crop cannot leave
- * the dimensions lying.
+ * image, so both graphs point at the same asset - a purpose-built 1200x630
+ * card, NOT the raw dusk render. The render is portrait, and every platform
+ * crops a share image to 1.91:1, which took the top and the base off the
+ * building and left nothing naming the sender. See SHARE_CARDS in
+ * `@/lib/content`.
+ *
+ * The dimensions are read off the asset rather than retyped, so a recut card
+ * cannot leave them lying.
  */
 const SHARE_IMAGE = {
-  url: IMAGES.heroTower.src,
-  width: IMAGES.heroTower.width,
-  height: IMAGES.heroTower.height,
-  alt: IMAGES.heroTower.alt,
+  url: ROUTES.home.ogImage.src,
+  width: ROUTES.home.ogImage.width,
+  height: ROUTES.home.ogImage.height,
+  alt: ROUTES.home.ogImage.alt,
 } as const;
 
 export const metadata: Metadata = {

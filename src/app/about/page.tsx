@@ -25,6 +25,16 @@ export const metadata: Metadata = {
     url: ROUTE.path,
     title: ROUTE.ogTitle,
     description: ROUTE.description,
+    // Declared rather than inherited: without it this page would share the
+    // homepage's card, which names the tower rather than the practice.
+    images: [
+      {
+        url: ROUTE.ogImage.src,
+        width: ROUTE.ogImage.width,
+        height: ROUTE.ogImage.height,
+        alt: ROUTE.ogImage.alt,
+      },
+    ],
   },
 };
 

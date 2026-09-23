@@ -1175,6 +1175,49 @@ export const ENQUIRY_FIELDS: readonly FormField[] = [
    `openGraph.title` - Next only templates the field it is declared on.
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   SHARE CARDS
+   Purpose-built 1200x630 Open Graph images, NOT raw photography.
+
+   Every photograph on this site is portrait (roughly 4:5, shot for the
+   full-bleed frames the page design is built on). Facebook, LinkedIn,
+   WhatsApp and X all crop a share image to 1.91:1, so a portrait render was
+   arriving as a centre band of curtain wall with the building's top and
+   bottom cut away - and with no wordmark, no title and nothing to identify
+   the sender. Each card below sets the route's title beside the relevant
+   render on the brand ground, composed so the type survives the small
+   preview WhatsApp and X show on a phone.
+
+   Generated from `public/brand/jdkd-256.png` and the images in
+   `public/images/`. Re-cut the source photography and these must be redrawn;
+   they are finished artwork, not a runtime crop.
+   -------------------------------------------------------------------------- */
+
+const OG_SIZE = { width: 1200, height: 630, placeholder: false } as const;
+
+export const SHARE_CARDS = {
+  tower: {
+    ...OG_SIZE,
+    src: "/og/jdkd-corporate-tower.jpg",
+    alt: "JDKD Corporate Tower at dusk, beside the title JDKD Corporate Tower - a Grade A commercial landmark on Mathura Road, New Delhi.",
+  },
+  about: {
+    ...OG_SIZE,
+    src: "/og/about.jpg",
+    alt: "The exterior of JDKD Corporate Tower, beside the title JDKD Developers LLP.",
+  },
+  projects: {
+    ...OG_SIZE,
+    src: "/og/projects.jpg",
+    alt: "The exterior of JDKD Corporate Tower, beside the title Projects.",
+  },
+  contact: {
+    ...OG_SIZE,
+    src: "/og/contact.jpg",
+    alt: "The lobby of JDKD Corporate Tower, beside the title Contact.",
+  },
+} as const satisfies Readonly<Record<string, ImageAsset>>;
+
 export type RouteKey =
   | "home"
   | "about"
@@ -1202,7 +1245,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     ogTitle: "JDKD Corporate Tower - Grade A commercial landmark, New Delhi",
     description:
       "A LEED certified Grade A commercial office building at A-11, Mohan Cooperative Industrial Estate, Mathura Road, New Delhi. Now available for leasing.",
-    ogImage: IMAGES.heroTower,
+    ogImage: SHARE_CARDS.tower,
   },
   about: {
     path: "/about",
@@ -1210,7 +1253,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     ogTitle: "About JDKD Developers LLP",
     description:
       "JDKD Developers LLP builds commercial real estate in New Delhi. Its current work is JDKD Corporate Tower - a LEED certified, earthquake-resistant Grade A office building of seven floors over two basements at A-11, Mohan Cooperative Industrial Estate, Mathura Road.",
-    ogImage: IMAGES.towerExterior,
+    ogImage: SHARE_CARDS.about,
   },
   projects: {
     path: "/projects",
@@ -1218,7 +1261,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     ogTitle: "Projects - JDKD Developers LLP",
     description:
       "The commercial projects of JDKD Developers LLP. JDKD Corporate Tower, a Grade A office building on Mathura Road, New Delhi, is available for leasing now.",
-    ogImage: IMAGES.towerExterior,
+    ogImage: SHARE_CARDS.projects,
   },
   projectDetail: {
     /** Prefix only. A detail page builds its path as `${path}/${slug}`. */
@@ -1227,7 +1270,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     ogTitle: "JDKD Corporate Tower",
     description:
       "Overview, key highlights, location and connectivity, floor plans, amenities and building systems for JDKD Corporate Tower, Mathura Road, New Delhi.",
-    ogImage: IMAGES.towerExterior,
+    ogImage: SHARE_CARDS.tower,
   },
   contact: {
     path: "/contact",
@@ -1235,7 +1278,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     ogTitle: "Contact JDKD Developers LLP",
     description:
       "Leasing enquiries for JDKD Corporate Tower, A-11 Mohan Cooperative Industrial Estate, Mathura Road, New Delhi. Speak to Mr. Roy on 9811998811.",
-    ogImage: IMAGES.lobbyWide,
+    ogImage: SHARE_CARDS.contact,
   },
   notFound: {
     path: "/404",
@@ -1243,7 +1286,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     ogTitle: "Page not found - JDKD",
     description:
       "This page does not exist. JDKD Corporate Tower on Mathura Road, New Delhi is available for leasing now.",
-    ogImage: IMAGES.heroTower,
+    ogImage: SHARE_CARDS.tower,
   },
 };
 
@@ -1618,6 +1661,14 @@ export type RealProject = ProjectCommon & {
   readonly spokenTitle: string;
   readonly lede: string;
   readonly heroImage: ImageAsset;
+  /**
+   * Purpose-built share card for this project's detail page. Optional: a
+   * project without one falls back to `heroImage`, which is portrait and will
+   * be centre-cropped by every social platform - acceptable for the projects
+   * whose only photography is documentary, wrong for the building being
+   * leased. See SHARE_CARDS.
+   */
+  readonly ogImage?: ImageAsset;
   /** Sticky sub-nav. The order here IS the page's running order. */
   readonly nav: readonly ProjectNavItem[];
   readonly overview: {
@@ -1718,6 +1769,7 @@ export const PROJECT_TOWER: RealProject = {
   spokenTitle: "JDKD Corporate Tower",
   lede: "A Grade A commercial office building on Mathura Road, New Delhi. Seven office floors over two basement levels, 14 ft 9 in floor to floor, on a corner plot open on two sides. Now available for leasing.",
   heroImage: IMAGES.heroTower,
+  ogImage: SHARE_CARDS.tower,
   nav: TOWER_NAV,
 
   overview: {

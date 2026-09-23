@@ -85,6 +85,14 @@ export async function generateMetadata({
 
   const path = projectPath(project);
 
+  /*
+   * The share card if the project has one, the hero photograph otherwise.
+   * Every photograph on this site is portrait and every social platform crops
+   * a share image to 1.91:1, so a project that matters enough to be shared
+   * gets a card composed at that ratio - see SHARE_CARDS in `@/lib/content`.
+   */
+  const share = project.ogImage ?? project.heroImage;
+
   return {
     title: project.name,
     description: project.summary,
@@ -96,10 +104,10 @@ export async function generateMetadata({
       description: project.summary,
       images: [
         {
-          url: project.heroImage.src,
-          width: project.heroImage.width,
-          height: project.heroImage.height,
-          alt: project.heroImage.alt,
+          url: share.src,
+          width: share.width,
+          height: share.height,
+          alt: share.alt,
         },
       ],
     },
