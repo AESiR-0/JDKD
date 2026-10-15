@@ -91,7 +91,10 @@ export async function generateMetadata({
    * a share image to 1.91:1, so a project that matters enough to be shared
    * gets a card composed at that ratio - see SHARE_CARDS in `@/lib/content`.
    */
-  const share = project.ogImage ?? project.heroImage;
+  const share =
+    project.kind === "full"
+      ? (project.ogImage ?? project.heroImage)
+      : project.heroImage;
 
   return {
     title: project.name,
@@ -157,14 +160,26 @@ export default async function ProjectDetailPage({
 
       <ProjectNav items={project.nav} />
 
-      <ProjectOverview overview={project.overview} />
-      <ProjectHighlights highlights={project.highlights} />
-      <ProjectLocation connectivity={project.connectivity} />
-      <ProjectPlans plans={project.plans} />
-      <ProjectAmenities amenities={project.amenities} />
-      <ProjectGallery gallery={project.gallery} />
-      <ProjectDownloads downloads={project.downloads} />
-      <ProjectEnquiry enquiry={project.enquiry} contact={project.contact} />
+      {/* A LEAN project - Okhla - has its address, map and photographs and
+          nothing else, so it renders exactly those two sections. Every other
+          section would have to be filled with copy the client never supplied. */}
+      {project.kind === "full" ? (
+        <>
+          <ProjectOverview overview={project.overview} />
+          <ProjectHighlights highlights={project.highlights} />
+          <ProjectLocation connectivity={project.connectivity} />
+          <ProjectPlans plans={project.plans} />
+          <ProjectAmenities amenities={project.amenities} />
+          <ProjectGallery gallery={project.gallery} />
+          <ProjectDownloads downloads={project.downloads} />
+          <ProjectEnquiry enquiry={project.enquiry} contact={project.contact} />
+        </>
+      ) : (
+        <>
+          <ProjectLocation connectivity={project.connectivity} />
+          <ProjectGallery gallery={project.gallery} />
+        </>
+      )}
     </>
   );
 }

@@ -115,9 +115,9 @@ export function SiteFooter() {
               <p className="font-sans text-small text-pure/75 leading-relaxed">
                 JDKD Corporate Tower
                 <br />
-                A-11, Mohan Cooperative Industrial Estate
+                A-11, Mohan Co-operative Industrial Estate
                 <br />
-                Mathura Road, New Delhi - 110076
+                Mathura Road, New Delhi - 110044
               </p>
             </div>
 

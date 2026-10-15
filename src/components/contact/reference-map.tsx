@@ -3,6 +3,7 @@
 import { Counter } from "@/components/motion/counter";
 import { ParallaxImage } from "@/components/motion/parallax-image";
 import { Reveal } from "@/components/motion/reveal";
+import { PROPERTY_LOCATIONS } from "@/lib/content";
 
 export function ReferenceMap() {
   return (
@@ -78,7 +79,7 @@ export function ReferenceMap() {
             <span className="block text-[11px] text-muted">
               A-11, Mathura Road
               <br />
-              New Delhi, 110076
+              New Delhi, 110044
             </span>
           </div>
         </div>
@@ -110,7 +111,7 @@ export function ReferenceMap() {
             {/* Directions Button */}
             <div className="mt-8">
               <a
-                href="https://www.google.com/maps/search/?api=1&query=28.5284,77.2946"
+                href={PROPERTY_LOCATIONS.a11.map.href}
                 target="_blank"
                 rel="noreferrer noopener"
                 data-press

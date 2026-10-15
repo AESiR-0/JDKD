@@ -106,10 +106,19 @@ export function About() {
             the band's height - which is what lets the heading hang off the
             band's foot and land 40px below the image. */}
         <div className="relative mt-band lg:mt-band-lg">
-          {/* RIGHT RAIL - ~30ch, flush right, top-aligned to the portrait.
-              The measure is set in `ch` on an element that carries the copy's
-              own `text-micro`, so 30ch really is thirty characters. */}
-          <div className="w-full px-gutter text-micro text-muted md:px-gutter-lg lg:absolute lg:right-gutter-lg lg:top-0 lg:w-[30ch] lg:px-0">
+          {/* RIGHT RAIL - flush right, top-aligned to the portrait.
+
+              `text-small`, stepping to `text-body` from `xl`, and `text-ink/85`
+              rather than `text-micro text-muted`: the client found the old
+              setting "too small to read clearly" (round of 13.10.26).
+
+              At that size a fixed 30ch measure no longer fits beside the
+              portrait - measured at 1280px it ran 20px into the picture. So the
+              rail is now BOUNDED rather than measured: it starts 1.5rem past
+              the portrait's right edge (72%) and runs to the right gutter, and
+              the measure is whatever that leaves - ~26ch at 1024px, ~30ch from
+              1280px up. */}
+          <div className="w-full px-gutter text-small text-ink/85 md:px-gutter-lg lg:absolute lg:top-0 lg:right-gutter-lg lg:left-[calc(72%+1.5rem)] lg:w-auto lg:px-0 xl:text-body">
             <Reveal as="div" stagger={0.09} delay={0.05}>
               {ABOUT.paragraphs.map((paragraph) => (
                 <p key={paragraph} className="mt-5 first:mt-0">
@@ -120,18 +129,47 @@ export function About() {
           </div>
 
           {/* OPTICAL BAND - the portrait. Full-bleed on mobile, a centred
-              plate on tablet, and the anchored 34% column from `lg`. */}
+              plate on tablet, and the anchored 34% column from `lg`.
+
+              The placement lives on a WRAPPER rather than on `ImageCard`, so
+              the pointer below can be measured against the picture's own box.
+              `ImageCard` simply fills it. */}
           <div className="mt-10 lg:mt-0">
-            <ImageCard
-              src={ABOUT.image.src}
-              alt={ABOUT.image.alt}
-              sizes="(min-width: 1024px) 34vw, (min-width: 768px) 62vw, 100vw"
-              surface="ink"
-              shift={5}
-              scale={1.06}
-              delay={0.08}
-              className="aspect-[4/5] w-full md:mx-auto md:w-[62%] lg:mx-0 lg:ml-[38%] lg:mr-0 lg:aspect-[3/4] lg:w-[34%]"
-            />
+            <div className="relative aspect-[4/5] w-full md:mx-auto md:w-[62%] lg:mx-0 lg:ml-[38%] lg:mr-0 lg:aspect-[3/4] lg:w-[34%]">
+              <ImageCard
+                src={ABOUT.image.src}
+                alt={ABOUT.image.alt}
+                sizes="(min-width: 1024px) 34vw, (min-width: 768px) 62vw, 100vw"
+                surface="ink"
+                shift={5}
+                scale={1.06}
+                delay={0.08}
+                className="h-full w-full"
+              />
+
+              {/* THE POINTER. A-11 is still being built, so the portrait is a
+                  render and says so: a label on a leader line, pinned to the
+                  tower's face. The group's FOOT is the pin point - it is
+                  translated up by its own height, so `top-[38%]` is where the
+                  dot lands at every width. It rises in after the plate's clip
+                  wipe rather than floating over an empty frame. The label is
+                  real text; only the line and the dot are decoration. */}
+              {ABOUT.imageTag ? (
+                <Reveal
+                  as="div"
+                  delay={0.9}
+                  className="pointer-events-none absolute left-[46%] top-[38%] z-10 -translate-x-1/2 -translate-y-full"
+                >
+                  <div className="flex flex-col items-center">
+                    <p className="whitespace-nowrap border border-pure/40 bg-deep/80 px-3 py-1.5 text-micro uppercase tracking-label text-pure">
+                      {ABOUT.imageTag}
+                    </p>
+                    <span aria-hidden="true" className="block h-10 w-px bg-pure/70 md:h-14" />
+                    <span aria-hidden="true" className="block size-2.5 rounded-full bg-pure ring-4 ring-pure/25" />
+                  </div>
+                </Reveal>
+              ) : null}
+            </div>
           </div>
 
           {/* LEFT EDGE - the five-line heading, bottom-anchored so its last

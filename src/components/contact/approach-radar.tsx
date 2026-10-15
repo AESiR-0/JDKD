@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { IMAGES } from "@/lib/content";
+import { IMAGES, PROPERTY_LOCATIONS } from "@/lib/content";
 
 type TransitNode = {
   id: string;
@@ -57,7 +57,7 @@ const TRANSIT_NODES: readonly TransitNode[] = [
     time: "9 min walk",
     mode: "Delhi Metro Violet Line",
     description:
-      "Secondary rapid transit station serving the southern commercial sector of Mohan Cooperative.",
+      "Secondary rapid transit station serving the southern commercial sector of Mohan Co-operative.",
     coords: { x: 68, y: 82 },
   },
   {
@@ -110,7 +110,7 @@ export function ApproachRadar() {
 
   function handleCopyAddress() {
     navigator.clipboard.writeText(
-      "JDKD Corporate Tower, A-11, Mohan Cooperative Industrial Estate, Mathura Road, New Delhi 110044, India",
+      "JDKD Corporate Tower, A-11, Mohan Co-operative Industrial Estate, Mathura Road, New Delhi 110044, India",
     );
     setCopiedAddress(true);
     setTimeout(() => setCopiedAddress(false), 2400);
@@ -226,7 +226,7 @@ export function ApproachRadar() {
             <span className="text-muted">Direct GPS Launchers:</span>
             <div className="flex items-center gap-3">
               <a
-                href="https://www.google.com/maps/search/?api=1&query=28.5284,77.2946"
+                href={PROPERTY_LOCATIONS.a11.map.href}
                 target="_blank"
                 rel="noreferrer noopener"
                 data-press

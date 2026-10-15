@@ -14,7 +14,7 @@ export function VCardDownload({ className = "" }: { className?: string }) {
       "ORG:JDKD Developers LLP",
       "TITLE:Director of Commercial Leasing",
       "TEL;TYPE=CELL,VOICE;VALUE=uri:tel:+919811998811",
-      "ADR;TYPE=WORK:;;A-11, Mohan Cooperative Industrial Estate, Mathura Road;New Delhi;;110044;India",
+      "ADR;TYPE=WORK:;;A-11, Mohan Co-operative Industrial Estate, Mathura Road;New Delhi;;110044;India",
       "NOTE:JDKD Corporate Tower (A-11 MCIE). Grade-A commercial leasing.",
       "URL:https://jdkd.in",
       "END:VCARD",

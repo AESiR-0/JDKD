@@ -12,7 +12,6 @@ import {
   PROJECT_TOWER,
   ROUTES,
   projectPath,
-  type PlaceholderProject,
   type RealProject,
   type Project,
 } from "@/lib/content";
@@ -317,9 +316,11 @@ function ChapterPortfolioLeft({
     <article aria-labelledby={id} className="relative mt-beat lg:mt-beat-lg">
       {/* RIGHT RAIL - flush to the right gutter, right-ragged from `lg`. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[22%] lg:right-gutter-lg lg:z-10 lg:w-[34%] lg:px-0 lg:text-right">
-        <p className={LABEL}>{project.marker}</p>
+        {/* Omitted, not left empty, where an entry has no marker that is
+            true of it - Okhla carries only what the client wrote. */}
+        {project.marker ? <p className={`mb-5 ${LABEL}`}>{project.marker}</p> : null}
 
-        <Reveal as="h2" id={id} className={`mt-5 ${TITLE}`}>
+        <Reveal as="h2" id={id} className={TITLE}>
           {project.name}
         </Reveal>
 
@@ -402,9 +403,11 @@ function ChapterPortfolioRight({
       {/* LEFT EDGE, foot-aligned. The plate is the flow child, so `bottom-0`
           means "level with the foot of the picture". */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:bottom-0 lg:left-gutter-lg lg:z-10 lg:w-[34%] lg:px-0">
-        <p className={LABEL}>{project.marker}</p>
+        {/* Omitted, not left empty, where an entry has no marker that is
+            true of it - Okhla carries only what the client wrote. */}
+        {project.marker ? <p className={`mb-5 ${LABEL}`}>{project.marker}</p> : null}
 
-        <Reveal as="h2" id={id} className={`mt-5 ${TITLE}`}>
+        <Reveal as="h2" id={id} className={TITLE}>
           {project.name}
         </Reveal>
 
@@ -489,7 +492,8 @@ function ChapterPortfolioRight({
    what `slug: null` - and therefore no detail route - actually encodes.
    ========================================================================== */
 
-const [portfolioOne, portfolioTwo, portfolioThree] = PROJECT_PLACEHOLDERS;
+const [portfolioOne, portfolioTwo, portfolioThree, portfolioFour] =
+  PROJECT_PLACEHOLDERS;
 
 function Index() {
   return (
@@ -527,13 +531,14 @@ function Index() {
           </div>
         </div>
 
-        {/* ── THE THREE CHAPTERS ─────────────────────────────────────────
-            Dominance swings right, left, right, left. */}
+        {/* ── THE CHAPTERS ───────────────────────────────────────────────
+            Dominance swings right, left, right, left, right. */}
         <div className="mt-band lg:mt-band-lg">
           <ChapterTower project={PROJECT_TOWER} />
           <ChapterPortfolioLeft project={portfolioOne} />
           <ChapterPortfolioRight project={portfolioTwo} />
           <ChapterPortfolioLeft project={portfolioThree} />
+          <ChapterPortfolioRight project={portfolioFour} />
         </div>
       </div>
     </section>

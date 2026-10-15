@@ -118,6 +118,75 @@ export const IMAGES = {
     alt: "The JDKD M-39 property frontage, illuminated mark and upper terrace lounge.",
     placeholder: false,
   },
+  /* Whole-building frames, cut from the same drone clips at the moment the
+     camera has pulled back far enough to take in every occupant - the round
+     of 13.10.26 asked for the full building, not the rooftop alone. */
+  m82FullBuilding: {
+    src: "/images/buildings/m82-full-day.jpg",
+    width: 1600,
+    height: 900,
+    alt: "The full M-82 building from the air: Staple Bar & Bistro on the upper floors and rooftop, Punjab Grill and Benne at street level.",
+    placeholder: false,
+  },
+  m39FullFrontage: {
+    src: "/images/buildings/m39-full-frontage.jpg",
+    width: 1600,
+    height: 900,
+    alt: "The full M-39 frontage at dusk, the JDKD mark on its facade and Standard Chartered at street level.",
+    placeholder: false,
+  },
+  /* The client's own photograph, supplied with the round of 13.10.26. */
+  corporateParkNight: {
+    src: "/images/buildings/a23-night.jpg",
+    width: 1280,
+    height: 960,
+    alt: "JDKD Corporate Park at A-23, Mohan Co-operative Industrial Estate, lit up at night behind its gatehouse.",
+    placeholder: false,
+  },
+
+  /* -- Okhla - the client's own photographs of E-43/7 --------------------- */
+  okhlaOne: {
+    src: "/images/okhla/okhla-01.jpg",
+    width: 1280,
+    height: 960,
+    alt: "The JDKD property at E-43/7, Okhla Industrial Area, Phase-2, behind its boundary wall and gate.",
+    placeholder: false,
+  },
+  okhlaTwo: {
+    src: "/images/okhla/okhla-02.jpg",
+    width: 1280,
+    height: 960,
+    alt: "The front elevation of the E-43/7 building in Okhla.",
+    placeholder: false,
+  },
+  okhlaThree: {
+    src: "/images/okhla/okhla-03.jpg",
+    width: 1024,
+    height: 768,
+    alt: "The side elevation of the E-43/7 building in Okhla.",
+    placeholder: false,
+  },
+  okhlaFour: {
+    src: "/images/okhla/okhla-04.jpg",
+    width: 768,
+    height: 1024,
+    alt: "The driveway along the boundary wall at E-43/7, Okhla.",
+    placeholder: false,
+  },
+  okhlaFive: {
+    src: "/images/okhla/okhla-05.jpg",
+    width: 768,
+    height: 1024,
+    alt: "The entrance gate of E-43/7, Okhla, seen from inside the compound.",
+    placeholder: false,
+  },
+  okhlaSix: {
+    src: "/images/okhla/okhla-06.jpg",
+    width: 1280,
+    height: 960,
+    alt: "The E-43/7 building in Okhla from the street, with its entrance gate.",
+    placeholder: false,
+  },
 
   /* -- Real client renders ------------------------------------------------ */
   heroTower: {
@@ -409,11 +478,12 @@ export const ASSET: Asset = {
   certification: "LEED certified",
   address: {
     plot: "A-11",
-    estate: "Mohan Cooperative Industrial Estate (MCIE)",
+    estate: "Mohan Co-operative Industrial Estate (MCIE)",
     road: "Mathura Road",
     city: "New Delhi",
+    // Complete, PIN included, spelled the client's way (round of 13.10.26).
     oneLine:
-      "A-11, Mohan Cooperative Industrial Estate, Mathura Road, New Delhi",
+      "A-11, Mohan Co-operative Industrial Estate, Mathura Road, New Delhi-110044",
   },
   plotArea: {
     sqm: "2,179.13 sq.m",
@@ -464,12 +534,12 @@ export const CONTACT: Contact = {
   entity: "JDKD Developers LLP",
   address: {
     lines: [
-      "A-11, Mohan Cooperative Industrial Estate (MCIE)",
+      "A-11, Mohan Co-operative Industrial Estate (MCIE)",
       "Mathura Road",
-      "New Delhi",
+      "New Delhi-110044",
     ],
     oneLine:
-      "A-11, Mohan Cooperative Industrial Estate, Mathura Road, New Delhi",
+      "A-11, Mohan Co-operative Industrial Estate, Mathura Road, New Delhi-110044",
   },
 };
 
@@ -549,8 +619,12 @@ export type HeroContent = {
    * Set at `text-h2`, cap-height aligned to the top of the wordmark.
    */
   readonly serifLines: readonly [string, string];
-  /** Small muted lede beneath the serif line, in the right rail. */
-  readonly lede: string;
+  /**
+   * The facts beneath the serif line, in the right rail, ONE PER LINE. The
+   * client asked for them set out line by line rather than run together as a
+   * sentence (round of 13.10.26) - the wording below is theirs.
+   */
+  readonly ledeLines: readonly string[];
 };
 
 export const HERO: HeroContent = {
@@ -558,7 +632,12 @@ export const HERO: HeroContent = {
   documentTitle:
     "JDKD Corporate Tower - Grade A commercial office space on Mathura Road, New Delhi",
   serifLines: ["An address", "that works."],
-  lede: "A LEED certified Grade A office building at A-11, Mohan Cooperative Industrial Estate. Seven floors over two basements, now available for leasing.",
+  ledeLines: [
+    "A LEED Certified Grade A office building",
+    "Having seven floors over two basements",
+    "Now available for leasing",
+    "At: A-11, Mohan Co-operative Industrial Estate, Mathura Road, New Delhi",
+  ],
 };
 
 /* ==========================================================================
@@ -615,6 +694,12 @@ export type AboutContent = {
     AboutFigure,
   ];
   readonly image: ImageAsset;
+  /**
+   * The pointer label pinned on the portrait. A-11 is still under
+   * construction, so the portrait is a render and has to say so - NULL only
+   * once a photograph of the finished building replaces it.
+   */
+  readonly imageTag: string | null;
 };
 
 export const ABOUT: AboutContent = {
@@ -629,7 +714,7 @@ export const ABOUT: AboutContent = {
   ],
   spokenHeading: "Built for work that endures.",
   paragraphs: [
-    "JDKD Corporate Tower stands at A-11, Mohan Cooperative Industrial Estate, on Mathura Road - a prime corner plot, open on two sides, oriented North and North-West.",
+    "JDKD Corporate Tower stands at A-11, Mohan Co-operative Industrial Estate, on Mathura Road - a prime corner plot, open on two sides, oriented North and North-West.",
     "Seven office floors over two basements. LEED certified, earthquake-resistant and solar integrated, with 14 ft 9 in floor heights that carry daylight past the glass line.",
   ],
   figures: [
@@ -664,7 +749,10 @@ export const ABOUT: AboutContent = {
       descriptor: "Certified green building",
     },
   ],
-  image: IMAGES.lobbyAtrium,
+  // The A-11 render, not a photograph: the old portrait was the A-23 lobby,
+  // which the client flagged as the wrong building for this copy (13.10.26).
+  image: IMAGES.towerExterior,
+  imageTag: "Proposed look",
 };
 
 /* ==========================================================================
@@ -824,6 +912,12 @@ export type BuildingChapter = {
   readonly slug: string;
   readonly title: string;
   readonly body: string;
+  /**
+   * When present, the body is set ONE PHRASE PER LINE instead of as a
+   * paragraph, and `body` is not rendered. The client supplies these lines
+   * verbatim; they are not a layout choice to be reflowed.
+   */
+  readonly lines?: readonly string[];
   readonly image: ImageAsset;
   /**
    * When present the frame plays footage instead of showing a still. The
@@ -843,6 +937,7 @@ export const BUILDINGS: readonly [
   BuildingChapter,
   BuildingChapter,
   BuildingChapter,
+  BuildingChapter,
 ] = [
   {
     id: "corporate-park",
@@ -852,7 +947,16 @@ export const BUILDINGS: readonly [
     // curtain wall, the elevated metro line beside it, the manned reception
     // and the let floors. The name is read off the lobby graphic. No area,
     // no date and no floor count - none of those were supplied.
-    body: "JDKD Corporate Park, plot A-23. A completed multi-tenant office building in green glass, running alongside the elevated metro line, with a manned lobby and let floors.",
+    body: "JDKD Corporate Park, Plot No. A-23. A Complete Multi-Tenant Office Building in Green Glass, Running Alongside the Elevated Metro Line, With a Manned Lobby and Let Floors.",
+    // The client's own line breaks and capitals (round of 13.10.26): "Complete",
+    // not "Completed", and one phrase per line.
+    lines: [
+      "JDKD Corporate Park",
+      "Plot No. A-23",
+      "A Complete Multi-Tenant Office Building in Green Glass",
+      "Running Alongside the Elevated Metro Line",
+      "With a Manned Lobby and Let Floors.",
+    ],
     image: IMAGES.parkOne,
     video: {
       src: "/video/a23-aerial",
@@ -876,7 +980,7 @@ export const BUILDINGS: readonly [
         "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABjAAEAAwEAAAAAAAAAAAAAAAAGAwIEBwEBAQAAAAAAAAAAAAAAAAAAAAIQAAIBBAEDBQEBAAAAAAAAAAECEQAhAxIxQRMEkaFScbEUUREBAQEBAAAAAAAAAAAAAAAAAAERIf/AABEIAA4AGAMBIgACEQADEQA/AOKYM2RGhFDMemux+h19KW+Bn/ofI2TRLrBUBQJB5JvaOJ4mgquyMGUlSpkEcg1YGZJ63qbNVpH5rJse2UYBReWLGT/oOtqN7GpA7Di1x+1q7+X5+wpOD//Z",
       poster: "/video/m82-rooftop-poster.jpg",
       webm: true,
-      alt: "The M-82 property at dusk, its rooftop level lit and in service above the street.",
+      alt: "The M-82 property at dusk, pulling back from the lit Staple rooftop to the full building, with Punjab Grill and Benne at street level.",
     },
     placeholder: false,
   },
@@ -889,11 +993,25 @@ export const BUILDINGS: readonly [
     video: {
       src: "/video/m39-reveal",
       blurDataURL:
-        "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAMABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDMtLt5RHHbsPMYgD6d/BM1o3V7LDdPCsJZFbG7af8KfYW8EbqyQRqw6EIMiq+s67dafMY4Y4WAIHzgn+tS9S9kf/Z",
+        "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYyLjI4LjEwMAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAOABgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwChoz7oUUdecn8atSX2xyuAcEjOabpwt1lIhRlbHJNTPqFojMrwsSDg4Qf40ijJ1jJuYG/vIcUVqT6b/al3brC4jzEZFJHQelFFiWz/2Q==",
       poster: "/video/m39-reveal-poster.jpg",
       webm: true,
-      alt: "The illuminated JDKD mark and terrace lounge on the M-39 building facade.",
+      alt: "The illuminated JDKD mark on the M-39 facade, pulling back to the full frontage with Standard Chartered at street level.",
     },
+    placeholder: false,
+  },
+  {
+    id: "okhla",
+    slug: "okhla",
+    title: "Okhla",
+    // ONLY what the client wrote (round of 13.10.26): the address, the area and
+    // the floors. No highlights, distances or amenities - none were supplied.
+    body: "E-43/7, Okhla Industrial Area, Phase-2, New Delhi-110020. A total area of 14,000 sq ft with Basement, Ground, First and 2nd Floor.",
+    lines: [
+      "E-43/7, Okhla Industrial Area, Phase-2, New Delhi-110020",
+      "A total area of 14,000 sq ft with Basement, Ground, First and 2nd Floor.",
+    ],
+    image: IMAGES.okhlaOne,
     placeholder: false,
   },
 ];
@@ -1060,7 +1178,7 @@ export const FAQ: FaqContent = {
       id: "where",
       question: "Where is the building?",
       answer:
-        "A-11, Mohan Cooperative Industrial Estate (MCIE), Mathura Road, New Delhi. Sarita Vihar Metro on the Violet Line is 350 m away, Apollo Hospital 500 m, and the NOIDA business hub 5 km. There is direct access from Main Mathura Road.",
+        "A-11, Mohan Co-operative Industrial Estate (MCIE), Mathura Road, New Delhi. Sarita Vihar Metro on the Violet Line is 350 m away, Apollo Hospital 500 m, and the NOIDA business hub 5 km. There is direct access from Main Mathura Road.",
     },
     {
       id: "size",
@@ -1244,7 +1362,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     title: "JDKD Corporate Tower",
     ogTitle: "JDKD Corporate Tower - Grade A commercial landmark, New Delhi",
     description:
-      "A LEED certified Grade A commercial office building at A-11, Mohan Cooperative Industrial Estate, Mathura Road, New Delhi. Now available for leasing.",
+      "A LEED certified Grade A commercial office building at A-11, Mohan Co-operative Industrial Estate, Mathura Road, New Delhi. Now available for leasing.",
     ogImage: SHARE_CARDS.tower,
   },
   about: {
@@ -1252,7 +1370,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     title: "About",
     ogTitle: "About JDKD Developers LLP",
     description:
-      "JDKD Developers LLP builds commercial real estate in New Delhi. Its current work is JDKD Corporate Tower - a LEED certified, earthquake-resistant Grade A office building of seven floors over two basements at A-11, Mohan Cooperative Industrial Estate, Mathura Road.",
+      "JDKD Developers LLP builds commercial real estate in New Delhi. Its current work is JDKD Corporate Tower - a LEED certified, earthquake-resistant Grade A office building of seven floors over two basements at A-11, Mohan Co-operative Industrial Estate, Mathura Road.",
     ogImage: SHARE_CARDS.about,
   },
   projects: {
@@ -1277,7 +1395,7 @@ export const ROUTES: Readonly<Record<RouteKey, RouteMeta>> = {
     title: "Contact",
     ogTitle: "Contact JDKD Developers LLP",
     description:
-      "Leasing enquiries for JDKD Corporate Tower, A-11 Mohan Cooperative Industrial Estate, Mathura Road, New Delhi. Speak to Mr. Roy on 9811998811.",
+      "Leasing enquiries for JDKD Corporate Tower, A-11 Mohan Co-operative Industrial Estate, Mathura Road, New Delhi. Speak to Mr. Roy on 9811998811.",
     ogImage: SHARE_CARDS.contact,
   },
   notFound: {
@@ -1410,9 +1528,9 @@ export const FOOTER_COLUMNS: readonly [
     id: "location",
     heading: "(LOCATION)",
     lines: [
-      "A-11, Mohan Cooperative Industrial Estate (MCIE)",
+      "A-11, Mohan Co-operative Industrial Estate (MCIE)",
       "Mathura Road",
-      "New Delhi",
+      "New Delhi-110044",
     ],
     links: [],
   },
@@ -1464,7 +1582,7 @@ export const UNRESOLVED: Readonly<Record<string, UnresolvedSlot>> = {
     id: "portfolio",
     label: "Project portfolio",
     placeholder:
-      "Three completed properties are shown here. Names, areas and dates are still to be confirmed.",
+      "Four JDKD properties are shown here. Their full records are still to be confirmed.",
     note: "Footage for A-23, M-82 and M-39 has been supplied and is in use. What is still missing is the written record: confirmed project names, areas, completion dates and the full list. The lobby directory at A-23 names its tenants - publishing them is the client's decision and must be cleared before it goes anywhere near this site.",
   },
   leadership: {
@@ -1565,6 +1683,88 @@ export type LocationPoint = {
   readonly detail: string;
 };
 
+/**
+ * Where a property is on a map. `query` is the exact pin the embedded map
+ * centres on - the coordinates the client sent, or those their Google Maps
+ * short link resolves to (a short link cannot be embedded itself). `href` is
+ * the client's own link, opened in Google Maps.
+ */
+export type PropertyMap = {
+  readonly query: string;
+  readonly href: string;
+};
+
+/**
+ * The complete postal address and map pin for each property, exactly as the
+ * client sent them on 13.10.26. The single source for every address line the
+ * project pages print - do not retype one.
+ */
+export const PROPERTY_LOCATIONS = {
+  a11: {
+    address:
+      "A-11, Mohan Co-operative Industrial Estate, Mathura Road, New Delhi-110044",
+    map: {
+      query: "28.5321751,77.2862091",
+      href: "https://maps.app.goo.gl/JTkUX4EfkEZaUbob8",
+    },
+  },
+  a23: {
+    address:
+      "A-23, Mohan Co-operative Industrial Estate, Mathura Road, New Delhi-110044",
+    map: {
+      query: "28.527328,77.288994",
+      href: "https://maps.google.com/?q=28.527328,77.288994",
+    },
+  },
+  m82: {
+    address:
+      "M-82, Commercial Complex, Greater Kailash Part-2, New Delhi-110048",
+    map: {
+      query: "28.5323089,77.2427771",
+      href: "https://maps.app.goo.gl/nV4BB5TqmdzBxXtV6",
+    },
+  },
+  m39: {
+    address:
+      "M-39, Commercial Complex, Greater Kailash Part-2, New Delhi-110048",
+    map: {
+      query: "28.5335503,77.2430878",
+      href: "https://maps.app.goo.gl/KQ6iFhoLAPVjCMs69",
+    },
+  },
+  okhla: {
+    address: "E-43/7, Okhla Industrial Area, Phase-2, New Delhi-110020",
+    map: {
+      query: "28.535620,77.270988",
+      href: "https://maps.google.com/?q=28.535620,77.270988",
+    },
+  },
+} as const satisfies Readonly<
+  Record<string, { readonly address: string; readonly map: PropertyMap }>
+>;
+
+/**
+ * A project page's LOCATION band: a heading, the complete address, the map,
+ * and - where the record has them - proximity facts.
+ *
+ * The map REPLACED the photograph this band used to carry. Every project
+ * shared the Mathura Road aerial, which put Sarita Vihar Metro on the Greater
+ * Kailash pages (round of 13.10.26). A map cannot be the wrong place.
+ */
+export type ProjectLocationContent = {
+  readonly label: string;
+  readonly headingLines: readonly DisplayLine[];
+  readonly spokenHeading: string;
+  /** Rail copy. NULL where the record has nothing to say beyond the address. */
+  readonly body: string | null;
+  /** Complete postal address, PIN included. */
+  readonly address: string;
+  /** Plain facts printed under the address, e.g. area and floors. */
+  readonly facts?: readonly SpecRow[];
+  readonly map: PropertyMap;
+  readonly points: readonly LocationPoint[];
+};
+
 export type FloorPlanId = "basement-2" | "fifth-floor" | "sixth-seventh-floor";
 
 /**
@@ -1647,6 +1847,8 @@ export type PlaceholderProject = ProjectCommon & {
 
 export type RealProject = ProjectCommon & {
   readonly placeholder: false;
+  /** Discriminates the full eight-section page from a {@link LeanProject}. */
+  readonly kind: "full";
   readonly slug: string;
   readonly status: string;
   readonly marker?: string;
@@ -1683,14 +1885,7 @@ export type RealProject = ProjectCommon & {
     readonly label: string;
     readonly items: readonly [Highlight, Highlight, Highlight];
   };
-  readonly connectivity: {
-    readonly label: string;
-    readonly headingLines: readonly DisplayLine[];
-    readonly spokenHeading: string;
-    readonly body: string;
-    readonly image: ImageAsset;
-    readonly points: readonly LocationPoint[];
-  };
+  readonly connectivity: ProjectLocationContent;
   readonly plans: {
     readonly label: string;
     readonly headingLines: readonly DisplayLine[];
@@ -1730,7 +1925,32 @@ export type RealProject = ProjectCommon & {
   readonly contact: Contact;
 };
 
-export type Project = RealProject | PlaceholderProject;
+/**
+ * A property with a short page: its address, its map and its photographs, and
+ * nothing else. For a record the client has supplied only those for - every
+ * section a `RealProject` adds (highlights, plans, amenities, downloads) would
+ * have to be invented, so this type does not have them.
+ */
+export type LeanProject = ProjectCommon & {
+  readonly placeholder: false;
+  readonly kind: "lean";
+  readonly slug: string;
+  /** Parenthetical above the title on the index. Omitted where none is true. */
+  readonly marker?: string;
+  readonly label: string;
+  readonly titleLines: readonly DisplayLine[];
+  readonly spokenTitle: string;
+  readonly lede: string;
+  readonly heroImage: ImageAsset;
+  readonly nav: readonly ProjectNavItem[];
+  readonly connectivity: ProjectLocationContent;
+  readonly gallery: RealProject["gallery"];
+};
+
+/** Anything with a detail route. */
+export type DetailProject = RealProject | LeanProject;
+
+export type Project = RealProject | LeanProject | PlaceholderProject;
 
 /* --------------------------------------------------------------------------
    THE ONE REAL PROJECT
@@ -1751,9 +1971,10 @@ export const PROJECT_TOWER: RealProject = {
   id: "jdkd-corporate-tower",
   slug: "jdkd-corporate-tower",
   placeholder: false,
+  kind: "full",
   name: ASSET.name,
   summary:
-    "A LEED certified Grade A office building on a prime corner plot at A-11, Mohan Cooperative Industrial Estate. Seven office floors over two basements, available for leasing now.",
+    "A LEED certified Grade A office building on a prime corner plot at A-11, Mohan Co-operative Industrial Estate. Seven office floors over two basements, available for leasing now.",
   image: IMAGES.towerExterior,
   status: ASSET.availability,
   assetClass: ASSET.assetClass,
@@ -1781,7 +2002,7 @@ export const PROJECT_TOWER: RealProject = {
     ],
     spokenHeading: "A corner plot, open on two sides.",
     paragraphs: [
-      "JDKD Corporate Tower stands at A-11, Mohan Cooperative Industrial Estate, with direct access off Main Mathura Road. The plot is a prime corner, open on two sides and oriented North and North-West, which is what carries daylight and ventilation past the glass line and into the floor plate.",
+      "JDKD Corporate Tower stands at A-11, Mohan Co-operative Industrial Estate, with direct access off Main Mathura Road. The plot is a prime corner, open on two sides and oriented North and North-West, which is what carries daylight and ventilation past the glass line and into the floor plate.",
       "Seven office floors sit over two basement levels, each 14 ft 9 in - 4.5 metres - floor to floor, with the terrace parapet at +41.05 m. The building is LEED certified and earthquake-resistant, with solar panels, rainwater harvesting and a sewage treatment plant of its own.",
     ],
     specs: [
@@ -1824,7 +2045,7 @@ export const PROJECT_TOWER: RealProject = {
       {
         id: "location-advantage",
         title: "Location advantage",
-        body: "The site sits on the Violet Line corridor with direct access off Main Mathura Road, inside the established Mohan Cooperative Industrial Estate.",
+        body: "The site sits on the Violet Line corridor with direct access off Main Mathura Road, inside the established Mohan Co-operative Industrial Estate.",
         points: [
           "350 m from Sarita Vihar Metro station",
           "500 m from Apollo Hospital",
@@ -1866,8 +2087,9 @@ export const PROJECT_TOWER: RealProject = {
       { text: "corridor.", style: "roman" },
     ],
     spokenHeading: "On the Violet Line corridor.",
-    body: "Mohan Cooperative Industrial Estate sits on Mathura Road between central Delhi and the NOIDA business hub, with Sarita Vihar Metro at the top of the road.",
-    image: IMAGES.locationAerial,
+    body: "Mohan Co-operative Industrial Estate sits on Mathura Road between central Delhi and the NOIDA business hub, with Sarita Vihar Metro at the top of the road.",
+    address: PROPERTY_LOCATIONS.a11.address,
+    map: PROPERTY_LOCATIONS.a11.map,
     points: [
       {
         id: "metro",
@@ -2141,9 +2363,10 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
   id: "corporate-park",
   slug: "corporate-park",
   placeholder: false,
+  kind: "full",
   name: "JDKD Corporate Park",
   summary:
-    "A completed multi-tenant office building in green glass on Plot A-23, running alongside the elevated metro line, with a manned lobby and let floors.",
+    "A complete multi-tenant office building in green glass on Plot A-23, running alongside the elevated metro line, with a manned lobby and let floors.",
   image: IMAGES.corporateParkAerial,
   video: {
     src: "/video/a23-aerial",
@@ -2157,7 +2380,7 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
   marker: "(COMPLETED)",
   assetClass: "Commercial Office Park",
   certification: "LEED Gold Certified",
-  place: "Plot A-23, Mohan Cooperative, New Delhi",
+  place: PROPERTY_LOCATIONS.a23.address,
 
   label: "(JDKD CORPORATE PARK)",
   titleLines: [
@@ -2166,7 +2389,7 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
     { text: "Park", style: "roman" },
   ],
   spokenTitle: "JDKD Corporate Park",
-  lede: "A completed Grade A commercial campus on Plot A-23, running alongside the Delhi Metro Violet Line. Double-height reception, expansive floor plates, and energy-efficient green glass envelope.",
+  lede: "A complete Grade A commercial campus on Plot A-23, running alongside the Delhi Metro Violet Line. Double-height reception, expansive floor plates, and energy-efficient green glass envelope.",
   heroImage: IMAGES.parkOne,
   nav: TOWER_NAV,
 
@@ -2179,13 +2402,13 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
     ],
     spokenHeading: "Commercial scale along the metro line.",
     paragraphs: [
-      "JDKD Corporate Park stands at Plot A-23, Mohan Cooperative Industrial Estate, directly adjacent to the elevated Violet Line corridor. The building features an expansive emerald green curtain-wall facade designed for maximum natural daylight and acoustic dampening from the arterial transit routes.",
+      "JDKD Corporate Park stands at Plot A-23, Mohan Co-operative Industrial Estate, directly adjacent to the elevated Violet Line corridor. The building features an expansive emerald green curtain-wall facade designed for maximum natural daylight and acoustic dampening from the arterial transit routes.",
       "With occupied office plates, a grand manned double-height lobby, modern elevator cores, and dedicated multi-level parking, the development represents JDKD's standard of institutional commercial infrastructure.",
     ],
     specs: [
       { id: "asset-class", term: "Asset class", value: "Grade A Office Park" },
       { id: "availability", term: "Availability", value: "Completed & Occupied" },
-      { id: "address", term: "Address", value: "Plot A-23, Mohan Cooperative Industrial Estate, New Delhi" },
+      { id: "address", term: "Address", value: PROPERTY_LOCATIONS.a23.address },
       { id: "transit", term: "Transit corridor", value: "Delhi Metro Violet Line directly adjacent" },
       { id: "facade", term: "Envelope", value: "Double-glazed acoustic solar glass curtain wall" },
       { id: "certification", term: "Certification", value: "LEED Gold Certified" },
@@ -2238,7 +2461,8 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
     ],
     spokenHeading: "At the crossroads of capital transit.",
     body: "Located directly off Main Mathura Road with immediate connectivity to South Delhi, Faridabad, and the NOIDA industrial zone.",
-    image: IMAGES.locationAerial,
+    address: PROPERTY_LOCATIONS.a23.address,
+    map: PROPERTY_LOCATIONS.a23.map,
     points: [
       { id: "metro", distance: "Immediate", place: "Elevated Metro Track", detail: "Violet Line corridor" },
       { id: "station", distance: "350 m", place: "Sarita Vihar Metro", detail: "Walking distance" },
@@ -2275,13 +2499,14 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
 
   gallery: {
     label: "(GALLERY)",
-    body: "Perspectives of JDKD Corporate Park: aerial elevation, green curtain wall, and transit alignment.",
+    body: "Perspectives of JDKD Corporate Park: lit up at night, from the air beside the metro line, its green glass elevation and its lift lobby.",
+    // A-23 only. The Corporate Tower renders that used to fill this gallery
+    // were another building (round of 13.10.26).
     images: [
+      IMAGES.corporateParkNight,
       IMAGES.corporateParkAerial,
       IMAGES.parkOne,
-      IMAGES.facadeDetail,
-      IMAGES.officeFloor,
-      IMAGES.lobby,
+      IMAGES.lobbyAtrium,
     ],
   },
 
@@ -2304,6 +2529,7 @@ export const PROJECT_M82: RealProject = {
   id: "m-82",
   slug: "m-82",
   placeholder: false,
+  kind: "full",
   name: "JDKD M-82",
   summary:
     "A premier retail and hospitality address in South Delhi, shown at dusk with the rooftop level in active service above the street.",
@@ -2314,13 +2540,13 @@ export const PROJECT_M82: RealProject = {
       "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABjAAEAAwEAAAAAAAAAAAAAAAAGAwIEBwEBAQAAAAAAAAAAAAAAAAAAAAIQAAIBBAEDBQEBAAAAAAAAAAECEQAhAxIxQRMEkaFScbEUUREBAQEBAAAAAAAAAAAAAAAAAAERIf/AABEIAA4AGAMBIgACEQADEQA/AOKYM2RGhFDMemux+h19KW+Bn/ofI2TRLrBUBQJB5JvaOJ4mgquyMGUlSpkEcg1YGZJ63qbNVpH5rJse2UYBReWLGT/oOtqN7GpA7Di1x+1q7+X5+wpOD//Z",
     poster: "/video/m82-rooftop-poster.jpg",
     webm: true,
-    alt: "The M-82 property at dusk, its rooftop level lit and in service above the street.",
+    alt: "The M-82 property at dusk, pulling back from the lit Staple rooftop to the full building, with Punjab Grill and Benne at street level.",
   },
   status: "Completed & Operational",
   marker: "(COMPLETED)",
   assetClass: "Retail & Hospitality Destination",
   certification: "High-Efficiency Commercial Envelope",
-  place: "M-82, Greater Kailash II, New Delhi",
+  place: PROPERTY_LOCATIONS.m82.address,
 
   label: "(JDKD M-82)",
   titleLines: [
@@ -2347,7 +2573,7 @@ export const PROJECT_M82: RealProject = {
     specs: [
       { id: "asset-class", term: "Asset class", value: "Commercial Retail & Hospitality" },
       { id: "status", term: "Status", value: "Completed & Operational" },
-      { id: "address", term: "Location", value: "M-82, Greater Kailash II, New Delhi" },
+      { id: "address", term: "Location", value: PROPERTY_LOCATIONS.m82.address },
       { id: "terrace", term: "Rooftop deck", value: "Open-air hospitality terrace in service" },
       { id: "parking", term: "Parking", value: "Dedicated valet and street-level parking bays" },
       { id: "facade", term: "Fenestration", value: "Expansive glass retail show-windows" },
@@ -2400,7 +2626,8 @@ export const PROJECT_M82: RealProject = {
     ],
     spokenHeading: "At the center of South Delhi's social circuit.",
     body: "Conveniently accessible from Outer Ring Road, Chirag Delhi, and Nehru Place with seamless transit.",
-    image: IMAGES.locationAerial,
+    address: PROPERTY_LOCATIONS.m82.address,
+    map: PROPERTY_LOCATIONS.m82.map,
     points: [
       { id: "market", distance: "Immediate", place: "GK-II Market Concourse", detail: "Premier retail promenade" },
       { id: "metro", distance: "1.2 km", place: "Greater Kailash Metro", detail: "Magenta Line connection" },
@@ -2434,12 +2661,14 @@ export const PROJECT_M82: RealProject = {
 
   gallery: {
     label: "(GALLERY)",
-    body: "Photographic views of JDKD M-82 at dusk, illuminated rooftop terrace, and street presence.",
+    body: "Photographic views of JDKD M-82: the full building by day, the rooftop at dusk, and the Staple terrace lounge by day and by night.",
+    // M-82 only. The tower's curtain-wall render and a second copy of the
+    // dusk aerial used to sit here (round of 13.10.26).
     images: [
+      IMAGES.m82FullBuilding,
       IMAGES.m82Rooftop,
-      IMAGES.parkTwo,
-      IMAGES.terrace,
-      IMAGES.facadeDetail,
+      IMAGES.terraceLarge,
+      IMAGES.terraceSmall,
     ],
   },
 
@@ -2462,23 +2691,24 @@ export const PROJECT_M39: RealProject = {
   id: "m-39",
   slug: "m-39",
   placeholder: false,
+  kind: "full",
   name: "JDKD M-39",
   summary:
-    "Street-level retail under the JDKD mark, opening onto a prime market frontage in Greater Kailash I with commanding pedestrian exposure.",
+    "Street-level retail under the JDKD mark, opening onto a prime market frontage in Greater Kailash Part-2 with commanding pedestrian exposure.",
   image: IMAGES.m39Frontage,
   video: {
     src: "/video/m39-reveal",
     blurDataURL:
-      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAMABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDMtLt5RHHbsPMYgD6d/BM1o3V7LDdPCsJZFbG7af8KfYW8EbqyQRqw6EIMiq+s67dafMY4Y4WAIHzgn+tS9S9kf/Z",
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYyLjI4LjEwMAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAOABgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwChoz7oUUdecn8atSX2xyuAcEjOabpwt1lIhRlbHJNTPqFojMrwsSDg4Qf40ijJ1jJuYG/vIcUVqT6b/al3brC4jzEZFJHQelFFiWz/2Q==",
     poster: "/video/m39-reveal-poster.jpg",
     webm: true,
-    alt: "The illuminated JDKD mark and terrace lounge on the M-39 building facade.",
+    alt: "The illuminated JDKD mark on the M-39 facade, pulling back to the full frontage with Standard Chartered at street level.",
   },
   status: "Completed & Operational",
   marker: "(COMPLETED)",
   assetClass: "High-Street Retail Frontage",
   certification: "Grade A Retail Structure",
-  place: "M-39, Greater Kailash I, New Delhi",
+  place: PROPERTY_LOCATIONS.m39.address,
 
   label: "(JDKD M-39)",
   titleLines: [
@@ -2499,13 +2729,13 @@ export const PROJECT_M39: RealProject = {
     ],
     spokenHeading: "High-street retail under the JDKD mark.",
     paragraphs: [
-      "JDKD M-39 stands at the forefront of retail prestige in Greater Kailash I. The prominent crimson JDKD architectural badge marks the facade above wide show-windows that face directly into the buzzing commercial boulevard.",
+      "JDKD M-39 stands at the forefront of retail prestige in Greater Kailash Part-2. The prominent crimson JDKD architectural badge marks the facade above wide show-windows that face directly into the buzzing commercial boulevard.",
       "Engineered with open span floor plates, seamless street-level access, and dedicated utility infrastructure, M-39 delivers unparalleled visibility and prestige for leading fashion, lifestyle, and luxury brand flagships.",
     ],
     specs: [
       { id: "asset-class", term: "Asset class", value: "High-Street Retail Frontage" },
       { id: "status", term: "Status", value: "Completed & Operational" },
-      { id: "address", term: "Location", value: "M-39, Greater Kailash I Market, New Delhi" },
+      { id: "address", term: "Location", value: PROPERTY_LOCATIONS.m39.address },
       { id: "frontage", term: "Frontage", value: "High-visibility market-facing display glazing" },
       { id: "branding", term: "Insignia", value: "Iconic illuminated JDKD architectural mark" },
       { id: "power", term: "Power", value: "100% DG uninterrupted power backup" },
@@ -2556,14 +2786,13 @@ export const PROJECT_M39: RealProject = {
       { text: "corridor.", style: "italic" },
     ],
     spokenHeading: "Delhi's most vibrant retail corridor.",
-    body: "Centrally located in GK-I with fast connections to Ring Road, Kailash Colony, and South Extension.",
-    image: IMAGES.locationAerial,
-    points: [
-      { id: "market", distance: "Immediate", place: "GK-I M-Block Market", detail: "Premier shopping promenade" },
-      { id: "metro", distance: "800 m", place: "Kailash Colony Metro", detail: "Violet Line transit" },
-      { id: "south-ex", distance: "2 km", place: "South Extension Market", detail: "Adjacent luxury hub" },
-      { id: "cp", distance: "20 min", place: "Connaught Place", detail: "Central Delhi" },
-    ],
+    // M-39 is in GK Part-2, in the same commercial complex as M-82 - not GK-I,
+    // as this band used to say (round of 13.10.26). The GK-I landmarks went
+    // with the wrong address; the neighbourhood is M-82's, so are its points.
+    body: PROJECT_M82.connectivity.body,
+    address: PROPERTY_LOCATIONS.m39.address,
+    map: PROPERTY_LOCATIONS.m39.map,
+    points: PROJECT_M82.connectivity.points,
   },
 
   plans: {
@@ -2591,13 +2820,10 @@ export const PROJECT_M39: RealProject = {
 
   gallery: {
     label: "(GALLERY)",
-    body: "Visual study of JDKD M-39: market frontage, illuminated badge, and glazed showroom volumes.",
-    images: [
-      IMAGES.m39Frontage,
-      IMAGES.parkThree,
-      IMAGES.facadeDetail,
-      IMAGES.officeFloor,
-    ],
+    body: "JDKD M-39: the full market frontage at dusk, and the illuminated JDKD mark on its facade.",
+    // M-39 only. Two tower renders and a second copy of the frontage still
+    // used to sit here (round of 13.10.26).
+    images: [IMAGES.m39FullFrontage, IMAGES.m39Frontage],
   },
 
   downloads: PROJECT_TOWER.downloads,
@@ -2615,43 +2841,115 @@ export const PROJECT_M39: RealProject = {
   contact: CONTACT,
 };
 
+/* --------------------------------------------------------------------------
+   OKHLA - E-43/7
+
+   Added in the round of 13.10.26 with one instruction: nothing beyond what the
+   client wrote. So the record is the address, the area, the floors, the map
+   pin and their photographs - and the page behind it is a `LeanProject`, which
+   has no highlights, plans, amenities or downloads to fill.
+-------------------------------------------------------------------------- */
+
+const OKHLA_FACTS =
+  "E-43/7, Okhla Industrial Area, Phase-2, New Delhi-110020. A total area of 14,000 sq ft with Basement, Ground, First and 2nd Floor.";
+
+export const PROJECT_OKHLA: LeanProject = {
+  id: "okhla",
+  slug: "okhla",
+  placeholder: false,
+  kind: "lean",
+  name: "Okhla",
+  summary: OKHLA_FACTS,
+  image: IMAGES.okhlaOne,
+
+  label: "(OKHLA)",
+  titleLines: [{ text: "Okhla", style: "roman" }],
+  spokenTitle: "Okhla",
+  lede: OKHLA_FACTS,
+  heroImage: IMAGES.okhlaOne,
+  nav: [
+    { id: "location", label: "Location" },
+    { id: "gallery", label: "Gallery" },
+  ],
+
+  connectivity: {
+    label: "(LOCATION)",
+    headingLines: [
+      { text: "Okhla Industrial", style: "roman" },
+      { text: "Area, Phase-2.", style: "italic" },
+    ],
+    spokenHeading: "Okhla Industrial Area, Phase-2.",
+    body: null,
+    address: PROPERTY_LOCATIONS.okhla.address,
+    facts: [
+      { id: "area", term: "Total area", value: "14,000 sq ft" },
+      {
+        id: "floors",
+        term: "Floors",
+        value: "Basement, Ground, First and 2nd Floor",
+      },
+    ],
+    map: PROPERTY_LOCATIONS.okhla.map,
+    points: [],
+  },
+
+  gallery: {
+    label: "(GALLERY)",
+    body: "Photographs of the property at E-43/7, Okhla Industrial Area, Phase-2.",
+    images: [
+      IMAGES.okhlaTwo,
+      IMAGES.okhlaThree,
+      IMAGES.okhlaFour,
+      IMAGES.okhlaSix,
+      IMAGES.okhlaFive,
+    ],
+  },
+};
+
+/**
+ * The portfolio beneath the tower, in index order. A tuple so the index page
+ * can destructure each entry into its own composition without an index check.
+ */
 export const PROJECT_PLACEHOLDERS: readonly [
   RealProject,
   RealProject,
   RealProject,
+  LeanProject,
 ] = [
   PROJECT_CORPORATE_PARK,
   PROJECT_M82,
   PROJECT_M39,
+  PROJECT_OKHLA,
 ];
 
 /** The index's running order: the documented project first, then the portfolio. */
-export const PROJECTS: readonly RealProject[] = [
+export const PROJECTS: readonly DetailProject[] = [
   PROJECT_TOWER,
   PROJECT_CORPORATE_PARK,
   PROJECT_M82,
   PROJECT_M39,
+  PROJECT_OKHLA,
 ];
 
-/** Narrowing guard. Call it before reaching for any detail-page field. */
+/** Narrowing guard. Call it before reaching for any full-page field. */
 export function isRealProject(project: Project): project is RealProject {
-  return !project.placeholder;
+  return !project.placeholder && project.kind === "full";
 }
 
 /** Every project that HAS a detail route. The source for generateStaticParams. */
-export const REAL_PROJECTS: readonly RealProject[] = PROJECTS;
+export const REAL_PROJECTS: readonly DetailProject[] = PROJECTS;
 
 export const PROJECT_SLUGS: readonly string[] = REAL_PROJECTS.map(
   (project) => project.slug,
 );
 
 /** Resolve a slug. Undefined for an unknown one - the page then calls notFound(). */
-export function getProject(slug: string): RealProject | undefined {
+export function getProject(slug: string): DetailProject | undefined {
   return REAL_PROJECTS.find((project) => project.slug === slug);
 }
 
 /** Path helper, so no detail-route string is ever retyped. */
-export function projectPath(project: RealProject): string {
+export function projectPath(project: DetailProject): string {
   return `${ROUTES.projectDetail.path}/${project.slug}`;
 }
 
@@ -2677,7 +2975,7 @@ export const PROJECTS_PAGE: ProjectsPageContent = {
   spokenTitle: "Commercial projects.",
   lede: "JDKD Developers LLP builds commercial real estate in New Delhi. One building is documented here in full; the rest of the record is still to come.",
   intro:
-    "JDKD Corporate Tower, on Mathura Road, is available for leasing now. Beneath it are three completed JDKD properties. Their written records are still to come.",
+    "JDKD Corporate Tower, on Mathura Road, is available for leasing now. Beneath it are four more JDKD properties. Their written records are still to come.",
   unresolved: UNRESOLVED.portfolio,
 };
 
@@ -2778,7 +3076,7 @@ export const ABOUT_PAGE: AboutPageContent = {
       {
         id: "development",
         title: "Development",
-        body: "Ground-up commercial development. JDKD Corporate Tower occupies a 2,179.13 sq.m prime corner plot at A-11, Mohan Cooperative Industrial Estate, open on two sides, with direct access off Main Mathura Road.",
+        body: "Ground-up commercial development. JDKD Corporate Tower occupies a 2,179.13 sq.m prime corner plot at A-11, Mohan Co-operative Industrial Estate, open on two sides, with direct access off Main Mathura Road.",
       },
       {
         id: "leasing",
@@ -2828,7 +3126,7 @@ export const ABOUT_PAGE: AboutPageContent = {
         descriptor: "Terrace parapet level",
       },
     ],
-    note: "Every figure is for JDKD Corporate Tower, A-11 Mohan Cooperative Industrial Estate, Mathura Road, New Delhi.",
+    note: "Every figure is for JDKD Corporate Tower, A-11 Mohan Co-operative Industrial Estate, Mathura Road, New Delhi.",
   },
 
   principles: {
@@ -2953,7 +3251,7 @@ export const CONTACT_PAGE: ContactPageContent = {
     spokenHeading: "Tell us what you need.",
     paragraphs: [
       "Floor area, preferred floors, target occupancy date. We will come back with availability, floor plates and a time to walk the building.",
-      "Seven office floors sit over two basements at A-11, Mohan Cooperative Industrial Estate, each one 14 ft 9 in floor to floor, with dual-side dedicated parking beneath.",
+      "Seven office floors sit over two basements at A-11, Mohan Co-operative Industrial Estate, each one 14 ft 9 in floor to floor, with dual-side dedicated parking beneath.",
     ],
   },
   form: {
@@ -2987,7 +3285,7 @@ export const CONTACT_PAGE: ContactPageContent = {
         id: "road",
         mode: "By road",
         detail:
-          "Direct access from Main Mathura Road into Mohan Cooperative Industrial Estate. The building is at plot A-11.",
+          "Direct access from Main Mathura Road into Mohan Co-operative Industrial Estate. The building is at plot A-11.",
       },
       {
         id: "landmark",

@@ -508,7 +508,7 @@ export function LocationPinnedMap() {
               JDKD CORPORATE TOWER
             </span>
             <span className="hidden sm:block text-[10px] text-muted font-sans mt-0.5">
-              A-11, Mathura Road, New Delhi, 110076
+              A-11, Mathura Road, New Delhi, 110044
             </span>
           </div>
         </div>

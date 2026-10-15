@@ -6,7 +6,7 @@ import Link from "next/link";
 import { BUILDINGS, BUILDINGS_CTA, SECTIONS, UNRESOLVED, type BuildingChapter } from "@/lib/content";
 
 /**
- * 03 - BUILDINGS & PARKS. Three chapters, alternating dominance.
+ * 03 - BUILDINGS & PARKS. Four chapters, alternating dominance.
  *
  * Conventions are inherited wholesale from `sections/about.tsx` - read that
  * file first. This one adds nothing to the system; it only composes it three
@@ -84,6 +84,13 @@ const TITLE = "font-display text-h2 uppercase tracking-tight text-ink";
 
 /** Body copy. `text-small`, on the site-wide ~30ch measure. */
 const BODY = "max-w-[30ch] text-small text-muted";
+
+/**
+ * Line-set copy - a chapter whose `lines` the client wrote one phrase per line.
+ * A wider measure than BODY, because each line is an authored phrase and
+ * breaking one in two at 30ch would undo the very thing they asked for.
+ */
+const LINES = "max-w-[46ch] text-small text-muted";
 
 /** The one hairline a chapter is allowed. Sparingly means once. */
 const HAIRLINE = "my-6 block h-px w-24 bg-line-strong";
@@ -168,14 +175,66 @@ function ChapterFrame({
 }
 
 /* --------------------------------------------------------------------------
-   CHAPTER ONE - dominance right
+   THE COPY
+
+   A paragraph on the 30ch measure, or - where the chapter carries `lines` -
+   one block per line, revealed as a stagger. `align` is a complete literal
+   appended to either, never a fragment spliced into one.
 -------------------------------------------------------------------------- */
 
-function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
+function ChapterCopy({
+  chapter,
+  align,
+}: {
+  chapter: BuildingChapter;
+  align?: string;
+}) {
+  if (chapter.lines) {
+    return (
+      <Reveal
+        as="p"
+        stagger={0.05}
+        delay={0.06}
+        className={align ? `${LINES} ${align}` : LINES}
+      >
+        {chapter.lines.map((line) => (
+          <span key={line} className="block">
+            {line}
+          </span>
+        ))}
+      </Reveal>
+    );
+  }
+
+  return (
+    <Reveal as="p" className={align ? `${BODY} ${align}` : BODY} delay={0.06}>
+      {chapter.body}
+    </Reveal>
+  );
+}
+
+/* --------------------------------------------------------------------------
+   CHAPTER ONE - dominance right
+
+   Used twice: first in the run, and again for the fourth chapter, where the
+   swing comes back round to the right after the full-bleed third. Only the
+   first one sits flush under the header band; a repeat pays the beat above it.
+-------------------------------------------------------------------------- */
+
+function ChapterOne({
+  chapter,
+  repeat = false,
+}: {
+  chapter: BuildingChapter;
+  repeat?: boolean;
+}) {
   const id = headingId(chapter);
 
   return (
-    <article aria-labelledby={id} className="relative">
+    <article
+      aria-labelledby={id}
+      className={repeat ? "relative mt-beat lg:mt-beat-lg" : "relative"}
+    >
       {/* LEFT EDGE - the type column. Absolute from `lg` so the image alone
           stays in flow and sets the band's height. */}
       <div className="w-full px-gutter md:px-gutter-lg lg:absolute lg:top-[18%] lg:left-gutter-lg lg:z-10 lg:w-[34%] lg:px-0">
@@ -183,9 +242,7 @@ function ChapterOne({ chapter }: { chapter: BuildingChapter }) {
           {chapter.title}
         </Reveal>
         <span aria-hidden="true" className={HAIRLINE} />
-        <Reveal as="p" className={BODY} delay={0.06}>
-          {chapter.body}
-        </Reveal>
+        <ChapterCopy chapter={chapter} />
         <div className="mt-8">
           <Link
             data-press
@@ -228,9 +285,7 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
           {chapter.title}
         </Reveal>
         <span aria-hidden="true" className={`${HAIRLINE} lg:ml-auto`} />
-        <Reveal as="p" className={`${BODY} lg:ml-auto`} delay={0.06}>
-          {chapter.body}
-        </Reveal>
+        <ChapterCopy chapter={chapter} align="lg:ml-auto" />
         <div className="mt-8 lg:flex lg:justify-end">
           <Link
             data-press
@@ -299,9 +354,7 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
 
       {/* RIGHT RAIL - the flow variant, beneath the image. */}
       <div className="mt-8 w-full px-gutter text-small md:px-gutter-lg lg:mt-10 lg:mr-gutter-lg lg:ml-auto lg:w-[30ch] lg:px-0">
-        <Reveal as="p" className="text-muted" delay={0.06}>
-          {chapter.body}
-        </Reveal>
+        <ChapterCopy chapter={chapter} />
         <div className="mt-8">
           <Link
             data-press
@@ -327,7 +380,7 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
  * not a repeated card, so the three sit in named positions and the tuple in
  * `@/lib/content` guarantees all three exist.
  */
-const [chapterOne, chapterTwo, chapterThree] = BUILDINGS;
+const [chapterOne, chapterTwo, chapterThree, chapterFour] = BUILDINGS;
 
 const LABEL = SECTIONS.buildings.paren;
 
@@ -354,12 +407,13 @@ export function Buildings() {
           </p>
         </div>
 
-        {/* ── THE THREE CHAPTERS ─────────────────────────────────────────
-            Dominance swings right, then left, then full width. */}
+        {/* ── THE FOUR CHAPTERS ──────────────────────────────────────────
+            Dominance swings right, then left, then full width, then right. */}
         <div className="mt-band lg:mt-band-lg">
           <ChapterOne chapter={chapterOne} />
           <ChapterTwo chapter={chapterTwo} />
           <ChapterThree chapter={chapterThree} />
+          <ChapterOne chapter={chapterFour} repeat />
         </div>
 
         {/* THE WAY OUT. Three chapters is a sample, not the record, so the

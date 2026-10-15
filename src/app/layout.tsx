@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     template: "%s | JDKD",
   },
   description:
-    "JDKD Corporate Tower is a LEED certified, Grade A commercial office building at A-11 Mohan Cooperative Industrial Estate, Mathura Road, New Delhi. 23,456.16 sq.ft plot, seven office floors, 14 ft 9 in floor heights, two basements. Now available for leasing.",
+    "JDKD Corporate Tower is a LEED certified, Grade A commercial office building at A-11 Mohan Co-operative Industrial Estate, Mathura Road, New Delhi. 23,456.16 sq.ft plot, seven office floors, 14 ft 9 in floor heights, two basements. Now available for leasing.",
   applicationName: "JDKD Developers LLP",
   authors: [{ name: "JDKD Developers LLP" }],
   creator: "JDKD Developers LLP",

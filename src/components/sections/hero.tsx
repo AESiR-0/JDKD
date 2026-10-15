@@ -178,13 +178,25 @@ export function Hero() {
               misaligned. In the reference every line in the right column shares
               one left edge - the rail is a column, not two independently
               justified blocks. */}
+          {/* ONE FACT PER LINE, in the client's wording - they asked for the
+              details "written more clearly" than the old run-on sentence
+              (round of 13.10.26). Brighter than `text-muted` and a step up from
+              `text-small` for the same reason; the flat wash and the scrim
+              behind this corner keep it clear of the photograph. */}
           <Reveal
             as="p"
+            stagger={0.06}
             delay={0.42}
             duration={0.95}
-            className="mt-6 max-w-[46ch] text-small text-muted lg:mt-8 lg:max-w-[30ch]"
+            className="mt-6 max-w-[46ch] text-small text-ink/90 md:text-body lg:mt-8 lg:max-w-[38ch]"
           >
-            {HERO.lede}
+            {HERO.ledeLines.map((line) => (
+              // Spacing as padding INSIDE the line: `Reveal` wraps each child
+              // in its own mask, so a sibling margin selector never matches.
+              <span key={line} className="block pb-1.5">
+                {line}
+              </span>
+            ))}
           </Reveal>
         </div>
       </div>
