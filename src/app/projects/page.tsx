@@ -483,13 +483,13 @@ function ChapterPortfolioRight({
 
    The four entries are destructured rather than mapped, for the same reason
    the homepage's chapters are: each is a different composition, not a repeated
-   card. `PROJECT_PLACEHOLDERS` is a three-tuple, so all three portfolio
+   card. `PROJECT_PLACEHOLDERS` is a four-tuple, so all four portfolio
    entries are guaranteed to exist without an index check.
 
-   THEY ARE NOT RESERVED FRAMES ANY MORE. All three are completed buildings,
-   shown in the client's own photography. They remain `PlaceholderProject`
-   only because no written specification for them has been supplied, which is
-   what `slug: null` - and therefore no detail route - actually encodes.
+   THEY ARE NOT RESERVED FRAMES ANY MORE. All four are complete buildings,
+   shown in the client's own photography, and each is a `LeanProject`: its
+   page carries the address, the map and the photographs, because that is all
+   the client has written down for it.
    ========================================================================== */
 
 const [portfolioOne, portfolioTwo, portfolioThree, portfolioFour] =

@@ -19,6 +19,8 @@ export type BuildingLevel = {
     width: number;
     height: number;
   };
+  /** Which part of the picture the 16:9 preview keeps. Centre by default. */
+  crop?: "top";
   features: readonly string[];
 };
 
@@ -32,7 +34,10 @@ export const BUILDING_LEVELS: readonly BuildingLevel[] = [
     ceiling: "Open Sky / Canopy",
     status: "Available",
     use: "Executive dining, tenant breakouts, corporate events",
-    image: IMAGES.terrace,
+    // The A-11 render, cropped to its planted roof. This used to be the
+    // Staple rooftop at M-82 - another building.
+    image: IMAGES.heroTower,
+    crop: "top",
     features: [
       "Panoramic skyline views over South Delhi corridor",
       "Landscaped garden perimeter with automated irrigation",
@@ -277,7 +282,9 @@ export function LevelInspector({
                 alt={currentLevel.image.alt || currentLevel.name}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover transition-transform duration-700 hover:scale-105"
+                className={`object-cover transition-transform duration-700 hover:scale-105 ${
+                  currentLevel.crop === "top" ? "object-top" : "object-center"
+                }`}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-deep/80 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-micro text-ink/90">

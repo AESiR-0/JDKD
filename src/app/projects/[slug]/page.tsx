@@ -160,9 +160,10 @@ export default async function ProjectDetailPage({
 
       <ProjectNav items={project.nav} />
 
-      {/* A LEAN project - Okhla - has its address, map and photographs and
-          nothing else, so it renders exactly those two sections. Every other
-          section would have to be filled with copy the client never supplied. */}
+      {/* A LEAN project - A-23, M-82, M-39 and Okhla - has its address, map
+          and photographs and nothing else, so it renders exactly those two
+          sections. Every other section would have to be filled with copy the
+          client never supplied, or with A-11's. */}
       {project.kind === "full" ? (
         <>
           <ProjectOverview overview={project.overview} />

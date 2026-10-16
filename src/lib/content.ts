@@ -118,6 +118,76 @@ export const IMAGES = {
     alt: "The JDKD M-39 property frontage, illuminated mark and upper terrace lounge.",
     placeholder: false,
   },
+  /* The client's camera original (Drive: M-82/Night/1U2A5061.JPG), turned
+     upright and cropped to 4:5 - the whole facade at dusk with Staple, Punjab
+     Grill and Benne all lit. */
+  m82FacadeDusk: {
+    src: "/images/buildings/m82-facade-dusk.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "The M-82 building at dusk: Staple Bar & Bistro on the upper floors, Punjab Grill above Benne at street level.",
+    placeholder: false,
+  },
+  /* -- The client's camera originals, from their Drive ("JDKD Group"),
+     added 16.10.26. Cropped to the 4:5 gallery frame (or the 3:2 chapter
+     band) so no automatic crop decides what is in shot. Tenant directory
+     boards are deliberately not used. Sources in assets-source/. */
+  m82FacadeDay: {
+    src: "/images/buildings/m82-facade-day.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "The M-82 building by day: Staple Bar & Bistro on the upper floors, Punjab Grill and Benne below.",
+    placeholder: false,
+  },
+  m39FacadeBand: {
+    src: "/images/buildings/m39-facade-band.jpg",
+    width: 1920,
+    height: 1280,
+    alt: "The M-39 building in Greater Kailash - 2: the JDKD mark on the upper storey and Standard Chartered at street level.",
+    placeholder: false,
+  },
+  m39FacadeGallery: {
+    src: "/images/buildings/m39-facade-gallery.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "The full M-39 frontage at dusk: the JDKD mark above, the Standard Chartered branch below.",
+    placeholder: false,
+  },
+  a23EntranceNight: {
+    src: "/images/buildings/a23-entrance-night.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "The lit entrance canopy and lobby doors of JDKD Corporate Park at A-23, at night.",
+    placeholder: false,
+  },
+  a23TowerNight: {
+    src: "/images/buildings/a23-tower-night.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "JDKD Corporate Park at A-23 at night, its light-lined tower and entrance canopy.",
+    placeholder: false,
+  },
+  a23GateSign: {
+    src: "/images/buildings/a23-gate-sign.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "The JDKD Corporate Park sign on the A-23 gate.",
+    placeholder: false,
+  },
+  a23FacadeDay: {
+    src: "/images/buildings/a23-facade-day.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "The green glass elevation of JDKD Corporate Park by day, above a planted water feature.",
+    placeholder: false,
+  },
+  a23Reception: {
+    src: "/images/buildings/a23-reception.jpg",
+    width: 1280,
+    height: 1600,
+    alt: "The reception lobby at JDKD Corporate Park, A-23.",
+    placeholder: false,
+  },
   /* Whole-building frames, cut from the same drone clips at the moment the
      camera has pulled back far enough to take in every occupant - the round
      of 13.10.26 asked for the full building, not the rooftop alone. */
@@ -133,6 +203,16 @@ export const IMAGES = {
     width: 1600,
     height: 900,
     alt: "The full M-39 frontage at dusk, the JDKD mark on its facade and Standard Chartered at street level.",
+    placeholder: false,
+  },
+  /* The wide night frame of the Staple rooftop - `terraceSmall` is a square
+     crop of the same scene. It used to be captioned as the Corporate Tower's
+     roof terrace and sat in the tower's gallery; it is M-82. */
+  m82StapleNight: {
+    src: "/images/terrace.jpg",
+    width: 1600,
+    height: 900,
+    alt: "The Staple Bar & Bistro rooftop at the JDKD M-82 property, lit up at night.",
     placeholder: false,
   },
   /* The client's own photograph, supplied with the round of 13.10.26. */
@@ -203,6 +283,16 @@ export const IMAGES = {
     alt: "Architectural render of the full elevation of JDKD Corporate Tower at blue hour.",
     placeholder: false,
   },
+  /* AI-generated (Antigravity, 16.10.26) - the PROPOSED lift lobby at A-11,
+     which is still under construction. Always shown with the "Proposed look"
+     label. Alternatives sit in assets-source/A-11/generated/. */
+  a11LiftLobby: {
+    src: "/images/about/a11-lift-lobby.jpg",
+    width: 896,
+    height: 1200,
+    alt: "Proposed ground-floor lift lobby at JDKD Corporate Tower, A-11: two bronze elevator doors in a fluted dark stone wall over a cream marble floor.",
+    placeholder: false,
+  },
   lobby: {
     src: "/images/lobby.jpg",
     width: 656,
@@ -243,13 +333,6 @@ export const IMAGES = {
     width: 398,
     height: 285,
     alt: "Render of a typical office floor plate at JDKD Corporate Tower, with generous daylight.",
-    placeholder: false,
-  },
-  terrace: {
-    src: "/images/terrace.jpg",
-    width: 1600,
-    height: 900,
-    alt: "Architectural photograph of the landscaped rooftop sky terrace and lounge at JDKD Corporate Tower.",
     placeholder: false,
   },
 
@@ -325,9 +408,12 @@ export const IMAGES = {
   },
 
   /* -- Features -----------------------------------------------------------
-     Terrace frames are stills cut from the client's M-82 drone footage of
-     the Staple rooftop lounge - the portrait by day, the square at night;
-     infrastructure is a crop of the tower's own renders. FITNESS
+     `towerRoof*` are crops of the A-11 renders in the client's deck - the
+     dusk view (slide 21) and the cover (slide 1) - for the terrace panel.
+     `terraceLarge` / `terraceSmall` are stills of the Staple rooftop at M-82,
+     the portrait by day and the square at night; they used to illustrate the
+     tower's terrace and now sit only in the M-82 gallery (16.10.26).
+     Infrastructure is a crop of the tower's own renders. FITNESS
      AND PARKING ARE STILL GENERATED STAND-INS and carry `placeholder: true`,
      because no photograph of either exists yet - they are the only two frames
      left on the site that are not of a real JDKD building. Replace them the
@@ -344,6 +430,20 @@ export const IMAGES = {
     width: 1024,
     height: 1024,
     alt: "The same rooftop lounge lit up at night.",
+    placeholder: false,
+  },
+  towerRoofLarge: {
+    src: "/images/features/terrace-a11-large.jpg",
+    width: 600,
+    height: 750,
+    alt: "Proposed look - a render of JDKD Corporate Tower at dusk, its roof planted along the parapet.",
+    placeholder: false,
+  },
+  towerRoofSmall: {
+    src: "/images/features/terrace-a11-small.jpg",
+    width: 700,
+    height: 700,
+    alt: "Render of a roof corner of JDKD Corporate Tower and its planters.",
     placeholder: false,
   },
   fitnessLarge: {
@@ -749,9 +849,10 @@ export const ABOUT: AboutContent = {
       descriptor: "Certified green building",
     },
   ],
-  // The A-11 render, not a photograph: the old portrait was the A-23 lobby,
-  // which the client flagged as the wrong building for this copy (13.10.26).
-  image: IMAGES.towerExterior,
+  // An AI-generated A-11 lift lobby, not a photograph: the old portrait was
+  // the A-23 lift lobby, which the client flagged as the wrong building for
+  // this copy (13.10.26). Same subject, the right building, labelled.
+  image: IMAGES.a11LiftLobby,
   imageTag: "Proposed look",
 };
 
@@ -973,15 +1074,11 @@ export const BUILDINGS: readonly [
     slug: "m-82",
     title: "M-82",
     body: "A retail and hospitality address, shown at dusk with the rooftop level in service. Held under its plot reference until the name and the record are confirmed.",
-    image: IMAGES.parkTwo,
-    video: {
-      src: "/video/m82-rooftop",
-      blurDataURL:
-        "data:image/jpeg;base64,/9j//gAQTGF2YzYyLjI4LjEwMAD/2wBDAAgQEBMQExYWFhYWFhoYGhsbGxoaGhobGxsdHR0iIiIdHR0bGx0dICAiIiUmJSMjIiMmJigoKDAwLi44ODpFRVP/xABjAAEAAwEAAAAAAAAAAAAAAAAGAwIEBwEBAQAAAAAAAAAAAAAAAAAAAAIQAAIBBAEDBQEBAAAAAAAAAAECEQAhAxIxQRMEkaFScbEUUREBAQEBAAAAAAAAAAAAAAAAAAERIf/AABEIAA4AGAMBIgACEQADEQA/AOKYM2RGhFDMemux+h19KW+Bn/ofI2TRLrBUBQJB5JvaOJ4mgquyMGUlSpkEcg1YGZJ63qbNVpH5rJse2UYBReWLGT/oOtqN7GpA7Di1x+1q7+X5+wpOD//Z",
-      poster: "/video/m82-rooftop-poster.jpg",
-      webm: true,
-      alt: "The M-82 property at dusk, pulling back from the lit Staple rooftop to the full building, with Punjab Grill and Benne at street level.",
-    },
+    // A still, not the drone loop: the loop opens on a close-up of the Staple
+    // sign, which the user did not want on this chapter (16.10.26). This is
+    // the client's own camera photograph of the whole facade, every occupant
+    // lit. Portrait, so the chapter takes a portrait frame.
+    image: IMAGES.m82FacadeDusk,
     placeholder: false,
   },
   {
@@ -989,15 +1086,10 @@ export const BUILDINGS: readonly [
     slug: "m-39",
     title: "M-39",
     body: "Street-level retail under the JDKD mark, opening onto a market frontage. Held under its plot reference until the name and the record are confirmed.",
-    image: IMAGES.parkThree,
-    video: {
-      src: "/video/m39-reveal",
-      blurDataURL:
-        "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYyLjI4LjEwMAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAOABgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwChoz7oUUdecn8atSX2xyuAcEjOabpwt1lIhRlbHJNTPqFojMrwsSDg4Qf40ijJ1jJuYG/vIcUVqT6b/al3brC4jzEZFJHQelFFiWz/2Q==",
-      poster: "/video/m39-reveal-poster.jpg",
-      webm: true,
-      alt: "The illuminated JDKD mark on the M-39 facade, pulling back to the full frontage with Standard Chartered at street level.",
-    },
+    // A still, not the drone loop (16.10.26): the client's camera photograph
+    // of the frontage (Drive M39/1U2A5057.JPG), cut to a 3:2 band that holds
+    // the JDKD mark on the upper storey and the Standard Chartered fascia.
+    image: IMAGES.m39FacadeBand,
     placeholder: false,
   },
   {
@@ -1120,8 +1212,9 @@ export const FEATURES: readonly [Feature, Feature, Feature, Feature] = [
     title: "Terrace lounge",
     description:
       "An exclusive terrace lounge above the office floors, at a parapet level of +41.05 m. Planters run the full perimeter of the building beneath it.",
-    largeImage: IMAGES.terraceLarge,
-    smallImage: IMAGES.terraceSmall,
+    // A-11's own renders. The Staple rooftop at M-82 used to stand in here.
+    largeImage: IMAGES.towerRoofLarge,
+    smallImage: IMAGES.towerRoofSmall,
   },
   {
     id: "fitness",
@@ -1718,7 +1811,7 @@ export const PROPERTY_LOCATIONS = {
   },
   m82: {
     address:
-      "M-82, Commercial Complex, Greater Kailash Part-2, New Delhi-110048",
+      "M-82, Commercial Complex, Greater Kailash - 2, New Delhi-110048",
     map: {
       query: "28.5323089,77.2427771",
       href: "https://maps.app.goo.gl/nV4BB5TqmdzBxXtV6",
@@ -1726,7 +1819,7 @@ export const PROPERTY_LOCATIONS = {
   },
   m39: {
     address:
-      "M-39, Commercial Complex, Greater Kailash Part-2, New Delhi-110048",
+      "M-39, Commercial Complex, Greater Kailash - 2, New Delhi-110048",
     map: {
       query: "28.5335503,77.2430878",
       href: "https://maps.app.goo.gl/KQ6iFhoLAPVjCMs69",
@@ -2271,6 +2364,8 @@ export const PROJECT_TOWER: RealProject = {
   gallery: {
     label: "(GALLERY)",
     body: "The building as designed: elevation, curtain wall, lobby, and the road it stands on.",
+    // A-11 only. A night frame of the Staple rooftop used to close this
+    // gallery as the tower's roof terrace; it is M-82 and lives there now.
     images: [
       IMAGES.facadeDetail,
       IMAGES.towerExterior,
@@ -2278,7 +2373,6 @@ export const PROJECT_TOWER: RealProject = {
       IMAGES.lobby,
       IMAGES.heroTower,
       IMAGES.officeFloor,
-      IMAGES.terrace,
     ],
   },
 
@@ -2337,36 +2431,37 @@ export const PROJECT_TOWER: RealProject = {
 };
 
 /* --------------------------------------------------------------------------
-   PLACEHOLDER ENTRIES
+   THE PORTFOLIO - A-23, M-82 AND M-39
 
-   `slug: null` and nothing asserted. These hold the index's rhythm and are the
-   honest rendering of a project record the client has not supplied. They must
-   carry the visible provisional frame and marker, and they must not link
-   anywhere.
+   Complete, occupied buildings, shown in the client's own footage. What the
+   client has written about them is short: five lines for A-23, and the address
+   and occupants of M-82 and M-39 (round of 13.10.26). The deck is A-11's alone
+   and says nothing about any of them.
+
+   So each is a `LeanProject`, like Okhla: hero, address, map, gallery. They
+   used to be full pages that carried A-11's floor plans, amenities and
+   downloads under their own names, with highlight and specification copy no
+   client document supports - the wrong-building error the client flagged in
+   that round. Grow them back only from a record the client supplies.
 -------------------------------------------------------------------------- */
 
-/**
- * The portfolio beyond the tower.
- *
- * These are REAL, COMPLETED buildings - the client supplied footage of all
- * three and the JDKD mark is visible on two of them. What has NOT been
- * supplied is the written record: confirmed names, areas, completion dates.
- *
- * So they stay `PlaceholderProject`, and the type is doing exactly the job it
- * was designed for. `slug: null` is the contract, and it means no detail
- * route - which is correct twice over: there is no specification to fill a
- * detail page with, and the brief asked for no sub-pages beneath a project.
- * The marker reads "(COMPLETED)" rather than "(RESERVED)" because that much
- * is visible in the footage; everything past it waits on the client.
- */
-export const PROJECT_CORPORATE_PARK: RealProject = {
+/** The two sections a lean page has, in running order. */
+const LEAN_NAV: readonly ProjectNavItem[] = [
+  { id: "location", label: "Location" },
+  { id: "gallery", label: "Gallery" },
+];
+
+/* The client's own five lines for A-23 (round of 13.10.26), as one sentence. */
+const CORPORATE_PARK_FACTS =
+  "A complete multi-tenant office building in green glass on Plot A-23, running alongside the elevated metro line, with a manned lobby and let floors.";
+
+export const PROJECT_CORPORATE_PARK: LeanProject = {
   id: "corporate-park",
   slug: "corporate-park",
   placeholder: false,
-  kind: "full",
+  kind: "lean",
   name: "JDKD Corporate Park",
-  summary:
-    "A complete multi-tenant office building in green glass on Plot A-23, running alongside the elevated metro line, with a manned lobby and let floors.",
+  summary: CORPORATE_PARK_FACTS,
   image: IMAGES.corporateParkAerial,
   video: {
     src: "/video/a23-aerial",
@@ -2376,11 +2471,7 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
     webm: true,
     alt: "Aerial view of JDKD Corporate Park at plot A-23, its green glass elevation running alongside the elevated metro line.",
   },
-  status: "Completed & Occupied",
   marker: "(COMPLETED)",
-  assetClass: "Commercial Office Park",
-  certification: "LEED Gold Certified",
-  place: PROPERTY_LOCATIONS.a23.address,
 
   label: "(JDKD CORPORATE PARK)",
   titleLines: [
@@ -2389,150 +2480,52 @@ export const PROJECT_CORPORATE_PARK: RealProject = {
     { text: "Park", style: "roman" },
   ],
   spokenTitle: "JDKD Corporate Park",
-  lede: "A complete Grade A commercial campus on Plot A-23, running alongside the Delhi Metro Violet Line. Double-height reception, expansive floor plates, and energy-efficient green glass envelope.",
+  lede: CORPORATE_PARK_FACTS,
   heroImage: IMAGES.parkOne,
-  nav: TOWER_NAV,
-
-  overview: {
-    label: "(OVERVIEW)",
-    headingLines: [
-      { text: "Commercial", style: "italic" },
-      { text: "scale along the", style: "roman" },
-      { text: "metro line.", style: "italic" },
-    ],
-    spokenHeading: "Commercial scale along the metro line.",
-    paragraphs: [
-      "JDKD Corporate Park stands at Plot A-23, Mohan Co-operative Industrial Estate, directly adjacent to the elevated Violet Line corridor. The building features an expansive emerald green curtain-wall facade designed for maximum natural daylight and acoustic dampening from the arterial transit routes.",
-      "With occupied office plates, a grand manned double-height lobby, modern elevator cores, and dedicated multi-level parking, the development represents JDKD's standard of institutional commercial infrastructure.",
-    ],
-    specs: [
-      { id: "asset-class", term: "Asset class", value: "Grade A Office Park" },
-      { id: "availability", term: "Availability", value: "Completed & Occupied" },
-      { id: "address", term: "Address", value: PROPERTY_LOCATIONS.a23.address },
-      { id: "transit", term: "Transit corridor", value: "Delhi Metro Violet Line directly adjacent" },
-      { id: "facade", term: "Envelope", value: "Double-glazed acoustic solar glass curtain wall" },
-      { id: "certification", term: "Certification", value: "LEED Gold Certified" },
-      { id: "elevators", term: "Elevators", value: "High-speed passenger and service banks" },
-    ],
-  },
-
-  highlights: {
-    label: "(KEY HIGHLIGHTS)",
-    items: [
-      {
-        id: "metro-visibility",
-        title: "Arterial visibility",
-        body: "Unmatched elevated frontage viewed daily by thousands of commuters along the primary Mathura Road transit corridor.",
-        points: [
-          "Direct line of sight from elevated metro coaches",
-          "Rapid access from Sarita Vihar and Mohan Estate metro stations",
-          "Prominent corporate branding opportunities",
-        ],
-      },
-      {
-        id: "efficient-plates",
-        title: "Expansive floor plates",
-        body: "Flexible column grids engineered for multi-tenant division or full-plate enterprise occupancy.",
-        points: [
-          "Optimized core positioning for natural light",
-          "Generous ceiling heights with unobstructed spans",
-          "VRV climate control with fresh air conditioning",
-        ],
-      },
-      {
-        id: "institutional-systems",
-        title: "Institutional systems",
-        body: "Robust electrical, safety, and environmental systems ensuring 100% operational uptime.",
-        points: [
-          "100% DG power backup with auto-synchronization",
-          "Multi-tier fire suppression and emergency exits",
-          "Rainwater harvesting and on-site STP plant",
-        ],
-      },
-    ],
-  },
+  nav: LEAN_NAV,
 
   connectivity: {
-    label: "(CONNECTIVITY)",
+    label: "(LOCATION)",
     headingLines: [
-      { text: "At the", style: "italic" },
-      { text: "crossroads of", style: "roman" },
-      { text: "capital transit.", style: "italic" },
+      { text: "Mohan Co-operative", style: "roman" },
+      { text: "Industrial Estate.", style: "italic" },
     ],
-    spokenHeading: "At the crossroads of capital transit.",
-    body: "Located directly off Main Mathura Road with immediate connectivity to South Delhi, Faridabad, and the NOIDA industrial zone.",
+    spokenHeading: "Mohan Co-operative Industrial Estate.",
+    body: null,
     address: PROPERTY_LOCATIONS.a23.address,
     map: PROPERTY_LOCATIONS.a23.map,
-    points: [
-      { id: "metro", distance: "Immediate", place: "Elevated Metro Track", detail: "Violet Line corridor" },
-      { id: "station", distance: "350 m", place: "Sarita Vihar Metro", detail: "Walking distance" },
-      { id: "noida", distance: "5 km", place: "NOIDA Commercial Sector", detail: "Direct arterial drive" },
-      { id: "cp", distance: "25 min", place: "Connaught Place", detail: "Central Delhi hub" },
-    ],
-  },
-
-  plans: {
-    label: "(FLOOR PLANS)",
-    headingLines: [
-      { text: "Floor", style: "roman" },
-      { text: "plates &", style: "italic" },
-      { text: "layouts.", style: "roman" },
-    ],
-    spokenHeading: "Floor plates & layouts.",
-    body: "Representative architectural drawings illustrating core arrangements, parking circulation, and open-plan workplace flexibility.",
-    instructions:
-      "Explore the floor plan drawings below. The written descriptions summarize bay widths, circulation routes, and service placements.",
-    sheets: PROJECT_TOWER.plans.sheets,
-  },
-
-  amenities: {
-    label: "(AMENITIES & SYSTEMS)",
-    headingLines: [
-      { text: "Comprehensive", style: "roman" },
-      { text: "campus", style: "italic" },
-      { text: "amenities.", style: "roman" },
-    ],
-    spokenHeading: "Comprehensive campus amenities.",
-    body: "Full building engineering systems and occupier conveniences serving daily corporate operations.",
-    groups: PROJECT_TOWER.amenities.groups,
+    points: [],
   },
 
   gallery: {
     label: "(GALLERY)",
-    body: "Perspectives of JDKD Corporate Park: lit up at night, from the air beside the metro line, its green glass elevation and its lift lobby.",
+    body: "JDKD Corporate Park at A-23: lit up at night, its entrance canopy and tower after dark, from the air beside the metro line, its green glass elevation, the gate, the reception and the lift lobby.",
     // A-23 only. The Corporate Tower renders that used to fill this gallery
     // were another building (round of 13.10.26).
     images: [
       IMAGES.corporateParkNight,
+      IMAGES.a23EntranceNight,
       IMAGES.corporateParkAerial,
+      IMAGES.a23TowerNight,
       IMAGES.parkOne,
+      IMAGES.a23FacadeDay,
+      IMAGES.a23GateSign,
+      IMAGES.a23Reception,
       IMAGES.lobbyAtrium,
     ],
   },
-
-  downloads: PROJECT_TOWER.downloads,
-
-  enquiry: {
-    label: "(ENQUIRE)",
-    headingLines: [
-      { text: "Corporate", style: "roman" },
-      { text: "leasing.", style: "italic" },
-    ],
-    spokenHeading: "Corporate leasing.",
-    body: `For tenancy information or future availability at JDKD Corporate Park, contact ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
-  },
-
-  contact: CONTACT,
 };
 
-export const PROJECT_M82: RealProject = {
+/* The client's address and the occupants they named (round of 13.10.26). */
+const M82_FACTS = `${PROPERTY_LOCATIONS.m82.address}. Home to Staple, Punjab Grill and Benne Dosa.`;
+
+export const PROJECT_M82: LeanProject = {
   id: "m-82",
   slug: "m-82",
   placeholder: false,
-  kind: "full",
+  kind: "lean",
   name: "JDKD M-82",
-  summary:
-    "A premier retail and hospitality address in South Delhi, shown at dusk with the rooftop level in active service above the street.",
+  summary: M82_FACTS,
   image: IMAGES.m82Rooftop,
   video: {
     src: "/video/m82-rooftop",
@@ -2542,11 +2535,7 @@ export const PROJECT_M82: RealProject = {
     webm: true,
     alt: "The M-82 property at dusk, pulling back from the lit Staple rooftop to the full building, with Punjab Grill and Benne at street level.",
   },
-  status: "Completed & Operational",
   marker: "(COMPLETED)",
-  assetClass: "Retail & Hospitality Destination",
-  certification: "High-Efficiency Commercial Envelope",
-  place: PROPERTY_LOCATIONS.m82.address,
 
   label: "(JDKD M-82)",
   titleLines: [
@@ -2554,147 +2543,58 @@ export const PROJECT_M82: RealProject = {
     { text: "M-82", style: "italic" },
   ],
   spokenTitle: "JDKD M-82",
-  lede: "A distinctive destination combining prime retail frontages with an open-air rooftop dining terrace in one of Delhi's most prestigious commercial enclaves.",
+  lede: M82_FACTS,
   heroImage: IMAGES.parkTwo,
-  nav: TOWER_NAV,
-
-  overview: {
-    label: "(OVERVIEW)",
-    headingLines: [
-      { text: "Rooftop dining", style: "italic" },
-      { text: "and prime retail", style: "roman" },
-      { text: "in GK-II.", style: "italic" },
-    ],
-    spokenHeading: "Rooftop dining and prime retail in GK-II.",
-    paragraphs: [
-      "JDKD M-82 is an iconic urban commercial building located in the vibrant market sector of Greater Kailash II. Captured at dusk, the illuminated open-air rooftop level forms a celebrated culinary destination overlooking the South Delhi tree canopy.",
-      "Combining high-visibility ground-floor retail flagships with upper-level hospitality spaces, the building provides prime tenant positioning, heavy pedestrian footfall, and dedicated valet parking provisions.",
-    ],
-    specs: [
-      { id: "asset-class", term: "Asset class", value: "Commercial Retail & Hospitality" },
-      { id: "status", term: "Status", value: "Completed & Operational" },
-      { id: "address", term: "Location", value: PROPERTY_LOCATIONS.m82.address },
-      { id: "terrace", term: "Rooftop deck", value: "Open-air hospitality terrace in service" },
-      { id: "parking", term: "Parking", value: "Dedicated valet and street-level parking bays" },
-      { id: "facade", term: "Fenestration", value: "Expansive glass retail show-windows" },
-      { id: "power", term: "Power", value: "100% DG backup for restaurant and retail operations" },
-    ],
-  },
-
-  highlights: {
-    label: "(KEY HIGHLIGHTS)",
-    items: [
-      {
-        id: "affluent-catchment",
-        title: "Prime South Delhi catchment",
-        body: "Surrounded by Delhi's highest-disposable-income residential sectors, guaranteeing steady patronage.",
-        points: [
-          "Located in prime GK-II commercial circle",
-          "Thriving evening and weekend dining destination",
-          "Prestigious commercial zip code",
-        ],
-      },
-      {
-        id: "rooftop-hospitality",
-        title: "Dedicated rooftop infrastructure",
-        body: "Engineered specifically for high-end food and beverage operators with full utility backbones.",
-        points: [
-          "Commercial kitchen exhaust shafts and gas bank provisions",
-          "Ambient lighting architecture and weather-protected pergolas",
-          "Panoramic open-sky urban views",
-        ],
-      },
-      {
-        id: "boutique-retail",
-        title: "High-exposure retail frontages",
-        body: "Uninterrupted street-level glass lines maximizing visual merchandising and customer conversions.",
-        points: [
-          "Wide pedestrian pavement interface",
-          "Double-height entrance possibilities",
-          "High foot-traffic market concourse",
-        ],
-      },
-    ],
-  },
+  nav: LEAN_NAV,
 
   connectivity: {
-    label: "(CONNECTIVITY)",
+    label: "(LOCATION)",
     headingLines: [
-      { text: "At the center", style: "italic" },
-      { text: "of South Delhi's", style: "roman" },
-      { text: "social circuit.", style: "italic" },
+      { text: "Greater", style: "roman" },
+      { text: "Kailash - 2.", style: "italic" },
     ],
-    spokenHeading: "At the center of South Delhi's social circuit.",
-    body: "Conveniently accessible from Outer Ring Road, Chirag Delhi, and Nehru Place with seamless transit.",
+    spokenHeading: "Greater Kailash - 2.",
+    body: null,
     address: PROPERTY_LOCATIONS.m82.address,
+    facts: [
+      {
+        id: "occupants",
+        term: "Occupants",
+        value: "Staple, Punjab Grill, Benne Dosa",
+      },
+    ],
     map: PROPERTY_LOCATIONS.m82.map,
-    points: [
-      { id: "market", distance: "Immediate", place: "GK-II Market Concourse", detail: "Premier retail promenade" },
-      { id: "metro", distance: "1.2 km", place: "Greater Kailash Metro", detail: "Magenta Line connection" },
-      { id: "nehru-place", distance: "3 km", place: "Nehru Place Financial Center", detail: "Major commercial hub" },
-      { id: "airport", distance: "25 min", place: "Aerocity & Airport", detail: "Via Outer Ring Road" },
-    ],
-  },
-
-  plans: {
-    label: "(FLOOR PLANS)",
-    headingLines: [
-      { text: "Spatial", style: "roman" },
-      { text: "arrangements.", style: "italic" },
-    ],
-    spokenHeading: "Spatial arrangements.",
-    body: "Architectural drawings showcasing retail floor plates, service elevators, and open-air rooftop configurations.",
-    instructions: "Select a level to view plan layout details.",
-    sheets: PROJECT_TOWER.plans.sheets,
-  },
-
-  amenities: {
-    label: "(AMENITIES & SYSTEMS)",
-    headingLines: [
-      { text: "Hospitality-grade", style: "roman" },
-      { text: "infrastructure.", style: "italic" },
-    ],
-    spokenHeading: "Hospitality-grade infrastructure.",
-    body: "Tailored utilities supporting retail flagships and dynamic culinary venues.",
-    groups: PROJECT_TOWER.amenities.groups,
+    points: [],
   },
 
   gallery: {
     label: "(GALLERY)",
-    body: "Photographic views of JDKD M-82: the full building by day, the rooftop at dusk, and the Staple terrace lounge by day and by night.",
+    body: "JDKD M-82: the facade by day and from the air, with Staple, Punjab Grill and Benne; the rooftop at dusk; and the Staple terrace lounge by day and by night.",
     // M-82 only. The tower's curtain-wall render and a second copy of the
-    // dusk aerial used to sit here (round of 13.10.26).
+    // dusk aerial used to sit here (round of 13.10.26). The wide night frame
+    // of the Staple rooftop came over from the tower's gallery, where it was
+    // captioned as the tower's own roof terrace.
     images: [
+      IMAGES.m82FacadeDay,
       IMAGES.m82FullBuilding,
       IMAGES.m82Rooftop,
       IMAGES.terraceLarge,
       IMAGES.terraceSmall,
+      IMAGES.m82StapleNight,
     ],
   },
-
-  downloads: PROJECT_TOWER.downloads,
-
-  enquiry: {
-    label: "(ENQUIRE)",
-    headingLines: [
-      { text: "Retail &", style: "roman" },
-      { text: "hospitality leasing.", style: "italic" },
-    ],
-    spokenHeading: "Retail & hospitality leasing.",
-    body: `For commercial leasing inquiries and retail availability at JDKD M-82, contact ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
-  },
-
-  contact: CONTACT,
 };
 
-export const PROJECT_M39: RealProject = {
+/* The client's address and the occupant they named (round of 13.10.26). */
+const M39_FACTS = `${PROPERTY_LOCATIONS.m39.address}. Home to Standard Chartered Bank.`;
+
+export const PROJECT_M39: LeanProject = {
   id: "m-39",
   slug: "m-39",
   placeholder: false,
-  kind: "full",
+  kind: "lean",
   name: "JDKD M-39",
-  summary:
-    "Street-level retail under the JDKD mark, opening onto a prime market frontage in Greater Kailash Part-2 with commanding pedestrian exposure.",
+  summary: M39_FACTS,
   image: IMAGES.m39Frontage,
   video: {
     src: "/video/m39-reveal",
@@ -2704,11 +2604,7 @@ export const PROJECT_M39: RealProject = {
     webm: true,
     alt: "The illuminated JDKD mark on the M-39 facade, pulling back to the full frontage with Standard Chartered at street level.",
   },
-  status: "Completed & Operational",
   marker: "(COMPLETED)",
-  assetClass: "High-Street Retail Frontage",
-  certification: "Grade A Retail Structure",
-  place: PROPERTY_LOCATIONS.m39.address,
 
   label: "(JDKD M-39)",
   titleLines: [
@@ -2716,129 +2612,37 @@ export const PROJECT_M39: RealProject = {
     { text: "M-39", style: "italic" },
   ],
   spokenTitle: "JDKD M-39",
-  lede: "Commanding street-level presence with seamless footfall circulation, double-height retail displays, and prestigious market frontage under the JDKD mark.",
+  lede: M39_FACTS,
   heroImage: IMAGES.parkThree,
-  nav: TOWER_NAV,
-
-  overview: {
-    label: "(OVERVIEW)",
-    headingLines: [
-      { text: "High-street retail", style: "italic" },
-      { text: "under the", style: "roman" },
-      { text: "JDKD mark.", style: "italic" },
-    ],
-    spokenHeading: "High-street retail under the JDKD mark.",
-    paragraphs: [
-      "JDKD M-39 stands at the forefront of retail prestige in Greater Kailash Part-2. The prominent crimson JDKD architectural badge marks the facade above wide show-windows that face directly into the buzzing commercial boulevard.",
-      "Engineered with open span floor plates, seamless street-level access, and dedicated utility infrastructure, M-39 delivers unparalleled visibility and prestige for leading fashion, lifestyle, and luxury brand flagships.",
-    ],
-    specs: [
-      { id: "asset-class", term: "Asset class", value: "High-Street Retail Frontage" },
-      { id: "status", term: "Status", value: "Completed & Operational" },
-      { id: "address", term: "Location", value: PROPERTY_LOCATIONS.m39.address },
-      { id: "frontage", term: "Frontage", value: "High-visibility market-facing display glazing" },
-      { id: "branding", term: "Insignia", value: "Iconic illuminated JDKD architectural mark" },
-      { id: "power", term: "Power", value: "100% DG uninterrupted power backup" },
-    ],
-  },
-
-  highlights: {
-    label: "(KEY HIGHLIGHTS)",
-    items: [
-      {
-        id: "market-prominence",
-        title: "M-Block market prominence",
-        body: "Positioned in Delhi's most celebrated open-air retail market with high-density footfall.",
-        points: [
-          "Unmatched high-street prestige",
-          "Sustained luxury retail shopping traffic",
-          "High average spend customer demographic",
-        ],
-      },
-      {
-        id: "glazed-facade",
-        title: "Double-height glass facade",
-        body: "Expansive crystal-clear fenestration designed for monumental product displays and showroom impact.",
-        points: [
-          "Zero-threshold direct pedestrian entryway",
-          "High clear interior ceiling volumes",
-          "Integrated architectural lighting channels",
-        ],
-      },
-      {
-        id: "turnkey-utilities",
-        title: "Turnkey retail MEP",
-        body: "Built-in utility infrastructure tailored to the demanding requirements of flagship brand stores.",
-        points: [
-          "High-capacity HVAC provisions",
-          "Dedicated loading and service circulation",
-          "Heavy-load electrical supply with DG backup",
-        ],
-      },
-    ],
-  },
+  nav: LEAN_NAV,
 
   connectivity: {
-    label: "(CONNECTIVITY)",
+    label: "(LOCATION)",
     headingLines: [
-      { text: "Delhi's most", style: "italic" },
-      { text: "vibrant retail", style: "roman" },
-      { text: "corridor.", style: "italic" },
+      { text: "Greater", style: "roman" },
+      { text: "Kailash - 2.", style: "italic" },
     ],
-    spokenHeading: "Delhi's most vibrant retail corridor.",
-    // M-39 is in GK Part-2, in the same commercial complex as M-82 - not GK-I,
-    // as this band used to say (round of 13.10.26). The GK-I landmarks went
-    // with the wrong address; the neighbourhood is M-82's, so are its points.
-    body: PROJECT_M82.connectivity.body,
+    spokenHeading: "Greater Kailash - 2.",
+    body: null,
     address: PROPERTY_LOCATIONS.m39.address,
+    facts: [
+      { id: "occupant", term: "Occupant", value: "Standard Chartered Bank" },
+    ],
     map: PROPERTY_LOCATIONS.m39.map,
-    points: PROJECT_M82.connectivity.points,
-  },
-
-  plans: {
-    label: "(FLOOR PLANS)",
-    headingLines: [
-      { text: "Retail", style: "roman" },
-      { text: "layouts.", style: "italic" },
-    ],
-    spokenHeading: "Retail layouts.",
-    body: "Architectural floor plates detailing retail showrooms, mezzanine levels, and back-of-house storage areas.",
-    instructions: "Select a level to view plan layout details.",
-    sheets: PROJECT_TOWER.plans.sheets,
-  },
-
-  amenities: {
-    label: "(AMENITIES & SYSTEMS)",
-    headingLines: [
-      { text: "Retail-focused", style: "roman" },
-      { text: "engineering.", style: "italic" },
-    ],
-    spokenHeading: "Retail-focused engineering.",
-    body: "Heavy-duty building systems ensuring seamless commercial retail operations.",
-    groups: PROJECT_TOWER.amenities.groups,
+    points: [],
   },
 
   gallery: {
     label: "(GALLERY)",
-    body: "JDKD M-39: the full market frontage at dusk, and the illuminated JDKD mark on its facade.",
+    body: "JDKD M-39: its frontage with the Standard Chartered branch, the full market frontage at dusk, and the illuminated JDKD mark on its facade.",
     // M-39 only. Two tower renders and a second copy of the frontage still
     // used to sit here (round of 13.10.26).
-    images: [IMAGES.m39FullFrontage, IMAGES.m39Frontage],
-  },
-
-  downloads: PROJECT_TOWER.downloads,
-
-  enquiry: {
-    label: "(ENQUIRE)",
-    headingLines: [
-      { text: "Flagship retail", style: "roman" },
-      { text: "opportunities.", style: "italic" },
+    images: [
+      IMAGES.m39FacadeGallery,
+      IMAGES.m39FullFrontage,
+      IMAGES.m39Frontage,
     ],
-    spokenHeading: "Flagship retail opportunities.",
-    body: `To discuss leasing opportunities or showroom space at JDKD M-39, contact ${CONTACT.leasingContact.name} on ${CONTACT.leasingContact.phoneDisplay}.`,
   },
-
-  contact: CONTACT,
 };
 
 /* --------------------------------------------------------------------------
@@ -2867,10 +2671,7 @@ export const PROJECT_OKHLA: LeanProject = {
   spokenTitle: "Okhla",
   lede: OKHLA_FACTS,
   heroImage: IMAGES.okhlaOne,
-  nav: [
-    { id: "location", label: "Location" },
-    { id: "gallery", label: "Gallery" },
-  ],
+  nav: LEAN_NAV,
 
   connectivity: {
     label: "(LOCATION)",
@@ -2911,9 +2712,9 @@ export const PROJECT_OKHLA: LeanProject = {
  * can destructure each entry into its own composition without an index check.
  */
 export const PROJECT_PLACEHOLDERS: readonly [
-  RealProject,
-  RealProject,
-  RealProject,
+  LeanProject,
+  LeanProject,
+  LeanProject,
   LeanProject,
 ] = [
   PROJECT_CORPORATE_PARK,

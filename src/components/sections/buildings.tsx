@@ -104,7 +104,22 @@ const PROVISIONAL_FRAME = "border border-line";
 /** Placement of each chapter's image. Aspect ratios match the assets on disk. */
 const FRAME_ONE = "aspect-[4/3] w-full lg:ml-auto lg:mr-[calc(50%-50vw)] lg:w-[52vw]";
 const FRAME_TWO = "aspect-[4/3] w-full lg:ml-[calc(50%-50vw)] lg:w-[48vw]";
+/**
+ * Chapter two with a PORTRAIT still (M-82's facade photograph). A 4:3 frame
+ * would crop the building's top or foot - and the whole facade, every
+ * occupant on it, is the point of the picture. Narrower, so the plate stays
+ * about as tall as the landscape one.
+ */
+const FRAME_TWO_PORTRAIT =
+  "aspect-[4/5] w-full md:w-[72%] lg:ml-[calc(50%-50vw)] lg:w-[36vw]";
 const FRAME_THREE = "aspect-[16/9] w-full";
+/**
+ * Chapter three with a STILL (M-39's facade photograph). 3:2 rather than 16:9:
+ * the photo is a tall frontage, and 16:9 cannot hold both the JDKD mark on the
+ * upper storey and the Standard Chartered fascia below it - the two things
+ * the client asked this picture to show. The asset is cut to exactly 3:2.
+ */
+const FRAME_THREE_STILL = "aspect-[3/2] w-full";
 
 /** Stable, section-scoped heading id - chapter ids are generic on their own. */
 function headingId(chapter: BuildingChapter): string {
@@ -299,14 +314,26 @@ function ChapterTwo({ chapter }: { chapter: BuildingChapter }) {
         </div>
       </div>
 
-      {/* EDGE-BLEED-LEFT - off the left viewport edge from `lg`. */}
-      <ChapterFrame
-        chapter={chapter}
-        sizes="(min-width: 1024px) 48vw, 100vw"
-        frame={`mt-10 lg:mt-0 ${FRAME_TWO}`}
-        shift={5}
-        scale={1.06}
-      />
+      {/* EDGE-BLEED-LEFT - off the left viewport edge from `lg`. A portrait
+          still takes the portrait frame; footage and landscape stills keep
+          the 4:3 one. */}
+      {!chapter.video && chapter.image.height > chapter.image.width ? (
+        <ChapterFrame
+          chapter={chapter}
+          sizes="(min-width: 1024px) 36vw, (min-width: 768px) 72vw, 100vw"
+          frame={`mt-10 lg:mt-0 ${FRAME_TWO_PORTRAIT}`}
+          shift={5}
+          scale={1.06}
+        />
+      ) : (
+        <ChapterFrame
+          chapter={chapter}
+          sizes="(min-width: 1024px) 48vw, 100vw"
+          frame={`mt-10 lg:mt-0 ${FRAME_TWO}`}
+          shift={5}
+          scale={1.06}
+        />
+      )}
     </article>
   );
 }
@@ -338,17 +365,20 @@ function ChapterThree({ chapter }: { chapter: BuildingChapter }) {
         <ChapterFrame
           chapter={chapter}
           sizes="100vw"
-          frame={FRAME_THREE}
+          frame={chapter.video ? FRAME_THREE : FRAME_THREE_STILL}
           shift={4}
           scale={1.05}
         />
 
         {/* Contrast under the crossing title. A static gradient, not a filter:
             the title has to stay legible against whatever artwork the client
-            supplies in place of this frame, not merely against this one. */}
+            supplies in place of this frame, not merely against this one.
+            Masked off toward the right: the title only crosses the left of
+            the frame, and M-39's JDKD mark sits top right - full-width shade
+            would dim the one sign the picture is there to show. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-linear-to-b from-deep/70 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-linear-to-b from-deep/70 to-transparent [mask-image:linear-gradient(to_right,black_35%,transparent_65%)]"
         />
       </div>
 

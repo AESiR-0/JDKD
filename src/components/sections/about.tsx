@@ -147,26 +147,21 @@ export function About() {
                 className="h-full w-full"
               />
 
-              {/* THE POINTER. A-11 is still being built, so the portrait is a
-                  render and says so: a label on a leader line, pinned to the
-                  tower's face. The group's FOOT is the pin point - it is
-                  translated up by its own height, so `top-[38%]` is where the
-                  dot lands at every width. It rises in after the plate's clip
-                  wipe rather than floating over an empty frame. The label is
-                  real text; only the line and the dot are decoration. */}
+              {/* THE LABEL. A-11 is still being built, so the portrait is a
+                  generated visual and says so, in the BOTTOM-RIGHT corner of
+                  the picture (as asked, 16.10.26). Real text over the image,
+                  not baked into it, so it stays crisp and readable aloud. It
+                  rises in after the plate's clip wipe rather than floating
+                  over an empty frame. */}
               {ABOUT.imageTag ? (
                 <Reveal
-                  as="div"
+                  as="p"
                   delay={0.9}
-                  className="pointer-events-none absolute left-[46%] top-[38%] z-10 -translate-x-1/2 -translate-y-full"
+                  className="pointer-events-none absolute right-3 bottom-3 z-10 md:right-4 md:bottom-4"
                 >
-                  <div className="flex flex-col items-center">
-                    <p className="whitespace-nowrap border border-pure/40 bg-deep/80 px-3 py-1.5 text-micro uppercase tracking-label text-pure">
-                      {ABOUT.imageTag}
-                    </p>
-                    <span aria-hidden="true" className="block h-10 w-px bg-pure/70 md:h-14" />
-                    <span aria-hidden="true" className="block size-2.5 rounded-full bg-pure ring-4 ring-pure/25" />
-                  </div>
+                  <span className="block whitespace-nowrap border border-pure/40 bg-deep/80 px-3 py-1.5 text-micro uppercase tracking-label text-pure">
+                    {ABOUT.imageTag}
+                  </span>
                 </Reveal>
               ) : null}
             </div>
