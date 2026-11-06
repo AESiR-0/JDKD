@@ -147,10 +147,18 @@ export function SiteFooter() {
             </span>
           </div>
 
-          <div className="flex items-center gap-6 text-[11px] text-muted/70">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[11px] text-muted/70">
             <span>
               &copy; {year} {FOOTER_LEGAL.copyrightHolder}. All rights reserved.
             </span>
+            <a
+              href="https://ravoren.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whitespace-nowrap transition-colors hover:text-pure"
+            >
+              ravoren was here
+            </a>
             <button
               type="button"
               onClick={() => {
