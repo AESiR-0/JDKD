@@ -157,7 +157,7 @@ export function SiteFooter() {
               rel="noopener noreferrer"
               className="whitespace-nowrap transition-colors hover:text-pure"
             >
-              ravoren was here
+              Ravoren was here
             </a>
             <button
               type="button"
