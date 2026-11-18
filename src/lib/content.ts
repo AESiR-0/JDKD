@@ -514,28 +514,40 @@ export const BRAND = {
 
 export type Site = {
   /**
-   * Production origin, used for `metadataBase` and canonical URLs.
-   * PLACEHOLDER - the real domain is not confirmed. Set NEXT_PUBLIC_SITE_URL
-   * in the deployment environment before launch.
+   * Production origin, used for `metadataBase`, canonical URLs, Open Graph
+   * URLs, robots.txt and the sitemap. No trailing slash.
+   *
+   * The live domain is www.jdkd.in (the apex jdkd.in 308-redirects to it on
+   * Vercel). It is the default here, not an env-only value, because the
+   * placeholder fallback this replaced shipped to production: with
+   * NEXT_PUBLIC_SITE_URL unset, every canonical and share image pointed at
+   * jdkd.example and the whole site was served noindex. NEXT_PUBLIC_SITE_URL
+   * still overrides it, for a staging domain or a future move.
    */
   readonly origin: string;
   /**
-   * False while `origin` is still the placeholder. `app/layout.tsx` reads this
-   * to force `robots: { index: false }` - shipping an indexable canonical that
-   * points at a domain which does not exist is a de-indexing event, and this
-   * site's whole purpose is inbound leasing enquiries.
+   * True only for a Vercel PRODUCTION build. `app/layout.tsx` reads this for
+   * the robots meta tag and `app/robots.ts` for robots.txt.
+   *
+   * Preview deployments carry the same canonical as production, so letting a
+   * crawler index one would compete with the real site. Vercel sets
+   * VERCEL_ENV ("production" | "preview" | "development") at build time; local
+   * builds have none and stay noindex too. Run
+   * `VERCEL_ENV=production npm run build` to see the production output locally.
    */
-  readonly originConfirmed: boolean;
+  readonly indexable: boolean;
   readonly name: string;
   readonly legalName: string;
   readonly tagline: string;
 };
 
-const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const SITE_ORIGIN = (
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://www.jdkd.in"
+).replace(/\/+$/, "");
 
 export const SITE: Site = {
-  origin: SITE_ORIGIN || "https://jdkd.example",
-  originConfirmed: Boolean(SITE_ORIGIN),
+  origin: SITE_ORIGIN,
+  indexable: process.env.VERCEL_ENV === "production",
   name: "JDKD",
   legalName: "JDKD Developers LLP",
   tagline: "A Grade A commercial landmark.",

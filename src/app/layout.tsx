@@ -125,12 +125,10 @@ export const metadata: Metadata = {
     images: [SHARE_IMAGE],
   },
   /**
-   * Indexing is gated on a confirmed production origin. Until
-   * NEXT_PUBLIC_SITE_URL is set, `metadataBase` is the placeholder domain, so
-   * an indexable page would advertise a canonical URL that resolves nowhere.
-   * Better to stay out of the index than to be indexed wrongly.
+   * Indexable on the production deployment only. Previews share production's
+   * canonical, so they stay out of the index. See `SITE.indexable`.
    */
-  robots: SITE.originConfirmed
+  robots: SITE.indexable
     ? { index: true, follow: true }
     : { index: false, follow: false },
   formatDetection: {
